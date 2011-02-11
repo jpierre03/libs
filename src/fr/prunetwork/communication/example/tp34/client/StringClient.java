@@ -1,6 +1,6 @@
 package fr.prunetwork.communication.example.tp34.client;
 
-import fr.prunetwork.communication.example.tp34.Constants;
+import fr.prunetwork.communication.Constants;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
