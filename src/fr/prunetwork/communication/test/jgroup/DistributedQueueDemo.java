@@ -4,6 +4,7 @@ import org.jgroups.ChannelException;
 import org.jgroups.ChannelFactory;
 import org.jgroups.JChannelFactory;
 import org.jgroups.blocks.DistributedQueue;
+import org.jgroups.util.QueueClosedException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,10 +81,10 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
         }
     }
 
-    public void start(String groupname, ChannelFactory factory, String props)
+    public void start(String groupName, ChannelFactory factory, String props)
                throws ChannelException
     {
-        h = new DistributedQueue(groupname, factory, props, 10000);
+        h = new DistributedQueue(groupName, factory, props, 10*1000);
         h.addNotifier(this);
 
         setLayout(null);
@@ -120,31 +121,33 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
         // pack();
         setVisible(true);
 
-        /*
+        /* */
                  new Thread() {
                      public void run() {
                          System.out.println("-- sleeping");
-                         Util.sleep(10000);
-                         for(int i=0; i < 10; i++) {
+                         try {
+                             Thread.sleep(1*1000);
+                         } catch (InterruptedException e) {
+                             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                         }
+                         for(int i=0; i < 1000; i++) {
                              System.out.println("-- add()");
                              h.add("Bela#" + i);
                          }
 
-                         while(true) {
-                             Util.sleep(500);
-                             try
-                            {
+                     /*    while(true) {
+                             try {
+                                 Thread.sleep(500);
+                             } catch (InterruptedException e) {
+                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                             }
                                 System.out.println(h.remove());
-                            }
-                            catch (QueueClosedException e)
-                            {
-                                e.printStackTrace();
-                            }
-                         }
+
+                         }  */
 
                      }
                  }.start();
-        */
+       /* */
     }
 
     public void windowActivated(WindowEvent e)
