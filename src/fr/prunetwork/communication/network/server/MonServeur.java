@@ -1,4 +1,4 @@
-package fr.prunetwork.communicator.network.server;
+package fr.prunetwork.communication.network.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
