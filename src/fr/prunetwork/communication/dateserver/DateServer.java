@@ -98,8 +98,8 @@ class ClientConnexionDateServer implements Communicator {
 	}
 
 	@Override
-	public Object read() throws IOException, ClassNotFoundException {
-		return ois.readObject();
+	public Serializable read() throws IOException, ClassNotFoundException {
+		return (Serializable) ois.readObject();
 	}
 
 	@Override
@@ -113,10 +113,8 @@ class ClientConnexionDateServer implements Communicator {
 		try {
 			Date date = new Date();
 			for (int j = 0; j < 1000; j++) {
-				oos.writeObject(date);
+				write(date);
 			}
-//			oos.writeObject(new Date());
-			oos.flush();
 		} catch (Exception e) {
 		}
 		disconnect();
