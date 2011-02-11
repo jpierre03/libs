@@ -5,6 +5,7 @@ import fr.prunetwork.communication.Constants;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
@@ -58,7 +59,7 @@ class ClientConnexionDateServer implements Communicator {
 		} catch (IOException ex) {
 			Logger.getLogger(ClientConnexionDateServer.class.getName()).log(Level.SEVERE, null, ex);
 			disconnect();
-	}
+		}
 	}
 
 	@Override
@@ -94,6 +95,17 @@ class ClientConnexionDateServer implements Communicator {
 		} catch (IOException ex) {
 			Logger.getLogger(ClientConnexionDateServer.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+
+	@Override
+	public Object read() throws IOException, ClassNotFoundException {
+		return ois.readObject();
+	}
+
+	@Override
+	public void write(Serializable object) throws IOException {
+		oos.writeObject(object);
+		oos.flush();
 	}
 
 	@Override
