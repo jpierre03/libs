@@ -19,7 +19,8 @@ public class ObjectClientTest {
 	private ObjectClientTest() {
 		try {
 
-			oc = new ObjectClient("2001:470:c92d::1:2", Constants.DEFAULT_SERVER_PORT_NUMBER);
+			//oc = new ObjectClient("2001:470:c92d::1:2", Constants.DEFAULT_SERVER_PORT_NUMBER);
+            oc = new ObjectClient("localhost",4444 );
 			exec.execute(oc);
 			for (int i = 0; i < 10; i++) {
 				oc.write(i);
