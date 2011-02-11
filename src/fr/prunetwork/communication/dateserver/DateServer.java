@@ -1,7 +1,5 @@
 package fr.prunetwork.communication.dateserver;
 
-import fr.prunetwork.communication.Communicator;
-import fr.prunetwork.communication.Constants;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,8 +23,8 @@ public class DateServer extends Thread {
 	}
 
 	public DateServer() throws Exception {
-		dateServer = new ServerSocket(Constants.DEFAULT_SERVER_PORT_NUMBER);
-		System.out.println("Server listening on port " + Constants.DEFAULT_SERVER_PORT_NUMBER + ".");
+		dateServer = new ServerSocket(3000);
+		System.out.println("Server listening on port " + 3000 + ".");
 		this.start();
 	}
 
@@ -45,7 +43,7 @@ public class DateServer extends Thread {
 	}
 }
 
-class ClientConnexionDateServer implements Communicator {
+class ClientConnexionDateServer implements Runnable {
 
 	private Socket client = null;
 	private ObjectInputStream ois = null;
@@ -62,7 +60,6 @@ class ClientConnexionDateServer implements Communicator {
 		}
 	}
 
-	@Override
 	public void connect() throws IOException {
 		try {
 			ois = new ObjectInputStream(client.getInputStream());
@@ -77,7 +74,6 @@ class ClientConnexionDateServer implements Communicator {
 		}
 	}
 
-	@Override
 	public void disconnect() {
 		try {
 			// close streams and connections
@@ -97,18 +93,15 @@ class ClientConnexionDateServer implements Communicator {
 		}
 	}
 
-	@Override
 	public Serializable read() throws IOException, ClassNotFoundException {
 		return (Serializable) ois.readObject();
 	}
 
-	@Override
 	public void write(Serializable object) throws IOException {
 		oos.writeObject(object);
 		oos.flush();
 	}
 
-	@Override
 	public void run() {
 		try {
 			Date date = new Date();
