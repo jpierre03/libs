@@ -14,18 +14,30 @@ import java.net.SocketTimeoutException;
  */
 public class MonServeur {
 
-    /** Socket de communication, d'écoute générale*/
+    /**
+     * Socket de communication, d'écoute générale
+     */
     private ServerSocket serveur = null;
-    /** Socket de communication avec un client*/
+    /**
+     * Socket de communication avec un client
+     */
     private Socket client = null;
-    /** Flux d'entrée*/
+    /**
+     * Flux d'entrée
+     */
     private BufferedReader entree;
-    /** Flux de sortie*/
+    /**
+     * Flux de sortie
+     */
     private PrintWriter sortie;
-    /** Délais d'attente d'un client*/
+    /**
+     * Délais d'attente d'un client
+     */
     private int dureeTimeout = 100;
 
-    /** Contructeur qui specifie le port écoute devraît etre au dessus de 1024
+    /**
+     * Contructeur qui specifie le port écoute devraît etre au dessus de 1024
+     *
      * @param port le numero du port
      */
     public MonServeur(int port) {
@@ -77,7 +89,9 @@ public class MonServeur {
         }
     }
 
-    /** lit les caractères envoyés par le client.
+    /**
+     * lit les caractères envoyés par le client.
+     *
      * @return un objet String qui contient l'ensemble des caractères lus
      */
     public String lireClient() {
@@ -90,7 +104,9 @@ public class MonServeur {
         return ligne;
     }
 
-    /** Envoie des données au client.
+    /**
+     * Envoie des données au client.
+     *
      * @param ligne les caractères à envoyer
      */
     public void ecrireClient(String ligne) {
@@ -102,14 +118,17 @@ public class MonServeur {
         }
     }
 
-    /** teste la connexion.
-     *@return un booléen notifiant l'état de la connexion
+    /**
+     * teste la connexion.
+     *
+     * @return un booléen notifiant l'état de la connexion
      */
     public boolean clientOK() {
         return client.isConnected();
     }
 
-    /** Fermeture du socket.
+    /**
+     * Fermeture du socket.
      */
     public void fermer() {
         // il faut fermer "proprement" les stream avant les Sockets

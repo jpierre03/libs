@@ -4,7 +4,6 @@ import org.jgroups.ChannelException;
 import org.jgroups.ChannelFactory;
 import org.jgroups.JChannelFactory;
 import org.jgroups.blocks.DistributedQueue;
-import org.jgroups.util.QueueClosedException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,11 +20,11 @@ import java.util.Vector;
  * the methods that modify the queue (e.g. add()). Those methods are multicast to the group, whereas
  * read-only methods such as peek() use the local copy. A DistributedQueue is created given the name
  * of a group; all queues with the same name find each other and form a group.
+ *
  * @author Romuald du Song
  */
 public class DistributedQueueDemo extends Frame implements WindowListener, ActionListener,
-                                                           DistributedQueue.Notification
-{
+        DistributedQueue.Notification {
     DistributedQueue h = null;
     final JButton add = new JButton("Add");
     final JButton quit = new JButton("Quit");
@@ -37,37 +36,30 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
     final java.awt.List listbox = new java.awt.List();
     final Font default_font = new Font("Helvetica", Font.PLAIN, 12);
 
-    public DistributedQueueDemo()
-    {
+    public DistributedQueueDemo() {
         super();
         addWindowListener(this);
     }
 
-    private void showMsg(String msg)
-    {
+    private void showMsg(String msg) {
         err_msg.setText(msg);
         err_msg.setVisible(true);
     }
 
-    private void clearMsg()
-    {
+    private void clearMsg() {
         err_msg.setVisible(false);
     }
 
-    private void removeItem()
-    {
+    private void removeItem() {
         h.remove();
     }
 
-    private void showAll()
-    {
-        if (listbox.getItemCount() > 0)
-        {
+    private void showAll() {
+        if (listbox.getItemCount() > 0) {
             listbox.removeAll();
         }
 
-        if (h.size() == 0)
-        {
+        if (h.size() == 0) {
             return;
         }
 
@@ -75,16 +67,14 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
 
         Vector v = h.getContents();
 
-        for (int i = 0; i < v.size(); i++)
-        {
-            listbox.add((String)v.elementAt(i));
+        for (int i = 0; i < v.size(); i++) {
+            listbox.add((String) v.elementAt(i));
         }
     }
 
     public void start(String groupName, ChannelFactory factory, String props)
-               throws ChannelException
-    {
-        h = new DistributedQueue(groupName, factory, props, 10*1000);
+            throws ChannelException {
+        h = new DistributedQueue(groupName, factory, props, 10 * 1000);
         h.addNotifier(this);
 
         setLayout(null);
@@ -122,75 +112,64 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
         setVisible(true);
 
         /* */
-                 new Thread() {
-                     public void run() {
-                         System.out.println("-- sleeping");
-                         try {
-                             Thread.sleep(1*1000);
-                         } catch (InterruptedException e) {
-                             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                         }
-                         for(int i=0; i < 1000; i++) {
-                             System.out.println("-- add()");
-                             h.add("Bela#" + i);
-                         }
+        new Thread() {
+            public void run() {
+                System.out.println("-- sleeping");
+                try {
+                    Thread.sleep(1 * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                for (int i = 0; i < 100; i++) {
+                    System.out.println("-- add()");
+                    h.add("Bela#" + i);
+                }
 
-                     /*    while(true) {
-                             try {
-                                 Thread.sleep(500);
-                             } catch (InterruptedException e) {
-                                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                             }
-                                System.out.println(h.remove());
+                /*    while(true) {
+                  try {
+                      Thread.sleep(500);
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                  }
+                     System.out.println(h.remove());
 
-                         }  */
+              }  */
 
-                     }
-                 }.start();
-       /* */
+            }
+        }.start();
+        /* */
     }
 
-    public void windowActivated(WindowEvent e)
-    {
+    public void windowActivated(WindowEvent e) {
     }
 
-    public void windowClosed(WindowEvent e)
-    {
+    public void windowClosed(WindowEvent e) {
     }
 
-    public void windowClosing(WindowEvent e)
-    {
+    public void windowClosing(WindowEvent e) {
         System.exit(0);
     }
 
-    public void windowDeactivated(WindowEvent e)
-    {
+    public void windowDeactivated(WindowEvent e) {
     }
 
-    public void windowDeiconified(WindowEvent e)
-    {
+    public void windowDeiconified(WindowEvent e) {
     }
 
-    public void windowIconified(WindowEvent e)
-    {
+    public void windowIconified(WindowEvent e) {
     }
 
-    public void windowOpened(WindowEvent e)
-    {
+    public void windowOpened(WindowEvent e) {
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        try
-        {
-            if (command == "Add")
-            {
+        try {
+            if (command == "Add") {
                 String value_name = value_field.getText();
 
-                if ((value_name == null) || (value_name.length() == 0))
-                {
+                if ((value_name == null) || (value_name.length() == 0)) {
                     showMsg("Value is empty !");
 
                     return;
@@ -198,59 +177,43 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
 
                 showMsg("Adding value " + value_name + ':');
                 h.add(value_name);
-            }
-            else if (command == "All")
-            {
+            } else if (command == "All") {
                 showAll();
-            }
-            else if (command == "Quit")
-            {
+            } else if (command == "Quit") {
                 setVisible(false);
                 System.exit(0);
-            }
-            else if (command == "Remove")
-            {
+            } else if (command == "Remove") {
                 removeItem();
-            }
-            else
-            {
+            } else {
                 System.out.println("Unknown action");
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             value_field.setText("");
             showMsg(ex.toString());
         }
     }
 
-    public void entryAdd(Object value)
-    {
+    public void entryAdd(Object value) {
         showAll();
     }
 
-    public void entryRemoved(Object key)
-    {
+    public void entryRemoved(Object key) {
         showAll();
     }
 
-    public void viewChange(Vector joined, Vector left)
-    {
+    public void viewChange(Vector joined, Vector left) {
         System.out.println("New members: " + joined + ", left members: " + left);
     }
 
-    public void contentsSet(Collection new_entries)
-    {
+    public void contentsSet(Collection new_entries) {
         System.out.println("Contents Set:" + new_entries);
     }
 
-    public void contentsCleared()
-    {
+    public void contentsCleared() {
         System.out.println("Contents cleared()");
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         String groupname = "QueueDemo";
         DistributedQueueDemo client = new DistributedQueueDemo();
         ChannelFactory factory = new JChannelFactory();
@@ -259,22 +222,18 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
         boolean trace = false;
         boolean persist = false;
 
-        String props ="udp.xml";
+        String props = "udp.xml";
 
-        try
-        {
-            for (int i = 0; i < args.length; i++)
-            {
+        try {
+            for (int i = 0; i < args.length; i++) {
                 arg = args[i];
 
-                if ("-trace".equals(arg))
-                {
+                if ("-trace".equals(arg)) {
                     trace = true;
                     continue;
                 }
 
-                if ("-groupname".equals(args[i]))
-                {
+                if ("-groupname".equals(args[i])) {
                     groupname = args[++i];
                     continue;
                 }
@@ -282,26 +241,20 @@ public class DistributedQueueDemo extends Frame implements WindowListener, Actio
                 help();
                 return;
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             help();
 
             return;
         }
 
-        try
-        {
+        try {
             client.start(groupname, factory, props);
-        }
-        catch (Throwable t)
-        {
+        } catch (Throwable t) {
             t.printStackTrace();
         }
     }
 
-    static void help()
-    {
+    static void help() {
         System.out.println("DistributedQueueDemo [-help]");
     }
 }

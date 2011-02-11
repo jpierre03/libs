@@ -1,17 +1,14 @@
-
-
 package fr.prunetwork.communication.test.jgroup;
 
 
 import org.jgroups.*;
 import org.jgroups.blocks.PullPushAdapter;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Vector;
-
-
 
 
 /**
@@ -22,36 +19,37 @@ import java.util.Vector;
  * A nice demo is to start a number of Topology instances at the same time. All of them will be blue (all are
  * coordinators since they don't find each other). Then the MERGE2 protocol sets in and only one will retain
  * its coordinator role.
- * @todo Needs to be ported to Swing.
+ *
  * @author Bela Ban
+ * @todo Needs to be ported to Swing.
  */
 public class Topology extends Frame implements WindowListener, MembershipListener {
-    private final Vector members=new Vector();
+    private final Vector members = new Vector();
     private final Font myFont;
     private final FontMetrics fm;
-    private final Color node_color=new Color(250, 220, 100);
-    private boolean coordinator=false;
-    private static final int NormalStyle=0;
-    private static final int CheckStyle=1;
+    private final Color node_color = new Color(250, 220, 100);
+    private boolean coordinator = false;
+    private static final int NormalStyle = 0;
+    private static final int CheckStyle = 1;
     private Channel channel;
-    private Object my_addr=null;
-    private static final String channel_name="FD-Heartbeat";
+    private Object my_addr = null;
+    private static final String channel_name = "FD-Heartbeat";
 
 
     public Topology() {
         addWindowListener(this);
         //g=getGraphics();
-        fm=getFontMetrics(new Font("Helvetica", Font.PLAIN, 12));
-        myFont=new Font("Helvetica", Font.PLAIN, 12);
+        fm = getFontMetrics(new Font("Helvetica", Font.PLAIN, 12));
+        myFont = new Font("Helvetica", Font.PLAIN, 12);
 
     }
 
 
     public void addNode(Object member) {
         Object tmp;
-        for(int i=0; i < members.size(); i++) {
-            tmp=members.elementAt(i);
-            if(member.equals(tmp))
+        for (int i = 0; i < members.size(); i++) {
+            tmp = members.elementAt(i);
+            if (member.equals(tmp))
                 return;
         }
         members.addElement(member);
@@ -61,9 +59,9 @@ public class Topology extends Frame implements WindowListener, MembershipListene
 
     public void removeNode(Object member) {
         Object tmp;
-        for(int i=0; i < members.size(); i++) {
-            tmp=members.elementAt(i);
-            if(member.equals(tmp)) {
+        for (int i = 0; i < members.size(); i++) {
+            tmp = members.elementAt(i);
+            if (member.equals(tmp)) {
                 members.removeElement(members.elementAt(i));
                 break;
             }
@@ -73,10 +71,10 @@ public class Topology extends Frame implements WindowListener, MembershipListene
 
 
     public void drawNode(Graphics g, int x, int y, String label, int style) {
-        Color old=g.getColor();
+        Color old = g.getColor();
         int width, height;
-        width=fm.stringWidth(label) + 10;
-        height=fm.getHeight() + 5;
+        width = fm.stringWidth(label) + 10;
+        height = fm.getHeight() + 5;
 
         g.setColor(node_color);
 
@@ -84,7 +82,7 @@ public class Topology extends Frame implements WindowListener, MembershipListene
         g.setColor(old);
         g.drawString(label, x + 5, y + 15);
         g.drawRoundRect(x - 1, y - 1, width + 1, height + 1, 10, 10);
-        if(style == CheckStyle) {
+        if (style == CheckStyle) {
             g.drawRoundRect(x - 2, y - 2, width + 2, height + 2, 10, 10);
             g.drawRoundRect(x - 3, y - 3, width + 3, height + 3, 10, 10);
         }
@@ -92,12 +90,12 @@ public class Topology extends Frame implements WindowListener, MembershipListene
 
 
     public void drawTopology(Graphics g) {
-        int x=20, y=50;
+        int x = 20, y = 50;
         String label;
-        Dimension box=getSize();
-        Color old=g.getColor();
+        Dimension box = getSize();
+        Color old = g.getColor();
 
-        if(coordinator) {
+        if (coordinator) {
             g.setColor(Color.cyan);
             g.fillRect(11, 31, box.width - 21, box.height - 61);
             g.setColor(old);
@@ -106,10 +104,10 @@ public class Topology extends Frame implements WindowListener, MembershipListene
         g.drawRect(10, 30, box.width - 20, box.height - 60);
         g.setFont(myFont);
 
-        for(int i=0; i < members.size(); i++) {
-            label=members.elementAt(i).toString();
+        for (int i = 0; i < members.size(); i++) {
+            label = members.elementAt(i).toString();
             drawNode(g, x, y, label, NormalStyle);
-            y+=50;
+            y += 50;
         }
 
 
@@ -137,18 +135,18 @@ public class Topology extends Frame implements WindowListener, MembershipListene
 
     public void setState(Vector mbrs) {
         members.removeAllElements();
-        for(int i=0; i < mbrs.size(); i++)
+        for (int i = 0; i < mbrs.size(); i++)
             addNode(mbrs.elementAt(i));
-        if(mbrs.size() <= 1 || (mbrs.size() > 1 && mbrs.elementAt(0).equals(my_addr)))
-            coordinator=true;
+        if (mbrs.size() <= 1 || (mbrs.size() > 1 && mbrs.elementAt(0).equals(my_addr)))
+            coordinator = true;
         else
-            coordinator=false;
+            coordinator = false;
         repaint();
     }
 
 
     public void coordinatorChosen() {
-        coordinator=true;
+        coordinator = true;
         repaint();
     }
 
@@ -204,13 +202,13 @@ public class Topology extends Frame implements WindowListener, MembershipListene
 
         // String props=null; // default properties
 
-        String props="udp.xml";
+        String props = "udp.xml";
 
-        channel=new JChannel(props);
+        channel = new JChannel(props);
         channel.connect(channel_name);
         new PullPushAdapter(channel, this);
-        my_addr=channel.getLocalAddress();
-        if(my_addr != null)
+        my_addr = channel.getLocalAddress();
+        if (my_addr != null)
             setTitle(my_addr.toString());
         pack();
         show();
@@ -219,12 +217,11 @@ public class Topology extends Frame implements WindowListener, MembershipListene
 
     public static void main(String[] args) {
         try {
-            Topology top=new Topology();
+            Topology top = new Topology();
             top.setLayout(null);
             top.setSize(240, 507);
             top.start();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             System.err.println(e);
             e.printStackTrace();
             System.exit(0);
