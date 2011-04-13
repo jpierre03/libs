@@ -1,0 +1,1 @@
+mplayer 819715_mp4_h264_aac.mp4 -nosound -vo gif89a:fps=15:output=test.gif
