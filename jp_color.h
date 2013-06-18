@@ -74,7 +74,9 @@
 #define NOK_(y,...)  do { fprintf(stderr,"%s[%s%s%s]%s   %s",BLUE,RED,"nok",BLUE,DEFAULT_COLOR,y); fprintf(stderr, __VA_ARGS__);} while (0)
 
 #ifdef SHOW_INFO
-#define INFO(y, ...) do { fprintf(stdout,"%s[%s%s%s]%s\t%s"  ,BLUE,YELLOW,"info",BLUE,DEFAULT_COLOR,y);fprintf(stdout, __VA_ARGS__);} while (0)
+#define INFO(y)		do { fprintf(stderr,"%s[%s%s%s]%s   %s\n",BLUE,YELLOW,"nok",BLUE,DEFAULT_COLOR,y); } while (0)
+#define INFO_(y, ...)	do { fprintf(stdout,"%s[%s%s%s]%s\t%s"  ,BLUE,YELLOW,"info",BLUE,DEFAULT_COLOR,y);fprintf(stdout, __VA_ARGS__);} while (0)
 #else
-#define INFO(y, ...) do { /* Do Nothing */ } while (0)
+#define INFO(y)		do { /* Do Nothing */ } while (0)
+#define INFO_(y, ...)	do { /* Do Nothing */ } while (0)
 #endif
