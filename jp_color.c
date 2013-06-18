@@ -8,6 +8,11 @@
 
 #include "jp_color.h"
 
+
+void separator(void) {
+	printf("----------\n");
+}
+
 void color_test(void) {
 	printf("\033[30m test \033[0m hehe \n" );
 	printf("\033[31m test \033[0m hehe \n" );
