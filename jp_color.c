@@ -49,9 +49,27 @@ void color_boolean_test(void) {
 	}
 }
 
+void color_varargs_test(void) {
+	char string[]="a string";
+	int zero=0;
+	int hexa=15;
+
+	OK("simple ok");
+	NOK("simple nok");
+	INFO("simple info message");
+
+	OK_("complex ok with args interpretations ", "|%s|%d|%x|\n", string, zero, hexa);
+	NOK_("complex nok with args interpretations ", "|%s|%x|%d|\n", string, hexa, zero);
+	INFO_("complex info with args interpretations ", "|%d|%x|%s|%s|%d|%x|\n", zero, hexa, string, string, zero, hexa);
+}
+
 int main(int argc, char **argv) {
 	color_test();
+	separator();
 	color_boolean_test();
+	separator();
+	color_varargs_test();
+	separator();
 
 	return 0;
 }
