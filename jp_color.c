@@ -38,7 +38,7 @@ void color_test(void) {
 
 void color_boolean_test(void) {
 	int i=0;
-	for(i=1; i<=10; i++) {
+	for(i=1; i<=6; i++) {
 		char string[50];
 		sprintf(string, "%d",i);
 		if(i%2) {
