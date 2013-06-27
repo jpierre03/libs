@@ -14,9 +14,9 @@ LIBS=
 DEFINES= $(INCLUDES) $(DEFS) -DSYS_UNIX=1
 CFLAGS= -g $(DEFINES)
 
-SRCS = jp_color.c 
+SRCS = jp_color.c jp_color_main.c
 
-OBJS = jp_color.o 
+OBJS = jp_color.o jp_color_main.o
 
 .c.o:
 	$(rm) $@

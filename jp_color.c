@@ -63,7 +63,7 @@ void color_varargs_test(void) {
 	INFO_("complex info with args interpretations ", "|%d|%x|%s|%s|%d|%x|\n", zero, hexa, string, string, zero, hexa);
 }
 
-int main(int argc, char **argv) {
+int color_main(int argc, char **argv) {
 	color_test();
 	separator();
 	color_boolean_test();
