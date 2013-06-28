@@ -8,7 +8,7 @@
 
 #include "jp_color.h"
 
-int color_main(int argc, char **argv) {
+int main(int argc, char **argv) {
 	return color_main(argc, argv);
 }
 
