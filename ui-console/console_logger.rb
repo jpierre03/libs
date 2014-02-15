@@ -1,8 +1,8 @@
 require "amqp"
 require "eventmachine"
 
-@amqp_url="amqp://jpierre03:toto@bc.antalios.com:5672"
-#@amqp_string="amqp://localhost:5672"
+#@amqp_url="amqp://jpierre03:toto@bc.antalios.com:5672"
+@amqp_string="amqp://localhost:5672"
 @amqp_exchange_name="dev.tmp"
 
 class ConsoleLogger
