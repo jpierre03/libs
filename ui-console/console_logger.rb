@@ -1,9 +1,6 @@
 require "amqp"
 require "eventmachine"
-
-#@amqp_url="amqp://jpierre03:toto@bc.antalios.com:5672"
-@amqp_string="amqp://localhost:5672"
-@amqp_exchange_name="dev.tmp"
+require "settings"
 
 class ConsoleLogger
   def initialize(name = "World")
@@ -17,10 +14,11 @@ class ConsoleLogger
 end
 
 EventMachine.run {
-  AMQP.start(@amqp_url) do |connection|
+  settings=Settings.new
+  AMQP.start(settings.amqp_url) do |connection|
     channel = AMQP::Channel.new(connection)
     #exchange = channel.fanout("tmpex", :auto_delete => false)
-    exchange = channel.topic(@amqp_exchange_name, :auto_delete => false)
+    exchange = channel.topic(settings.amqp_exchange_name, :auto_delete => false)
 
     logger = ConsoleLogger.new
 
@@ -29,11 +27,8 @@ EventMachine.run {
       logger.print(headers, payload)
     end
 
-
     # disconnect & exit after 1 hour
     EventMachine.add_timer(3600) do
-      exchange.delete
-
       connection.close { EventMachine.stop }
     end
   end
