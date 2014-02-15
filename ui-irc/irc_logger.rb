@@ -1,0 +1,161 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require "amqp"
+require "cinch"
+require "eventmachine"
+
+class Settings
+  attr_reader :irc_nickname, :irc_user_comment, :irc_hostname, :irc_channels,
+              :channel_warning, :channel_alert, :channel_info, :channel_test,
+              :amqp_exchange_name, :amqp_url
+
+  def initialize
+    #@amqp_url="amqp://jpierre03:toto@bc.antalios.com:5672"
+    @amqp_url="amqp://localhost:5672"
+    @amqp_exchange_name= "dev.tmp"
+
+    @channel_info= "#info"
+    @channel_warning= "#warning"
+    @channel_alert= "#alert"
+    @channel_test= "#test"
+
+    @irc_hostname= "irc.teleragno.fr"
+    @irc_channels= [@channel_alert, @channel_info, @channel_test, @channel_warning]
+    @irc_nickname="[jpierre03_bot2]"
+    @irc_user_comment="Je suis un bot AMQP -> IRC. Je n'aime pas répondre aux gens que je ne connais pas. Je ne connais personne."
+  end
+
+
+end
+
+puts "step 0"
+
+class IrcLogger
+
+  def initialize(bot)
+    @bot = bot
+    settings=Settings.new
+
+    EventMachine.run {
+      AMQP.start(settings.amqp_url) do |connection|
+        channel = AMQP::Channel.new(connection)
+        exchange = channel.topic(settings.amqp_exchange_name, :auto_delete => false)
+
+        #:durable => true
+        channel.queue("", :auto_delete => true).bind(settings.amqp_exchange_name, :routing_key => "#").subscribe do |headers, payload|
+          print(headers, payload)
+        end
+
+        # disconnect & exit after 1 hour
+        EventMachine.add_timer(3600) do
+          #exchange.delete
+
+          connection.close { EventMachine.stop }
+        end
+      end
+    }
+
+  end
+
+  def print(headers="", msg="")
+    puts "#{msg} => routing_key:#{headers.routing_key}"
+    @bot.handlers.dispatch(:monitor_msg, nil, msg)
+  end
+end
+
+class RailsMonitor
+  def initialize(bot)
+    @bot = bot
+    EventMachine.run do
+      AMQP.start("amqp://localhost:5672") do |connection|
+        puts "Connected to AMQP broker."
+        channel = AMQP::Channel.new(connection)
+        #queue    = channel.queue("amqpgem.rails.monitor", :durable => true)
+        queue = channel.queue("dev.tmp", :durable => true)
+        queue.subscribe do |payload|
+          self.msg("#{payload}")
+        end
+      end
+    end
+  end
+
+  def msg(msg)
+    @bot.handlers.dispatch(:monitor_msg, nil, msg)
+  end
+end
+
+class JoinPart
+  include Cinch::Plugin
+
+  match /join (.+)/, method: :join
+  match /part(?: (.+))?/, method: :part
+
+  def initialize(*args)
+    super
+    @admins = ["admin_username"]
+  end
+
+  def check_user(user)
+    user.refresh
+    @admins.include?(user.authname)
+  end
+
+  def join(m, channel)
+    return unless check_user(m.user)
+    Channel(channel).join
+  end
+
+  def part(m, channel)
+    return unless check_user(m.user)
+    channel ||= m.channel
+    Channel(channel).part if channel
+  end
+end
+
+class MonitorBot
+  include Cinch::Plugin
+
+  listen_to :monitor_msg
+
+  def listen(m, msg)
+    settings=Settings.new
+
+    if msg.include? "[WARN]"
+      Channel(settings.channel_test).send Format(:red, "#{msg}")
+      Channel(settings.channel_warning).send Format(:red, "#{msg}")
+    elsif msg.include? "[OK]"
+      Channel(settings.channel_test).send Format(:green, "#{msg}")
+      Channel(settings.channel_info).send Format(:green, "#{msg}")
+    elsif msg.include? "[WWW]"
+      Channel(settings.channel_test).send Format(:purple, "#{msg}")
+      Channel(settings.channel_info).send Format(:purple, "#{msg}")
+    elsif msg.include? "[VCS]"
+      Channel(settings.channel_test).send Format(:purple, "#{msg}")
+      Channel(settings.channel_info).send Format(:purple, "#{msg}")
+    else
+      Channel(settings.channel_test).send "#{msg}"
+      Channel(settings.channel_info).send "#{msg}"
+    end
+  end
+end
+
+bot = Cinch::Bot.new do
+  configure do |c|
+    settings=Settings.new
+
+    c.nick = settings.irc_nickname
+    c.realname = settings.irc_user_comment
+    c.user = settings.irc_nickname
+    c.server = settings.irc_hostname
+    #c.port            = 7000
+    #c.ssl             = true
+    c.channels = settings.irc_channels
+    c.verbose = true
+    c.plugins.plugins = [MonitorBot, JoinPart]
+  end
+end
+
+Thread.new { IrcLogger.new(bot).start }
+
+bot.start
