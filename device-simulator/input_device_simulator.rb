@@ -10,7 +10,7 @@ class InputDeviceSimulator
   @amqp_exchange
   @id
 
-  def initialize(id=Random.new.rand(1000000..99999999))
+  def initialize(id=Random.new.rand(10000..99999999))
     @id=id
     EventMachine.run {
       EventMachine.add_periodic_timer(2) {
@@ -20,7 +20,7 @@ class InputDeviceSimulator
   end
 
   def updateValue()
-    @value=Random.new.rand(1..9999)
+    @value=Random.new.rand(1..99999999)
   end
 
   def id
