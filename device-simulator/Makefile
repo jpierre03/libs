@@ -1,6 +1,9 @@
 all:
 	date
 
+run-1devices:
+	for i in `seq 1 1`; do bash -c 'ruby input_device_simulator.rb & '; done
+
 run-10devices:
 	for i in `seq 1 10`; do bash -c 'ruby input_device_simulator.rb & '; done
 
