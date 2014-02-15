@@ -1,17 +1,13 @@
 require "eventmachine"
 require "amqp"
-
-#@amqp_url="amqp://jpierre03:toto@bc.antalios.com:5672"
-@amqp_string="amqp://localhost:5672"
-@amqp_exchange_name="dev.tmp"
+require "settings"
 
 class InputDeviceSimulator
-  @value=Random.new.rand(1..9999)
-  @amqp_exchange
-  @id
 
   def initialize(id=Random.new.rand(10000..99999999))
     @id=id
+    @value=Random.new.rand(1..9999)
+
     EventMachine.run {
       EventMachine.add_periodic_timer(2) {
         self.updateValue()
@@ -34,9 +30,10 @@ class InputDeviceSimulator
 end
 
 EventMachine.run {
-  AMQP.start(@amqp_url) do |connection|
+  settings=Settings.new
+  AMQP.start(settings.amqp_url) do |connection|
     channel = AMQP::Channel.new(connection)
-    exchange = channel.topic(@amqp_exchange_name, :auto_delete => false)
+    exchange = channel.topic(settings.amqp_exchange_name, :auto_delete => false)
 
     device=InputDeviceSimulator.new
 
@@ -46,8 +43,6 @@ EventMachine.run {
 
     # disconnect & exit after 1 hour
     EventMachine.add_timer(3600) do
-      #exchange.delete
-
       connection.close { EventMachine.stop }
     end
   end
