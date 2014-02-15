@@ -44,9 +44,9 @@ EventMachine.run {
       exchange.publish("id=#{device.id}, value=#{device.value}")
     end
 
-    # disconnect & exit after 2 seconds
+    # disconnect & exit after 1 hour
     EventMachine.add_timer(3600) do
-      exchange.delete
+      #exchange.delete
 
       connection.close { EventMachine.stop }
     end
