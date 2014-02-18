@@ -1,6 +1,6 @@
 require "eventmachine"
 require "amqp"
-require "settings"
+load 'settings.rb'
 
 class InputDeviceSimulator
 

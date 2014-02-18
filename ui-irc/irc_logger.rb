@@ -4,7 +4,7 @@
 require "amqp"
 require "cinch"
 require "eventmachine"
-require "settings"
+load 'settings.rb'
 
 puts "step 0"
 

@@ -1,6 +1,6 @@
 require "amqp"
 require "eventmachine"
-require "settings"
+load 'settings.rb'
 
 class ConsoleLogger
   def initialize(name = "World")
