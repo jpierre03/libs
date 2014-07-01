@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d65407e-4888-43ab-a013-b80f8b24cabf" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../device-raspi-piface/raspberry_pi_device.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../device-raspi-piface/device-raspi-piface.iml" afterPath="$PROJECT_DIR$/../device-raspi-piface/device-raspi-piface.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../device-raspi-piface/device-raspi-piface.iws" afterPath="$PROJECT_DIR$/../device-raspi-piface/device-raspi-piface.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../device-simulator/device-simulator.iws" afterPath="$PROJECT_DIR$/../device-simulator/device-simulator.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/irc_logger.rb" afterPath="$PROJECT_DIR$/irc_logger.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ui-console/ui-console.iws" afterPath="$PROJECT_DIR$/../ui-console/ui-console.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui-irc.iml" afterPath="$PROJECT_DIR$/ui-irc.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui-irc.ipr" afterPath="$PROJECT_DIR$/ui-irc.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui-irc.iws" afterPath="$PROJECT_DIR$/ui-irc.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ui-mail-smtp/ui-mail-smtp.iws" afterPath="$PROJECT_DIR$/../ui-mail-smtp/ui-mail-smtp.iws" />
     </list>
     <ignored path="ui-irc.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="4d65407e-4888-43ab-a013-b80f8b24cabf" time="1392497262594" ignored="false" />
+    <file path="/Dummy.txt" changelist="4d65407e-4888-43ab-a013-b80f8b24cabf" time="1392737166913" ignored="false" />
     <file path="/irc_logger.rb" changelist="4d65407e-4888-43ab-a013-b80f8b24cabf" time="1392493969349" ignored="false" />
     <file path="/a.dummy" changelist="4d65407e-4888-43ab-a013-b80f8b24cabf" time="1392483485010" ignored="false" />
     <file path="$PROJECT_DIR$/../../usuel-scriptusuels/amqp/publish-irc.rb" changelist="4d65407e-4888-43ab-a013-b80f8b24cabf" time="1392485621697" ignored="false" />
@@ -80,7 +80,7 @@
       <file leaf-file-name="irc_logger.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/irc_logger.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.6557377">
+            <state line="28" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.0064620357">
               <folding>
                 <element signature="e#942#1487#0" expanded="false" />
               </folding>
@@ -194,8 +194,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -323,6 +323,19 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -349,19 +362,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -441,7 +441,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="44" y="22" width="1236" height="778" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -565,11 +565,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ui-irc.iml">
+    <entry file="file:///Library/Ruby/Gems/2.0.0/gems/cinch-2.0.11/lib/cinch/handler_list.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="54" column="21" selection-start="1518" selection-end="1518" vertical-scroll-proportion="0.0">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/irc_logger.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#942#1487#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui-irc.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ui-irc.ipr">
@@ -598,7 +612,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/irc_logger.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.6557377">
+        <state line="28" column="0" selection-start="707" selection-end="707" vertical-scroll-proportion="0.0064620357">
           <folding>
             <element signature="e#942#1487#0" expanded="false" />
           </folding>
