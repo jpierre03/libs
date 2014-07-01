@@ -76,7 +76,7 @@ public final class AmqpProducer {
      * @param message A message to be send to AMQP broker.
      * @throws IOException
      */
-    public void publish(String message) throws IOException {
+    public void publish(final String message, final String routingKey) throws IOException {
         if (channel != null) {
             assert channel.isOpen();
 
@@ -86,6 +86,12 @@ public final class AmqpProducer {
             throw new IOException("channel not defined");
         }
     }
+
+    public void publish(String message) throws IOException {
+        publish(message, routingKey);
+    }
+
+
 
     public void close() throws IOException {
         channel.close();

@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
  */
-public class AmqpReceiverTest {
+class AmqpReceiverTest {
 
     public AmqpReceiverTest() {
     }

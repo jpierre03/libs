@@ -6,7 +6,7 @@ import com.rabbitmq.client.QueueingConsumer;
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
  */
-interface MessageConsumer {
+public interface MessageConsumer {
 
     void init(QueueingConsumer consumer);
 

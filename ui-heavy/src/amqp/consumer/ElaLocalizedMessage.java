@@ -1,14 +1,17 @@
 package amqp.consumer;
 
+import java.util.Date;
+
 /**
-* @author Jean-Pierre PRUNARET
-* @since 01/07/2014
-*/
-public class ElaLocalizedMessage implements AmqpReceivedMessage {
+ * @author Jean-Pierre PRUNARET
+ * @since 01/07/2014
+ */
+class ElaLocalizedMessage implements AmqpReceivedMessage {
 
     private final AmqpReceivedMessage message;
     private final String antennaName;
     private final String area;
+    private Date receptionDate;
 
     ElaLocalizedMessage(AmqpReceivedMessage message) {
         this.message = message;
@@ -25,6 +28,7 @@ public class ElaLocalizedMessage implements AmqpReceivedMessage {
         } else {
             antennaName = "";
         }
+        receptionDate = message.getReceptionDate();
     }
 
     public String getAntennaName() {
@@ -61,6 +65,11 @@ public class ElaLocalizedMessage implements AmqpReceivedMessage {
     @Override
     public String getRoutingKey() {
         return message.getRoutingKey();
+    }
+
+    @Override
+    public Date getReceptionDate() {
+        return receptionDate;
     }
 
     public void displayReceived() {
