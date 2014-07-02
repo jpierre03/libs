@@ -81,7 +81,7 @@ public final class AmqpProducer {
             assert channel.isOpen();
 
             channel.basicPublish(exchange, routingKey, null, message.getBytes());
-            System.out.println(message);
+            //System.out.println(message);
         } else {
             throw new IOException("channel not defined");
         }

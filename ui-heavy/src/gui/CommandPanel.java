@@ -58,11 +58,12 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            JButton button = new JButton("100 Messages en boucle");
+            final int MAX = 10 * 1000;
+            JButton button = new JButton(MAX + " Messages en boucle");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    for (int count = 0; count < 1000*1000; count++) {
+                    for (int count = 0; count < MAX; count++) {
                         try {
                             actionner.sendHelloWorld();
                             Thread.sleep(7);
