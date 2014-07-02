@@ -27,7 +27,7 @@ public class CommandPanel extends JPanel {
 
         int i = 0;
         {
-            JButton button = new JButton(i + " Hello World !");
+            JButton button = new JButton(" Hello World !");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -43,7 +43,7 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            JButton button = new JButton(i + " +1h de fonctionnement");
+            JButton button = new JButton(" +1h de fonctionnement");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -51,6 +51,24 @@ public class CommandPanel extends JPanel {
                         actionner.sendAddRunningTimeMinute(60);
                     } catch (Exception e1) {
                         notifyUser(e1);
+                    }
+                }
+            });
+            i++;
+            add(button);
+        }
+        {
+            JButton button = new JButton("100 Messages en boucle");
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    for (int count = 0; count < 1000*1000; count++) {
+                        try {
+                            actionner.sendHelloWorld();
+                            Thread.sleep(7);
+                        } catch (Exception e1) {
+                            notifyUser(e1);
+                        }
                     }
                 }
             });

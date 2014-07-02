@@ -8,6 +8,9 @@ import javax.json.stream.JsonParserFactory;
 import java.io.StringReader;
 
 /**
+ * http://www.infoq.com/fr/news/2013/05/standard-java-api-for-json
+ * http://www.oracle.com/technetwork/articles/java/json-1973242.html
+ *
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
  */
