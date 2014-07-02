@@ -4,13 +4,12 @@ import amqp.consumer.AmqpReceivedMessageImpl;
 import amqp.consumer.AmqpReceiver;
 import amqp.consumer.MessageConsumer;
 import com.rabbitmq.client.QueueingConsumer;
+import gui.table.DateCellRenderer;
 import gui.table.MessageTableModel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -31,35 +30,7 @@ public class Main {
         TableModel model = messageTableModel;
         JTable table = new JTable(model);
 
-        table.setDefaultRenderer(Date.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                final Date date = (Date) value;
-                final Date now = new Date();
-
-                if (now.getTime() - date.getTime() > 60 * 1000) {
-                    setForeground(Color.white);
-                    setBackground(Color.red);
-                } else if (now.getTime() - date.getTime() > 60 * 1000) {
-                    setForeground(Color.white);
-                    setBackground(Color.black);
-                } else if (now.getTime() - date.getTime() > 45 * 1000) {
-                    setForeground(Color.white);
-                    setBackground(Color.gray);
-                } else if (now.getTime() - date.getTime() > 15 * 1000) {
-                    setForeground(Color.black);
-                    setBackground(Color.lightGray);
-                } else {
-                    setForeground(Color.black);
-                    setBackground(Color.white);
-                }
-
-                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                setValue(simpleFormat.format(date));
-                return this;
-            }
-        });
+        table.setDefaultRenderer(Date.class, new DateCellRenderer());
 
         table.setAutoCreateRowSorter(true);
         frame.getContentPane().add(new JScrollPane(table));
