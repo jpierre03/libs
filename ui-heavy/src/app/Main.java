@@ -74,7 +74,7 @@ public class Main {
 
             final AmqpReceivedMessageImpl receivedMessage = new AmqpReceivedMessageImpl(routingKey, message);
 
-            receivedMessage.displayFullMessage();
+            //receivedMessage.displayFullMessage();
             tableModel.add(receivedMessage);
             tableModel.fireTableRowsInserted(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
         }
