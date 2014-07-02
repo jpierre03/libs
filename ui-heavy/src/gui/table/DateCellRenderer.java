@@ -24,10 +24,10 @@ public class DateCellRenderer extends DefaultTableCellRenderer {
         if (now.getTime() - date.getTime() > 60 * 1000) {
             setForeground(Color.white);
             setBackground(Color.red);
-        } else if (now.getTime() - date.getTime() > 60 * 1000) {
+        } else if (now.getTime() - date.getTime() > 45 * 1000) {
             setForeground(Color.white);
             setBackground(Color.black);
-        } else if (now.getTime() - date.getTime() > 45 * 1000) {
+        } else if (now.getTime() - date.getTime() > 30 * 1000) {
             setForeground(Color.white);
             setBackground(Color.gray);
         } else if (now.getTime() - date.getTime() > 15 * 1000) {
