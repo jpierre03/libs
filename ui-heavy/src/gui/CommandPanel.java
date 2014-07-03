@@ -66,7 +66,7 @@ public class CommandPanel extends JPanel {
                     for (int count = 0; count < MAX; count++) {
                         try {
                             actionner.sendHelloWorld();
-                            Thread.sleep(7);
+                            Thread.sleep(1250);
                         } catch (Exception e1) {
                             notifyUser(e1);
                         }
