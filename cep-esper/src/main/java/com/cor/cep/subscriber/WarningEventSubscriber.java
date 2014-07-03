@@ -11,7 +11,7 @@ import java.util.Map;
  * Wraps Esper Statement and Listener. No dependency on Esper libraries.
  */
 @Component
-public class WarningEventSubscriber implements StatementSubscriber {
+public class WarningEventSubscriber implements StatementSubscriber<TemperatureEvent> {
 
     /**
      * If 2 consecutive temperature events are greater than this - issue a warning
@@ -42,12 +42,13 @@ public class WarningEventSubscriber implements StatementSubscriber {
     /**
      * Listener method called when Esper has detected a pattern match.
      */
+    @Override
     public void update(Map<String, TemperatureEvent> eventMap) {
 
         // 1st Temperature in the Warning Sequence
-        TemperatureEvent temp1 = (TemperatureEvent) eventMap.get("temp1");
+        TemperatureEvent temp1 = eventMap.get("temp1");
         // 2nd Temperature in the Warning Sequence
-        TemperatureEvent temp2 = (TemperatureEvent) eventMap.get("temp2");
+        TemperatureEvent temp2 = eventMap.get("temp2");
 
         StringBuilder sb = new StringBuilder();
         sb.append("--------------------------------------------------");

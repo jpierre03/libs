@@ -52,7 +52,6 @@ public class RandomTemperatureEventGenerator {
                         LOG.error("Thread Interrupted", e);
                     }
                 }
-
             }
         });
     }

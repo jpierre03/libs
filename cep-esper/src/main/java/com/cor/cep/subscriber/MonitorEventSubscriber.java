@@ -10,7 +10,7 @@ import java.util.Map;
  * Wraps Esper Statement and Listener. No dependency on Esper libraries.
  */
 @Component
-public class MonitorEventSubscriber implements StatementSubscriber {
+public class MonitorEventSubscriber implements StatementSubscriber<Double> {
 
     /**
      * Logger
@@ -29,10 +29,11 @@ public class MonitorEventSubscriber implements StatementSubscriber {
     /**
      * Listener method called when Esper has detected a pattern match.
      */
+    @Override
     public void update(Map<String, Double> eventMap) {
 
         // average temp over 10 secs
-        Double avg = (Double) eventMap.get("avg_val");
+        Double avg = eventMap.get("avg_val");
 
         StringBuilder sb = new StringBuilder();
         sb.append("---------------------------------");

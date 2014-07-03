@@ -33,12 +33,10 @@ public class StartDemo {
 
         // Load spring config
         ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[]{"application-context.xml"});
-        BeanFactory factory = (BeanFactory) appContext;
+        BeanFactory factory = appContext;
 
         // Start Demo
         RandomTemperatureEventGenerator generator = (RandomTemperatureEventGenerator) factory.getBean("eventGenerator");
         generator.startSendingTemperatureReadings(noOfTemperatureEvents);
-
     }
-
 }

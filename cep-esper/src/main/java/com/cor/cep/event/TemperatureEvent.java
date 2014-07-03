@@ -18,7 +18,7 @@ public class TemperatureEvent {
     private Date timeOfReading;
 
     /**
-     * Temeratur constructor.
+     * Temperature constructor.
      *
      * @param temperature   Temperature in Celsius
      * @param timeOfReading Time of Reading
