@@ -1,10 +1,10 @@
 package com.cor.cep.subscriber;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  * Wraps Esper Statement and Listener. No dependency on Esper libraries.
@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MonitorEventSubscriber implements StatementSubscriber {
 
-    /** Logger */
+    /**
+     * Logger
+     */
     private static Logger LOG = LoggerFactory.getLogger(MonitorEventSubscriber.class);
 
     /**

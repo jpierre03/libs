@@ -7,7 +7,8 @@ package com.cor.cep.subscriber;
 public interface StatementSubscriber {
 
     /**
-     * Get the EPL Stamement the Subscriber will listen to.
+     * Get the EPL Statement the Subscriber will listen to.
+     *
      * @return EPL Statement
      */
     public String getStatement();

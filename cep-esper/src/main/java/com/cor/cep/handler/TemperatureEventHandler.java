@@ -1,5 +1,11 @@
 package com.cor.cep.handler;
 
+import com.cor.cep.event.TemperatureEvent;
+import com.cor.cep.subscriber.StatementSubscriber;
+import com.espertech.esper.client.Configuration;
+import com.espertech.esper.client.EPServiceProvider;
+import com.espertech.esper.client.EPServiceProviderManager;
+import com.espertech.esper.client.EPStatement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -8,38 +14,31 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.cor.cep.event.TemperatureEvent;
-import com.cor.cep.subscriber.StatementSubscriber;
-import com.espertech.esper.client.Configuration;
-import com.espertech.esper.client.EPServiceProvider;
-import com.espertech.esper.client.EPServiceProviderManager;
-import com.espertech.esper.client.EPStatement;
-
 /**
  * This class handles incoming Temperature Events. It processes them through the EPService, to which
  * it has attached the 3 queries.
  */
 @Component
 @Scope(value = "singleton")
-public class TemperatureEventHandler implements InitializingBean{
+public class TemperatureEventHandler implements InitializingBean {
 
-    /** Logger */
+    /**
+     * Logger
+     */
     private static Logger LOG = LoggerFactory.getLogger(TemperatureEventHandler.class);
-
-    /** Esper service */
+    /**
+     * Esper service
+     */
     private EPServiceProvider epService;
     private EPStatement criticalEventStatement;
     private EPStatement warningEventStatement;
     private EPStatement monitorEventStatement;
-
     @Autowired
     @Qualifier("criticalEventSubscriber")
     private StatementSubscriber criticalEventSubscriber;
-
     @Autowired
     @Qualifier("warningEventSubscriber")
     private StatementSubscriber warningEventSubscriber;
-
     @Autowired
     @Qualifier("monitorEventSubscriber")
     private StatementSubscriber monitorEventSubscriber;
@@ -66,7 +65,7 @@ public class TemperatureEventHandler implements InitializingBean{
      * temperature
      */
     private void createCriticalTemperatureCheckExpression() {
-        
+
         LOG.debug("create Critical Temperature Check Expression");
         criticalEventStatement = epService.getEPAdministrator().createEPL(criticalEventSubscriber.getStatement());
         criticalEventStatement.setSubscriber(criticalEventSubscriber);
@@ -105,7 +104,7 @@ public class TemperatureEventHandler implements InitializingBean{
 
     @Override
     public void afterPropertiesSet() {
-        
+
         LOG.debug("Configuring..");
         initService();
     }
