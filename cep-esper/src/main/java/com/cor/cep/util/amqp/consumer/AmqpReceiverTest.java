@@ -1,4 +1,4 @@
-package amqp.consumer;
+package com.cor.cep.util.amqp.consumer;
 
 import com.rabbitmq.client.QueueingConsumer;
 
@@ -45,6 +45,7 @@ class AmqpReceiverTest {
             final AmqpReceivedMessageImpl receivedMessage = new AmqpReceivedMessageImpl(routingKey, message);
 
             receivedMessage.displayFullMessage();
+
             return receivedMessage;
         }
 

@@ -2,6 +2,8 @@ package gui;
 
 import amqp.producer.AmqpProducer;
 
+import java.util.Random;
+
 /**
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
@@ -38,5 +40,9 @@ public class CommandPanelActionner {
 
     public void sendAddRunningTimeMinute(int duration) throws Exception {
         publish("(laveuse) + " + duration + " min");
+    }
+
+    public void sendRandomTemperature() throws Exception {
+        publish(new Random().nextInt(500) + "");
     }
 }

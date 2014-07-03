@@ -1,5 +1,6 @@
 package app;
 
+import amqp.consumer.AmqpReceivedMessage;
 import amqp.consumer.AmqpReceivedMessageImpl;
 import amqp.consumer.AmqpReceiver;
 import amqp.consumer.MessageConsumer;
@@ -67,7 +68,7 @@ public class Main {
         }
 
         @Override
-        public void consume() throws InterruptedException {
+        public AmqpReceivedMessage consume() throws InterruptedException {
             final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
             final String message = new String(delivery.getBody());
             final String routingKey = delivery.getEnvelope().getRoutingKey();
@@ -77,6 +78,8 @@ public class Main {
             //receivedMessage.displayFullMessage();
             tableModel.add(receivedMessage);
             tableModel.fireTableRowsInserted(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
+
+            return receivedMessage;
         }
 
         @Override

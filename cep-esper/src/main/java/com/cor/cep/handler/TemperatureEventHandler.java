@@ -33,6 +33,7 @@ public class TemperatureEventHandler implements InitializingBean {
     private EPStatement criticalEventStatement;
     private EPStatement warningEventStatement;
     private EPStatement monitorEventStatement;
+    private EPStatement returnToNormalEventStatement;
     @Autowired
     @Qualifier("criticalEventSubscriber")
     private StatementSubscriber criticalEventSubscriber;
@@ -42,6 +43,9 @@ public class TemperatureEventHandler implements InitializingBean {
     @Autowired
     @Qualifier("monitorEventSubscriber")
     private StatementSubscriber monitorEventSubscriber;
+    @Autowired
+    @Qualifier("returnToNormalEventSubscriber")
+    private StatementSubscriber returnToNormalEventSubscriber;
 
     /**
      * Configure Esper Statement(s).
@@ -56,6 +60,14 @@ public class TemperatureEventHandler implements InitializingBean {
         createCriticalTemperatureCheckExpression();
         createWarningTemperatureCheckExpression();
         createTemperatureMonitorExpression();
+        createReturnToNormalTemperatureMonitorExpression();
+    }
+
+    private void createReturnToNormalTemperatureMonitorExpression() {
+
+        LOG.debug("create ReturnToNormal Temperature Check Expression");
+        returnToNormalEventStatement = epService.getEPAdministrator().createEPL(returnToNormalEventSubscriber.getStatement());
+        returnToNormalEventStatement.setSubscriber(returnToNormalEventSubscriber);
     }
 
     /**
