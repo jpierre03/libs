@@ -13,7 +13,7 @@ public class TemperatureEvent {
      */
     private int temperature;
     /**
-     * Time temerature reading was taken.
+     * Time temperature reading was taken.
      */
     private Date timeOfReading;
 

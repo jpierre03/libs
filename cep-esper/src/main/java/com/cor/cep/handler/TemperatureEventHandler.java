@@ -56,7 +56,6 @@ public class TemperatureEventHandler implements InitializingBean {
         createCriticalTemperatureCheckExpression();
         createWarningTemperatureCheckExpression();
         createTemperatureMonitorExpression();
-
     }
 
     /**
@@ -99,7 +98,6 @@ public class TemperatureEventHandler implements InitializingBean {
 
         LOG.debug(event.toString());
         epService.getEPRuntime().sendEvent(event);
-
     }
 
     @Override
