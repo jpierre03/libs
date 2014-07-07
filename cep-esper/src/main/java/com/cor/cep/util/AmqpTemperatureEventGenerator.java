@@ -93,8 +93,9 @@ public class AmqpTemperatureEventGenerator {
         private QueueingConsumer consumer;
 
         @Override
-        public AmqpReceivedMessage consume() throws InterruptedException {
+        public AmqpReceivedMessage consume() throws Exception {
             final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+            consumer.getChannel().basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             final String message = new String(delivery.getBody());
             final String routingKey = delivery.getEnvelope().getRoutingKey();
 

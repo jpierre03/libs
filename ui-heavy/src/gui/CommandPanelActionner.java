@@ -10,6 +10,7 @@ import java.util.Random;
  */
 public class CommandPanelActionner {
 
+    private final Random random = new Random();
     private AmqpProducer amqpProducer;
 
     public CommandPanelActionner(AmqpProducer amqpProducer) {
@@ -43,6 +44,6 @@ public class CommandPanelActionner {
     }
 
     public void sendRandomTemperature() throws Exception {
-        publish(new Random().nextInt(500) + "");
+        publish(random.nextInt(500) + "");
     }
 }

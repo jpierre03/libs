@@ -47,7 +47,7 @@ public class AmqpReceiver {
         }
 
         consumer = new QueueingConsumer(channel);
-        channel.basicConsume(queueName, true, consumer);
+        channel.basicConsume(queueName, false, consumer);
 
         externalConsumer.init(consumer);
     }

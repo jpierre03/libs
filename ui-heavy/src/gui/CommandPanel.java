@@ -23,7 +23,7 @@ public class CommandPanel extends JPanel {
     }
 
     private void build() {
-        setLayout(new GridLayout(2, 2));
+        setLayout(new GridLayout(4, 2));
 
         int i = 0;
         {
@@ -77,7 +77,7 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            final int MAX = 1000;
+            final int MAX = 10 * 1000 * 1000;
             JButton button = new JButton("Envoi de " + MAX + " valeurs de temperature");
             button.addActionListener(new ActionListener() {
                 @Override

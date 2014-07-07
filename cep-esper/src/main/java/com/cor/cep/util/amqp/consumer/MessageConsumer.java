@@ -12,5 +12,5 @@ public interface MessageConsumer {
 
     boolean isConnected();
 
-    AmqpReceivedMessage consume() throws InterruptedException;
+    AmqpReceivedMessage consume() throws Exception;
 }
