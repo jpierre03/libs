@@ -1,4 +1,4 @@
-package com.cor.cep.util.amqp.producer;
+package fr.onet.ae.amqp.producer;
 
 
 import com.rabbitmq.client.Channel;
@@ -19,7 +19,8 @@ import java.io.IOException;
  */
 public final class AmqpProducer {
     //private static final String URI = "communication.amqp://jpierre03:toto@bc.antalios.com";
-    private static final String URI = "communication.amqp://jpierre03:toto@localhost";
+    //private static final String URI = "communication.amqp://jpierre03:toto@localhost";
+    private static final String URI = "communication.amqp://jpierre03:toto@172.16.201.201";
     //private static final String EXCHANGE = "anta.bc";
     private static final String EXCHANGE = "dev.tmp";
     private static final String ROUTING_KEY = "";
@@ -74,7 +75,7 @@ public final class AmqpProducer {
      * If communication with server is still ok, a string parameter is send.
      *
      * @param message A message to be send to AMQP broker.
-     * @throws java.io.IOException
+     * @throws IOException
      */
     public void publish(final String message, final String routingKey) throws IOException {
         if (channel != null) {

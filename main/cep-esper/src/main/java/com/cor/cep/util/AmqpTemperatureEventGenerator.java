@@ -48,7 +48,7 @@ public class AmqpTemperatureEventGenerator {
 
                 try {
                     MyMessageConsumer consumer = new MyMessageConsumer();
-                    AmqpReceiver receiver = new AmqpReceiver("amqp://jpierre03:toto@localhost", "dev.tmp", Arrays.asList("#"), consumer);
+                    AmqpReceiver receiver = new AmqpReceiver("communication.amqp://jpierre03:toto@localhost", "dev.tmp", Arrays.asList("#"), consumer);
 
                     receiver.configure();
 

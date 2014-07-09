@@ -1,4 +1,4 @@
-package com.cor.cep.util.amqp.consumer;
+package fr.onet.ae.amqp.consumer;
 
 import com.rabbitmq.client.QueueingConsumer;
 
@@ -37,7 +37,7 @@ class AmqpReceiverTest {
         private QueueingConsumer consumer;
 
         @Override
-        public AmqpReceivedMessage consume() throws Exception {
+        public AmqpReceivedMessage consume() throws InterruptedException {
             final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
             final String message = new String(delivery.getBody());
             final String routingKey = delivery.getEnvelope().getRoutingKey();
@@ -45,7 +45,6 @@ class AmqpReceiverTest {
             final AmqpReceivedMessageImpl receivedMessage = new AmqpReceivedMessageImpl(routingKey, message);
 
             receivedMessage.displayFullMessage();
-
             return receivedMessage;
         }
 
