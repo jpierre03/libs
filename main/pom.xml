@@ -10,6 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ui-desktop</module>
+        <module>common-messages</module>
+        <module>common-amqp</module>
+        <module>process-esper</module>
     </modules>
 
 </project>
