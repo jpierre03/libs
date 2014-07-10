@@ -4,6 +4,9 @@ import com.rabbitmq.client.QueueingConsumer;
 
 import java.util.Arrays;
 
+import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_EXCHANGE;
+import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_URL;
+
 /**
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
@@ -16,7 +19,7 @@ class AmqpReceiverTest {
     public static void main(String... argv) throws Exception {
 
         MyMessageConsumer consumer = new MyMessageConsumer();
-        AmqpReceiver receiver = new AmqpReceiver("communication.amqp://jpierre03:toto@localhost", "dev.tmp", Arrays.asList("#"), consumer);
+        AmqpReceiver receiver = new AmqpReceiver(AMQP_DEFAULT_URL, AMQP_DEFAULT_EXCHANGE, Arrays.asList("#"), consumer);
         receiver.configure();
 
         System.out.println("*******");

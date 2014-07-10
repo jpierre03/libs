@@ -4,8 +4,11 @@ package fr.onet.ae.amqp.producer;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import fr.onet.ae.amqp.ExchangeType;
 
 import java.io.IOException;
+
+import static fr.onet.ae.common.Configuration.*;
 
 /**
  * This class send message to an AMQP broker.
@@ -18,12 +21,7 @@ import java.io.IOException;
  * @since 2014-03-10
  */
 public final class AmqpProducer {
-    //private static final String URI = "communication.amqp://jpierre03:toto@bc.antalios.com";
-    //private static final String URI = "communication.amqp://jpierre03:toto@localhost";
-    private static final String URI = "communication.amqp://jpierre03:toto@172.16.201.201";
-    //private static final String EXCHANGE = "anta.bc";
-    private static final String EXCHANGE = "dev.tmp";
-    private static final String ROUTING_KEY = "";
+
     private final Channel channel;
     private final Connection connection;
     private final String uri;
@@ -36,9 +34,8 @@ public final class AmqpProducer {
      * @throws Exception If something fail, an exception is thrown.
      */
     public AmqpProducer() throws Exception {
-        this(URI, EXCHANGE, ROUTING_KEY);
+        this(AMQP_DEFAULT_URL, AMQP_DEFAULT_EXCHANGE, AMQP_DEFAULT_ROUTING_KEY);
     }
-
 
     /**
      * This constructor allow user to define usual AMQP settings.
@@ -62,8 +59,8 @@ public final class AmqpProducer {
 
         channel = connection.createChannel();
 
-        //channel.exchangeDeclare(exchange, "fanout");
-        channel.exchangeDeclare(exchange, "topic");
+        //channel.exchangeDeclare(exchange, ExchangeType.fanout.name());
+        channel.exchangeDeclare(exchange, ExchangeType.topic.name());
 
         if (exchange.equals("")) {
             channel.queueDeclare(routingKey, false, true, false, null);
@@ -91,8 +88,6 @@ public final class AmqpProducer {
     public void publish(String message) throws IOException {
         publish(message, routingKey);
     }
-
-
 
     public void close() throws IOException {
         channel.close();

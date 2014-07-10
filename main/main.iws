@@ -2,23 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="caf94627-aad3-4072-bad9-aedc9abe4105" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/common-entities.iml" afterPath="$PROJECT_DIR$/common-entities/common-entities.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/pom.xml" afterPath="$PROJECT_DIR$/common-entities/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/event/Event.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/event/Event.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/json/BasicContainerFactory.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/json/BasicContainerFactory.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/json/MyStaticClass.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/json/MyStaticClass.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/json/ReadJSONSimpleExample.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/json/ReadJSONSimpleExample.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/json/SimpleJsonField.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/json/SimpleJsonField.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/json/WriteJSONSimpleExample.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/json/WriteJSONSimpleExample.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/message/Message.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/message/Message.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/message/MessageImpl.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/message/MessageImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/message/MessageProperties.java" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/message/MessageProperties.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/Configuration.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/ExchangeType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/producer/AmqpProducer.java" afterPath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/producer/AmqpProducer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ui-heavy/src/amqp/producer/AmqpProducer.java" afterPath="$PROJECT_DIR$/../ui-heavy/src/amqp/producer/AmqpProducer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceivedMessage.java" afterPath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceivedMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceivedMessageImpl.java" afterPath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceivedMessageImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiver.java" afterPath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiverTest.java" afterPath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiverTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ui-heavy/src/gui/CommandPanel.java" afterPath="$PROJECT_DIR$/../ui-heavy/src/gui/CommandPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/ElaLocalizedMessage.java" afterPath="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/ElaLocalizedMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ui-desktop/src/main/java/fr/onet/ae/ui/component/table/MessageTableModel.java" afterPath="$PROJECT_DIR$/ui-desktop/src/main/java/fr/onet/ae/ui/component/table/MessageTableModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common-amqp/common-amqp.iml" afterPath="$PROJECT_DIR$/common-amqp/common-amqp.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.iws" afterPath="$PROJECT_DIR$/main.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ui-console/ui-console.iws" afterPath="$PROJECT_DIR$/../ui-console/ui-console.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ui-heavy/ui-heavy.ipr" afterPath="$PROJECT_DIR$/../ui-heavy/ui-heavy.ipr" />
@@ -35,13 +26,17 @@
     <file path="/WriteJSONSimpleExample.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404916516894" ignored="false" />
     <file path="/pom.xml" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404981939358" ignored="false" />
     <file path="/MyStaticClass.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404920332149" ignored="false" />
-    <file path="/fragment.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404980357999" ignored="false" />
+    <file path="/fragment.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404983277278" ignored="false" />
     <file path="/Message.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404982374447" ignored="false" />
     <file path="/MessageProperties.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404980380157" ignored="false" />
     <file path="/MessageImpl.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404981641866" ignored="false" />
     <file path="/Event.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404982212051" ignored="false" />
     <file path="/TemperatureEvent.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404982281293" ignored="false" />
     <file path="/AmqpReceivedMessage.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404982519329" ignored="false" />
+    <file path="/Configuration.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404983112905" ignored="false" />
+    <file path="/AmqpReceiverTest.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404982969178" ignored="false" />
+    <file path="/AmqpProducer.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404983357291" ignored="false" />
+    <file path="/ExchangeType.java" changelist="caf94627-aad3-4072-bad9-aedc9abe4105" time="1404983285964" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,50 +114,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TemperatureEvent.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/process-esper/src/main/java/com/cor/cep/event/TemperatureEvent.java">
+      <file leaf-file-name="DateCellRenderer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ui-desktop/src/main/java/fr/onet/ae/ui/component/table/DateCellRenderer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="5" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Message.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/message/Message.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CriticalEventSubscriber.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/process-esper/src/main/java/com/cor/cep/subscriber/CriticalEventSubscriber.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="13" selection-start="311" selection-end="311" vertical-scroll-proportion="0.0">
+            <state line="12" column="13" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application-context.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/process-esper/src/main/resources/application-context.xml">
+      <file leaf-file-name="Configuration.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/Configuration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="logback.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/process-esper/src/main/resources/logback.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="499" selection-end="499" vertical-scroll-proportion="0.0">
+            <state line="10" column="10" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -189,7 +153,36 @@
       <file leaf-file-name="AmqpReceiver.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="13" selection-start="391" selection-end="391" vertical-scroll-proportion="0.0">
+            <state line="36" column="18" selection-start="1137" selection-end="1137" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AmqpReceiverTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiverTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="6" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ElaLocalizedMessage.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/ElaLocalizedMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="6" selection-start="126" selection-end="126" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessageConsumer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/MessageConsumer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="0" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -198,16 +191,16 @@
       <file leaf-file-name="AmqpProducer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/producer/AmqpProducer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="19" selection-start="450" selection-end="450" vertical-scroll-proportion="0.25981525">
+            <state line="61" column="63" selection-start="1847" selection-end="1847" vertical-scroll-proportion="0.30821148">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Event.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/event/Event.java">
+      <file leaf-file-name="ExchangeType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/ExchangeType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="4" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
+            <state line="8" column="0" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -231,11 +224,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/test.json" />
-        <option value="$PROJECT_DIR$/ui-desktop/src/main/java/fr/onet/ae/json/MyStaticClass.java" />
-        <option value="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/ReceiveLogsTopic.java" />
-        <option value="$PROJECT_DIR$/process-esper/src/main/java/com/cor/cep/StartDemo.java" />
-        <option value="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/message/MessageProperties.java" />
         <option value="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/message/Message.java" />
         <option value="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/message/MessageImpl.java" />
         <option value="$PROJECT_DIR$/ui-desktop/pom.xml" />
@@ -247,6 +235,11 @@
         <option value="$PROJECT_DIR$/common-messages/src/main/java/fr/onet/ae/common/message/Message.java" />
         <option value="$PROJECT_DIR$/process-esper/src/main/resources/logback.xml" />
         <option value="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceivedMessage.java" />
+        <option value="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiverTest.java" />
+        <option value="$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/Configuration.java" />
+        <option value="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/ExchangeType.java" />
+        <option value="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/producer/AmqpProducer.java" />
+        <option value="$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiver.java" />
       </list>
     </option>
   </component>
@@ -494,6 +487,44 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="component" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="table" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui-desktop" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -581,6 +612,78 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cep" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="process-esper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cep" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="handler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="process-esper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cep" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -633,6 +736,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common-entities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -697,6 +830,10 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="json" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1217,7 +1354,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="-258" width="1515" height="1058" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1236,9 +1373,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24936816" sideWeight="0.6721133" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Code Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19945541" sideWeight="0.7697228" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19945541" sideWeight="0.7697228" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28522804" sideWeight="0.7697228" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28522804" sideWeight="0.7697228" order="0" side_tool="false" content_ui="combo" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35820895" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1315,64 +1452,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/process-esper/src/main/java/com/cor/cep/StartDemo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="386" selection-end="386" vertical-scroll-proportion="0.11679644">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ui-desktop/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="24" selection-start="1078" selection-end="1078" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/process-esper/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="0" selection-start="3983" selection-end="3983" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="616" selection-end="616" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common-entities/common-entities.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common-entities/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/event/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="4" selection-start="179" selection-end="179" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/process-esper/src/main/java/com/cor/cep/event/TemperatureEvent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="5" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/message/Message.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0">
@@ -1403,6 +1482,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/process-esper/src/main/java/com/cor/cep/event/TemperatureEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="5" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/message/MessageImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="0" selection-start="2033" selection-end="2033" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#MessageBuilder#0;class#MessageImpl#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui-desktop/src/main/java/fr/onet/ae/ui/component/table/DateCellRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="13" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common-entities/src/main/java/fr/onet/ae/common/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="10" selection-start="283" selection-end="283" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/ExchangeType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="0" selection-start="133" selection-end="133" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceivedMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="17" selection-start="137" selection-end="137" vertical-scroll-proportion="0.0">
@@ -1419,14 +1538,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="391" selection-end="391" vertical-scroll-proportion="0.0">
+        <state line="36" column="18" selection-start="1137" selection-end="1137" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/AmqpReceiverTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="6" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/ElaLocalizedMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="6" selection-start="126" selection-end="126" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/consumer/MessageConsumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="314" selection-end="314" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common-amqp/src/main/java/fr/onet/ae/amqp/producer/AmqpProducer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="19" selection-start="450" selection-end="450" vertical-scroll-proportion="0.25981525">
+        <state line="61" column="63" selection-start="1847" selection-end="1847" vertical-scroll-proportion="0.30821148">
           <folding />
         </state>
       </provider>

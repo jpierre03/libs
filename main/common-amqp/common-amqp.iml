@@ -15,6 +15,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.rabbitmq:amqp-client:3.3.4" level="project" />
+    <orderEntry type="module" module-name="common-entities" />
   </component>
 </module>
 

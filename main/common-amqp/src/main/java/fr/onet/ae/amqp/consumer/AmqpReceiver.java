@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
+import fr.onet.ae.amqp.ExchangeType;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,7 +40,7 @@ public class AmqpReceiver {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.exchangeDeclare(topicName, "topic");
+        channel.exchangeDeclare(topicName, ExchangeType.topic.name());
         String queueName = channel.queueDeclare().getQueue();
 
         for (String bindingKey : bindingKeys) {
