@@ -1,18 +1,23 @@
 package fr.onet.ae.ui.app;
 
+import com.rabbitmq.client.QueueingConsumer;
 import fr.onet.ae.amqp.consumer.AmqpReceivedMessage;
 import fr.onet.ae.amqp.consumer.AmqpReceivedMessageImpl;
 import fr.onet.ae.amqp.consumer.AmqpReceiver;
 import fr.onet.ae.amqp.consumer.MessageConsumer;
-import com.rabbitmq.client.QueueingConsumer;
 import fr.onet.ae.ui.component.table.DateCellRenderer;
+import fr.onet.ae.ui.component.table.HistoryTable;
 import fr.onet.ae.ui.component.table.MessageTableModel;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_EXCHANGE;
+import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_URL;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -20,43 +25,100 @@ import java.util.Date;
  */
 public class Main {
 
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
+
     public static void main(String... args) throws Exception {
         JFrame frame = new JFrame();
         frame.setTitle("Application");
         frame.setPreferredSize(new Dimension(600, 400));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        final MessageTableModel messageTableModel = new MessageTableModel();
+        JPanel panel = new JPanel(new GridLayout(1, 2));
 
-        TableModel model = messageTableModel;
-        JTable table = new JTable(model);
+        {
+            final MessageTableModel messageTableModel = new MessageTableModel();
+            HistoryTable table = new HistoryTable(messageTableModel);
 
-        table.setDefaultRenderer(Date.class, new DateCellRenderer());
+            table.setDefaultRenderer(Date.class, new DateCellRenderer());
 
-        table.setAutoCreateRowSorter(true);
-        frame.getContentPane().add(new JScrollPane(table));
-        frame.pack();
+            table.setAutoCreateRowSorter(true);
+            panel.add(new JScrollPane(table));
 
 
-        MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-        AmqpReceiver receiver = new AmqpReceiver("communication.amqp://jpierre03:toto@localhost", "dev.tmp", Arrays.asList("#"), consumer);
-        receiver.configure();
+            final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
+            AmqpReceiver receiver = new AmqpReceiver(AMQP_DEFAULT_URL, AMQP_DEFAULT_EXCHANGE, Arrays.asList("#"), consumer);
+            receiver.configure();
 
-        System.out.println("*******");
-        while (consumer.isConnected() == false) {
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
-                // do nothing
-            }
+            final Runnable runnable = new Runnable() {
+
+                @Override
+                public void run() {
+                    System.out.println("*******");
+                    while (consumer.isConnected() == false) {
+                        try {
+                            Thread.sleep(100);
+                        } catch (Exception e) {
+                            // do nothing
+                        }
+                    }
+
+                    System.out.println("*******");
+                    while (true) {
+                        try {
+                            consumer.consume();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            EXECUTOR.submit(runnable);
         }
 
+        {
+            final MessageTableModel messageTableModel = new MessageTableModel();
+            HistoryTable table = new HistoryTable(messageTableModel);
+
+            table.setDefaultRenderer(Date.class, new DateCellRenderer());
+
+            table.setAutoCreateRowSorter(true);
+            panel.add(new JScrollPane(table));
+
+            final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
+            AmqpReceiver receiver = new AmqpReceiver(AMQP_DEFAULT_URL, AMQP_DEFAULT_EXCHANGE, Arrays.asList("#"), consumer);
+            receiver.configure();
+
+            final Runnable runnable = new Runnable() {
+
+                @Override
+                public void run() {
+                    System.out.println("*******");
+                    while (consumer.isConnected() == false) {
+                        try {
+                            Thread.sleep(100);
+                        } catch (Exception e) {
+                            // do nothing
+                        }
+                    }
+
+                    System.out.println("*******");
+                    while (true) {
+                        try {
+                            consumer.consume();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            EXECUTOR.submit(runnable);
+        }
+
+        frame.getContentPane().add(panel);
+        frame.pack();
         frame.setVisible(true);
 
-        System.out.println("*******");
-        while (true) {
-            consumer.consume();
-        }
+
     }
 
     static class MyMessageConsumer implements MessageConsumer {

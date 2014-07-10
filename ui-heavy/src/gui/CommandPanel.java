@@ -85,7 +85,7 @@ public class CommandPanel extends JPanel {
                     for (int count = 0; count < MAX; count++) {
                         try {
                             actionner.sendRandomTemperature();
-                            Thread.sleep(50);
+                            //Thread.sleep(1);
                         } catch (Exception e1) {
                             notifyUser(e1);
                         }

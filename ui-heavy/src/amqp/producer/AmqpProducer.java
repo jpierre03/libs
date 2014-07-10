@@ -19,7 +19,8 @@ import java.io.IOException;
  */
 public final class AmqpProducer {
     //private static final String URI = "amqp://jpierre03:toto@bc.antalios.com";
-    private static final String URI = "amqp://jpierre03:toto@localhost";
+    //private static final String URI = "amqp://jpierre03:toto@localhost";
+    private static final String URI = "amqp://jpierre03:toto@172.16.201.201";
     //private static final String EXCHANGE = "anta.bc";
     private static final String EXCHANGE = "dev.tmp";
     private static final String ROUTING_KEY = "";

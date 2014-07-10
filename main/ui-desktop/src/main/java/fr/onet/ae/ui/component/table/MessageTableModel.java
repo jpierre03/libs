@@ -72,4 +72,9 @@ public class MessageTableModel extends AbstractTableModel {
         }
         messages.add(message);
     }
+
+    public void purge() {
+        messages.clear();
+        fireTableDataChanged();
+    }
 }

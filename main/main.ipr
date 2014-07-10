@@ -533,7 +533,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/common-amqp/common-amqp.iml" filepath="$PROJECT_DIR$/common-amqp/common-amqp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common-entities/common-entities.iml" filepath="$PROJECT_DIR$/common-entities/common-entities.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-entities/common-messages.iml" filepath="$PROJECT_DIR$/common-entities/common-messages.iml" />
       <module fileurl="file://$PROJECT_DIR$/main.iml" filepath="$PROJECT_DIR$/main.iml" />
       <module fileurl="file://$PROJECT_DIR$/process-esper/process-esper.iml" filepath="$PROJECT_DIR$/process-esper/process-esper.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui-desktop/ui-desktop.iml" filepath="$PROJECT_DIR$/ui-desktop/ui-desktop.iml" />

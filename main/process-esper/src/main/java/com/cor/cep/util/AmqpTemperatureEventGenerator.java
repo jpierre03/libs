@@ -17,6 +17,9 @@ import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_EXCHANGE;
+import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_URL;
+
 /**
  * Just a simple class to create a number of Random TemperatureEvents and pass them off to the
  * TemperatureEventHandler.
@@ -48,7 +51,7 @@ public class AmqpTemperatureEventGenerator {
 
                 try {
                     MyMessageConsumer consumer = new MyMessageConsumer();
-                    AmqpReceiver receiver = new AmqpReceiver("communication.amqp://jpierre03:toto@localhost", "dev.tmp", Arrays.asList("#"), consumer);
+                    AmqpReceiver receiver = new AmqpReceiver(AMQP_DEFAULT_URL, AMQP_DEFAULT_EXCHANGE, Arrays.asList("#"), consumer);
 
                     receiver.configure();
 

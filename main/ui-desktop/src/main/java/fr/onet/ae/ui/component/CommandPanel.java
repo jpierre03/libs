@@ -77,7 +77,7 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            final int MAX = 10 * 1000 * 1000;
+            final int MAX = 10 * 1000;
             JButton button = new JButton("Envoi de " + MAX + " valeurs de temperature");
             button.addActionListener(new ActionListener() {
                 @Override
@@ -85,7 +85,7 @@ public class CommandPanel extends JPanel {
                     for (int count = 0; count < MAX; count++) {
                         try {
                             actionner.sendRandomTemperature();
-                            //Thread.sleep(1);
+                            Thread.sleep(5);
                         } catch (Exception e1) {
                             notifyUser(e1);
                         }
