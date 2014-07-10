@@ -29,7 +29,7 @@ public class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     }
 
     @Override
-    public Date getReceptionDate() {
+    public Date getReceivedDate() {
         return receptionDate;
     }
 
@@ -37,7 +37,7 @@ public class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
         StringBuffer sb = new StringBuffer();
 
         sb.append("->").append("\n");
-        sb.append("-date:").append(getReceptionDate()).append("\n");
+        sb.append("-date:").append(getReceivedDate()).append("\n");
         sb.append("-key :").append(getRoutingKey()).append("\n");
         sb.append("-body:").append(getBody()).append("\n");
         sb.append("<-").append("\n");

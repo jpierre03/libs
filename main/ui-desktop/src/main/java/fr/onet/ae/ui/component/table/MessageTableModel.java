@@ -34,7 +34,7 @@ public class MessageTableModel extends AbstractTableModel {
         switch (columnIndex) {
 
             case 0:
-                return messages.get(rowIndex).getReceptionDate();
+                return messages.get(rowIndex).getReceivedDate();
 
             case 1:
                 return messages.get(rowIndex).getRoutingKey();

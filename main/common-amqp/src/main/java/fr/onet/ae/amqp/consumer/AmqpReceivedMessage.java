@@ -12,5 +12,5 @@ public interface AmqpReceivedMessage {
 
     String getRoutingKey();
 
-    Date getReceptionDate();
+    Date getReceivedDate();
 }

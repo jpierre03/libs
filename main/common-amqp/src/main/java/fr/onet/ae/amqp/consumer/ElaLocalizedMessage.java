@@ -28,7 +28,7 @@ class ElaLocalizedMessage implements AmqpReceivedMessage {
         } else {
             antennaName = "";
         }
-        receptionDate = message.getReceptionDate();
+        receptionDate = message.getReceivedDate();
     }
 
     public String getAntennaName() {
@@ -68,7 +68,7 @@ class ElaLocalizedMessage implements AmqpReceivedMessage {
     }
 
     @Override
-    public Date getReceptionDate() {
+    public Date getReceivedDate() {
         return receptionDate;
     }
 
