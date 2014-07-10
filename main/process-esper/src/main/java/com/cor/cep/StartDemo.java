@@ -1,6 +1,6 @@
 package com.cor.cep;
 
-import com.cor.cep.util.RandomTemperatureEventGenerator;
+import com.cor.cep.util.AmqpTemperatureEventGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -36,10 +36,10 @@ public class StartDemo {
         BeanFactory factory = appContext;
 
         // Start Demo
-        RandomTemperatureEventGenerator generator = (RandomTemperatureEventGenerator) factory.getBean("eventGenerator");
-        generator.startSendingTemperatureReadings(noOfTemperatureEvents);
+        //RandomTemperatureEventGenerator generator = (RandomTemperatureEventGenerator) factory.getBean("eventGenerator");
+        //generator.startSendingTemperatureReadings(noOfTemperatureEvents);
 
-        //AmqpTemperatureEventGenerator generatorAmqp = (AmqpTemperatureEventGenerator) factory.getBean("eventGeneratorAmqp");
-        //generatorAmqp.startSendingTemperatureReadings();
+        AmqpTemperatureEventGenerator generatorAmqp = (AmqpTemperatureEventGenerator) factory.getBean("eventGeneratorAmqp");
+        generatorAmqp.startSendingTemperatureReadings();
     }
 }

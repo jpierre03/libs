@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author Jean-Pierre PRUNARET
  * @since 14/05/2014
  */
-public class ReceiveLogsTopic {
+class ReceiveLogsTopic {
 
     private static final String EXCHANGE_NAME = "ela";
 

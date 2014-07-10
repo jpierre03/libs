@@ -1,4 +1,4 @@
-package fr.onet.ae.gui;
+package fr.onet.ae.ui.component;
 
 import fr.onet.ae.amqp.producer.AmqpProducer;
 

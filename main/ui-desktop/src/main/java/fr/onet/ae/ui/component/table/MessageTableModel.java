@@ -1,4 +1,4 @@
-package fr.onet.ae.gui.table;
+package fr.onet.ae.ui.component.table;
 
 import fr.onet.ae.amqp.consumer.AmqpReceivedMessage;
 

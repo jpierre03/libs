@@ -1,12 +1,14 @@
 package com.cor.cep.event;
 
+import fr.onet.ae.common.event.Event;
+
 import java.util.Date;
 
 /**
  * Immutable Temperature Event class. The process control system creates these events. The
  * TemperatureEventHandler picks these up and processes them.
  */
-public class TemperatureEvent {
+public class TemperatureEvent implements Event {
 
     /**
      * Temperature in Celcius.
@@ -26,6 +28,16 @@ public class TemperatureEvent {
     public TemperatureEvent(int temperature, Date timeOfReading) {
         this.temperature = temperature;
         this.timeOfReading = timeOfReading;
+    }
+
+    @Override
+    public String getDescription() {
+        return "This event represent a real temperature";
+    }
+
+    @Override
+    public Date getCreationDate() {
+        return timeOfReading;
     }
 
     /**

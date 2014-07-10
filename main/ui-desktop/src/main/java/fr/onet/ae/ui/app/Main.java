@@ -1,12 +1,12 @@
-package fr.onet.ae.app;
+package fr.onet.ae.ui.app;
 
 import fr.onet.ae.amqp.consumer.AmqpReceivedMessage;
 import fr.onet.ae.amqp.consumer.AmqpReceivedMessageImpl;
 import fr.onet.ae.amqp.consumer.AmqpReceiver;
 import fr.onet.ae.amqp.consumer.MessageConsumer;
 import com.rabbitmq.client.QueueingConsumer;
-import fr.onet.ae.gui.table.DateCellRenderer;
-import fr.onet.ae.gui.table.MessageTableModel;
+import fr.onet.ae.ui.component.table.DateCellRenderer;
+import fr.onet.ae.ui.component.table.MessageTableModel;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;

@@ -1,4 +1,4 @@
-package fr.onet.ae.json;
+package fr.onet.ae.common.json;
 
 /**
  * @author Jean-Pierre PRUNARET

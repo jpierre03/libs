@@ -1,4 +1,4 @@
-package fr.onet.ae.json;
+package fr.onet.ae.common.json;
 
 
 import org.json.simple.JSONArray;
