@@ -3,7 +3,6 @@ package fr.onet.ae.ui.component.table;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,13 +13,14 @@ import java.awt.event.ActionListener;
  */
 public class HistoryTable extends JPanel {
 
-    JTable table;
+    private final JTable table;
+    private boolean isMultipleSelection = true;
 
     public HistoryTable(final MessageTableModel dm, TableColumnModel cm, ListSelectionModel sm) {
         table = new JTable(dm, cm, sm);
         setLayout(new BorderLayout());
 
-        final JButton clear = new JButton("Effacer model");
+        final JButton clear = new JButton("Effacer historique");
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -28,8 +28,14 @@ public class HistoryTable extends JPanel {
             }
         });
 
-        add(clear, BorderLayout.NORTH);
+        final JTextField searchField = new JTextField();
+        searchField.addActionListener(new SearchActionListener(searchField, table, isMultipleSelection, false));
+
+        add(searchField, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
+        add(clear, BorderLayout.SOUTH);
+
+        table.setAutoCreateRowSorter(true);
     }
 
     public HistoryTable() {
@@ -44,8 +50,62 @@ public class HistoryTable extends JPanel {
         table.setDefaultRenderer(columnClass, renderer);
     }
 
-    public void setAutoCreateRowSorter(boolean autoCreateRowSorter) {
-        table.setAutoCreateRowSorter(autoCreateRowSorter);
+    class SearchActionListener implements ActionListener {
+
+        private static final String ERROR_EMPTY_SEARCH = "La recherche demandée est vide.\n Voulez vous chercher quand même ?";
+        private static final String ERROR_TITLE = "Erreur sur la recherche";
+        private final JTextField field;
+        private final JTable table;
+        private final boolean isMultipleSelection;
+        private final boolean applyHighlighter;
+
+        SearchActionListener(JTextField field, JTable table, boolean isMultipleSelection, boolean applyHighlighter) {
+            this.field = field;
+            this.table = table;
+            this.isMultipleSelection = isMultipleSelection;
+            this.applyHighlighter = applyHighlighter;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            final String searchedValue = field.getText().toLowerCase();
+            table.clearSelection();
+
+            boolean okToContinue = true;
+
+            if (searchedValue.isEmpty()) {
+                final int choice = JOptionPane.showConfirmDialog(table, ERROR_EMPTY_SEARCH, ERROR_TITLE, JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                okToContinue = (choice == JOptionPane.OK_OPTION);
+            }
+
+            if (okToContinue) {
+                for (int row = 0; row <= table.getRowCount() - 1; row++) {
+                    for (int col = 0; col <= table.getColumnCount() - 1; col++) {
+
+                        final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
+
+                        if (cellContent.contains(searchedValue)) {
+
+                            // this will automatically set the view of the scroll in the location of the value
+                            table.scrollRectToVisible(table.getCellRect(row, 0, true));
+
+                            // this will automatically set the focus of the searched/selected row/value
+                            if (isMultipleSelection) {
+                                table.addRowSelectionInterval(row, row);
+                            } else {
+                                table.setRowSelectionInterval(row, row);
+                            }
+
+                            if (applyHighlighter) {
+                                for (int i = 0; i <= table.getColumnCount() - 1; i++) {
+                                    table.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

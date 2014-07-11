@@ -31,7 +31,7 @@ public class Main {
         JFrame frame = new JFrame();
         frame.setTitle("Application");
         frame.setPreferredSize(new Dimension(600, 400));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel(new GridLayout(1, 2));
 
@@ -41,7 +41,6 @@ public class Main {
 
             table.setDefaultRenderer(Date.class, new DateCellRenderer());
 
-            table.setAutoCreateRowSorter(true);
             panel.add(new JScrollPane(table));
 
 
@@ -54,7 +53,7 @@ public class Main {
                 @Override
                 public void run() {
                     System.out.println("*******");
-                    while (consumer.isConnected() == false) {
+                    while (!consumer.isConnected()) {
                         try {
                             Thread.sleep(100);
                         } catch (Exception e) {
@@ -81,7 +80,6 @@ public class Main {
 
             table.setDefaultRenderer(Date.class, new DateCellRenderer());
 
-            table.setAutoCreateRowSorter(true);
             panel.add(new JScrollPane(table));
 
             final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
