@@ -28,10 +28,15 @@ public class HistoryTable extends JPanel {
             }
         });
 
+        JPanel searchPanel = new JPanel(new BorderLayout());
+        final JLabel searchCounter = new JLabel();
         final JTextField searchField = new JTextField();
-        searchField.addActionListener(new SearchActionListener(searchField, table, isMultipleSelection, false));
+        searchField.addActionListener(new SearchActionListener(searchField, searchCounter, table, isMultipleSelection, false));
 
-        add(searchField, BorderLayout.NORTH);
+        searchPanel.add(searchField, BorderLayout.CENTER);
+        searchPanel.add(searchCounter, BorderLayout.WEST);
+
+        add(searchPanel, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
         add(clear, BorderLayout.SOUTH);
 
@@ -55,12 +60,14 @@ public class HistoryTable extends JPanel {
         private static final String ERROR_EMPTY_SEARCH = "La recherche demandée est vide.\n Voulez vous chercher quand même ?";
         private static final String ERROR_TITLE = "Erreur sur la recherche";
         private final JTextField field;
+        private final JLabel counter;
         private final JTable table;
         private final boolean isMultipleSelection;
         private final boolean applyHighlighter;
 
-        SearchActionListener(JTextField field, JTable table, boolean isMultipleSelection, boolean applyHighlighter) {
+        SearchActionListener(JTextField field, JLabel counter, JTable table, boolean isMultipleSelection, boolean applyHighlighter) {
             this.field = field;
+            this.counter = counter;
             this.table = table;
             this.isMultipleSelection = isMultipleSelection;
             this.applyHighlighter = applyHighlighter;
@@ -70,6 +77,7 @@ public class HistoryTable extends JPanel {
         public void actionPerformed(ActionEvent e) {
             final String searchedValue = field.getText().toLowerCase();
             table.clearSelection();
+            int count = 0;
 
             boolean okToContinue = true;
 
@@ -85,6 +93,7 @@ public class HistoryTable extends JPanel {
                         final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
 
                         if (cellContent.contains(searchedValue)) {
+                            count++;
 
                             // this will automatically set the view of the scroll in the location of the value
                             table.scrollRectToVisible(table.getCellRect(row, 0, true));
@@ -105,6 +114,7 @@ public class HistoryTable extends JPanel {
                     }
                 }
             }
+            counter.setText(String.valueOf(count));
         }
     }
 }
