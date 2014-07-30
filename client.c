@@ -10,7 +10,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#define MAX_SIZE 50
+#define MAX_SIZE (80)
+#define ELA_DATA_SIZE (1+10+1)
 
 /* Opaque buffer element type.  This would be defined by the application. */
 typedef struct { char c; } ElemType;
@@ -22,7 +23,7 @@ void seek(CircularBuffer *cb, char toFind){
 
     if(elem->c == toFind){
         // found
-    
+
     } else if(!cbIsEmpty(cb)) {
         cbRead(cb, elem);
         seek(cb, toFind);
@@ -36,7 +37,7 @@ int main(int argc, char** argv) {
     char hostname[]="localhost";
     //char hostname[]="172.16.201.197";
     unsigned int port_number = htons(10001);
-    
+
 	/**
      * Client socket descriptor which is just integer number used to access a socket
      */
@@ -59,7 +60,7 @@ int main(int argc, char** argv) {
     CircularBuffer cb;
 	ElemType elem = {0};
     
-	int testBufferSize = 80; /* arbitrary size */
+	int testBufferSize = MAX_SIZE + 2 * ELA_DATA_SIZE; /* arbitrary size */
 	cbInit(&cb, testBufferSize);
 
     /**
@@ -99,30 +100,32 @@ int main(int argc, char** argv) {
 	} else {
 		printf("Connected successfully - Please enter string\n");
 	}
-
+    
 	int count=0;
 	do {
-		int count = read(sock_descriptor, buff, MAX_SIZE - 1);
+		const int count = read(sock_descriptor, buff, MAX_SIZE - 1);
+        
 		if( count > 0) {
 			buff[count]=0;
 			//printf("%s\n", buff);
 
-            int i=0;
+            int i = 0;
             for (i = 0; i < count; i++){
                 elem.c=buff[i];
                 cbWrite(&cb, &elem);
             }
 
             //if(cbIsFull(&cb) == 1) {
-            if(cb.count >= 12) {
+            if(cb.count >= ELA_DATA_SIZE) {
                 seek(&cb, '[');
 
                 /* Remove and print all elements */
-                while (!cbIsEmpty(&cb)) {
+                while (!cbIsEmpty(&cb) && cb.count > ELA_DATA_SIZE) {
+
                     cbRead(&cb, &elem);
                     printf("%c", elem.c);
                 }
-                printf("--\n");
+                printf("\n");
             }
 		}
 	} while(count >= 0);
