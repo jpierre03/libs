@@ -1,13 +1,17 @@
-all: main
+all: circular
+
+
+circular: circular.c
+	$(CC) -Wall circular.c -o circular
 
 main: main.o list.o
-	gcc -o main main.o list.o -lm
+	$(CC) -o main main.o list.o -lm
 
 main.o: main.c
-	gcc -Wall -c main.c
+	$(CC) -Wall -c main.c
 
 list.o: list.c
-	gcc -Wall -c list.c 
+	$(CC) -Wall -c list.c 
 
 clean:
 	rm -f *.o main
