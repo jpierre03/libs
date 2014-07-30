@@ -36,7 +36,8 @@ int main()
 
 	bzero((char *)&serv_addr, sizeof(serv_addr));
 
-	server = gethostbyname("127.0.0.1");
+	//server = gethostbyname("127.0.0.1");
+	server = gethostbyname("172.16.201.197");
 
 	if(server == NULL) {       
 		printf("Failed finding server name\n");
@@ -50,7 +51,8 @@ int main()
 	// The function htons (host to network short) ensures that an integer is  
 	// interpreted correctly (whether little endian or big endian) even if client and 
 	// server have different architectures
-	serv_addr.sin_port = htons(1234);
+	//serv_addr.sin_port = htons(1234);
+	serv_addr.sin_port = htons(10001);
 
 	if (connect(sock_descriptor, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
 		printf("Failed to connect to server\n");
@@ -59,14 +61,27 @@ int main()
 		printf("Connected successfully - Please enter string\n");
 	}
 
-	fgets(buff, MAX_SIZE-1, stdin);
 
-	int count = write(sock_descriptor, buff, strlen(buff));
+	int count=0;
+	do {
+		int count = read(sock_descriptor, buff, MAX_SIZE - 1);
+		if( count > 0) {
+			buff[count]=0;
+			printf("%s\n", buff);
+		}
 
-	if(count < 0) {
-		printf("Failed writing rquested bytes to server\n");
+	}while(count >=0);
+
+
+	{	
+		fgets(buff, MAX_SIZE-1, stdin);
+
+		int count = write(sock_descriptor, buff, strlen(buff));
+
+		if(count < 0) {
+			printf("Failed writing rquested bytes to server\n");
+		}
 	}
-
 	close(sock_descriptor); 
 	return 0;
 }
