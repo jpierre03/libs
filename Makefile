@@ -1,8 +1,8 @@
 all: circular client
 
 
-circular: circular.c
-	$(CC) -Wall circular.c -o circular
+circular: circular.c jppcircular.h
+	$(CC) -Wall -pedantic circular.c -o circular
 
 client: client.c
 	$(CC) -Wall client.c -o client

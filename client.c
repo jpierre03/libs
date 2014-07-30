@@ -12,6 +12,23 @@
 
 #define MAX_SIZE 50
 
+/* Opaque buffer element type.  This would be defined by the application. */
+typedef struct { char c; } ElemType;
+
+#include "jppcircular.h"
+
+void seek(CircularBuffer *cb, char toFind){
+    ElemType *elem = &(cb->elems[cb->start]);
+
+    if(elem->c == toFind){
+        // found
+    
+    } else if(!cbIsEmpty(cb)) {
+        cbRead(cb, elem);
+        seek(cb, toFind);
+    }
+}
+
 int main(int argc, char** argv) {
     /**
      * Default values
@@ -35,6 +52,15 @@ int main(int argc, char** argv) {
      * Buffer to input data from console and write to server
      */
 	char buff[MAX_SIZE];
+    
+    /**
+     * Circular buffer data
+     */
+    CircularBuffer cb;
+	ElemType elem = {0};
+    
+	int testBufferSize = 80; /* arbitrary size */
+	cbInit(&cb, testBufferSize);
 
     /**
 	 * Create socket of domain - Internet (IP) address, type - Stream based (TCP) and protocol unspecified
@@ -79,10 +105,27 @@ int main(int argc, char** argv) {
 		int count = read(sock_descriptor, buff, MAX_SIZE - 1);
 		if( count > 0) {
 			buff[count]=0;
-			printf("%s\n", buff);
-		}
+			//printf("%s\n", buff);
 
-	}while(count >= 0);
+            int i=0;
+            for (i = 0; i < count; i++){
+                elem.c=buff[i];
+                cbWrite(&cb, &elem);
+            }
+
+            //if(cbIsFull(&cb) == 1) {
+            if(cb.count >= 12) {
+                seek(&cb, '[');
+
+                /* Remove and print all elements */
+                while (!cbIsEmpty(&cb)) {
+                    cbRead(&cb, &elem);
+                    printf("%c", elem.c);
+                }
+                printf("--\n");
+            }
+		}
+	} while(count >= 0);
 
 	{/**
 		fgets(buff, MAX_SIZE-1, stdin);
