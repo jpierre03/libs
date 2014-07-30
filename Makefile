@@ -1,8 +1,11 @@
-all: circular
+all: circular client
 
 
 circular: circular.c
 	$(CC) -Wall circular.c -o circular
+
+client: client.c
+	$(CC) -Wall client.c -o client
 
 main: main.o list.o
 	$(CC) -o main main.o list.o -lm
