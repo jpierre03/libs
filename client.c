@@ -25,6 +25,7 @@ void seek(CircularBuffer *cb, char toFind){
         // found
 
     } else if(!cbIsEmpty(cb)) {
+        printf("+");
         cbRead(cb, elem);
         seek(cb, toFind);
     }
@@ -114,20 +115,22 @@ int main(int argc, char** argv) {
                 elem.c=buff[i];
                 cbWrite(&cb, &elem);
             }
-
-            //if(cbIsFull(&cb) == 1) {
-            if(cb.count >= ELA_DATA_SIZE) {
-                seek(&cb, '[');
-
-                /* Remove and print all elements */
-                while (!cbIsEmpty(&cb) && cb.count > ELA_DATA_SIZE) {
-
-                    cbRead(&cb, &elem);
-                    printf("%c", elem.c);
-                }
-                printf("\n");
-            }
 		}
+        
+        seek(&cb, '[');
+
+        printf("> ");
+        if(cb.count >= ELA_DATA_SIZE) {
+            /* Remove and print all elements */
+            while (!cbIsEmpty(&cb)) {
+                
+                cbRead(&cb, &elem);
+                printf("%c", elem.c);
+            }
+             printf("\t(%d)\n", cb.count);
+        }else{
+            printf("\t\t(%d)\n", cb.count);
+        }
 	} while(count >= 0);
 
 	{/**
