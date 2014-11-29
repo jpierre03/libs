@@ -3,48 +3,49 @@
  *  Execution:    java GabowSCC V E
  *  Dependencies: Digraph.java Stack.java TransitiveClosure.java StdOut.java
  *
- *  Compute the strongly-connected components of a digraph using 
+ *  Compute the strongly-connected components of a digraph using
  *  Gabow's algorithm (aka Cheriyan-Mehlhorn algorithm).
  *
  *  Runs in O(E + V) time.
  *
  *  % java GabowSCC tinyDG.txt
  *  5 components
- *  1 
+ *  1
  *  0 2 3 4 5
  *  9 10 11 12
  *  6 8
- *  7 
+ *  7
  *
  *************************************************************************/
+
 /**
- *  The <tt>GabowSCC</tt> class represents a data type for 
- *  determining the strong components in a digraph.
- *  The <em>id</em> operation determines in which strong component
- *  a given vertex lies; the <em>areStronglyConnected</em> operation
- *  determines whether two vertices are in the same strong component;
- *  and the <em>count</em> operation determines the number of strong
- *  components.
-
- *  The <em>component identifier</em> of a component is one of the
- *  vertices in the strong component: two vertices have the same component
- *  identifier if and only if they are in the same strong component.
-
- *  <p>
- *  This implementation uses the Gabow's algorithm.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>
- *  (in the worst case),
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the <em>id</em>, <em>count</em>, and <em>areStronglyConnected</em>
- *  operations take constant time.
- *  For alternate implementations of the same API, see
- *  {@link KosarajuSharirSCC} and {@link TarjanSCC}.
- *  <p>
- *  For additional documentation, see <a href="/algs4/42digraph">Section 4.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>GabowSCC</tt> class represents a data type for
+ * determining the strong components in a digraph.
+ * The <em>id</em> operation determines in which strong component
+ * a given vertex lies; the <em>areStronglyConnected</em> operation
+ * determines whether two vertices are in the same strong component;
+ * and the <em>count</em> operation determines the number of strong
+ * components.
+ * <p/>
+ * The <em>component identifier</em> of a component is one of the
+ * vertices in the strong component: two vertices have the same component
+ * identifier if and only if they are in the same strong component.
+ * <p/>
+ * <p/>
+ * This implementation uses the Gabow's algorithm.
+ * The constructor takes time proportional to <em>V</em> + <em>E</em>
+ * (in the worst case),
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * Afterwards, the <em>id</em>, <em>count</em>, and <em>areStronglyConnected</em>
+ * operations take constant time.
+ * For alternate implementations of the same API, see
+ * {@link KosarajuSharirSCC} and {@link TarjanSCC}.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/42digraph">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class GabowSCC {
 
@@ -59,13 +60,14 @@ public class GabowSCC {
 
     /**
      * Computes the strong components of the digraph <tt>G</tt>.
+     *
      * @param G the digraph
      */
     public GabowSCC(Digraph G) {
         marked = new boolean[G.V()];
         stack1 = new Stack<Integer>();
         stack2 = new Stack<Integer>();
-        id = new int[G.V()]; 
+        id = new int[G.V()];
         preorder = new int[G.V()];
         for (int v = 0; v < G.V(); v++) id[v] = -1;
 
@@ -77,7 +79,7 @@ public class GabowSCC {
         assert check(G);
     }
 
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         preorder[v] = pre++;
         stack1.push(v);
@@ -104,6 +106,7 @@ public class GabowSCC {
 
     /**
      * Returns the number of strong components.
+     *
      * @return the number of strong components
      */
     public int count() {
@@ -112,10 +115,11 @@ public class GabowSCC {
 
     /**
      * Are vertices <tt>v</tt> and <tt>w</tt> in the same strong component?
+     *
      * @param v one vertex
      * @param w the other vertex
      * @return <tt>true</tt> if vertices <tt>v</tt> and <tt>w</tt> are in the same
-     *     strong component, and <tt>false</tt> otherwise
+     *         strong component, and <tt>false</tt> otherwise
      */
     public boolean stronglyConnected(int v, int w) {
         return id[v] == id[w];
@@ -123,6 +127,7 @@ public class GabowSCC {
 
     /**
      * Returns the component id of the strong component containing vertex <tt>v</tt>.
+     *
      * @param v the vertex
      * @return the component id of the strong component containing vertex <tt>v</tt>
      */

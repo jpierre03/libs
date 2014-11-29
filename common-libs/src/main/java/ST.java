@@ -1,7 +1,7 @@
 /*************************************************************************
  *  Compilation:  javac ST.java
  *  Execution:    java ST
- *  
+ *
  *  Sorted symbol table implementation using a java.util.TreeMap.
  *  Does not allow duplicates.
  *
@@ -11,37 +11,36 @@
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- *  The <tt>ST</tt> class represents an ordered symbol table of generic
- *  key-value pairs.
- *  It supports the usual <em>put</em>, <em>get</em>, <em>contains</em>,
- *  <em>delete</em>, <em>size</em>, and <em>is-empty</em> methods.
- *  It also provides ordered methods for finding the <em>minimum</em>,
- *  <em>maximum</em>, <em>floor</em>, and <em>ceiling</em>.
- *  It also provides a <em>keys</em> method for iterating over all of the keys.
- *  A symbol table implements the <em>associative array</em> abstraction:
- *  when associating a value with a key that is already in the symbol table,
- *  the convention is to replace the old value with the new value.
- *  Unlike {@link java.util.Map}, this class uses the convention that
- *  values cannot be <tt>null</tt>&mdash;setting the
- *  value associated with a key to <tt>null</tt> is equivalent to deleting the key
- *  from the symbol table.
- *  <p>
- *  This implementation uses a balanced binary search tree. It requires that
- *  the key type implements the <tt>Comparable</tt> interface and calls the
- *  <tt>compareTo()</tt> and method to compare two keys. It does not call either
- *  <tt>equals()</tt> or <tt>hashCode()</tt>.
- *  The <em>put</em>, <em>contains</em>, <em>remove</em>, <em>minimum</em>,
- *  <em>maximum</em>, <em>ceiling</em>, and <em>floor</em> operations each take
- *  logarithmic time in the worst case.
- *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
- *  Construction takes constant time.
- *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>ST</tt> class represents an ordered symbol table of generic
+ * key-value pairs.
+ * It supports the usual <em>put</em>, <em>get</em>, <em>contains</em>,
+ * <em>delete</em>, <em>size</em>, and <em>is-empty</em> methods.
+ * It also provides ordered methods for finding the <em>minimum</em>,
+ * <em>maximum</em>, <em>floor</em>, and <em>ceiling</em>.
+ * It also provides a <em>keys</em> method for iterating over all of the keys.
+ * A symbol table implements the <em>associative array</em> abstraction:
+ * when associating a value with a key that is already in the symbol table,
+ * the convention is to replace the old value with the new value.
+ * Unlike {@link java.util.Map}, this class uses the convention that
+ * values cannot be <tt>null</tt>&mdash;setting the
+ * value associated with a key to <tt>null</tt> is equivalent to deleting the key
+ * from the symbol table.
+ * <p/>
+ * This implementation uses a balanced binary search tree. It requires that
+ * the key type implements the <tt>Comparable</tt> interface and calls the
+ * <tt>compareTo()</tt> and method to compare two keys. It does not call either
+ * <tt>equals()</tt> or <tt>hashCode()</tt>.
+ * The <em>put</em>, <em>contains</em>, <em>remove</em>, <em>minimum</em>,
+ * <em>maximum</em>, <em>ceiling</em>, and <em>floor</em> operations each take
+ * logarithmic time in the worst case.
+ * The <em>size</em>, and <em>is-empty</em> operations take constant time.
+ * Construction takes constant time.
+ * <p/>
+ * For additional documentation, see <a href="http://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
@@ -57,9 +56,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Returns the value associated with the given key.
+     *
      * @param key the key
      * @return the value associated with the given key if the key is in the symbol table
-     *     and <tt>null</tt> if the key is not in the symbol table
+     *         and <tt>null</tt> if the key is not in the symbol table
      * @throws NullPointerException if <tt>key</tt> is <tt>null</tt>
      */
     public Value get(Key key) {
@@ -71,6 +71,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * Inserts the key-value pair into the symbol table, overwriting the old value
      * with the new value if the key is already in the symbol table.
      * If the value is <tt>null</tt>, this effectively deletes the key from the symbol table.
+     *
      * @param key the key
      * @param val the value
      * @throws NullPointerException if <tt>key</tt> is <tt>null</tt>
@@ -78,12 +79,13 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
     public void put(Key key, Value val) {
         if (key == null) throw new NullPointerException("called put() with null key");
         if (val == null) st.remove(key);
-        else             st.put(key, val);
+        else st.put(key, val);
     }
 
     /**
      * Removes the key and associated value from the symbol table
      * (if the key is in the symbol table).
+     *
      * @param key the key
      * @throws NullPointerException if <tt>key</tt> is <tt>null</tt>
      */
@@ -94,9 +96,10 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Does this symbol table contain the given key?
+     *
      * @param key the key
      * @return <tt>true</tt> if this symbol table contains <tt>key</tt> and
-     *     <tt>false</tt> otherwise
+     *         <tt>false</tt> otherwise
      * @throws NullPointerException if <tt>key</tt> is <tt>null</tt>
      */
     public boolean contains(Key key) {
@@ -106,6 +109,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Returns the number of key-value pairs in this symbol table.
+     *
      * @return the number of key-value pairs in this symbol table
      */
     public int size() {
@@ -114,6 +118,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Is this symbol table empty?
+     *
      * @return <tt>true</tt> if this symbol table is empty and <tt>false</tt> otherwise
      */
     public boolean isEmpty() {
@@ -124,6 +129,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * Returns all keys in the symbol table as an <tt>Iterable</tt>.
      * To iterate over all of the keys in the symbol table named <tt>st</tt>,
      * use the foreach notation: <tt>for (Key key : st.keys())</tt>.
+     *
      * @return all keys in the sybol table as an <tt>Iterable</tt>
      */
     public Iterable<Key> keys() {
@@ -134,10 +140,11 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
      * Returns all of the keys in the symbol table as an iterator.
      * To iterate over all of the keys in a symbol table named <tt>st</tt>, use the
      * foreach notation: <tt>for (Key key : st)</tt>.
-     * @deprecated Use {@link #keys} instead.
-     * This method is provided for backward compatibility with the version from
-     * <em>Introduction to Programming in Java: An Interdisciplinary Approach.</em>
+     *
      * @return an iterator to all of the keys in the symbol table
+     * @deprecated Use {@link #keys} instead.
+     *             This method is provided for backward compatibility with the version from
+     *             <em>Introduction to Programming in Java: An Interdisciplinary Approach.</em>
      */
     public Iterator<Key> iterator() {
         return st.keySet().iterator();
@@ -145,6 +152,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Returns the smallest key in the symbol table.
+     *
      * @return the smallest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
@@ -155,6 +163,7 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Returns the largest key in the symbol table.
+     *
      * @return the largest key in the symbol table
      * @throws NoSuchElementException if the symbol table is empty
      */
@@ -165,10 +174,11 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Returns the smallest key in the symbol table greater than or equal to <tt>key</tt>.
-     * @return the smallest key in the symbol table greater than or equal to <tt>key</tt>
+     *
      * @param key the key
+     * @return the smallest key in the symbol table greater than or equal to <tt>key</tt>
      * @throws NoSuchElementException if there is no such key
-     * @throws NullPointerException if <tt>key</tt> is <tt>null</tt>
+     * @throws NullPointerException   if <tt>key</tt> is <tt>null</tt>
      */
     public Key ceiling(Key key) {
         if (key == null) throw new NullPointerException("called ceiling() with null key");
@@ -179,10 +189,11 @@ public class ST<Key extends Comparable<Key>, Value> implements Iterable<Key> {
 
     /**
      * Returns the largest key in the symbol table less than or equal to <tt>key</tt>.
-     * @return the largest key in the symbol table less than or equal to <tt>key</tt>
+     *
      * @param key the key
+     * @return the largest key in the symbol table less than or equal to <tt>key</tt>
      * @throws NoSuchElementException if there is no such key
-     * @throws NullPointerException if <tt>key</tt> is <tt>null</tt>
+     * @throws NullPointerException   if <tt>key</tt> is <tt>null</tt>
      */
     public Key floor(Key key) {
         if (key == null) throw new NullPointerException("called floor() with null key");

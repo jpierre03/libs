@@ -11,14 +11,14 @@
  *  reachable from s.
  *
  *  % java BellmanFordSP tinyEWDn.txt 0
- *  0 to 0 ( 0.00)  
+ *  0 to 0 ( 0.00)
  *  0 to 1 ( 0.93)  0->2  0.26   2->7  0.34   7->3  0.39   3->6  0.52   6->4 -1.25   4->5  0.35   5->1  0.32
- *  0 to 2 ( 0.26)  0->2  0.26   
- *  0 to 3 ( 0.99)  0->2  0.26   2->7  0.34   7->3  0.39   
- *  0 to 4 ( 0.26)  0->2  0.26   2->7  0.34   7->3  0.39   3->6  0.52   6->4 -1.25   
+ *  0 to 2 ( 0.26)  0->2  0.26
+ *  0 to 3 ( 0.99)  0->2  0.26   2->7  0.34   7->3  0.39
+ *  0 to 4 ( 0.26)  0->2  0.26   2->7  0.34   7->3  0.39   3->6  0.52   6->4 -1.25
  *  0 to 5 ( 0.61)  0->2  0.26   2->7  0.34   7->3  0.39   3->6  0.52   6->4 -1.25   4->5  0.35
- *  0 to 6 ( 1.51)  0->2  0.26   2->7  0.34   7->3  0.39   3->6  0.52   
- *  0 to 7 ( 0.60)  0->2  0.26   2->7  0.34   
+ *  0 to 6 ( 1.51)  0->2  0.26   2->7  0.34   7->3  0.39   3->6  0.52
+ *  0 to 7 ( 0.60)  0->2  0.26   2->7  0.34
  *
  *  % java BellmanFordSP tinyEWDnc.txt 0
  *  4->5  0.35
@@ -28,26 +28,26 @@
  *************************************************************************/
 
 /**
- *  The <tt>BellmanFordSP</tt> class represents a data type for solving the
- *  single-source shortest paths problem in edge-weighted digraphs with
- *  no negative cycles. 
- *  The edge weights can be positive, negative, or zero.
- *  This class finds either a shortest path from the source vertex <em>s</em>
- *  to every other vertex or a negative cycle reachable from the source vertex.
- *  <p>
- *  This implementation uses the Bellman-Ford-Moore algorithm.
- *  The constructor takes time proportional to <em>V</em> (<em>V</em> + <em>E</em>)
- *  in the worst case, where <em>V</em> is the number of vertices and <em>E</em>
- *  is the number of edges.
- *  Afterwards, the <tt>distTo()</tt>, <tt>hasPathTo()</tt>, and <tt>hasNegativeCycle()</tt>
- *  methods take constant time; the <tt>pathTo()</tt> and <tt>negativeCycle()</tt>
- *  method takes time proportional to the number of edges returned.
- *  <p>
- *  For additional documentation, see <a href="/algs4/44sp">Section 4.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>BellmanFordSP</tt> class represents a data type for solving the
+ * single-source shortest paths problem in edge-weighted digraphs with
+ * no negative cycles.
+ * The edge weights can be positive, negative, or zero.
+ * This class finds either a shortest path from the source vertex <em>s</em>
+ * to every other vertex or a negative cycle reachable from the source vertex.
+ * <p/>
+ * This implementation uses the Bellman-Ford-Moore algorithm.
+ * The constructor takes time proportional to <em>V</em> (<em>V</em> + <em>E</em>)
+ * in the worst case, where <em>V</em> is the number of vertices and <em>E</em>
+ * is the number of edges.
+ * Afterwards, the <tt>distTo()</tt>, <tt>hasPathTo()</tt>, and <tt>hasNegativeCycle()</tt>
+ * methods take constant time; the <tt>pathTo()</tt> and <tt>negativeCycle()</tt>
+ * method takes time proportional to the number of edges returned.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/44sp">Section 4.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class BellmanFordSP {
     private double[] distTo;               // distTo[v] = distance  of shortest s->v path
@@ -60,13 +60,14 @@ public class BellmanFordSP {
     /**
      * Computes a shortest paths tree from <tt>s</tt> to every other vertex in
      * the edge-weighted digraph <tt>G</tt>.
+     *
      * @param G the acyclic digraph
      * @param s the source vertex
      * @throws IllegalArgumentException unless 0 &le; <tt>s</tt> &le; <tt>V</tt> - 1
      */
     public BellmanFordSP(EdgeWeightedDigraph G, int s) {
-        distTo  = new double[G.V()];
-        edgeTo  = new DirectedEdge[G.V()];
+        distTo = new double[G.V()];
+        edgeTo = new DirectedEdge[G.V()];
         onQueue = new boolean[G.V()];
         for (int v = 0; v < G.V(); v++)
             distTo[v] = Double.POSITIVE_INFINITY;
@@ -104,8 +105,9 @@ public class BellmanFordSP {
 
     /**
      * Is there a negative cycle reachable from the source vertex <tt>s</tt>?
+     *
      * @return <tt>true</tt> if there is a negative cycle reachable from the
-     *    source vertex <tt>s</tt>, and <tt>false</tt> otherwise
+     *         source vertex <tt>s</tt>, and <tt>false</tt> otherwise
      */
     public boolean hasNegativeCycle() {
         return cycle != null;
@@ -114,8 +116,9 @@ public class BellmanFordSP {
     /**
      * Returns a negative cycle reachable from the source vertex <tt>s</tt>, or <tt>null</tt>
      * if there is no such cycle.
-     * @return a negative cycle reachable from the soruce vertex <tt>s</tt> 
-     *    as an iterable of edges, and <tt>null</tt> if there is no such cycle
+     *
+     * @return a negative cycle reachable from the soruce vertex <tt>s</tt>
+     *         as an iterable of edges, and <tt>null</tt> if there is no such cycle
      */
     public Iterable<DirectedEdge> negativeCycle() {
         return cycle;
@@ -135,11 +138,12 @@ public class BellmanFordSP {
 
     /**
      * Returns the length of a shortest path from the source vertex <tt>s</tt> to vertex <tt>v</tt>.
+     *
      * @param v the destination vertex
      * @return the length of a shortest path from the source vertex <tt>s</tt> to vertex <tt>v</tt>;
-     *    <tt>Double.POSITIVE_INFINITY</tt> if no such path
+     *         <tt>Double.POSITIVE_INFINITY</tt> if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle reachable
-     *    from the source vertex <tt>s</tt>
+     *                                       from the source vertex <tt>s</tt>
      */
     public double distTo(int v) {
         if (hasNegativeCycle())
@@ -149,9 +153,10 @@ public class BellmanFordSP {
 
     /**
      * Is there a path from the source <tt>s</tt> to vertex <tt>v</tt>?
+     *
      * @param v the destination vertex
      * @return <tt>true</tt> if there is a path from the source vertex
-     *    <tt>s</tt> to vertex <tt>v</tt>, and <tt>false</tt> otherwise
+     *         <tt>s</tt> to vertex <tt>v</tt>, and <tt>false</tt> otherwise
      */
     public boolean hasPathTo(int v) {
         return distTo[v] < Double.POSITIVE_INFINITY;
@@ -159,11 +164,12 @@ public class BellmanFordSP {
 
     /**
      * Returns a shortest path from the source <tt>s</tt> to vertex <tt>v</tt>.
+     *
      * @param v the destination vertex
      * @return a shortest path from the source <tt>s</tt> to vertex <tt>v</tt>
-     *    as an iterable of edges, and <tt>null</tt> if no such path
+     *         as an iterable of edges, and <tt>null</tt> if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle reachable
-     *    from the source vertex <tt>s</tt>
+     *                                       from the source vertex <tt>s</tt>
      */
     public Iterable<DirectedEdge> pathTo(int v) {
         if (hasNegativeCycle())
@@ -176,9 +182,9 @@ public class BellmanFordSP {
         return path;
     }
 
-    // check optimality conditions: either 
+    // check optimality conditions: either
     // (i) there exists a negative cycle reacheable from s
-    //     or 
+    //     or
     // (ii)  for all edges e = v->w:            distTo[w] <= distTo[v] + e.weight()
     // (ii') for all edges e = v->w on the SPT: distTo[w] == distTo[v] + e.weight()
     private boolean check(EdgeWeightedDigraph G, int s) {
@@ -265,8 +271,7 @@ public class BellmanFordSP {
                         StdOut.print(e + "   ");
                     }
                     StdOut.println();
-                }
-                else {
+                } else {
                     StdOut.printf("%d to %d           no path\n", s, v);
                 }
             }

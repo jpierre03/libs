@@ -25,20 +25,20 @@
  *************************************************************************/
 
 /**
- *  The <tt>DepthFirstDirectedPaths</tt> class represents a data type for finding
- *  directed paths from a source vertex <em>s</em> to every
- *  other vertex in the digraph.
- *  <p>
- *  This implementation uses depth-first search.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  It uses extra space (not including the graph) proportional to <em>V</em>.
- *  <p>
- *  For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>DepthFirstDirectedPaths</tt> class represents a data type for finding
+ * directed paths from a source vertex <em>s</em> to every
+ * other vertex in the digraph.
+ * <p/>
+ * This implementation uses depth-first search.
+ * The constructor takes time proportional to <em>V</em> + <em>E</em>,
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * It uses extra space (not including the graph) proportional to <em>V</em>.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class DepthFirstDirectedPaths {
     private boolean[] marked;  // marked[v] = true if v is reachable from s
@@ -47,6 +47,7 @@ public class DepthFirstDirectedPaths {
 
     /**
      * Computes a directed path from <tt>s</tt> to every other vertex in digraph <tt>G</tt>.
+     *
      * @param G the digraph
      * @param s the source vertex
      */
@@ -57,7 +58,7 @@ public class DepthFirstDirectedPaths {
         dfs(G, s);
     }
 
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         for (int w : G.adj(v)) {
             if (!marked[w]) {
@@ -69,21 +70,23 @@ public class DepthFirstDirectedPaths {
 
     /**
      * Is there a directed path from the source vertex <tt>s</tt> to vertex <tt>v</tt>?
+     *
      * @param v the vertex
      * @return <tt>true</tt> if there is a directed path from the source
-     *   vertex <tt>s</tt> to vertex <tt>v</tt>, <tt>false</tt> otherwise
+     *         vertex <tt>s</tt> to vertex <tt>v</tt>, <tt>false</tt> otherwise
      */
     public boolean hasPathTo(int v) {
         return marked[v];
     }
 
-    
+
     /**
      * Returns a directed path from the source vertex <tt>s</tt> to vertex <tt>v</tt>, or
      * <tt>null</tt> if no such path.
+     *
      * @param v the vertex
      * @return the sequence of vertices on a directed path from the source vertex
-     *   <tt>s</tt> to vertex <tt>v</tt>, as an Iterable
+     *         <tt>s</tt> to vertex <tt>v</tt>, as an Iterable
      */
     public Iterable<Integer> pathTo(int v) {
         if (!hasPathTo(v)) return null;
@@ -110,12 +113,10 @@ public class DepthFirstDirectedPaths {
                 StdOut.printf("%d to %d:  ", s, v);
                 for (int x : dfs.pathTo(v)) {
                     if (x == s) StdOut.print(x);
-                    else        StdOut.print("-" + x);
+                    else StdOut.print("-" + x);
                 }
                 StdOut.println();
-            }
-
-            else {
+            } else {
                 StdOut.printf("%d to %d:  not connected\n", s, v);
             }
 

@@ -20,34 +20,36 @@
  *  140925
  *  161828
  *  [367,966 total values]
- *  
+ *
  *************************************************************************/
 
 import java.util.Arrays;
 
 /**
- *  The <tt>BinarySearch</tt> class provides a static method for binary
- *  searching for an integer in a sorted array of integers.
- *  <p>
- *  The <em>rank</em> operations takes logarithmic time in the worst case.
- *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/11model">Section 1.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>BinarySearch</tt> class provides a static method for binary
+ * searching for an integer in a sorted array of integers.
+ * <p/>
+ * The <em>rank</em> operations takes logarithmic time in the worst case.
+ * <p/>
+ * For additional documentation, see <a href="http://algs4.cs.princeton.edu/11model">Section 1.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class BinarySearch {
 
     /**
      * This class should not be instantiated.
      */
-    private BinarySearch() { }
+    private BinarySearch() {
+    }
 
     /**
      * Searches for the integer key in the sorted array a[].
+     *
      * @param key the search key
-     * @param a the array of integers, must be sorted in ascending order
+     * @param a   the array of integers, must be sorted in ascending order
      * @return index of key in array a[] if present; -1 if not present
      */
     public static int rank(int key, int[] a) {
@@ -56,7 +58,7 @@ public class BinarySearch {
         while (lo <= hi) {
             // Key is in a[lo..hi] or not present.
             int mid = lo + (hi - lo) / 2;
-            if      (key < a[mid]) hi = mid - 1;
+            if (key < a[mid]) hi = mid - 1;
             else if (key > a[mid]) lo = mid + 1;
             else return mid;
         }

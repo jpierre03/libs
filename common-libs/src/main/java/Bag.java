@@ -4,7 +4,7 @@
  *
  *  A generic bag or multiset, implemented using a singly-linked list.
  *
- *  % more tobe.txt 
+ *  % more tobe.txt
  *  to be or not to - be - - that - - - is
  *
  *  % java Bag < tobe.txt
@@ -30,21 +30,21 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *  The <tt>Bag</tt> class represents a bag (or multiset) of 
- *  generic items. It supports insertion and iterating over the 
- *  items in arbitrary order.
- *  <p>
- *  This implementation uses a singly-linked list with a static nested class Node.
- *  See {@link LinkedBag} for the version from the
- *  textbook that uses a non-static nested class.
- *  The <em>add</em>, <em>isEmpty</em>, and <em>size</em> operations
- *  take constant time. Iteration takes time proportional to the number of items.
- *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>Bag</tt> class represents a bag (or multiset) of
+ * generic items. It supports insertion and iterating over the
+ * items in arbitrary order.
+ * <p/>
+ * This implementation uses a singly-linked list with a static nested class Node.
+ * See {@link LinkedBag} for the version from the
+ * textbook that uses a non-static nested class.
+ * The <em>add</em>, <em>isEmpty</em>, and <em>size</em> operations
+ * take constant time. Iteration takes time proportional to the number of items.
+ * <p/>
+ * For additional documentation, see <a href="http://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Bag<Item> implements Iterable<Item> {
     private int N;               // number of elements in bag
@@ -66,6 +66,7 @@ public class Bag<Item> implements Iterable<Item> {
 
     /**
      * Is this bag empty?
+     *
      * @return true if this bag is empty; false otherwise
      */
     public boolean isEmpty() {
@@ -74,6 +75,7 @@ public class Bag<Item> implements Iterable<Item> {
 
     /**
      * Returns the number of items in this bag.
+     *
      * @return the number of items in this bag
      */
     public int size() {
@@ -82,6 +84,7 @@ public class Bag<Item> implements Iterable<Item> {
 
     /**
      * Adds the item to this bag.
+     *
      * @param item the item to add to this bag
      */
     public void add(Item item) {
@@ -95,10 +98,11 @@ public class Bag<Item> implements Iterable<Item> {
 
     /**
      * Returns an iterator that iterates over the items in the bag in arbitrary order.
+     *
      * @return an iterator that iterates over the items in the bag in arbitrary order
      */
-    public Iterator<Item> iterator()  {
-        return new ListIterator<Item>(first);  
+    public Iterator<Item> iterator() {
+        return new ListIterator<Item>(first);
     }
 
     // an iterator, doesn't implement remove() since it's optional
@@ -109,13 +113,18 @@ public class Bag<Item> implements Iterable<Item> {
             current = first;
         }
 
-        public boolean hasNext()  { return current != null;                     }
-        public void remove()      { throw new UnsupportedOperationException();  }
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException();
             Item item = current.item;
-            current = current.next; 
+            current = current.next;
             return item;
         }
     }

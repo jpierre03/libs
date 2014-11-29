@@ -10,30 +10,30 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *  The <tt>IndexMaxPQ</tt> class represents an indexed priority queue of generic keys.
- *  It supports the usual <em>insert</em> and <em>delete-the-maximum</em>
- *  operations, along with <em>delete</em> and <em>change-the-key</em> 
- *  methods. In order to let the client refer to items on the priority queue,
- *  an integer between 0 and NMAX-1 is associated with each key&mdash;the client
- *  uses this integer to specify which key to delete or change.
- *  It also supports methods for peeking at a maximum key,
- *  testing if the priority queue is empty, and iterating through
- *  the keys.
- *  <p>
- *  This implementation uses a binary heap along with an array to associate
- *  keys with integers in the given range.
- *  The <em>insert</em>, <em>delete-the-maximum</em>, <em>delete</em>,
- *  <em>change-key</em>, <em>decrease-key</em>, and <em>increase-key</em>
- *  operations take logarithmic time.
- *  The <em>is-empty</em>, <em>size</em>, <em>max-index</em>, <em>max-key</em>, and <em>key-of</em>
- *  operations take constant time.
- *  Construction takes time proportional to the specified capacity.
- *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>IndexMaxPQ</tt> class represents an indexed priority queue of generic keys.
+ * It supports the usual <em>insert</em> and <em>delete-the-maximum</em>
+ * operations, along with <em>delete</em> and <em>change-the-key</em>
+ * methods. In order to let the client refer to items on the priority queue,
+ * an integer between 0 and NMAX-1 is associated with each key&mdash;the client
+ * uses this integer to specify which key to delete or change.
+ * It also supports methods for peeking at a maximum key,
+ * testing if the priority queue is empty, and iterating through
+ * the keys.
+ * <p/>
+ * This implementation uses a binary heap along with an array to associate
+ * keys with integers in the given range.
+ * The <em>insert</em>, <em>delete-the-maximum</em>, <em>delete</em>,
+ * <em>change-key</em>, <em>decrease-key</em>, and <em>increase-key</em>
+ * operations take logarithmic time.
+ * The <em>is-empty</em>, <em>size</em>, <em>max-index</em>, <em>max-key</em>, and <em>key-of</em>
+ * operations take constant time.
+ * Construction takes time proportional to the specified capacity.
+ * <p/>
+ * For additional documentation, see <a href="http://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer> {
     private int N;           // number of elements on PQ
@@ -43,26 +43,33 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
     /**
      * Initializes an empty indexed priority queue with indices between 0 and NMAX-1.
+     *
      * @param NMAX the keys on the priority queue are index from 0 to NMAX-1
-     * @throws java.lang.IllegalArgumentException if NMAX < 0
+     * @throws java.lang.IllegalArgumentException
+     *          if NMAX < 0
      */
     public IndexMaxPQ(int NMAX) {
         keys = (Key[]) new Comparable[NMAX + 1];    // make this of length NMAX??
-        pq   = new int[NMAX + 1];
-        qp   = new int[NMAX + 1];                   // make this of length NMAX??
+        pq = new int[NMAX + 1];
+        qp = new int[NMAX + 1];                   // make this of length NMAX??
         for (int i = 0; i <= NMAX; i++) qp[i] = -1;
     }
 
     /**
      * Is the priority queue empty?
+     *
      * @return true if the priority queue is empty; false otherwise
      */
-    public boolean isEmpty() { return N == 0; }
+    public boolean isEmpty() {
+        return N == 0;
+    }
 
     /**
      * Is i an index on the priority queue?
+     *
      * @param i an index
-     * @throws java.lang.IndexOutOfBoundsException unless (0 &le; i < NMAX)
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless (0 &le; i < NMAX)
      */
     public boolean contains(int i) {
         return qp[i] != -1;
@@ -70,18 +77,22 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
     /**
      * Returns the number of keys on the priority queue.
-     * @return the number of keys on the priority queue 
+     *
+     * @return the number of keys on the priority queue
      */
     public int size() {
         return N;
     }
 
-   /**
+    /**
      * Associate key with index i.
-     * @param i an index
+     *
+     * @param i   an index
      * @param key the key to associate with index i
-     * @throws java.lang.IndexOutOfBoundsException unless 0 &le; i < NMAX
-     * @throws java.util.IllegalArgumentException if there already is an item associated with index i
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 &le; i < NMAX
+     * @throws java.util.IllegalArgumentException
+     *          if there already is an item associated with index i
      */
     public void insert(int i, Key key) {
         if (contains(i)) throw new IllegalArgumentException("index is already in the priority queue");
@@ -94,68 +105,82 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
     /**
      * Returns an index associated with a maximum key.
+     *
      * @return an index associated with a maximum key
-     * @throws java.util.NoSuchElementException if priority queue is empty
+     * @throws java.util.NoSuchElementException
+     *          if priority queue is empty
      */
-    public int maxIndex() { 
+    public int maxIndex() {
         if (N == 0) throw new NoSuchElementException("Priority queue underflow");
         return pq[1];
     }
 
     /**
      * Return a maximum key.
+     *
      * @return a maximum key
-     * @throws java.util.NoSuchElementException if priority queue is empty
+     * @throws java.util.NoSuchElementException
+     *          if priority queue is empty
      */
-    public Key maxKey() { 
+    public Key maxKey() {
         if (N == 0) throw new NoSuchElementException("Priority queue underflow");
         return keys[pq[1]];
     }
 
     /**
      * Removes a maximum key and returns its associated index.
+     *
      * @return an index associated with a maximum key
-     * @throws java.util.NoSuchElementException if priority queue is empty
+     * @throws java.util.NoSuchElementException
+     *          if priority queue is empty
      */
-    public int delMax() { 
+    public int delMax() {
         if (N == 0) throw new NoSuchElementException("Priority queue underflow");
-        int min = pq[1];        
-        exch(1, N--); 
+        int min = pq[1];
+        exch(1, N--);
         sink(1);
         qp[min] = -1;            // delete
-        keys[pq[N+1]] = null;    // to help with garbage collection
-        pq[N+1] = -1;            // not needed
-        return min; 
+        keys[pq[N + 1]] = null;    // to help with garbage collection
+        pq[N + 1] = -1;            // not needed
+        return min;
     }
 
     /**
      * Returns the key associated with index i.
+     *
      * @param i the index of the key to return
      * @return the key associated with index i
-     * @throws java.lang.IndexOutOfBoundsException unless 0 &le; i < NMAX
-     * @throws java.util.NoSuchElementException no key is associated with index i
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 &le; i < NMAX
+     * @throws java.util.NoSuchElementException
+     *          no key is associated with index i
      */
     public Key keyOf(int i) {
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
         else return keys[i];
     }
 
-   /**
+    /**
      * Change the key associated with index i to the specified value.
-     * @param i the index of the key to change
+     *
+     * @param i   the index of the key to change
      * @param key change the key assocated with index i to this key
-     * @throws java.lang.IndexOutOfBoundsException unless 0 &le; i < NMAX
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 &le; i < NMAX
      * @deprecated Replaced by changeKey()
      */
-    @Deprecated public void change(int i, Key key) {
+    @Deprecated
+    public void change(int i, Key key) {
         changeKey(i, key);
     }
 
     /**
      * Change the key associated with index i to the specified value.
-     * @param i the index of the key to change
+     *
+     * @param i   the index of the key to change
      * @param key change the key assocated with index i to this key
-     * @throws java.lang.IndexOutOfBoundsException unless 0 &le; i < NMAX
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 &le; i < NMAX
      */
     public void changeKey(int i, Key key) {
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
@@ -167,15 +192,20 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
     /**
      * Increase the key associated with index i to the specified value.
-     * @param i the index of the key to increase
+     *
+     * @param i   the index of the key to increase
      * @param key increase the key assocated with index i to this key
-     * @throws java.lang.IndexOutOfBoundsException unless 0 &le; i < NMAX
-     * @throws java.lang.IllegalArgumentException if key &le; key associated with index i
-     * @throws java.util.NoSuchElementException no key is associated with index i
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 &le; i < NMAX
+     * @throws java.lang.IllegalArgumentException
+     *          if key &le; key associated with index i
+     * @throws java.util.NoSuchElementException
+     *          no key is associated with index i
      */
     public void increaseKey(int i, Key key) {
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        if (keys[i].compareTo(key) >= 0) throw new IllegalArgumentException("Calling increaseKey() with given argument would not strictly increase the key");
+        if (keys[i].compareTo(key) >= 0)
+            throw new IllegalArgumentException("Calling increaseKey() with given argument would not strictly increase the key");
 
 
         keys[i] = key;
@@ -184,15 +214,20 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
     /**
      * Decrease the key associated with index i to the specified value.
-     * @param i the index of the key to decrease
+     *
+     * @param i   the index of the key to decrease
      * @param key decrease the key assocated with index i to this key
-     * @throws java.lang.IndexOutOfBoundsException unless 0 &le; i < NMAX
-     * @throws java.lang.IllegalArgumentException if key &ge; key associated with index i
-     * @throws java.util.NoSuchElementException no key is associated with index i
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 &le; i < NMAX
+     * @throws java.lang.IllegalArgumentException
+     *          if key &ge; key associated with index i
+     * @throws java.util.NoSuchElementException
+     *          no key is associated with index i
      */
     public void decreaseKey(int i, Key key) {
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
-        if (keys[i].compareTo(key) <= 0) throw new IllegalArgumentException("Calling decreaseKey() with given argument would not strictly decrease the key");
+        if (keys[i].compareTo(key) <= 0)
+            throw new IllegalArgumentException("Calling decreaseKey() with given argument would not strictly decrease the key");
 
         keys[i] = key;
         sink(qp[i]);
@@ -200,9 +235,12 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
 
     /**
      * Remove the key associated with index i.
+     *
      * @param i the index of the key to remove
-     * @throws java.lang.IndexOutOfBoundsException unless 0 &le; i < NMAX
-     * @throws java.util.NoSuchElementException no key is associated with index i
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 &le; i < NMAX
+     * @throws java.util.NoSuchElementException
+     *          no key is associated with index i
      */
     public void delete(int i) {
         if (!contains(i)) throw new NoSuchElementException("index is not in the priority queue");
@@ -215,33 +253,40 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
     }
 
 
-   /**************************************************************
-    * General helper functions
-    **************************************************************/
+    /**
+     * ***********************************************************
+     * General helper functions
+     * ************************************************************
+     */
     private boolean less(int i, int j) {
         return keys[pq[i]].compareTo(keys[pq[j]]) < 0;
     }
 
     private void exch(int i, int j) {
-        int swap = pq[i]; pq[i] = pq[j]; pq[j] = swap;
-        qp[pq[i]] = i; qp[pq[j]] = j;
+        int swap = pq[i];
+        pq[i] = pq[j];
+        pq[j] = swap;
+        qp[pq[i]] = i;
+        qp[pq[j]] = j;
     }
 
 
-   /**************************************************************
-    * Heap helper functions
-    **************************************************************/
-    private void swim(int k)  {
-        while (k > 1 && less(k/2, k)) {
-            exch(k, k/2);
-            k = k/2;
+    /**
+     * ***********************************************************
+     * Heap helper functions
+     * ************************************************************
+     */
+    private void swim(int k) {
+        while (k > 1 && less(k / 2, k)) {
+            exch(k, k / 2);
+            k = k / 2;
         }
     }
 
     private void sink(int k) {
-        while (2*k <= N) {
-            int j = 2*k;
-            if (j < N && less(j, j+1)) j++;
+        while (2 * k <= N) {
+            int j = 2 * k;
+            if (j < N && less(j, j + 1)) j++;
             if (!less(k, j)) break;
             exch(k, j);
             k = j;
@@ -249,17 +294,20 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
     }
 
 
-   /***********************************************************************
-    * Iterators
-    **********************************************************************/
+    /***********************************************************************
+     * Iterators
+     **********************************************************************/
 
     /**
      * Returns an iterator that iterates over the keys on the
      * priority queue in descending order.
      * The iterator doesn't implement <tt>remove()</tt> since it's optional.
+     *
      * @return an iterator that iterates over the keys in descending order
      */
-    public Iterator<Integer> iterator() { return new HeapIterator(); }
+    public Iterator<Integer> iterator() {
+        return new HeapIterator();
+    }
 
     private class HeapIterator implements Iterator<Integer> {
         // create a new pq
@@ -273,8 +321,13 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
                 copy.insert(pq[i], keys[pq[i]]);
         }
 
-        public boolean hasNext()  { return !copy.isEmpty();                     }
-        public void remove()      { throw new UnsupportedOperationException();  }
+        public boolean hasNext() {
+            return !copy.isEmpty();
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
         public Integer next() {
             if (!hasNext()) throw new NoSuchElementException();
@@ -287,7 +340,7 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
      */
     public static void main(String[] args) {
         // insert a bunch of strings
-        String[] strings = { "it", "was", "the", "best", "of", "times", "it", "was", "the", "worst" };
+        String[] strings = {"it", "was", "the", "best", "of", "times", "it", "was", "the", "worst"};
 
         IndexMaxPQ<String> pq = new IndexMaxPQ<String>(strings.length);
         for (int i = 0; i < strings.length; i++) {

@@ -10,46 +10,46 @@
  *  % java CC tinyG.txt
  *  3 components
  *  0 1 2 3 4 5 6
- *  7 8 
+ *  7 8
  *  9 10 11 12
  *
- *  % java CC mediumG.txt 
+ *  % java CC mediumG.txt
  *  1 components
  *  0 1 2 3 4 5 6 7 8 9 10 ...
  *
- *  % java -Xss50m CC largeG.txt 
+ *  % java -Xss50m CC largeG.txt
  *  1 components
  *  0 1 2 3 4 5 6 7 8 9 10 ...
  *
  *************************************************************************/
 
 /**
- *  The <tt>CC</tt> class represents a data type for 
- *  determining the connected components in an undirected graph.
- *  The <em>id</em> operation determines in which connected component
- *  a given vertex lies; the <em>connected</em> operation
- *  determines whether two vertices are in the same connected component;
- *  the <em>count</em> operation determines the number of connected
- *  components; and the <em>size</em> operation determines the number
- *  of vertices in the connect component containing a given vertex.
-
- *  The <em>component identifier</em> of a connected component is one of the
- *  vertices in the connected component: two vertices have the same component
- *  identifier if and only if they are in the same connected component.
-
- *  <p>
- *  This implementation uses depth-first search.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>
- *  (in the worst case),
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the <em>id</em>, <em>count</em>, <em>connected</em>,
- *  and <em>size</em> operations take constant time.
- *  <p>
- *  For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>CC</tt> class represents a data type for
+ * determining the connected components in an undirected graph.
+ * The <em>id</em> operation determines in which connected component
+ * a given vertex lies; the <em>connected</em> operation
+ * determines whether two vertices are in the same connected component;
+ * the <em>count</em> operation determines the number of connected
+ * components; and the <em>size</em> operation determines the number
+ * of vertices in the connect component containing a given vertex.
+ * <p/>
+ * The <em>component identifier</em> of a connected component is one of the
+ * vertices in the connected component: two vertices have the same component
+ * identifier if and only if they are in the same connected component.
+ * <p/>
+ * <p/>
+ * This implementation uses depth-first search.
+ * The constructor takes time proportional to <em>V</em> + <em>E</em>
+ * (in the worst case),
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * Afterwards, the <em>id</em>, <em>count</em>, <em>connected</em>,
+ * and <em>size</em> operations take constant time.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class CC {
     private boolean[] marked;   // marked[v] = has vertex v been marked?
@@ -59,6 +59,7 @@ public class CC {
 
     /**
      * Computes the connected components of the undirected graph <tt>G</tt>.
+     *
      * @param G the graph
      */
     public CC(Graph G) {
@@ -87,6 +88,7 @@ public class CC {
 
     /**
      * Returns the component id of the connected component containing vertex <tt>v</tt>.
+     *
      * @param v the vertex
      * @return the component id of the connected component containing vertex <tt>v</tt>
      */
@@ -96,6 +98,7 @@ public class CC {
 
     /**
      * Returns the number of vertices in the connected component containing vertex <tt>v</tt>.
+     *
      * @param v the vertex
      * @return the number of vertices in the connected component containing vertex <tt>v</tt>
      */
@@ -105,6 +108,7 @@ public class CC {
 
     /**
      * Returns the number of connected components.
+     *
      * @return the number of connected components
      */
     public int count() {
@@ -113,10 +117,11 @@ public class CC {
 
     /**
      * Are vertices <tt>v</tt> and <tt>w</tt> in the same connected component?
+     *
      * @param v one vertex
      * @param w the other vertex
      * @return <tt>true</tt> if vertices <tt>v</tt> and <tt>w</tt> are in the same
-     *     connected component, and <tt>false</tt> otherwise
+     *         connected component, and <tt>false</tt> otherwise
      */
     public boolean connected(int v, int w) {
         return id(v) == id(w);
@@ -124,10 +129,11 @@ public class CC {
 
     /**
      * Are vertices <tt>v</tt> and <tt>w</tt> in the same connected component?
+     *
      * @param v one vertex
      * @param w the other vertex
      * @return <tt>true</tt> if vertices <tt>v</tt> and <tt>w</tt> are in the same
-     *     connected component, and <tt>false</tt> otherwise
+     *         connected component, and <tt>false</tt> otherwise
      * @deprecated Use connected(v, w) instead.
      */
     public boolean areConnected(int v, int w) {

@@ -24,20 +24,20 @@
  *************************************************************************/
 
 /**
- *  The <tt>BreadthDirectedFirstPaths</tt> class represents a data type for finding
- *  shortest paths (number of edges) from a source vertex <em>s</em>
- *  (or set of source vertices) to every other vertex in the digraph.
- *  <p>
- *  This implementation uses breadth-first search.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  It uses extra space (not including the digraph) proportional to <em>V</em>.
- *  <p>
- *  For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>BreadthDirectedFirstPaths</tt> class represents a data type for finding
+ * shortest paths (number of edges) from a source vertex <em>s</em>
+ * (or set of source vertices) to every other vertex in the digraph.
+ * <p/>
+ * This implementation uses breadth-first search.
+ * The constructor takes time proportional to <em>V</em> + <em>E</em>,
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * It uses extra space (not including the digraph) proportional to <em>V</em>.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class BreadthFirstDirectedPaths {
     private static final int INFINITY = Integer.MAX_VALUE;
@@ -47,6 +47,7 @@ public class BreadthFirstDirectedPaths {
 
     /**
      * Computes the shortest path from <tt>s</tt> and every other vertex in graph <tt>G</tt>.
+     *
      * @param G the digraph
      * @param s the source vertex
      */
@@ -61,7 +62,8 @@ public class BreadthFirstDirectedPaths {
     /**
      * Computes the shortest path from any one of the source vertices in <tt>sources</tt>
      * to every other vertex in graph <tt>G</tt>.
-     * @param G the digraph
+     *
+     * @param G       the digraph
      * @param sources the source vertices
      */
     public BreadthFirstDirectedPaths(Digraph G, Iterable<Integer> sources) {
@@ -114,6 +116,7 @@ public class BreadthFirstDirectedPaths {
 
     /**
      * Is there a directed path from the source <tt>s</tt> (or sources) to vertex <tt>v</tt>?
+     *
      * @param v the vertex
      * @return <tt>true</tt> if there is a directed path, <tt>false</tt> otherwise
      */
@@ -124,6 +127,7 @@ public class BreadthFirstDirectedPaths {
     /**
      * Returns the number of edges in a shortest path from the source <tt>s</tt>
      * (or sources) to vertex <tt>v</tt>?
+     *
      * @param v the vertex
      * @return the number of edges in a shortest path
      */
@@ -134,6 +138,7 @@ public class BreadthFirstDirectedPaths {
     /**
      * Returns a shortest path from <tt>s</tt> (or sources) to <tt>v</tt>, or
      * <tt>null</tt> if no such path.
+     *
      * @param v the vertex
      * @return the sequence of vertices on a shortest path, as an Iterable
      */
@@ -163,12 +168,10 @@ public class BreadthFirstDirectedPaths {
                 StdOut.printf("%d to %d (%d):  ", s, v, bfs.distTo(v));
                 for (int x : bfs.pathTo(v)) {
                     if (x == s) StdOut.print(x);
-                    else        StdOut.print("->" + x);
+                    else StdOut.print("->" + x);
                 }
                 StdOut.println();
-            }
-
-            else {
+            } else {
                 StdOut.printf("%d to %d (-):  not connected\n", s, v);
             }
 

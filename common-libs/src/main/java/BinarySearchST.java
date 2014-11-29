@@ -2,13 +2,13 @@
  *  Compilation:  javac BinarySearchST.java
  *  Execution:    java BinarySearchST
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/31elementary/tinyST.txt  
- *  
+ *  Data files:   http://algs4.cs.princeton.edu/31elementary/tinyST.txt
+ *
  *  Symbol table implementation with binary search in an ordered array.
  *
  *  % more tinyST.txt
  *  S E A R C H E X A M P L E
- *  
+ *
  *  % java BinarySearchST < tinyST.txt
  *  A 8
  *  C 4
@@ -32,18 +32,20 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     private int N = 0;
 
     // create an empty symbol table with default initial capacity
-    public BinarySearchST() { this(INIT_CAPACITY); }   
+    public BinarySearchST() {
+        this(INIT_CAPACITY);
+    }
 
     // create an empty symbol table with given initial capacity
-    public BinarySearchST(int capacity) { 
-        keys = (Key[]) new Comparable[capacity]; 
-        vals = (Value[]) new Object[capacity]; 
-    }   
+    public BinarySearchST(int capacity) {
+        keys = (Key[]) new Comparable[capacity];
+        vals = (Value[]) new Object[capacity];
+    }
 
     // resize the underlying arrays
     private void resize(int capacity) {
         assert capacity >= N;
-        Key[]   tempk = (Key[])   new Comparable[capacity];
+        Key[] tempk = (Key[]) new Comparable[capacity];
         Value[] tempv = (Value[]) new Object[capacity];
         for (int i = 0; i < N; i++) {
             tempk[i] = keys[i];
@@ -72,28 +74,31 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     // return the value associated with the given key, or null if no such key
     public Value get(Key key) {
         if (isEmpty()) return null;
-        int i = rank(key); 
+        int i = rank(key);
         if (i < N && keys[i].compareTo(key) == 0) return vals[i];
         return null;
-    } 
+    }
 
     // return the number of keys in the table that are smaller than given key
     public int rank(Key key) {
-        int lo = 0, hi = N-1; 
-        while (lo <= hi) { 
-            int m = lo + (hi - lo) / 2; 
-            int cmp = key.compareTo(keys[m]); 
-            if      (cmp < 0) hi = m - 1; 
-            else if (cmp > 0) lo = m + 1; 
-            else return m; 
-        } 
+        int lo = 0, hi = N - 1;
+        while (lo <= hi) {
+            int m = lo + (hi - lo) / 2;
+            int cmp = key.compareTo(keys[m]);
+            if (cmp < 0) hi = m - 1;
+            else if (cmp > 0) lo = m + 1;
+            else return m;
+        }
         return lo;
-    } 
+    }
 
 
-    // Search for key. Update value if found; grow table if new. 
-    public void put(Key key, Value val)  {
-        if (val == null) { delete(key); return; }
+    // Search for key. Update value if found; grow table if new.
+    public void put(Key key, Value val) {
+        if (val == null) {
+            delete(key);
+            return;
+        }
 
         int i = rank(key);
 
@@ -104,22 +109,22 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         }
 
         // insert new key-value pair
-        if (N == keys.length) resize(2*keys.length);
+        if (N == keys.length) resize(2 * keys.length);
 
-        for (int j = N; j > i; j--)  {
-            keys[j] = keys[j-1];
-            vals[j] = vals[j-1];
+        for (int j = N; j > i; j--) {
+            keys[j] = keys[j - 1];
+            vals[j] = vals[j - 1];
         }
         keys[i] = key;
         vals[i] = val;
         N++;
 
         assert check();
-    } 
+    }
 
 
     // Remove the key-value pair if present
-    public void delete(Key key)  {
+    public void delete(Key key) {
         if (isEmpty()) return;
 
         // compute rank
@@ -130,9 +135,9 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
             return;
         }
 
-        for (int j = i; j < N-1; j++)  {
-            keys[j] = keys[j+1];
-            vals[j] = vals[j+1];
+        for (int j = i; j < N - 1; j++) {
+            keys[j] = keys[j + 1];
+            vals[j] = vals[j + 1];
         }
 
         N--;
@@ -140,10 +145,10 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         vals[N] = null;
 
         // resize if 1/4 full
-        if (N > 0 && N == keys.length/4) resize(keys.length/2);
+        if (N > 0 && N == keys.length / 4) resize(keys.length / 2);
 
         assert check();
-    } 
+    }
 
     // delete the minimum key and its associated value
     public void deleteMin() {
@@ -158,17 +163,19 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     }
 
 
-   /*****************************************************************************
-    *  Ordered symbol table methods
-    *****************************************************************************/
+    /**
+     * **************************************************************************
+     * Ordered symbol table methods
+     * ***************************************************************************
+     */
     public Key min() {
         if (isEmpty()) return null;
-        return keys[0]; 
+        return keys[0];
     }
 
     public Key max() {
         if (isEmpty()) return null;
-        return keys[N-1];
+        return keys[N - 1];
     }
 
     public Key select(int k) {
@@ -180,19 +187,19 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         int i = rank(key);
         if (i < N && key.compareTo(keys[i]) == 0) return keys[i];
         if (i == 0) return null;
-        else return keys[i-1];
+        else return keys[i - 1];
     }
 
     public Key ceiling(Key key) {
         int i = rank(key);
-        if (i == N) return null; 
+        if (i == N) return null;
         else return keys[i];
     }
 
     public int size(Key lo, Key hi) {
         if (lo.compareTo(hi) > 0) return 0;
         if (contains(hi)) return rank(hi) - rank(lo) + 1;
-        else              return rank(hi) - rank(lo);
+        else return rank(hi) - rank(lo);
     }
 
     public Iterable<Key> keys() {
@@ -200,21 +207,23 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     }
 
     public Iterable<Key> keys(Key lo, Key hi) {
-        Queue<Key> queue = new Queue<Key>(); 
+        Queue<Key> queue = new Queue<Key>();
         if (lo == null && hi == null) return queue;
         if (lo == null) throw new NullPointerException("lo is null in keys()");
         if (hi == null) throw new NullPointerException("hi is null in keys()");
         if (lo.compareTo(hi) > 0) return queue;
-        for (int i = rank(lo); i < rank(hi); i++) 
+        for (int i = rank(lo); i < rank(hi); i++)
             queue.enqueue(keys[i]);
         if (contains(hi)) queue.enqueue(keys[rank(hi)]);
-        return queue; 
+        return queue;
     }
 
 
-   /*****************************************************************************
-    *  Check internal invariants
-    *****************************************************************************/
+    /**
+     * **************************************************************************
+     * Check internal invariants
+     * ***************************************************************************
+     */
 
     private boolean check() {
         return isSorted() && rankCheck();
@@ -223,7 +232,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     // are the items in the array in ascending order?
     private boolean isSorted() {
         for (int i = 1; i < size(); i++)
-            if (keys[i].compareTo(keys[i-1]) < 0) return false;
+            if (keys[i].compareTo(keys[i - 1]) < 0) return false;
         return true;
     }
 
@@ -237,10 +246,12 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     }
 
 
-   /*****************************************************************************
-    *  Test client
-    *****************************************************************************/
-    public static void main(String[] args) { 
+    /**
+     * **************************************************************************
+     * Test client
+     * ***************************************************************************
+     */
+    public static void main(String[] args) {
         BinarySearchST<String, Integer> st = new BinarySearchST<String, Integer>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();

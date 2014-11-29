@@ -14,12 +14,12 @@
  *  % java TransitiveClosure tinyDG.txt
  *         0  1  2  3  4  5  6  7  8  9 10 11 12
  *  --------------------------------------------
- *    0:   T  T  T  T  T  T                     
- *    1:      T                                 
- *    2:   T  T  T  T  T  T                     
- *    3:   T  T  T  T  T  T                     
- *    4:   T  T  T  T  T  T                     
- *    5:   T  T  T  T  T  T                     
+ *    0:   T  T  T  T  T  T
+ *    1:      T
+ *    2:   T  T  T  T  T  T
+ *    3:   T  T  T  T  T  T
+ *    4:   T  T  T  T  T  T
+ *    5:   T  T  T  T  T  T
  *    6:   T  T  T  T  T  T  T        T  T  T  T
  *    7:   T  T  T  T  T  T  T  T  T  T  T  T  T
  *    8:   T  T  T  T  T  T  T  T  T  T  T  T  T
@@ -31,25 +31,26 @@
  *************************************************************************/
 
 /**
- *  The <tt>TransitiveClosure</tt> class represents a data type for 
- *  computing the transitive closure of a digraph.
- *  <p>
- *  This implementation runs depth-first search from each vertex.
- *  The constructor takes time proportional to <em>V</em>(<em>V</em> + <em>E</em>)
- *  (in the worst case) and uses space proportional to <em>V</em><sup>2</sup>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  <p>
- *  For additional documentation, see <a href="/algs4/42digraph">Section 4.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>TransitiveClosure</tt> class represents a data type for
+ * computing the transitive closure of a digraph.
+ * <p/>
+ * This implementation runs depth-first search from each vertex.
+ * The constructor takes time proportional to <em>V</em>(<em>V</em> + <em>E</em>)
+ * (in the worst case) and uses space proportional to <em>V</em><sup>2</sup>,
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/42digraph">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class TransitiveClosure {
     private DirectedDFS[] tc;  // tc[v] = reachable from v
 
     /**
      * Computes the transitive closure of the digraph <tt>G</tt>.
+     *
      * @param G the digraph
      */
     public TransitiveClosure(Digraph G) {
@@ -60,10 +61,11 @@ public class TransitiveClosure {
 
     /**
      * Is there a directed path from vertex <tt>v</tt> to vertex <tt>w</tt> in the digraph?
+     *
      * @param v the source vertex
      * @param w the target vertex
      * @return <tt>true</tt> if there is a directed path from <tt>v</tt> to <tt>w</tt>,
-     *    <tt>false</tt> otherwise
+     *         <tt>false</tt> otherwise
      */
     public boolean reachable(int v, int w) {
         return tc[v].marked(w);
@@ -90,7 +92,7 @@ public class TransitiveClosure {
             StdOut.printf("%3d: ", v);
             for (int w = 0; w < G.V(); w++) {
                 if (tc.reachable(v, w)) StdOut.printf("  T");
-                else                    StdOut.printf("   ");
+                else StdOut.printf("   ");
             }
             StdOut.println();
         }

@@ -3,7 +3,7 @@
  *  Execution:    java Knuth < list.txt
  *  Dependencies: StdIn.java StdOut.java
  *  Data files:   http://algs4.cs.princeton.edu/11model/cards.txt
- *  
+ *
  *  Reads in a list of strings and prints them in random order.
  *  The Knuth (or Fisher-Yates) shuffling algorithm guarantees
  *  to rearrange the elements in uniformly random order, under
@@ -28,28 +28,30 @@
  *************************************************************************/
 
 /**
- *  The <tt>Knuth</tt> class provides a client for reading in a 
- *  sequence of strings and <em>shuffling</em> them using the Knuth (or Fisher-Yates)
- *  shuffling algorithm. This algorithm guarantees to rearrange the
- *  elements in uniformly random order, under
- *  the assumption that Math.random() generates independent and
- *  uniformly distributed numbers between 0 and 1.
- *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/11model">Section 1.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>Knuth</tt> class provides a client for reading in a
+ * sequence of strings and <em>shuffling</em> them using the Knuth (or Fisher-Yates)
+ * shuffling algorithm. This algorithm guarantees to rearrange the
+ * elements in uniformly random order, under
+ * the assumption that Math.random() generates independent and
+ * uniformly distributed numbers between 0 and 1.
+ * <p/>
+ * For additional documentation, see <a href="http://algs4.cs.princeton.edu/11model">Section 1.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-public class Knuth { 
+public class Knuth {
 
-   // this class should not be instantiated
-   private Knuth() { }
+    // this class should not be instantiated
+    private Knuth() {
+    }
 
     /**
      * Rearranges an array of objects in uniformly random order
      * (under the assumption that <tt>Math.random()</tt> generates independent
      * and uniformly distributed numbers between 0 and 1).
+     *
      * @param a the array to be shuffled
      * @see StdRandom
      */

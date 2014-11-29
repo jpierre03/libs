@@ -1,7 +1,7 @@
 /*************************************************************************
  *  Compilation:  javac Interval1D.java
  *  Execution:    java Interval1D
- *  
+ *
  *  1-dimensional interval data type.
  *
  *************************************************************************/
@@ -10,23 +10,23 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- *  The <tt>Interval1D</tt> class represents a one-dimensional closed interval.
- *  Intervals are immutable: their values cannot be changed after they are created.
- *  The class <code>Interval1D</code> includes methods for checking whether
- *  an interval contains a point and determining whether two intervals intersect.
- *  <p>
- *  For additional documentation, see <a href="/algs4/12oop">Section 1.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>Interval1D</tt> class represents a one-dimensional closed interval.
+ * Intervals are immutable: their values cannot be changed after they are created.
+ * The class <code>Interval1D</code> includes methods for checking whether
+ * an interval contains a point and determining whether two intervals intersect.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/12oop">Section 1.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Interval1D {
 
     /**
      * Compares two intervals by left endpoint.
      */
-    public static final Comparator<Interval1D> LEFT_ENDPOINT_ORDER  = new LeftComparator();
+    public static final Comparator<Interval1D> LEFT_ENDPOINT_ORDER = new LeftComparator();
 
     /**
      * Compares two intervals by right endpoint.
@@ -43,13 +43,13 @@ public class Interval1D {
 
     /**
      * Initializes an interval [left, right].
-     * @param left the left endpoint
+     *
+     * @param left  the left endpoint
      * @param right the right endpoint
      * @throws IllegalArgumentException if the left endpoint is greater than the right endpoint
      * @throws IllegalArgumentException if either <tt>left</tt> or <tt>right</tt>
-     *    is <tt>Double.NaN</tt>, <tt>Double.POSITIVE_INFINITY</tt> or
-     *    <tt>Double.NEGATIVE_INFINITY</tt>
-
+     *                                  is <tt>Double.NaN</tt>, <tt>Double.POSITIVE_INFINITY</tt> or
+     *                                  <tt>Double.NEGATIVE_INFINITY</tt>
      */
     public Interval1D(double left, double right) {
         if (Double.isInfinite(left) || Double.isInfinite(right))
@@ -58,30 +58,32 @@ public class Interval1D {
             throw new IllegalArgumentException("Endpoints cannot be NaN");
 
         if (left <= right) {
-            this.left  = left;
+            this.left = left;
             this.right = right;
-        }
-        else throw new IllegalArgumentException("Illegal interval");
+        } else throw new IllegalArgumentException("Illegal interval");
     }
 
     /**
      * Returns the left endpoint.
+     *
      * @return the left endpoint
      */
-    public double left() { 
+    public double left() {
         return left;
     }
 
     /**
      * Returns the right endpoint.
+     *
      * @return the right endpoint
      */
-    public double right() { 
+    public double right() {
         return right;
     }
 
     /**
      * Does this interval intersect that interval?
+     *
      * @param that the other interval
      * @return true if this interval intersects that interval; false otherwise
      */
@@ -93,6 +95,7 @@ public class Interval1D {
 
     /**
      * Does this interval contain the value x?
+     *
      * @param x the value
      * @return true if this interval contains the value x; false otherwise
      */
@@ -102,6 +105,7 @@ public class Interval1D {
 
     /**
      * Returns the length of this interval.
+     *
      * @return the length of this interval (right - left)
      */
     public double length() {
@@ -110,6 +114,7 @@ public class Interval1D {
 
     /**
      * Returns a string representation of this interval.
+     *
      * @return a string representation of this interval in the form [left, right]
      */
     public String toString() {
@@ -117,26 +122,25 @@ public class Interval1D {
     }
 
 
-
     // ascending order of left endpoint, breaking ties by right endpoint
     private static class LeftComparator implements Comparator<Interval1D> {
         public int compare(Interval1D a, Interval1D b) {
-            if      (a.left  < b.left)  return -1;
-            else if (a.left  > b.left)  return +1;
+            if (a.left < b.left) return -1;
+            else if (a.left > b.left) return +1;
             else if (a.right < b.right) return -1;
             else if (a.right > b.right) return +1;
-            else                        return  0;
+            else return 0;
         }
     }
 
     // ascending order of right endpoint, breaking ties by left endpoint
     private static class RightComparator implements Comparator<Interval1D> {
         public int compare(Interval1D a, Interval1D b) {
-            if      (a.right < b.right) return -1;
+            if (a.right < b.right) return -1;
             else if (a.right > b.right) return +1;
-            else if (a.left  < b.left)  return -1;
-            else if (a.left  > b.left)  return +1;
-            else                        return  0;
+            else if (a.left < b.left) return -1;
+            else if (a.left > b.left) return +1;
+            else return 0;
         }
     }
 
@@ -145,13 +149,11 @@ public class Interval1D {
         public int compare(Interval1D a, Interval1D b) {
             double alen = a.length();
             double blen = b.length();
-            if      (alen < blen) return -1;
+            if (alen < blen) return -1;
             else if (alen > blen) return +1;
-            else                  return  0;
+            else return 0;
         }
     }
-
-
 
 
     /**
@@ -168,7 +170,7 @@ public class Interval1D {
         for (int i = 0; i < intervals.length; i++)
             StdOut.println(intervals[i]);
         StdOut.println();
-        
+
         StdOut.println("Sort by left endpoint");
         Arrays.sort(intervals, Interval1D.LEFT_ENDPOINT_ORDER);
         for (int i = 0; i < intervals.length; i++)

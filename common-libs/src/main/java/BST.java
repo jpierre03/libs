@@ -2,13 +2,13 @@
  *  Compilation:  javac BST.java
  *  Execution:    java BST
  *  Dependencies: StdIn.java StdOut.java Queue.java
- *  Data files:   http://algs4.cs.princeton.edu/32bst/tinyST.txt  
+ *  Data files:   http://algs4.cs.princeton.edu/32bst/tinyST.txt
  *
  *  A symbol table implemented with a binary search tree.
- * 
+ *
  *  % more tinyST.txt
  *  S E A R C H E X A M P L E
- *  
+ *
  *  % java BST < tinyST.txt
  *  A 8
  *  C 4
@@ -57,10 +57,12 @@ public class BST<Key extends Comparable<Key>, Value> {
         else return x.N;
     }
 
-   /***********************************************************************
-    *  Search BST for given key, and return associated value if found,
-    *  return null if not found
-    ***********************************************************************/
+    /**
+     * ********************************************************************
+     * Search BST for given key, and return associated value if found,
+     * return null if not found
+     * *********************************************************************
+     */
     // does there exist a key-value pair with given key?
     public boolean contains(Key key) {
         return get(key) != null;
@@ -74,17 +76,22 @@ public class BST<Key extends Comparable<Key>, Value> {
     private Value get(Node x, Key key) {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
-        if      (cmp < 0) return get(x.left, key);
+        if (cmp < 0) return get(x.left, key);
         else if (cmp > 0) return get(x.right, key);
-        else              return x.val;
+        else return x.val;
     }
 
-   /***********************************************************************
-    *  Insert key-value pair into BST
-    *  If key already exists, update with new value
-    ***********************************************************************/
+    /**
+     * ********************************************************************
+     * Insert key-value pair into BST
+     * If key already exists, update with new value
+     * *********************************************************************
+     */
     public void put(Key key, Value val) {
-        if (val == null) { delete(key); return; }
+        if (val == null) {
+            delete(key);
+            return;
+        }
         root = put(root, key, val);
         assert check();
     }
@@ -92,16 +99,18 @@ public class BST<Key extends Comparable<Key>, Value> {
     private Node put(Node x, Key key, Value val) {
         if (x == null) return new Node(key, val, 1);
         int cmp = key.compareTo(x.key);
-        if      (cmp < 0) x.left  = put(x.left,  key, val);
+        if (cmp < 0) x.left = put(x.left, key, val);
         else if (cmp > 0) x.right = put(x.right, key, val);
-        else              x.val   = val;
+        else x.val = val;
         x.N = 1 + size(x.left) + size(x.right);
         return x;
     }
 
-   /***********************************************************************
-    *  Delete
-    ***********************************************************************/
+    /**
+     * ********************************************************************
+     * Delete
+     * *********************************************************************
+     */
 
     public void deleteMin() {
         if (isEmpty()) throw new NoSuchElementException("Symbol table underflow");
@@ -137,59 +146,61 @@ public class BST<Key extends Comparable<Key>, Value> {
     private Node delete(Node x, Key key) {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
-        if      (cmp < 0) x.left  = delete(x.left,  key);
+        if (cmp < 0) x.left = delete(x.left, key);
         else if (cmp > 0) x.right = delete(x.right, key);
-        else { 
+        else {
             if (x.right == null) return x.left;
-            if (x.left  == null) return x.right;
+            if (x.left == null) return x.right;
             Node t = x;
             x = min(t.right);
             x.right = deleteMin(t.right);
             x.left = t.left;
-        } 
+        }
         x.N = size(x.left) + size(x.right) + 1;
         return x;
-    } 
+    }
 
 
-   /***********************************************************************
-    *  Min, max, floor, and ceiling
-    ***********************************************************************/
+    /**
+     * ********************************************************************
+     * Min, max, floor, and ceiling
+     * *********************************************************************
+     */
     public Key min() {
         if (isEmpty()) return null;
         return min(root).key;
-    } 
+    }
 
-    private Node min(Node x) { 
-        if (x.left == null) return x; 
-        else                return min(x.left); 
-    } 
+    private Node min(Node x) {
+        if (x.left == null) return x;
+        else return min(x.left);
+    }
 
     public Key max() {
         if (isEmpty()) return null;
         return max(root).key;
-    } 
+    }
 
-    private Node max(Node x) { 
-        if (x.right == null) return x; 
-        else                 return max(x.right); 
-    } 
+    private Node max(Node x) {
+        if (x.right == null) return x;
+        else return max(x.right);
+    }
 
     public Key floor(Key key) {
         Node x = floor(root, key);
         if (x == null) return null;
         else return x.key;
-    } 
+    }
 
     private Node floor(Node x, Key key) {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
         if (cmp == 0) return x;
-        if (cmp <  0) return floor(x.left, key);
-        Node t = floor(x.right, key); 
+        if (cmp < 0) return floor(x.left, key);
+        Node t = floor(x.right, key);
         if (t != null) return t;
-        else return x; 
-    } 
+        else return x;
+    }
 
     public Key ceiling(Key key) {
         Node x = ceiling(root, key);
@@ -201,48 +212,52 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (x == null) return null;
         int cmp = key.compareTo(x.key);
         if (cmp == 0) return x;
-        if (cmp < 0) { 
-            Node t = ceiling(x.left, key); 
+        if (cmp < 0) {
+            Node t = ceiling(x.left, key);
             if (t != null) return t;
-            else return x; 
-        } 
-        return ceiling(x.right, key); 
-    } 
+            else return x;
+        }
+        return ceiling(x.right, key);
+    }
 
-   /***********************************************************************
-    *  Rank and selection
-    ***********************************************************************/
+    /**
+     * ********************************************************************
+     * Rank and selection
+     * *********************************************************************
+     */
     public Key select(int k) {
         if (k < 0 || k >= size()) return null;
         Node x = select(root, k);
         return x.key;
     }
 
-    // Return key of rank k. 
+    // Return key of rank k.
     private Node select(Node x, int k) {
-        if (x == null) return null; 
-        int t = size(x.left); 
-        if      (t > k) return select(x.left,  k); 
-        else if (t < k) return select(x.right, k-t-1); 
-        else            return x; 
-    } 
+        if (x == null) return null;
+        int t = size(x.left);
+        if (t > k) return select(x.left, k);
+        else if (t < k) return select(x.right, k - t - 1);
+        else return x;
+    }
 
     public int rank(Key key) {
         return rank(key, root);
-    } 
+    }
 
     // Number of keys in the subtree less than key.
     private int rank(Key key, Node x) {
-        if (x == null) return 0; 
-        int cmp = key.compareTo(x.key); 
-        if      (cmp < 0) return rank(key, x.left); 
-        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right); 
-        else              return size(x.left); 
-    } 
+        if (x == null) return 0;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return rank(key, x.left);
+        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
+        else return size(x.left);
+    }
 
-   /***********************************************************************
-    *  Range count and range search.
-    ***********************************************************************/
+    /**
+     * ********************************************************************
+     * Range count and range search.
+     * *********************************************************************
+     */
     public Iterable<Key> keys() {
         return keys(min(), max());
     }
@@ -251,26 +266,29 @@ public class BST<Key extends Comparable<Key>, Value> {
         Queue<Key> queue = new Queue<Key>();
         keys(root, queue, lo, hi);
         return queue;
-    } 
+    }
 
-    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) { 
-        if (x == null) return; 
-        int cmplo = lo.compareTo(x.key); 
-        int cmphi = hi.compareTo(x.key); 
-        if (cmplo < 0) keys(x.left, queue, lo, hi); 
-        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key); 
-        if (cmphi > 0) keys(x.right, queue, lo, hi); 
-    } 
+    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+        if (x == null) return;
+        int cmplo = lo.compareTo(x.key);
+        int cmphi = hi.compareTo(x.key);
+        if (cmplo < 0) keys(x.left, queue, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key);
+        if (cmphi > 0) keys(x.right, queue, lo, hi);
+    }
 
     public int size(Key lo, Key hi) {
         if (lo.compareTo(hi) > 0) return 0;
         if (contains(hi)) return rank(hi) - rank(lo) + 1;
-        else              return rank(hi) - rank(lo);
+        else return rank(hi) - rank(lo);
     }
 
 
     // height of this BST (one-node tree has height 0)
-    public int height() { return height(root); }
+    public int height() {
+        return height(root);
+    }
+
     private int height(Node x) {
         if (x == null) return -1;
         return 1 + Math.max(height(x.left), height(x.right));
@@ -292,11 +310,13 @@ public class BST<Key extends Comparable<Key>, Value> {
         return keys;
     }
 
-  /*************************************************************************
-    *  Check integrity of BST data structure
-    *************************************************************************/
+    /**
+     * **********************************************************************
+     * Check integrity of BST data structure
+     * ***********************************************************************
+     */
     private boolean check() {
-        if (!isBST())            StdOut.println("Not in symmetric order");
+        if (!isBST()) StdOut.println("Not in symmetric order");
         if (!isSizeConsistent()) StdOut.println("Subtree counts not consistent");
         if (!isRankConsistent()) StdOut.println("Ranks not consistent");
         return isBST() && isSizeConsistent() && isRankConsistent();
@@ -316,15 +336,18 @@ public class BST<Key extends Comparable<Key>, Value> {
         if (min != null && x.key.compareTo(min) <= 0) return false;
         if (max != null && x.key.compareTo(max) >= 0) return false;
         return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
-    } 
+    }
 
     // are the size fields correct?
-    private boolean isSizeConsistent() { return isSizeConsistent(root); }
+    private boolean isSizeConsistent() {
+        return isSizeConsistent(root);
+    }
+
     private boolean isSizeConsistent(Node x) {
         if (x == null) return true;
         if (x.N != size(x.left) + size(x.right) + 1) return false;
         return isSizeConsistent(x.left) && isSizeConsistent(x.right);
-    } 
+    }
 
     // check that ranks are consistent
     private boolean isRankConsistent() {
@@ -336,10 +359,12 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
 
-   /*****************************************************************************
-    *  Test client
-    *****************************************************************************/
-    public static void main(String[] args) { 
+    /**
+     * **************************************************************************
+     * Test client
+     * ***************************************************************************
+     */
+    public static void main(String[] args) {
         BST<String, Integer> st = new BST<String, Integer>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
             String key = StdIn.readString();

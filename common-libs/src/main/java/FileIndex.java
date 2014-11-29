@@ -10,14 +10,14 @@
  *  % java FileIndex ex*.txt
  *  age
  *   ex3.txt
- *   ex4.txt 
+ *   ex4.txt
  * best
- *   ex1.txt 
+ *   ex1.txt
  * was
  *   ex1.txt
  *   ex2.txt
  *   ex3.txt
- *   ex4.txt 
+ *   ex4.txt
  *
  *  % java FileIndex *.txt
  *
@@ -27,7 +27,7 @@
 
 import java.io.File;
 
-public class FileIndex { 
+public class FileIndex {
 
     public static void main(String[] args) {
 

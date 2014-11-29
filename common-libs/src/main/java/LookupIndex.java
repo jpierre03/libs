@@ -1,42 +1,44 @@
-/*************************************************************************
- *  Compilation:  javac LookupIndex.java
- *  Execution:    java LookupIndex movies.txt "/"
- *  Dependencies: ST.java Queue.java In.java StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/35applications/aminoI.csv
- *                http://algs4.cs.princeton.edu/35applications/movies.txt
- *
- *  % java LookupIndex aminoI.csv ","
- *  Serine
- *    TCT
- *    TCA
- *    TCG
- *    AGT
- *    AGC
- *  TCG
- *    Serine
- *
- *  % java LookupIndex movies.txt "/"
- *  Bacon, Kevin
- *    Animal House (1978)
- *    Apollo 13 (1995)
- *    Beauty Shop (2005)
- *    Diner (1982)
- *    Few Good Men, A (1992)
- *    Flatliners (1990)
- *    Footloose (1984)
- *    Friday the 13th (1980)
- *    ...
- *  Tin Men (1987)
- *    DeBoy, David
- *    Blumenfeld, Alan
- *    ...
- *
- *************************************************************************/
+/**
+ * **********************************************************************
+ * Compilation:  javac LookupIndex.java
+ * Execution:    java LookupIndex movies.txt "/"
+ * Dependencies: ST.java Queue.java In.java StdIn.java StdOut.java
+ * Data files:   http://algs4.cs.princeton.edu/35applications/aminoI.csv
+ * http://algs4.cs.princeton.edu/35applications/movies.txt
+ * <p/>
+ * % java LookupIndex aminoI.csv ","
+ * Serine
+ * TCT
+ * TCA
+ * TCG
+ * AGT
+ * AGC
+ * TCG
+ * Serine
+ * <p/>
+ * % java LookupIndex movies.txt "/"
+ * Bacon, Kevin
+ * Animal House (1978)
+ * Apollo 13 (1995)
+ * Beauty Shop (2005)
+ * Diner (1982)
+ * Few Good Men, A (1992)
+ * Flatliners (1990)
+ * Footloose (1984)
+ * Friday the 13th (1980)
+ * ...
+ * Tin Men (1987)
+ * DeBoy, David
+ * Blumenfeld, Alan
+ * ...
+ * <p/>
+ * ***********************************************************************
+ */
 
-public class LookupIndex { 
+public class LookupIndex {
 
     public static void main(String[] args) {
-        String filename  = args[0];
+        String filename = args[0];
         String separator = args[1];
         In in = new In(filename);
 
@@ -61,10 +63,10 @@ public class LookupIndex {
         // read queries from standard input, one per line
         while (!StdIn.isEmpty()) {
             String query = StdIn.readLine();
-            if (st.contains(query)) 
+            if (st.contains(query))
                 for (String vals : st.get(query))
                     StdOut.println("  " + vals);
-            if (ts.contains(query)) 
+            if (ts.contains(query))
                 for (String keys : ts.get(query))
                     StdOut.println("  " + keys);
         }

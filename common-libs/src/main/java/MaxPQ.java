@@ -1,17 +1,17 @@
 /*************************************************************************
  *  Compilation:  javac MaxPQ.java
  *  Execution:    java MaxPQ < input.txt
- *  
+ *
  *  Generic max priority queue implementation with a binary heap.
  *  Can be used with a comparator instead of the natural order,
  *  but the generic Key type must still be Comparable.
  *
- *  % java MaxPQ < tinyPQ.txt 
+ *  % java MaxPQ < tinyPQ.txt
  *  Q X P (6 left on pq)
  *
  *  We use a one-based array to simplify parent and child calculations.
  *
- *  Can be optimized by replacing full exchanges with half exchanges 
+ *  Can be optimized by replacing full exchanges with half exchanges
  *  (ala insertion sort).
  *
  *************************************************************************/
@@ -21,24 +21,24 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *  The <tt>MaxPQ</tt> class represents a priority queue of generic keys.
- *  It supports the usual <em>insert</em> and <em>delete-the-maximum</em>
- *  operations, along with methods for peeking at the maximum key,
- *  testing if the priority queue is empty, and iterating through
- *  the keys.
- *  <p>
- *  This implementation uses a binary heap.
- *  The <em>insert</em> and <em>delete-the-maximum</em> operations take
- *  logarithmic amortized time.
- *  The <em>max</em>, <em>size</em>, and <em>is-empty</em> operations take constant time.
- *  Construction takes time proportional to the specified capacity or the number of
- *  items used to initialize the data structure.
- *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>MaxPQ</tt> class represents a priority queue of generic keys.
+ * It supports the usual <em>insert</em> and <em>delete-the-maximum</em>
+ * operations, along with methods for peeking at the maximum key,
+ * testing if the priority queue is empty, and iterating through
+ * the keys.
+ * <p/>
+ * This implementation uses a binary heap.
+ * The <em>insert</em> and <em>delete-the-maximum</em> operations take
+ * logarithmic amortized time.
+ * The <em>max</em>, <em>size</em>, and <em>is-empty</em> operations take constant time.
+ * Construction takes time proportional to the specified capacity or the number of
+ * items used to initialize the data structure.
+ * <p/>
+ * For additional documentation, see <a href="http://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 
 public class MaxPQ<Key> implements Iterable<Key> {
@@ -48,6 +48,7 @@ public class MaxPQ<Key> implements Iterable<Key> {
 
     /**
      * Initializes an empty priority queue with the given initial capacity.
+     *
      * @param initCapacity the initial capacity of the priority queue
      */
     public MaxPQ(int initCapacity) {
@@ -65,8 +66,9 @@ public class MaxPQ<Key> implements Iterable<Key> {
     /**
      * Initializes an empty priority queue with the given initial capacity,
      * using the given comparator.
+     *
      * @param initCapacity the initial capacity of the priority queue
-     * @param comparator the order in which to compare the keys
+     * @param comparator   the order in which to compare the keys
      */
     public MaxPQ(int initCapacity, Comparator<Key> comparator) {
         this.comparator = comparator;
@@ -76,6 +78,7 @@ public class MaxPQ<Key> implements Iterable<Key> {
 
     /**
      * Initializes an empty priority queue using the given comparator.
+     *
      * @param comparator the order in which to compare the keys
      */
     public MaxPQ(Comparator<Key> comparator) {
@@ -85,22 +88,23 @@ public class MaxPQ<Key> implements Iterable<Key> {
     /**
      * Initializes a priority queue from the array of keys.
      * Takes time proportional to the number of keys, using sink-based heap construction.
+     *
      * @param keys the array of keys
      */
     public MaxPQ(Key[] keys) {
         N = keys.length;
-        pq = (Key[]) new Object[keys.length + 1]; 
+        pq = (Key[]) new Object[keys.length + 1];
         for (int i = 0; i < N; i++)
-            pq[i+1] = keys[i];
-        for (int k = N/2; k >= 1; k--)
+            pq[i + 1] = keys[i];
+        for (int k = N / 2; k >= 1; k--)
             sink(k);
         assert isMaxHeap();
     }
-      
 
 
     /**
      * Is the priority queue empty?
+     *
      * @return true if the priority queue is empty; false otherwise
      */
     public boolean isEmpty() {
@@ -109,6 +113,7 @@ public class MaxPQ<Key> implements Iterable<Key> {
 
     /**
      * Returns the number of keys on the priority queue.
+     *
      * @return the number of keys on the priority queue
      */
     public int size() {
@@ -117,8 +122,10 @@ public class MaxPQ<Key> implements Iterable<Key> {
 
     /**
      * Returns a largest key on the priority queue.
+     *
      * @return a largest key on the priority queue
-     * @throws java.util.NoSuchElementException if the priority queue is empty
+     * @throws java.util.NoSuchElementException
+     *          if the priority queue is empty
      */
     public Key max() {
         if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
@@ -136,6 +143,7 @@ public class MaxPQ<Key> implements Iterable<Key> {
 
     /**
      * Adds a new key to the priority queue.
+     *
      * @param x the new key to add to the priority queue
      */
     public void insert(Key x) {
@@ -151,50 +159,55 @@ public class MaxPQ<Key> implements Iterable<Key> {
 
     /**
      * Removes and returns a largest key on the priority queue.
+     *
      * @return a largest key on the priority queue
-     * @throws java.util.NoSuchElementException if priority queue is empty.
+     * @throws java.util.NoSuchElementException
+     *          if priority queue is empty.
      */
     public Key delMax() {
         if (isEmpty()) throw new NoSuchElementException("Priority queue underflow");
         Key max = pq[1];
         exch(1, N--);
         sink(1);
-        pq[N+1] = null;     // to avoid loiterig and help with garbage collection
+        pq[N + 1] = null;     // to avoid loiterig and help with garbage collection
         if ((N > 0) && (N == (pq.length - 1) / 4)) resize(pq.length / 2);
         assert isMaxHeap();
         return max;
     }
 
 
-   /***********************************************************************
-    * Helper functions to restore the heap invariant.
-    **********************************************************************/
+    /**
+     * ********************************************************************
+     * Helper functions to restore the heap invariant.
+     * ********************************************************************
+     */
 
     private void swim(int k) {
-        while (k > 1 && less(k/2, k)) {
-            exch(k, k/2);
-            k = k/2;
+        while (k > 1 && less(k / 2, k)) {
+            exch(k, k / 2);
+            k = k / 2;
         }
     }
 
     private void sink(int k) {
-        while (2*k <= N) {
-            int j = 2*k;
-            if (j < N && less(j, j+1)) j++;
+        while (2 * k <= N) {
+            int j = 2 * k;
+            if (j < N && less(j, j + 1)) j++;
             if (!less(k, j)) break;
             exch(k, j);
             k = j;
         }
     }
 
-   /***********************************************************************
-    * Helper functions for compares and swaps.
-    **********************************************************************/
+    /**
+     * ********************************************************************
+     * Helper functions for compares and swaps.
+     * ********************************************************************
+     */
     private boolean less(int i, int j) {
         if (comparator == null) {
             return ((Comparable<Key>) pq[i]).compareTo(pq[j]) < 0;
-        }
-        else {
+        } else {
             return comparator.compare(pq[i], pq[j]) < 0;
         }
     }
@@ -213,24 +226,27 @@ public class MaxPQ<Key> implements Iterable<Key> {
     // is subtree of pq[1..N] rooted at k a max heap?
     private boolean isMaxHeap(int k) {
         if (k > N) return true;
-        int left = 2*k, right = 2*k + 1;
-        if (left  <= N && less(k, left))  return false;
+        int left = 2 * k, right = 2 * k + 1;
+        if (left <= N && less(k, left)) return false;
         if (right <= N && less(k, right)) return false;
         return isMaxHeap(left) && isMaxHeap(right);
     }
 
 
-   /***********************************************************************
-    * Iterator
-    **********************************************************************/
+    /***********************************************************************
+     * Iterator
+     **********************************************************************/
 
     /**
      * Returns an iterator that iterates over the keys on the priority queue
      * in descending order.
      * The iterator doesn't implement <tt>remove()</tt> since it's optional.
+     *
      * @return an iterator that iterates over the keys in descending order
      */
-    public Iterator<Key> iterator() { return new HeapIterator(); }
+    public Iterator<Key> iterator() {
+        return new HeapIterator();
+    }
 
     private class HeapIterator implements Iterator<Key> {
 
@@ -241,13 +257,18 @@ public class MaxPQ<Key> implements Iterable<Key> {
         // takes linear time since already in heap order so no keys move
         public HeapIterator() {
             if (comparator == null) copy = new MaxPQ<Key>(size());
-            else                    copy = new MaxPQ<Key>(size(), comparator);
+            else copy = new MaxPQ<Key>(size(), comparator);
             for (int i = 1; i <= N; i++)
                 copy.insert(pq[i]);
         }
 
-        public boolean hasNext()  { return !copy.isEmpty();                     }
-        public void remove()      { throw new UnsupportedOperationException();  }
+        public boolean hasNext() {
+            return !copy.isEmpty();
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
         public Key next() {
             if (!hasNext()) throw new NoSuchElementException();

@@ -1,6 +1,6 @@
 /*************************************************************************
  *  Compilation:  javac Bipartite.java
- *  Dependencies: Graph.java 
+ *  Dependencies: Graph.java
  *
  *  Given a graph, find either (i) a bipartition or (ii) an odd-length cycle.
  *  Runs in O(E + V) time.
@@ -10,27 +10,27 @@
 
 
 /**
- *  The <tt>Bipartite</tt> class represents a data type for 
- *  determining whether an undirected graph is bipartite or whether
- *  it has an odd-length cycle.
- *  The <em>isBipartite</em> operation determines whether the graph is
- *  bipartite. If so, the <em>color</em> operation determines a
- *  bipartition; if not, the <em>oddCycle</em> operation determines a
- *  cycle with an odd number of edges.
- *  <p>
- *  This implementation uses depth-first search.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>
- *  (in the worst case),
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the <em>isBipartite</em> and <em>color</em> operations
- *  take constant time; the <em>oddCycle</em> operation takes time proportional
- *  to the length of the cycle.
- *  <p>
- *  For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>Bipartite</tt> class represents a data type for
+ * determining whether an undirected graph is bipartite or whether
+ * it has an odd-length cycle.
+ * The <em>isBipartite</em> operation determines whether the graph is
+ * bipartite. If so, the <em>color</em> operation determines a
+ * bipartition; if not, the <em>oddCycle</em> operation determines a
+ * cycle with an odd number of edges.
+ * <p/>
+ * This implementation uses depth-first search.
+ * The constructor takes time proportional to <em>V</em> + <em>E</em>
+ * (in the worst case),
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * Afterwards, the <em>isBipartite</em> and <em>color</em> operations
+ * take constant time; the <em>oddCycle</em> operation takes time proportional
+ * to the length of the cycle.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/41graph">Section 4.1</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class Bipartite {
     private boolean isBipartite;   // is the graph bipartite?
@@ -42,11 +42,12 @@ public class Bipartite {
     /**
      * Determines whether an undirected graph is bipartite and finds either a
      * bipartition or an odd-length cycle.
+     *
      * @param G the graph
      */
     public Bipartite(Graph G) {
         isBipartite = true;
-        color  = new boolean[G.V()];
+        color = new boolean[G.V()];
         marked = new boolean[G.V()];
         edgeTo = new int[G.V()];
 
@@ -58,7 +59,7 @@ public class Bipartite {
         assert check(G);
     }
 
-    private void dfs(Graph G, int v) { 
+    private void dfs(Graph G, int v) {
         marked[v] = true;
         for (int w : G.adj(v)) {
 
@@ -70,7 +71,7 @@ public class Bipartite {
                 edgeTo[w] = v;
                 color[w] = !color[v];
                 dfs(G, w);
-            } 
+            }
 
             // if v-w create an odd-length cycle, find it
             else if (color[w] == color[v]) {
@@ -87,19 +88,21 @@ public class Bipartite {
 
     /**
      * Is the graph bipartite?
+     *
      * @return <tt>true</tt> if the graph is bipartite, <tt>false</tt> otherwise
      */
     public boolean isBipartite() {
         return isBipartite;
     }
- 
+
     /**
      * Returns the side of the bipartite that vertex <tt>v</tt> is on.
      * param v the vertex
+     *
      * @return the side of the bipartition that vertex <tt>v</tt> is on; two vertices
-     *    are in the same side of the bipartition if and only if they have the same color
+     *         are in the same side of the bipartition if and only if they have the same color
      * @throws UnsupportedOperationException if this method is called when the graph
-     *    is not bipartite
+     *                                       is not bipartite
      */
     public boolean color(int v) {
         if (!isBipartite)
@@ -110,11 +113,12 @@ public class Bipartite {
     /**
      * Returns an odd-length cycle if the graph is not bipartite, and
      * <tt>null</tt> otherwise.
+     *
      * @return an odd-length cycle (as an iterable) if the graph is not bipartite
-     *    (and hence has an odd-length cycle), and <tt>null</tt> otherwise
+     *         (and hence has an odd-length cycle), and <tt>null</tt> otherwise
      */
     public Iterable<Integer> oddCycle() {
-        return cycle; 
+        return cycle;
     }
 
     private boolean check(Graph G) {
@@ -161,9 +165,9 @@ public class Bipartite {
         for (int i = 0; i < V; i++) vertices[i] = i;
         StdRandom.shuffle(vertices);
         for (int i = 0; i < E; i++) {
-            int v = StdRandom.uniform(V/2);
-            int w = StdRandom.uniform(V/2);
-            G.addEdge(vertices[v], vertices[V/2 + w]);
+            int v = StdRandom.uniform(V / 2);
+            int w = StdRandom.uniform(V / 2);
+            G.addEdge(vertices[v], vertices[V / 2 + w]);
         }
 
         // add F extra edges
@@ -182,8 +186,7 @@ public class Bipartite {
             for (int v = 0; v < G.V(); v++) {
                 StdOut.println(v + ": " + b.color(v));
             }
-        }
-        else {
+        } else {
             StdOut.print("Graph has an odd-length cycle: ");
             for (int x : b.oddCycle()) {
                 StdOut.print(x + " ");

@@ -9,7 +9,7 @@
  *
  *  Compute a minimum spanning forest using Boruvka's algorithm.
  *
- *  % java BoruvkaMST tinyEWG.txt 
+ *  % java BoruvkaMST tinyEWG.txt
  *  0-2 0.26000
  *  6-2 0.40000
  *  5-7 0.28000
@@ -22,30 +22,30 @@
  *************************************************************************/
 
 /**
- *  The <tt>BoruvkaMST</tt> class represents a data type for computing a
- *  <em>minimum spanning tree</em> in an edge-weighted graph.
- *  The edge weights can be positive, zero, or negative and need not
- *  be distinct. If the graph is not connected, it computes a <em>minimum
- *  spanning forest</em>, which is the union of minimum spanning trees
- *  in each connected component. The <tt>weight()</tt> method returns the 
- *  weight of a minimum spanning tree and the <tt>edges()</tt> method
- *  returns its edges.
- *  <p>
- *  This implementation uses <em>Boruvka's algorithm</em> and the union-find
- *  data type.
- *  The constructor takes time proportional to <em>E</em> log <em>V</em>
- *  and extra space (not including the graph) proportional to <em>V</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the <tt>weight()</tt> method takes constant time
- *  and the <tt>edges()</tt> method takes time proportional to <em>V</em>.
- *  <p>
- *  For additional documentation, see <a href="/algs4/44sp">Section 4.4</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  For alternate implementations, see {@link LazyPrimMST}, {@link PrimMST},
- *  and {@link KruskalMST}.
+ * The <tt>BoruvkaMST</tt> class represents a data type for computing a
+ * <em>minimum spanning tree</em> in an edge-weighted graph.
+ * The edge weights can be positive, zero, or negative and need not
+ * be distinct. If the graph is not connected, it computes a <em>minimum
+ * spanning forest</em>, which is the union of minimum spanning trees
+ * in each connected component. The <tt>weight()</tt> method returns the
+ * weight of a minimum spanning tree and the <tt>edges()</tt> method
+ * returns its edges.
+ * <p/>
+ * This implementation uses <em>Boruvka's algorithm</em> and the union-find
+ * data type.
+ * The constructor takes time proportional to <em>E</em> log <em>V</em>
+ * and extra space (not including the graph) proportional to <em>V</em>,
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * Afterwards, the <tt>weight()</tt> method takes constant time
+ * and the <tt>edges()</tt> method takes time proportional to <em>V</em>.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/44sp">Section 4.4</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * For alternate implementations, see {@link LazyPrimMST}, {@link PrimMST},
+ * and {@link KruskalMST}.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class BoruvkaMST {
     private Bag<Edge> mst = new Bag<Edge>();    // edges in MST
@@ -53,6 +53,7 @@ public class BoruvkaMST {
 
     /**
      * Compute a minimum spanning tree (or forest) of an edge-weighted graph.
+     *
      * @param G the edge-weighted graph
      */
     public BoruvkaMST(EdgeWeightedGraph G) {
@@ -93,8 +94,9 @@ public class BoruvkaMST {
 
     /**
      * Returns the edges in a minimum spanning tree (or forest).
+     *
      * @return the edges in a minimum spanning tree (or forest) as
-     *    an iterable of edges
+     *         an iterable of edges
      */
     public Iterable<Edge> edges() {
         return mst;
@@ -103,6 +105,7 @@ public class BoruvkaMST {
 
     /**
      * Returns the sum of the edge weights in a minimum spanning tree (or forest).
+     *
      * @return the sum of the edge weights in a minimum spanning tree (or forest)
      */
     public double weight() {

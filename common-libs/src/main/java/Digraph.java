@@ -9,55 +9,57 @@
  *
  *  % java Digraph tinyDG.txt
  *  13 vertices, 22 edges
- *  0: 5 1 
- *  1: 
- *  2: 0 3 
- *  3: 5 2 
- *  4: 3 2 
- *  5: 4 
- *  6: 9 4 8 0 
+ *  0: 5 1
+ *  1:
+ *  2: 0 3
+ *  3: 5 2
+ *  4: 3 2
+ *  5: 4
+ *  6: 9 4 8 0
  *  7: 6 9
- *  8: 6 
- *  9: 11 10 
- *  10: 12 
- *  11: 4 12 
- *  12: 9 
- *  
+ *  8: 6
+ *  9: 11 10
+ *  10: 12
+ *  11: 4 12
+ *  12: 9
+ *
  *************************************************************************/
 
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 
 /**
- *  The <tt>Digraph</tt> class represents a directed graph of vertices
- *  named 0 through <em>V</em> - 1.
- *  It supports the following two primary operations: add an edge to the digraph,
- *  iterate over all of the vertices adjacent from a given vertex.
- *  Parallel edges and self-loops are permitted.
- *  <p>
- *  This implementation uses an adjacency-lists representation, which 
- *  is a vertex-indexed array of {@link Bag} objects.
- *  All operations take constant time (in the worst case) except
- *  iterating over the vertices adjacent from a given vertex, which takes
- *  time proportional to the number of such vertices.
- *  <p>
- *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/42directed">Section 4.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>Digraph</tt> class represents a directed graph of vertices
+ * named 0 through <em>V</em> - 1.
+ * It supports the following two primary operations: add an edge to the digraph,
+ * iterate over all of the vertices adjacent from a given vertex.
+ * Parallel edges and self-loops are permitted.
+ * <p/>
+ * This implementation uses an adjacency-lists representation, which
+ * is a vertex-indexed array of {@link Bag} objects.
+ * All operations take constant time (in the worst case) except
+ * iterating over the vertices adjacent from a given vertex, which takes
+ * time proportional to the number of such vertices.
+ * <p/>
+ * For additional documentation,
+ * see <a href="http://algs4.cs.princeton.edu/42directed">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 
 public class Digraph {
     private final int V;
     private int E;
     private Bag<Integer>[] adj;
-    
+
     /**
      * Initializes an empty digraph with <em>V</em> vertices.
+     *
      * @param V the number of vertices
-     * @throws java.lang.IllegalArgumentException if V < 0
+     * @throws java.lang.IllegalArgumentException
+     *          if V < 0
      */
     public Digraph(int V) {
         if (V < 0) throw new IllegalArgumentException("Number of vertices in a Digraph must be nonnegative");
@@ -69,14 +71,17 @@ public class Digraph {
         }
     }
 
-    /**  
+    /**
      * Initializes a digraph from an input stream.
      * The format is the number of vertices <em>V</em>,
      * followed by the number of edges <em>E</em>,
      * followed by <em>E</em> pairs of vertices, with each entry separated by whitespace.
+     *
      * @param in the input stream
-     * @throws java.lang.IndexOutOfBoundsException if the endpoints of any edge are not in prescribed range
-     * @throws java.lang.IllegalArgumentException if the number of vertices or edges is negative
+     * @throws java.lang.IndexOutOfBoundsException
+     *          if the endpoints of any edge are not in prescribed range
+     * @throws java.lang.IllegalArgumentException
+     *          if the number of vertices or edges is negative
      */
     public Digraph(In in) {
         try {
@@ -91,16 +96,16 @@ public class Digraph {
             for (int i = 0; i < E; i++) {
                 int v = in.readInt();
                 int w = in.readInt();
-                addEdge(v, w); 
+                addEdge(v, w);
             }
-        }
-        catch (NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new InputMismatchException("Invalid input format in Digraph constructor");
         }
     }
 
     /**
      * Initializes a new digraph that is a deep copy of <tt>G</tt>.
+     *
      * @param G the digraph to copy
      */
     public Digraph(Digraph G) {
@@ -117,9 +122,10 @@ public class Digraph {
             }
         }
     }
-        
+
     /**
      * Returns the number of vertices in the digraph.
+     *
      * @return the number of vertices in the digraph
      */
     public int V() {
@@ -128,6 +134,7 @@ public class Digraph {
 
     /**
      * Returns the number of edges in the digraph.
+     *
      * @return the number of edges in the digraph
      */
     public int E() {
@@ -138,14 +145,16 @@ public class Digraph {
     // throw an IndexOutOfBoundsException unless 0 <= v < V
     private void validateVertex(int v) {
         if (v < 0 || v >= V)
-            throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V-1));
+            throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**
      * Adds the directed edge v->w to the digraph.
+     *
      * @param v the tail vertex
      * @param w the head vertex
-     * @throws java.lang.IndexOutOfBoundsException unless both 0 <= v < V and 0 <= w < V
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless both 0 <= v < V and 0 <= w < V
      */
     public void addEdge(int v, int w) {
         validateVertex(v);
@@ -156,9 +165,11 @@ public class Digraph {
 
     /**
      * Returns the vertices adjacent from vertex <tt>v</tt> in the digraph.
-     * @return the vertices adjacent from vertex <tt>v</tt> in the digraph, as an Iterable
+     *
      * @param v the vertex
-     * @throws java.lang.IndexOutOfBoundsException unless 0 <= v < V
+     * @return the vertices adjacent from vertex <tt>v</tt> in the digraph, as an Iterable
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 <= v < V
      */
     public Iterable<Integer> adj(int v) {
         validateVertex(v);
@@ -168,9 +179,11 @@ public class Digraph {
     /**
      * Returns the number of directed edges incident from vertex <tt>v</tt>.
      * This is known as the <em>outdegree</em> of vertex <tt>v</tt>.
-     * @return the outdegree of vertex <tt>v</tt>               
+     *
      * @param v the vertex
-     * @throws java.lang.IndexOutOfBoundsException unless 0 <= v < V
+     * @return the outdegree of vertex <tt>v</tt>
+     * @throws java.lang.IndexOutOfBoundsException
+     *          unless 0 <= v < V
      */
     public int outdegree(int v) {
         validateVertex(v);
@@ -179,6 +192,7 @@ public class Digraph {
 
     /**
      * Returns the reverse of the digraph.
+     *
      * @return the reverse of the digraph
      */
     public Digraph reverse() {
@@ -194,8 +208,9 @@ public class Digraph {
     /**
      * Returns a string representation of the graph.
      * This method takes time proportional to <em>E</em> + <em>V</em>.
-     * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,  
-     *    followed by the <em>V</em> adjacency lists
+     *
+     * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
+     *         followed by the <em>V</em> adjacency lists
      */
     public String toString() {
         StringBuilder s = new StringBuilder();

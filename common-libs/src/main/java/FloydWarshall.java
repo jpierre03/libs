@@ -22,20 +22,21 @@
  * The edge weights can be positive, negative, or zero.
  * This class finds either a shortest path between every pair of vertices
  * or a negative cycle.
- * <p>
+ * <p/>
  * This implementation uses the Floyd-Warshall algorithm.
  * The constructor takes time proportional to <em>V</em><sup>3</sup> in the
  * worst case, where <em>V</em> is the number of vertices.
  * Afterwards, the <tt>dist()</tt>, <tt>hasPath()</tt>, and <tt>hasNegativeCycle()</tt>
  * methods take constant time; the <tt>path()</tt> and <tt>negativeCycle()</tt>
  * method takes time proportional to the number of edges returned.
- * <p>
+ * <p/>
  * For additional documentation, see <a href="/algs4/44sp">Section 4.4</a> of
  * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  * @author Robert Sedgewick
  * @author Kevin Wayne
- */ public class FloydWarshall {
+ */
+public class FloydWarshall {
     private boolean hasNegativeCycle;  // is there a negative cycle?
     private double[][] distTo;  // distTo[v][w] = length of shortest v->w path
     private DirectedEdge[][] edgeTo;  // edgeTo[v][w] = last edge on shortest v->w path
@@ -44,6 +45,7 @@
      * Computes a shortest paths tree from each vertex to to every other vertex in
      * the edge-weighted digraph <tt>G</tt>. If no such shortest path exists for
      * some pair of vertices, it computes a negative cycle.
+     *
      * @param G the edge-weighted digraph
      */
     public FloydWarshall(AdjMatrixEdgeWeightedDigraph G) {
@@ -93,6 +95,7 @@
 
     /**
      * Is there a negative cycle?
+     *
      * @return <tt>true</tt> if there is a negative cycle, and <tt>false</tt> otherwise
      */
     public boolean hasNegativeCycle() {
@@ -101,8 +104,9 @@
 
     /**
      * Returns a negative cycle, or <tt>null</tt> if there is no such cycle.
+     *
      * @return a negative cycle as an iterable of edges,
-     * or <tt>null</tt> if there is no such cycle
+     *         or <tt>null</tt> if there is no such cycle
      */
     public Iterable<DirectedEdge> negativeCycle() {
         for (int v = 0; v < distTo.length; v++) {
@@ -123,10 +127,11 @@
 
     /**
      * Is there a path from the vertex <tt>s</tt> to vertex <tt>t</tt>?
+     *
      * @param s the source vertex
      * @param t the destination vertex
      * @return <tt>true</tt> if there is a path from vertex <tt>s</tt>
-     * to vertex <tt>t</tt>, and <tt>false</tt> otherwise
+     *         to vertex <tt>t</tt>, and <tt>false</tt> otherwise
      */
     public boolean hasPath(int s, int t) {
         return distTo[s][t] < Double.POSITIVE_INFINITY;
@@ -134,10 +139,11 @@
 
     /**
      * Returns the length of a shortest path from vertex <tt>s</tt> to vertex <tt>t</tt>.
+     *
      * @param s the source vertex
      * @param t the destination vertex
      * @return the length of a shortest path from vertex <tt>s</tt> to vertex <tt>t</tt>;
-     * <tt>Double.POSITIVE_INFINITY</tt> if no such path
+     *         <tt>Double.POSITIVE_INFINITY</tt> if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle
      */
     public double dist(int s, int t) {
@@ -148,10 +154,11 @@
 
     /**
      * Returns a shortest path from vertex <tt>s</tt> to vertex <tt>t</tt>.
+     *
      * @param s the source vertex
      * @param t the destination vertex
      * @return a shortest path from vertex <tt>s</tt> to vertex <tt>t</tt>
-     * as an iterable of edges, and <tt>null</tt> if no such path
+     *         as an iterable of edges, and <tt>null</tt> if no such path
      * @throws UnsupportedOperationException if there is a negative cost cycle
      */
     public Iterable<DirectedEdge> path(int s, int t) {
@@ -240,8 +247,7 @@
                         for (DirectedEdge e : spt.path(v, w))
                             StdOut.print(e + "  ");
                         StdOut.println();
-                    }
-                    else {
+                    } else {
                         StdOut.printf("%d to %d no path\n", v, w);
                     }
                 }

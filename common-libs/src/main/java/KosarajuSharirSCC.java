@@ -11,26 +11,26 @@
  *
  *  % java KosarajuSCC tinyDG.txt
  *  5 components
- *  1 
- *  0 2 3 4 5 
- *  9 10 11 12 
- *  6 8 
+ *  1
+ *  0 2 3 4 5
+ *  9 10 11 12
+ *  6 8
  *  7
  *
- *  % java KosarajuSharirSCC mediumDG.txt 
+ *  % java KosarajuSharirSCC mediumDG.txt
  *  10 components
- *  21 
- *  2 5 6 8 9 11 12 13 15 16 18 19 22 23 25 26 28 29 30 31 32 33 34 35 37 38 39 40 42 43 44 46 47 48 49 
- *  14 
- *  3 4 17 20 24 27 36 
- *  41 
- *  7 
- *  45 
- *  1 
- *  0 
- *  10 
+ *  21
+ *  2 5 6 8 9 11 12 13 15 16 18 19 22 23 25 26 28 29 30 31 32 33 34 35 37 38 39 40 42 43 44 46 47 48 49
+ *  14
+ *  3 4 17 20 24 27 36
+ *  41
+ *  7
+ *  45
+ *  1
+ *  0
+ *  10
  *
- *  % java -Xss50m KosarajuSharirSCC mediumDG.txt 
+ *  % java -Xss50m KosarajuSharirSCC mediumDG.txt
  *  25 components
  *  7 11 32 36 61 84 95 116 121 128 230   ...
  *  28 73 80 104 115 143 149 164 184 185  ...
@@ -61,33 +61,33 @@
  *************************************************************************/
 
 /**
- *  The <tt>KosarajuSharirSCC</tt> class represents a data type for 
- *  determining the strong components in a digraph.
- *  The <em>id</em> operation determines in which strong component
- *  a given vertex lies; the <em>areStronglyConnected</em> operation
- *  determines whether two vertices are in the same strong component;
- *  and the <em>count</em> operation determines the number of strong
- *  components.
-
- *  The <em>component identifier</em> of a component is one of the
- *  vertices in the strong component: two vertices have the same component
- *  identifier if and only if they are in the same strong component.
-
- *  <p>
- *  This implementation uses the Kosaraju-Sharir algorithm.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>
- *  (in the worst case),
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the <em>id</em>, <em>count</em>, and <em>areStronglyConnected</em>
- *  operations take constant time.
- *  For alternate implementations of the same API, see
- *  {@link TarjanSCC} and {@link GabowSCC}.
- *  <p>
- *  For additional documentation, see <a href="/algs4/42digraph">Section 4.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>KosarajuSharirSCC</tt> class represents a data type for
+ * determining the strong components in a digraph.
+ * The <em>id</em> operation determines in which strong component
+ * a given vertex lies; the <em>areStronglyConnected</em> operation
+ * determines whether two vertices are in the same strong component;
+ * and the <em>count</em> operation determines the number of strong
+ * components.
+ * <p/>
+ * The <em>component identifier</em> of a component is one of the
+ * vertices in the strong component: two vertices have the same component
+ * identifier if and only if they are in the same strong component.
+ * <p/>
+ * <p/>
+ * This implementation uses the Kosaraju-Sharir algorithm.
+ * The constructor takes time proportional to <em>V</em> + <em>E</em>
+ * (in the worst case),
+ * where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
+ * Afterwards, the <em>id</em>, <em>count</em>, and <em>areStronglyConnected</em>
+ * operations take constant time.
+ * For alternate implementations of the same API, see
+ * {@link TarjanSCC} and {@link GabowSCC}.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/42digraph">Section 4.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public class KosarajuSharirSCC {
     private boolean[] marked;     // marked[v] = has vertex v been visited?
@@ -96,6 +96,7 @@ public class KosarajuSharirSCC {
 
     /**
      * Computes the strong components of the digraph <tt>G</tt>.
+     *
      * @param G the digraph
      */
     public KosarajuSharirSCC(Digraph G) {
@@ -118,7 +119,7 @@ public class KosarajuSharirSCC {
     }
 
     // DFS on graph G
-    private void dfs(Digraph G, int v) { 
+    private void dfs(Digraph G, int v) {
         marked[v] = true;
         id[v] = count;
         for (int w : G.adj(v)) {
@@ -128,6 +129,7 @@ public class KosarajuSharirSCC {
 
     /**
      * Returns the number of strong components.
+     *
      * @return the number of strong components
      */
     public int count() {
@@ -136,10 +138,11 @@ public class KosarajuSharirSCC {
 
     /**
      * Are vertices <tt>v</tt> and <tt>w</tt> in the same strong component?
+     *
      * @param v one vertex
      * @param w the other vertex
      * @return <tt>true</tt> if vertices <tt>v</tt> and <tt>w</tt> are in the same
-     *     strong component, and <tt>false</tt> otherwise
+     *         strong component, and <tt>false</tt> otherwise
      */
     public boolean stronglyConnected(int v, int w) {
         return id[v] == id[w];
@@ -147,6 +150,7 @@ public class KosarajuSharirSCC {
 
     /**
      * Returns the component id of the strong component containing vertex <tt>v</tt>.
+     *
      * @param v the vertex
      * @return the component id of the strong component containing vertex <tt>v</tt>
      */

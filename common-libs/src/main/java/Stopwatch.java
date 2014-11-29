@@ -5,31 +5,31 @@
  *************************************************************************/
 
 /**
- *  The <tt>Stopwatch</tt> data type is for measuring
- *  the time that elapses between the start and end of a
- *  programming task (wall-clock time).
- *
- *  See {@link StopwatchCPU} for a version that measures CPU time.
- *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ *  <i>Stopwatch</i>. This class is a data type for measuring
+ *  the running time (wall clock) of a program.
+ *  <p>
+ *  For additional documentation, see
+ *  <a href="http://introcs.cs.princeton.edu/32class">Section 3.2</a> of
+ *  <i>Introduction to Programming in Java: An Interdisciplinary Approach</i>
+ *  by Robert Sedgewick and Kevin Wayne.
  */
+
 
 
 public class Stopwatch { 
 
     private final long start;
 
-    /**
-     * Initialize a stopwatch object.
+   /**
+     * Create a stopwatch object.
      */
     public Stopwatch() {
         start = System.currentTimeMillis();
     } 
 
 
-    /**
-     * Returns the elapsed time (in seconds) since this object was created.
+   /**
+     * Return elapsed time (in seconds) since this object was created.
      */
     public double elapsedTime() {
         long now = System.currentTimeMillis();

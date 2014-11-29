@@ -16,26 +16,26 @@
  *   10z     = [ 60.0 40.0 70.0 50.0 ]
  *    |x|    = 5.477225575051661
  *   <x, y>  = 25.0
- * 
+ *
  *
  *  Note that Vector is also the name of an unrelated Java library class.
  *
  *************************************************************************/
 
 /**
- *  The <tt>Vector</tt> class represents a <em>d</em>-dimensional mathematical vector.
- *  Vectors are immutable: their values cannot be changed after they are created.
- *  The class <code>Vectors</code> includes methods for addition, subtraction,
- *  dot product, scalar product, unit vector, Euclidean distance, and
- *  Euclidean norm.
- *  <p>
- *  For additional documentation, see <a href="/algs4/12oop">Section 1.2</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ * The <tt>Vector</tt> class represents a <em>d</em>-dimensional mathematical vector.
+ * Vectors are immutable: their values cannot be changed after they are created.
+ * The class <code>Vectors</code> includes methods for addition, subtraction,
+ * dot product, scalar product, unit vector, Euclidean distance, and
+ * Euclidean norm.
+ * <p/>
+ * For additional documentation, see <a href="/algs4/12oop">Section 1.2</a> of
+ * <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
-public class Vector { 
+public class Vector {
 
     private int N;               // length of the vector
     private double[] data;       // array of vector's components
@@ -43,6 +43,7 @@ public class Vector {
 
     /**
      * Initializes a d-dimensional zero vector.
+     *
      * @param d the dimension of the vector
      */
     public Vector(int d) {
@@ -54,6 +55,7 @@ public class Vector {
      * Initializes a vector from either an array or a vararg list.
      * The vararg syntax supports a constructor that takes a variable number of
      * arugments such as Vector x = new Vector(1.0, 2.0, 3.0, 4.0).
+     *
      * @param a the array or vararg list
      */
     public Vector(double... a) {
@@ -67,6 +69,7 @@ public class Vector {
 
     /**
      * Returns the length of this vector.
+     *
      * @return the dimension of this vector
      */
     public int length() {
@@ -75,9 +78,10 @@ public class Vector {
 
     /**
      * Returns the inner product of this vector with that vector.
-     * @throws IllegalArgumentException if the lengths of the two vectors are not equal.
+     *
      * @param that the other vector
      * @return the dot product between this vector and that vector
+     * @throws IllegalArgumentException if the lengths of the two vectors are not equal.
      */
     public double dot(Vector that) {
         if (this.N != that.N) throw new IllegalArgumentException("Dimensions don't agree");
@@ -89,6 +93,7 @@ public class Vector {
 
     /**
      * Returns the Euclidean norm of this vector.
+     *
      * @return the Euclidean norm of this vector
      */
     public double magnitude() {
@@ -97,9 +102,10 @@ public class Vector {
 
     /**
      * Returns the Euclidean distance between this vector and that vector.
-     * @throws IllegalArgumentException if the lengths of the two vectors are not equal.
-     * @param that the other vector 
+     *
+     * @param that the other vector
      * @return the Euclidean distance between this vector and that vector
+     * @throws IllegalArgumentException if the lengths of the two vectors are not equal.
      */
     public double distanceTo(Vector that) {
         if (this.N != that.N) throw new IllegalArgumentException("Dimensions don't agree");
@@ -108,9 +114,10 @@ public class Vector {
 
     /**
      * Returns the sum of this vector and that vector: this + that.
-     * @throws IllegalArgumentException if the lengths of the two vectors are not equal.
+     *
      * @param that the vector to add to this vector
      * @return the sum of this vector and that vector
+     * @throws IllegalArgumentException if the lengths of the two vectors are not equal.
      */
     public Vector plus(Vector that) {
         if (this.N != that.N) throw new IllegalArgumentException("Dimensions don't agree");
@@ -122,6 +129,7 @@ public class Vector {
 
     /**
      * Returns the difference between this vector and that vector: this - that.
+     *
      * @param that the vector to subtract from this vector
      * @return the difference between this vector and that vector
      * @throws IllegalArgumentException if the lengths of the two vectors are not equal.
@@ -136,6 +144,7 @@ public class Vector {
 
     /**
      * Returns the ith cartesian coordinate.
+     *
      * @param i the coordinate index
      * @return the ith cartesian coordinate
      */
@@ -145,6 +154,7 @@ public class Vector {
 
     /**
      * Returns the product of this factor multiplied by the scalar factor: this * factor.
+     *
      * @param factor the multiplier
      * @return the scalar product of this vector and factor
      */
@@ -157,6 +167,7 @@ public class Vector {
 
     /**
      * Returns a unit vector in the direction of this vector.
+     *
      * @return a unit vector in the direction of this vector
      * @throws ArithmeticException if this vector is the zero vector.
      */
@@ -168,8 +179,9 @@ public class Vector {
 
     /**
      * Returns a string representation of this vector.
-     * @return a string representation of this vector, which consists of the 
-     *    the vector entries, separates by single spaces
+     *
+     * @return a string representation of this vector, which consists of the
+     *         the vector entries, separates by single spaces
      */
     public String toString() {
         String s = "";
@@ -182,8 +194,8 @@ public class Vector {
      * Unit tests the data type methods.
      */
     public static void main(String[] args) {
-        double[] xdata = { 1.0, 2.0, 3.0, 4.0 };
-        double[] ydata = { 5.0, 2.0, 4.0, 1.0 };
+        double[] xdata = {1.0, 2.0, 3.0, 4.0};
+        double[] ydata = {5.0, 2.0, 4.0, 1.0};
         Vector x = new Vector(xdata);
         Vector y = new Vector(ydata);
 
