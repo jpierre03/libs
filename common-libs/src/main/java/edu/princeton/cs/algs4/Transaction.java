@@ -184,26 +184,22 @@ public class Transaction implements Comparable<Transaction> {
         a[3] = new Transaction("Dijkstra 8/22/2007 2678.40");
 
         StdOut.println("Unsorted");
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
+        for (Transaction anA3 : a) StdOut.println(anA3);
         StdOut.println();
 
         StdOut.println("Sort by date");
         Arrays.sort(a, new Transaction.WhenOrder());
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
+        for (Transaction anA2 : a) StdOut.println(anA2);
         StdOut.println();
 
         StdOut.println("Sort by customer");
         Arrays.sort(a, new Transaction.WhoOrder());
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
+        for (Transaction anA1 : a) StdOut.println(anA1);
         StdOut.println();
 
         StdOut.println("Sort by amount");
         Arrays.sort(a, new Transaction.HowMuchOrder());
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
+        for (Transaction anA : a) StdOut.println(anA);
         StdOut.println();
     }
 

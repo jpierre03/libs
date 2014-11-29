@@ -3683,15 +3683,15 @@ public final class StdDraw3D implements
         BranchGroup combinedGroup = createBranchGroup();
         TransformGroup combinedTransform = new TransformGroup();
 
-        for (int i = 0; i < shapes.length; i++) {
-            BranchGroup bg = shapes[i].bg;
-            TransformGroup tg = shapes[i].tg;
+        for (Shape shape : shapes) {
+            BranchGroup bg = shape.bg;
+            TransformGroup tg = shape.tg;
 
             offscreenGroup.removeChild(bg);
             onscreenGroup.removeChild(bg);
 
             bg.removeChild(tg);
-            combinedTransform.addChild(shapes[i].tg);
+            combinedTransform.addChild(shape.tg);
         }
 
         combinedGroup.addChild(combinedTransform);

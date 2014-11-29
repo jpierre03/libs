@@ -380,10 +380,10 @@ public class IndexMaxPQ<Key extends Comparable<Key>> implements Iterable<Integer
         for (int i = 0; i < strings.length; i++)
             perm[i] = i;
         StdRandom.shuffle(perm);
-        for (int i = 0; i < perm.length; i++) {
-            String key = pq.keyOf(perm[i]);
-            pq.delete(perm[i]);
-            StdOut.println(perm[i] + " " + key);
+        for (int aPerm : perm) {
+            String key = pq.keyOf(aPerm);
+            pq.delete(aPerm);
+            StdOut.println(aPerm + " " + key);
         }
 
     }

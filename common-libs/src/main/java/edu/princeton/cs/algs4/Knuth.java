@@ -79,7 +79,6 @@ public class Knuth {
         Knuth.shuffle(a);
 
         // print results.
-        for (int i = 0; i < a.length; i++)
-            StdOut.println(a[i]);
+        for (String anA : a) StdOut.println(anA);
     }
 }

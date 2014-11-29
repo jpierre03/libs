@@ -119,8 +119,8 @@ public final class StdAudio {
      * is outside the range, it will be clipped.
      */
     public static void play(double[] input) {
-        for (int i = 0; i < input.length; i++) {
-            play(input[i]);
+        for (double anInput : input) {
+            play(anInput);
         }
     }
 
@@ -266,8 +266,8 @@ public final class StdAudio {
 
         // scale increments
         int[] steps = {0, 2, 4, 5, 7, 9, 11, 12};
-        for (int i = 0; i < steps.length; i++) {
-            double hz = 440.0 * Math.pow(2, steps[i] / 12.0);
+        for (int step : steps) {
+            double hz = 440.0 * Math.pow(2, step / 12.0);
             StdAudio.play(note(hz, 1.0, 0.5));
         }
 
