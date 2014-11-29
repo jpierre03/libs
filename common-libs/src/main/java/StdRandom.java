@@ -10,27 +10,27 @@
  *
  *  %  java StdRandom 5
  *  seed = 1316600602069
- *  59 16.81826  true 8.83954  0 
- *  32 91.32098  true 9.11026  0 
- *  35 10.11874  true 8.95396  3 
- *  92 32.88401  true 8.87089  0 
- *  72 92.55791  true 9.46241  0 
+ *  59 16.81826  true 8.83954  0
+ *  32 91.32098  true 9.11026  0
+ *  35 10.11874  true 8.95396  3
+ *  92 32.88401  true 8.87089  0
+ *  72 92.55791  true 9.46241  0
  *
  *  % java StdRandom 5
  *  seed = 1316600616575
- *  96 60.17070  true 8.72821  0 
- *  79 32.01607  true 8.58159  0 
- *  81 59.49065  true 9.10423  1 
- *  96 51.65818  true 9.02102  0 
- *  99 17.55771  true 8.99762  0 
+ *  96 60.17070  true 8.72821  0
+ *  79 32.01607  true 8.58159  0
+ *  81 59.49065  true 9.10423  1
+ *  96 51.65818  true 9.02102  0
+ *  99 17.55771  true 8.99762  0
  *
  *  % java StdRandom 5 1316600616575
  *  seed = 1316600616575
- *  96 60.17070  true 8.72821  0 
- *  79 32.01607  true 8.58159  0 
- *  81 59.49065  true 9.10423  1 
- *  96 51.65818  true 9.02102  0 
- *  99 17.55771  true 8.99762  0 
+ *  96 60.17070  true 8.72821  0
+ *  79 32.01607  true 8.58159  0
+ *  81 59.49065  true 9.10423  1
+ *  96 51.65818  true 9.02102  0
+ *  99 17.55771  true 8.99762  0
  *
  *
  *  Remark
@@ -48,14 +48,14 @@
 import java.util.Random;
 
 /**
- *  <i>Standard random</i>. This class provides methods for generating
- *  random number from various distributions.
- *  <p>
- *  For additional documentation, see <a href="http://introcs.cs.princeton.edu/22library">Section 2.2</a> of
- *  <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by Robert Sedgewick and Kevin Wayne.
+ * <i>Standard random</i>. This class provides methods for generating
+ * random number from various distributions.
+ * <p/>
+ * For additional documentation, see <a href="http://introcs.cs.princeton.edu/22library">Section 2.2</a> of
+ * <i>Introduction to Programming in Java: An Interdisciplinary Approach</i> by Robert Sedgewick and Kevin Wayne.
  *
- *  @author Robert Sedgewick
- *  @author Kevin Wayne
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
  */
 public final class StdRandom {
 
@@ -70,13 +70,14 @@ public final class StdRandom {
     }
 
     // don't instantiate
-    private StdRandom() { }
+    private StdRandom() {
+    }
 
     /**
      * Sets the seed of the psedurandom number generator.
      */
     public static void setSeed(long s) {
-        seed   = s;
+        seed = s;
         random = new Random(seed);
     }
 
@@ -96,6 +97,7 @@ public final class StdRandom {
 
     /**
      * Returns an integer uniformly between 0 (inclusive) and N (exclusive).
+     *
      * @throws IllegalArgumentException if <tt>N <= 0</tt>
      */
     public static int uniform(int N) {
@@ -110,6 +112,7 @@ public final class StdRandom {
 
     /**
      * Returns a real number uniformly in [0, 1).
+     *
      * @deprecated clearer to use {@link #uniform()}
      */
     public static double random() {
@@ -118,6 +121,7 @@ public final class StdRandom {
 
     /**
      * Returns an integer uniformly in [a, b).
+     *
      * @throws IllegalArgumentException if <tt>b <= a</tt>
      * @throws IllegalArgumentException if <tt>b - a >= Integer.MAX_VALUE</tt>
      */
@@ -129,15 +133,17 @@ public final class StdRandom {
 
     /**
      * Returns a real number uniformly in [a, b).
+     *
      * @throws IllegalArgumentException unless <tt>a < b</tt>
      */
     public static double uniform(double a, double b) {
         if (!(a < b)) throw new IllegalArgumentException("Invalid range");
-        return a + uniform() * (b-a);
+        return a + uniform() * (b - a);
     }
 
     /**
      * Returns a boolean, which is true with probability p, and false otherwise.
+     *
      * @throws IllegalArgumentException unless <tt>p >= 0.0</tt> and <tt>p <= 1.0</tt>
      */
     public static boolean bernoulli(double p) {
@@ -162,7 +168,7 @@ public final class StdRandom {
         do {
             x = uniform(-1.0, 1.0);
             y = uniform(-1.0, 1.0);
-            r = x*x + y*y;
+            r = x * x + y * y;
         } while (r >= 1 || r == 0);
         return x * Math.sqrt(-2 * Math.log(r) / r);
 
@@ -179,6 +185,7 @@ public final class StdRandom {
 
     /**
      * Returns an integer with a geometric distribution with mean 1/p.
+     *
      * @throws IllegalArgumentException unless <tt>p >= 0.0</tt> and <tt>p <= 1.0</tt>
      */
     public static int geometric(double p) {
@@ -190,6 +197,7 @@ public final class StdRandom {
 
     /**
      * Return an integer with a Poisson distribution with mean lambda.
+     *
      * @throws IllegalArgumentException unless <tt>lambda > 0.0</tt> and not infinite
      */
     public static int poisson(double lambda) {
@@ -206,17 +214,18 @@ public final class StdRandom {
             k++;
             p *= uniform();
         } while (p >= L);
-        return k-1;
+        return k - 1;
     }
 
     /**
      * Returns a real number with a Pareto distribution with parameter alpha.
+     *
      * @throws IllegalArgumentException unless <tt>alpha > 0.0</tt>
      */
     public static double pareto(double alpha) {
         if (!(alpha > 0.0))
             throw new IllegalArgumentException("Shape parameter alpha must be positive");
-        return Math.pow(1 - uniform(), -1.0/alpha) - 1.0;
+        return Math.pow(1 - uniform(), -1.0 / alpha) - 1.0;
     }
 
     /**
@@ -235,7 +244,8 @@ public final class StdRandom {
         double EPSILON = 1E-14;
         double sum = 0.0;
         for (int i = 0; i < a.length; i++) {
-            if (!(a[i] >= 0.0)) throw new IllegalArgumentException("array entry " + i + " must be nonnegative: " + a[i]);
+            if (!(a[i] >= 0.0))
+                throw new IllegalArgumentException("array entry " + i + " must be nonnegative: " + a[i]);
             sum = sum + a[i];
         }
         if (sum > 1.0 + EPSILON || sum < 1.0 - EPSILON)
@@ -255,6 +265,7 @@ public final class StdRandom {
 
     /**
      * Returns a real number from an exponential distribution with rate lambda.
+     *
      * @throws IllegalArgumentException unless <tt>lambda > 0.0</tt>
      */
     public static double exp(double lambda) {
@@ -269,7 +280,7 @@ public final class StdRandom {
     public static void shuffle(Object[] a) {
         int N = a.length;
         for (int i = 0; i < N; i++) {
-            int r = i + uniform(N-i);     // between i and N-1
+            int r = i + uniform(N - i);     // between i and N-1
             Object temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -282,7 +293,7 @@ public final class StdRandom {
     public static void shuffle(double[] a) {
         int N = a.length;
         for (int i = 0; i < N; i++) {
-            int r = i + uniform(N-i);     // between i and N-1
+            int r = i + uniform(N - i);     // between i and N-1
             double temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -295,7 +306,7 @@ public final class StdRandom {
     public static void shuffle(int[] a) {
         int N = a.length;
         for (int i = 0; i < N; i++) {
-            int r = i + uniform(N-i);     // between i and N-1
+            int r = i + uniform(N - i);     // between i and N-1
             int temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -311,7 +322,7 @@ public final class StdRandom {
             throw new IndexOutOfBoundsException("Illegal subarray range");
         }
         for (int i = lo; i <= hi; i++) {
-            int r = i + uniform(hi-i+1);     // between i and hi
+            int r = i + uniform(hi - i + 1);     // between i and hi
             Object temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -326,7 +337,7 @@ public final class StdRandom {
             throw new IndexOutOfBoundsException("Illegal subarray range");
         }
         for (int i = lo; i <= hi; i++) {
-            int r = i + uniform(hi-i+1);     // between i and hi
+            int r = i + uniform(hi - i + 1);     // between i and hi
             double temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -341,7 +352,7 @@ public final class StdRandom {
             throw new IndexOutOfBoundsException("Illegal subarray range");
         }
         for (int i = lo; i <= hi; i++) {
-            int r = i + uniform(hi-i+1);     // between i and hi
+            int r = i + uniform(hi - i + 1);     // between i and hi
             int temp = a[i];
             a[i] = a[r];
             a[r] = temp;
@@ -354,15 +365,15 @@ public final class StdRandom {
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
         if (args.length == 2) StdRandom.setSeed(Long.parseLong(args[1]));
-        double[] t = { .5, .3, .1, .1 };
+        double[] t = {.5, .3, .1, .1};
 
         StdOut.println("seed = " + StdRandom.getSeed());
         for (int i = 0; i < N; i++) {
-            StdOut.printf("%2d "  , uniform(100));
+            StdOut.printf("%2d ", uniform(100));
             StdOut.printf("%8.5f ", uniform(10.0, 99.0));
-            StdOut.printf("%5b "  , bernoulli(.5));
+            StdOut.printf("%5b ", bernoulli(.5));
             StdOut.printf("%7.5f ", gaussian(9.0, .2));
-            StdOut.printf("%2d "  , discrete(t));
+            StdOut.printf("%2d ", discrete(t));
             StdOut.println();
         }
 
