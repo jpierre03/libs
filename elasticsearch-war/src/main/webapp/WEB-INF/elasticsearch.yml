@@ -1,0 +1,6 @@
+#cluster.name: javanna
+
+node.name: "TKP-e"
+node.master: true
+node.data: true
+http.cors.enabled: true
