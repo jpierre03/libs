@@ -18,4 +18,5 @@ hs_err_pid*
 *.ips
 *.iws
 *.ipr
-
+*.iml
+*/target/
