@@ -1,6 +1,5 @@
-package com.antalios.rfid.dal.amqp;
+package fr.prunetwork.amqp;
 
-import com.antalios.rfid.conf.Properties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -15,15 +14,18 @@ import java.util.Arrays;
  */
 public class ReceiveLogsTopic {
 
+    static final String AMQP_TEST_URL = "amqp://localhost";
+    static final String AMQP_TEST_EXCHANGE = "test";
+
     public static void main(String[] argv)
             throws Exception {
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri(Properties.AMQP_TEST_URL);
+        factory.setUri(AMQP_TEST_URL);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.exchangeDeclare(Properties.AMQP_TEST_EXCHANGE, "topic");
+        channel.exchangeDeclare(AMQP_TEST_EXCHANGE, "topic");
         String queueName = channel.queueDeclare().getQueue();
 
         ArrayList<String> bindingKeys = new ArrayList<>();
@@ -39,7 +41,7 @@ public class ReceiveLogsTopic {
         bindingKeys.add("#");
 
         for (String bindingKey : bindingKeys) {
-            channel.queueBind(queueName, Properties.AMQP_TEST_EXCHANGE, bindingKey);
+            channel.queueBind(queueName, AMQP_TEST_EXCHANGE, bindingKey);
         }
 
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
