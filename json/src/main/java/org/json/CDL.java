@@ -242,7 +242,6 @@ public class CDL {
         return ja;
     }
 
-
     /**
      * Produce a comma delimited text from a JSONArray of JSONObjects. The
      * first row will be a list of names obtained by inspecting the first

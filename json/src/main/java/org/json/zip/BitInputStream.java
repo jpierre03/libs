@@ -90,7 +90,7 @@ public class BitInputStream implements BitReader {
      * @param width The size of the block to pad in bits.
      *              This will typically be 8, 16, 32, 64, 128, 256, etc.
      * @return true if the block was zero padded, or false if the the padding
-     * contains any one bits.
+     *         contains any one bits.
      * @throws IOException
      */
     public boolean pad(int width) throws IOException {

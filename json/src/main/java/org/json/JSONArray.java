@@ -455,7 +455,7 @@ public class JSONArray {
      *
      * @param index subscript
      * @return A JSONArray value, or null if the index has no value, or if the
-     * value is not a JSONArray.
+     *         value is not a JSONArray.
      */
     public JSONArray optJSONArray(int index) {
         Object o = this.opt(index);
@@ -737,7 +737,7 @@ public class JSONArray {
      *
      * @param index The index of the element to be removed.
      * @return The value that was associated with the index, or null if there
-     * was no value.
+     *         was no value.
      */
     public Object remove(int index) {
         return index >= 0 && index < this.length()
@@ -785,7 +785,7 @@ public class JSONArray {
      * @param names A JSONArray containing a list of key strings. These will be
      *              paired with the values.
      * @return A JSONObject, or null if there are no names or if this JSONArray
-     * has no values.
+     *         has no values.
      * @throws JSONException If any of the names are null.
      */
     public JSONObject toJSONObject(JSONArray names) throws JSONException {
@@ -808,7 +808,7 @@ public class JSONArray {
      * Warning: This method assumes that the data structure is acyclical.
      *
      * @return a printable, displayable, transmittable representation of the
-     * array.
+     *         array.
      */
     public String toString() {
         try {
@@ -824,9 +824,9 @@ public class JSONArray {
      *
      * @param indentFactor The number of spaces to add to each level of indentation.
      * @return a printable, displayable, transmittable representation of the
-     * object, beginning with <code>[</code>&nbsp;<small>(left
-     * bracket)</small> and ending with <code>]</code>
-     * &nbsp;<small>(right bracket)</small>.
+     *         object, beginning with <code>[</code>&nbsp;<small>(left
+     *         bracket)</small> and ending with <code>]</code>
+     *         &nbsp;<small>(right bracket)</small>.
      * @throws JSONException
      */
     public String toString(int indentFactor) throws JSONException {
