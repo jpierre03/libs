@@ -1,6 +1,7 @@
-package fr.prunetwork.amqp;
+package com.antalios.rfid.dal.amqp;
 
-import fr.prunetwork.amqp.receiver.ElaAmqpReceiver;
+import fr.prunetwork.amqp.AmqpReceiver;
+import fr.prunetwork.amqp.receiver.SimpleAmqpReceiver;
 
 import java.util.Arrays;
 
@@ -11,7 +12,7 @@ public class AmqpReceiverMain {
 
     public static void main(String... argv) throws Exception {
 
-        AmqpReceiver receiver = new ElaAmqpReceiver(AMQP_TEST_URL, AMQP_TEST_EXCHANGE, Arrays.asList("#"));
+        AmqpReceiver receiver = new SimpleAmqpReceiver(AMQP_TEST_URL, AMQP_TEST_EXCHANGE, Arrays.asList("#"));
         receiver.configure();
 
         while (true) {

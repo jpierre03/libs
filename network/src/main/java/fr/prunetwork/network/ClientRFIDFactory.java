@@ -21,7 +21,7 @@ public final class ClientRFIDFactory {
             final Map<Integer, ClientRFID> hostnameConnexions = connexions.get(hostname);
             if (hostnameConnexions == null
                     || hostnameConnexions.get(portNumber) == null) {
-                connexions.put(hostname, (hostnameConnexions != null ? hostnameConnexions : new ConcurrentHashMap<>()));
+                connexions.put(hostname, (hostnameConnexions != null ? hostnameConnexions : new ConcurrentHashMap<Integer, ClientRFID>()));
                 connexions.get(hostname).put(portNumber, new ClientRFIDImpl(hostname, portNumber));
             }
 

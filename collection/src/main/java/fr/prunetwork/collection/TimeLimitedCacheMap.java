@@ -1,5 +1,6 @@
 package fr.prunetwork.collection;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -11,16 +12,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author rongkan
  * @author Jean-Pierre PRUNARET
  */
-public final class TimeLimitedCacheMap<K, V> implements Iterable<K> {
+public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializable {
 
-    private final Map<K, V> objectMap = new HashMap<>(50);
-    private final Map<K, Long> timeMap = new HashMap<>();
+    private final Map<K, V> objectMap = new HashMap<>(1 << 7);
+    private final Map<K, Long> timeMap = new HashMap<>(1 << 7);
     private final Map<Long, HistoryEntry<V>> history = new ConcurrentHashMap<>();
     /* I need a shared lock, readwrite lock is an excellent candidate.
      * eviction is run with writeLock, put/remove with readLock
      */
     private final ReentrantReadWriteLock accessLock = new ReentrantReadWriteLock();
-    //private final ReentrantLock accessLock = new ReentrantLock();
     private final Runnable evictor = new Runnable() {
 
         /* evictor thread removes data, and changes map state. This is
@@ -50,7 +50,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K> {
              * 1. contains keys for objects which are removed by user, using remove() (not a problem)
              * 2. contains keys for objects which are updated by user, using put() [a big problem]
              */
-            Set<K> markedForRemoval = new HashSet<>(10);
+            Set<K> markedForRemoval = new HashSet<>();
             for (K key : keys) {
                 long lastTime = timeMap.get(key);
                 if (lastTime == 0) {
