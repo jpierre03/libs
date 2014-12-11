@@ -58,7 +58,7 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            final int MAX = 10 * 1000;
+            final int MAX = 100;
             JButton button = new JButton(MAX + " Messages en boucle");
             button.addActionListener(new ActionListener() {
                 @Override
@@ -77,7 +77,7 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            final int MAX = 10 * 1000 * 1000;
+            final int MAX = 100;
             JButton button = new JButton("Envoi de " + MAX + " valeurs de temperature");
             button.addActionListener(new ActionListener() {
                 @Override

@@ -3,10 +3,7 @@ package fr.prunetwork.gui.table;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -14,7 +11,7 @@ import java.util.List;
  */
 public class MessageTableModel extends AbstractTableModel {
 
-    private final String[] entetes = {"Clef", "Corps"};
+    private final String[] entetes = {"Date", "Clef", "Corps"};
     private final List<AmqpReceivedMessage> messages = new ArrayList<>();
 
     @Override
@@ -37,9 +34,12 @@ public class MessageTableModel extends AbstractTableModel {
         switch (columnIndex) {
 
             case 0:
-                return messages.get(rowIndex).getRoutingKey();
+                return messages.get(rowIndex).getReceivedDate();
 
             case 1:
+                return messages.get(rowIndex).getRoutingKey();
+
+            case 2:
                 return messages.get(rowIndex).getBody();
 
             default:
@@ -52,7 +52,7 @@ public class MessageTableModel extends AbstractTableModel {
         switch (columnIndex) {
 
             case 0:
-                return String.class;
+                return Date.class;
 
             case 1:
                 return String.class;
@@ -71,5 +71,10 @@ public class MessageTableModel extends AbstractTableModel {
             throw new IllegalArgumentException("null message");
         }
         messages.add(message);
+    }
+
+    public void purge() {
+        messages.clear();
+        fireTableDataChanged();
     }
 }

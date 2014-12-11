@@ -1,6 +1,5 @@
 package fr.prunetwork.gui;
 
-
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.producer.AmqpProducer;
 
