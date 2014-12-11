@@ -1,6 +1,7 @@
 package com.cor.cep.event;
 
-import fr.onet.ae.common.event.Event;
+
+import com.cor.cep.util.Event;
 
 import java.util.Date;
 

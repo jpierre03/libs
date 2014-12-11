@@ -7,6 +7,7 @@ import com.cor.cep.util.amqp.consumer.AmqpReceivedMessageImpl;
 import com.cor.cep.util.amqp.consumer.AmqpReceiver;
 import com.cor.cep.util.amqp.consumer.MessageConsumer;
 import com.rabbitmq.client.QueueingConsumer;
+import fr.prunetwork.amqp.AmqpDefaultProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_EXCHANGE;
-import static fr.onet.ae.common.Configuration.AMQP_DEFAULT_URL;
 
 /**
  * Just a simple class to create a number of Random TemperatureEvents and pass them off to the
@@ -51,7 +49,12 @@ public class AmqpTemperatureEventGenerator {
 
                 try {
                     MyMessageConsumer consumer = new MyMessageConsumer();
-                    AmqpReceiver receiver = new AmqpReceiver(AMQP_DEFAULT_URL, AMQP_DEFAULT_EXCHANGE, Arrays.asList("#"), consumer);
+                    AmqpReceiver receiver = new AmqpReceiver(
+                            AmqpDefaultProperties.URI,
+                            AmqpDefaultProperties.EXCHANGE,
+                            Arrays.asList("#"),
+                            consumer
+                    );
 
                     receiver.configure();
 
