@@ -1,5 +1,6 @@
 package fr.prunetwork;
 
+import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.SimpleMessage;
 import fr.prunetwork.amqp.receiver.SimpleAmqpReceiver;
 import fr.prunetwork.gui.table.DateCellRenderer;
@@ -37,7 +38,8 @@ public class Main {
         SimpleAmqpReceiver receiver = new SimpleAmqpReceiver(
                 "amqp://jpierre03:toto@bc.antalios.com",
                 "ae.laveuse.v1",
-                Arrays.asList("#")
+                Arrays.asList("#"),
+                ExchangeType.topic
         );
         receiver.configure();
 
