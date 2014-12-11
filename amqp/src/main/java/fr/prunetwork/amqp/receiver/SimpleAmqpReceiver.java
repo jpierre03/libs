@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpReceiver;
+import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.SimpleMessage;
 
 import java.io.IOException;
@@ -41,7 +42,7 @@ public final class SimpleAmqpReceiver implements AmqpReceiver<SimpleMessage> {
         Channel channel = connection.createChannel();
         channel.basicQos(10);
 
-        channel.exchangeDeclare(topicName, "topic");
+        channel.exchangeDeclare(topicName, ExchangeType.topic.name());
         String queueName = channel.queueDeclare().getQueue();
 
         for (String bindingKey : bindingKeys) {
