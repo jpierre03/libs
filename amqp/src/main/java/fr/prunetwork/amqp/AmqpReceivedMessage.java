@@ -1,6 +1,7 @@
 package fr.prunetwork.amqp;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -13,4 +14,6 @@ public interface AmqpReceivedMessage extends Serializable {
     String getRoutingKey();
 
     public void displayReceived();
+
+    Date getReceivedDate();
 }
