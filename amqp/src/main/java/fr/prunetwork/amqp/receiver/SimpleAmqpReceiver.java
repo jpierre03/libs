@@ -23,16 +23,18 @@ public final class SimpleAmqpReceiver implements AmqpReceiver<SimpleMessage> {
     private final URI uri;
     private final String topicName;
     private final Collection<String> bindingKeys;
+    private final ExchangeType exchangeType;
     private QueueingConsumer consumer;
 
-    public SimpleAmqpReceiver(URI uri, String topic, Collection<String> bindingKeys) {
+    public SimpleAmqpReceiver(URI uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) {
         this.uri = uri;
         this.topicName = topic;
+        this.exchangeType = exchangeType;
         this.bindingKeys = new ArrayList<>(bindingKeys);
     }
 
-    public SimpleAmqpReceiver(String uri, String topic, Collection<String> bindingKeys) throws URISyntaxException {
-        this(new URI(uri), topic, bindingKeys);
+    public SimpleAmqpReceiver(String uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) throws URISyntaxException {
+        this(new URI(uri), topic, bindingKeys, exchangeType);
     }
 
     public void configure() throws Exception {
@@ -42,7 +44,7 @@ public final class SimpleAmqpReceiver implements AmqpReceiver<SimpleMessage> {
         Channel channel = connection.createChannel();
         channel.basicQos(10);
 
-        channel.exchangeDeclare(topicName, ExchangeType.topic.name());
+        channel.exchangeDeclare(topicName, exchangeType.name());
         String queueName = channel.queueDeclare().getQueue();
 
         for (String bindingKey : bindingKeys) {

@@ -1,18 +1,16 @@
 package com.antalios.rfid.dal.amqp;
 
 import fr.prunetwork.amqp.AmqpReceiver;
+import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.receiver.SimpleAmqpReceiver;
 
-import java.util.Arrays;
+import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
 public class AmqpReceiverMain {
 
-    static final String AMQP_TEST_URL = "amqp://localhost";
-    static final String AMQP_TEST_EXCHANGE = "test";
-
     public static void main(String... argv) throws Exception {
 
-        AmqpReceiver receiver = new SimpleAmqpReceiver(AMQP_TEST_URL, AMQP_TEST_EXCHANGE, Arrays.asList("#"));
+        AmqpReceiver receiver = new SimpleAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic);
         receiver.configure();
 
         while (true) {

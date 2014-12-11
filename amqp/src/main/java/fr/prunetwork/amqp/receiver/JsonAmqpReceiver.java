@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpReceiver;
+import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.AmqpReceivedMessageImpl;
 import fr.prunetwork.amqp.message.JsonMessage;
 
@@ -23,16 +24,18 @@ public final class JsonAmqpReceiver implements AmqpReceiver<JsonMessage> {
     private final URI uri;
     private final String topicName;
     private final Collection<String> bindingKeys;
+    private final ExchangeType exchangeType;
     private QueueingConsumer consumer;
 
-    public JsonAmqpReceiver(URI uri, String topic, Collection<String> bindingKeys) {
+    public JsonAmqpReceiver(URI uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) {
         this.uri = uri;
         this.topicName = topic;
         this.bindingKeys = new ArrayList<>(bindingKeys);
+        this.exchangeType = exchangeType;
     }
 
-    public JsonAmqpReceiver(String uri, String topic, Collection<String> bindingKeys) throws URISyntaxException {
-        this(new URI(uri), topic, bindingKeys);
+    public JsonAmqpReceiver(String uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) throws URISyntaxException {
+        this(new URI(uri), topic, bindingKeys, exchangeType);
     }
 
     public void configure() throws Exception {
@@ -42,7 +45,7 @@ public final class JsonAmqpReceiver implements AmqpReceiver<JsonMessage> {
         Channel channel = connection.createChannel();
         channel.basicQos(10);
 
-        channel.exchangeDeclare(topicName, "topic");
+        channel.exchangeDeclare(topicName, exchangeType.name());
         String queueName = channel.queueDeclare().getQueue();
 
         for (String bindingKey : bindingKeys) {
