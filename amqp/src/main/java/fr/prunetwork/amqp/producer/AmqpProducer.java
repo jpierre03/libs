@@ -4,6 +4,7 @@ package fr.prunetwork.amqp.producer;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import fr.prunetwork.amqp.ExchangeType;
 
 import java.io.IOException;
 
@@ -19,27 +20,11 @@ import java.io.IOException;
  */
 public final class AmqpProducer {
 
-    //private static final String URI = "amqp://jpierre03:toto@bc.antalios.com";
-    //private static final String URI = "amqp://jpierre03:toto@localhost";
-    private static final String URI = "amqp://jpierre03:toto@172.16.201.201";
-    //private static final String EXCHANGE = "anta.bc";
-    private static final String EXCHANGE = "dev.tmp";
-    private static final String ROUTING_KEY = "";
     private final Channel channel;
     private final Connection connection;
     private final String uri;
     private final String exchange;
     private final String routingKey;
-
-    /**
-     * Default constructor
-     *
-     * @throws Exception If something fail, an exception is thrown.
-     */
-    public AmqpProducer() throws Exception {
-        this(URI, EXCHANGE, ROUTING_KEY);
-    }
-
 
     /**
      * This constructor allow user to define usual AMQP settings.
@@ -48,7 +33,7 @@ public final class AmqpProducer {
      *
      * @throws Exception If something fail, an exception is thrown.
      */
-    public AmqpProducer(String uri, String exchange, String routingKey) throws Exception {
+    public AmqpProducer(String uri, String exchange, String routingKey, ExchangeType exchangeType) throws Exception {
         this.uri = uri;
         this.exchange = exchange;
         this.routingKey = routingKey;
@@ -63,8 +48,8 @@ public final class AmqpProducer {
 
         channel = connection.createChannel();
 
-        //channel.exchangeDeclare(exchange, "fanout");
-        channel.exchangeDeclare(exchange, "topic");
+        //channel.exchangeDeclare(exchange, ExchangeType.fanout.name());
+        channel.exchangeDeclare(exchange, exchangeType.name());
 
         if (exchange.equals("")) {
             channel.queueDeclare(routingKey, false, true, false, null);
@@ -76,7 +61,7 @@ public final class AmqpProducer {
      * If communication with server is still ok, a string parameter is send.
      *
      * @param message A message to be send to AMQP broker.
-     * @throws java.io.IOException
+     * @throws IOException
      */
     public void publish(final String message, final String routingKey) throws IOException {
         if (channel != null) {

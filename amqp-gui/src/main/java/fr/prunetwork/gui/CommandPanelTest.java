@@ -1,9 +1,12 @@
 package fr.prunetwork.gui;
 
 
+import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.producer.AmqpProducer;
 
 import javax.swing.*;
+
+import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -17,7 +20,18 @@ public class CommandPanelTest {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         try {
-            frame.add(new CommandPanel(new CommandPanelActionner(new AmqpProducer())));
+            frame.add(
+                    new CommandPanel(
+                            new CommandPanelActionner(
+                                    new AmqpProducer(
+                                            URI,
+                                            EXCHANGE,
+                                            ROUTING_KEY,
+                                            ExchangeType.topic
+                                    )
+                            )
+                    )
+            );
         } catch (Exception e) {
             System.exit(-1);
         }
