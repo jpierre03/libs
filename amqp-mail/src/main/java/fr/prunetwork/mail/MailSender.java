@@ -18,17 +18,20 @@ public class MailSender {
 
     private final String serveur;
     private final boolean debug;
+    private final Session session;
     //private ExecutorService executor = Executors.newFixedThreadPool(1);
 
     public MailSender(String serveur, boolean debug) {
         this.serveur = serveur;
         this.debug = debug;
+
+        Properties prop = System.getProperties();
+        prop.put("mail.smtp.host", serveur);
+        session = Session.getDefaultInstance(prop, null);
+        session.setDebug(debug);
     }
 
     public void send(Mail mail) throws Exception {
-        Properties prop = System.getProperties();
-        prop.put("mail.smtp.host", serveur);
-        Session session = Session.getDefaultInstance(prop, null);
 
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(mail.getFromMailAddress()));
@@ -44,7 +47,6 @@ public class MailSender {
         message.setText(mail.getBody());
         message.setHeader("X-Mailer", MAILER_VERSION);
         message.setSentDate(new Date());
-        session.setDebug(debug);
         Transport.send(message);
     }
 }
