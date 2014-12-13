@@ -36,17 +36,15 @@ public class MailSender {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(mail.getFromMailAddress()));
 
-        final InternetAddress[] internetAddresses = new InternetAddress[mail.getToMailAddresses().size()];
-        for (int i = 0; i < mail.getToMailAddresses().size(); i++) {
-            final String emailAddress = mail.getToMailAddresses().get(i);
-            internetAddresses[i] = new InternetAddress(emailAddress);
-        }
+        final InternetAddress[] internetAddresses = mail.getDestinationAdresses();
 
+        message.addHeader("X-Mailer", MAILER_VERSION);
+        message.setSentDate(new Date());
         message.setRecipients(Message.RecipientType.TO, internetAddresses);
+
         message.setSubject(mail.getSubject());
         message.setText(mail.getBody());
-        message.setHeader("X-Mailer", MAILER_VERSION);
-        message.setSentDate(new Date());
+
         Transport.send(message);
     }
 }

@@ -1,5 +1,6 @@
 package fr.prunetwork.mail;
 
+import javax.mail.internet.InternetAddress;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,5 +39,16 @@ public class Mail {
 
     public List<String> getToMailAddresses() {
         return Collections.unmodifiableList(toMailAddresses);
+    }
+
+    public InternetAddress[] getDestinationAdresses() throws Exception {
+
+        final InternetAddress[] internetAddresses = new InternetAddress[getToMailAddresses().size()];
+        for (int i = 0; i < getToMailAddresses().size(); i++) {
+            final String emailAddress = getToMailAddresses().get(i);
+            internetAddresses[i] = new InternetAddress(emailAddress);
+        }
+
+        return internetAddresses;
     }
 }
