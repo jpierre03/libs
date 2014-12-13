@@ -5,7 +5,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,14 +17,13 @@ import java.util.concurrent.Executors;
  */
 public class MailTest {
 
-    static ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
-
     private final static String MAILER_VERSION = "Java";
+    static ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
 
     public static boolean envoyerMailSMTP(String serveur,
                                           boolean debug,
                                           final String fromMailAddress,
-                                          final String toMailAddress,
+                                          final List<String> toMailAddresses,
                                           final String subject,
                                           final String body) throws Exception {
         boolean result = false;
@@ -34,8 +35,11 @@ public class MailTest {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(fromMailAddress));
 
-        InternetAddress[] internetAddresses = new InternetAddress[1];
-        internetAddresses[0] = new InternetAddress(toMailAddress);
+        final InternetAddress[] internetAddresses = new InternetAddress[toMailAddresses.size()];
+        for (int i = 0; i < toMailAddresses.size(); i++) {
+            final String emailAddress = toMailAddresses.get(i);
+            internetAddresses[i] = new InternetAddress(emailAddress);
+        }
 
         message.setRecipients(Message.RecipientType.TO, internetAddresses);
         message.setSubject(subject);
@@ -60,7 +64,7 @@ public class MailTest {
                                 "192.168.1.50",
                                 false,
                                 "java@spam.prunetwork.fr",
-                                "blackhole@prunetwork.fr",
+                                Arrays.asList("blackhole@prunetwork.fr"),
                                 "Test sujet",
                                 "Test contenu mail"
                         );
