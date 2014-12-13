@@ -1,5 +1,7 @@
 package fr.prunetwork;
 
+import fr.prunetwork.mail.Mail;
+
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -7,7 +9,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,12 +21,7 @@ public class MailTest {
     private final static String MAILER_VERSION = "Java";
     static ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
 
-    public static boolean envoyerMailSMTP(String serveur,
-                                          boolean debug,
-                                          final String fromMailAddress,
-                                          final List<String> toMailAddresses,
-                                          final String subject,
-                                          final String body) throws Exception {
+    public static boolean envoyerMailSMTP(String serveur, boolean debug, Mail mail) throws Exception {
         boolean result = false;
 
         Properties prop = System.getProperties();
@@ -33,17 +29,17 @@ public class MailTest {
         Session session = Session.getDefaultInstance(prop, null);
 
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(fromMailAddress));
+        message.setFrom(new InternetAddress(mail.getFromMailAddress()));
 
-        final InternetAddress[] internetAddresses = new InternetAddress[toMailAddresses.size()];
-        for (int i = 0; i < toMailAddresses.size(); i++) {
-            final String emailAddress = toMailAddresses.get(i);
+        final InternetAddress[] internetAddresses = new InternetAddress[mail.getToMailAddresses().size()];
+        for (int i = 0; i < mail.getToMailAddresses().size(); i++) {
+            final String emailAddress = mail.getToMailAddresses().get(i);
             internetAddresses[i] = new InternetAddress(emailAddress);
         }
 
         message.setRecipients(Message.RecipientType.TO, internetAddresses);
-        message.setSubject(subject);
-        message.setText(body);
+        message.setSubject(mail.getSubject());
+        message.setText(mail.getBody());
         message.setHeader("X-Mailer", MAILER_VERSION);
         message.setSentDate(new Date());
         session.setDebug(debug);
@@ -60,14 +56,14 @@ public class MailTest {
                 @Override
                 public void run() {
                     try {
-                        MailTest.envoyerMailSMTP(
-                                "192.168.1.50",
-                                false,
+                        final Mail mail = new Mail(
                                 "java@spam.prunetwork.fr",
                                 Arrays.asList("blackhole@prunetwork.fr"),
                                 "Test sujet",
                                 "Test contenu mail"
                         );
+
+                        MailTest.envoyerMailSMTP("192.168.1.50", false, mail);
                     } catch (Exception e) {
                         //e.printStackTrace();
                     }
