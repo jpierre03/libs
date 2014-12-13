@@ -36,7 +36,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>fr.prunetwork</groupId>
             <artifactId>json</artifactId>
