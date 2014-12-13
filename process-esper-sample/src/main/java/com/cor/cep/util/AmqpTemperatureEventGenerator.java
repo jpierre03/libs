@@ -2,12 +2,12 @@ package com.cor.cep.util;
 
 import com.cor.cep.event.TemperatureEvent;
 import com.cor.cep.handler.TemperatureEventHandler;
-import com.cor.cep.util.amqp.consumer.AmqpReceivedMessage;
-import com.cor.cep.util.amqp.consumer.AmqpReceivedMessageImpl;
-import com.cor.cep.util.amqp.consumer.AmqpReceiver;
-import com.cor.cep.util.amqp.consumer.MessageConsumer;
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpDefaultProperties;
+import fr.prunetwork.amqp.AmqpReceivedMessage;
+import fr.prunetwork.amqp.consumer.AmqpReceiver;
+import fr.prunetwork.amqp.consumer.MessageConsumer;
+import fr.prunetwork.amqp.message.AmqpReceivedMessageImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
