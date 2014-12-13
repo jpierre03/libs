@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class JsonMessage implements AmqpReceivedMessage {
 
-    final JSONObject jsonObject;
+    private final JSONObject jsonObject;
     private final String routingKey;
     private final String message;
     private final Date receptionDate;
@@ -40,5 +40,9 @@ public class JsonMessage implements AmqpReceivedMessage {
 
     public void displayReceived() {
         System.out.printf(" [x] Received '%s':'%s'%n", getRoutingKey(), getBody());
+    }
+
+    public JSONObject getJson() {
+        return jsonObject;
     }
 }
