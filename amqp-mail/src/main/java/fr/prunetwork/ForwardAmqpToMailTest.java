@@ -3,6 +3,12 @@ package fr.prunetwork;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.JsonMessage;
 import fr.prunetwork.amqp.receiver.JsonAmqpReceiver;
+import fr.prunetwork.mail.Mail;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
@@ -20,12 +26,30 @@ public class ForwardAmqpToMailTest {
         while (true) {
             try {
                 final JsonMessage message = receiver.consume();
+                final JSONObject json = message.getJson();
 
+                final String subject = json.getString("subject");
+                final String body = json.getString("body");
+                final List<String> destination = new ArrayList<>();
+
+                final JSONArray destinations = json.getJSONArray("destination");
+                for (int i = 0; i < destinations.length(); i++) {
+                    final String d = destinations.getString(i);
+                    destination.add(d);
+                }
+
+                final Mail mail = new Mail("toto@example.com", destination, subject, body);
 
                 message.displayReceived();
 
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+
             }
         }
     }

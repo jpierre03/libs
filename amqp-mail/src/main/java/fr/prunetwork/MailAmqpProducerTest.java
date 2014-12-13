@@ -19,7 +19,7 @@ public class MailAmqpProducerTest {
         try {
             final AmqpProducer producer = new AmqpProducer(URI, EXCHANGE, ROUTING_KEY, ExchangeType.topic);
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10000; i++) {
 /*
 {
     "subject": "un beau sujet",
@@ -33,8 +33,8 @@ public class MailAmqpProducerTest {
                 final String message = "{\n" +
                         "    \"subject\": \"un beau sujet\",\n" +
                         "    \"destination\": [\n" +
-                        "        \"john.doe@example.com\",\n" +
-                        "        \"john.doe@example.42\"\n" +
+                        "        \"blackhole@prunetwork.fr\",\n" +
+                        "        \"blackhole@prunetwork.fr\"\n" +
                         "    ],\n" +
                         "    \"body\": \"un corps de mail très court\"\n" +
                         "}";
