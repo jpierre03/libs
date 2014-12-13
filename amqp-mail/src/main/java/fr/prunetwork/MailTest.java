@@ -7,11 +7,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Hello world!
  */
 public class MailTest {
+
+    static ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
 
     private final static String MAILER_VERSION = "Java";
 
@@ -26,10 +30,13 @@ public class MailTest {
         Properties prop = System.getProperties();
         prop.put("mail.smtp.host", serveur);
         Session session = Session.getDefaultInstance(prop, null);
+
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(fromMailAddress));
+
         InternetAddress[] internetAddresses = new InternetAddress[1];
         internetAddresses[0] = new InternetAddress(toMailAddress);
+
         message.setRecipients(Message.RecipientType.TO, internetAddresses);
         message.setSubject(subject);
         message.setText(body);
@@ -43,17 +50,25 @@ public class MailTest {
     }
 
     public static void main(String[] args) {
-        try {
-            MailTest.envoyerMailSMTP(
-                    "192.168.1.50",
-                    true,
-                    "java@spam.prunetwork.fr",
-                    "jean-pierre@prunetwork.fr",
-                    "Test sujet",
-                    "Test contenu mail"
-                    );
-        } catch (Exception e) {
-            e.printStackTrace();
+        for (int i = 0; i < 10; i++) {
+
+            EXECUTOR.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        MailTest.envoyerMailSMTP(
+                                "192.168.1.50",
+                                false,
+                                "java@spam.prunetwork.fr",
+                                "blackhole@prunetwork.fr",
+                                "Test sujet",
+                                "Test contenu mail"
+                        );
+                    } catch (Exception e) {
+                        //e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 }
