@@ -30,7 +30,7 @@ public final class TcpClientImpl implements TcpClient {
         }
         if (portNumber < 1024
                 || portNumber > 65534) {
-            throw new IllegalArgumentException("Port number not in limit [1024; 65534]");
+            throw new IllegalArgumentException("Port number over limit [1024; 65534]");
         }
         if (count.get() > 1) {
 //            throw new IllegalStateException("Constructor should be called only once (this special case), called: #" + count.get());
@@ -63,6 +63,8 @@ public final class TcpClientImpl implements TcpClient {
         assert isConnected : ASSERT_CONNECTED;
         assert socket != null && socket.isConnected() : ASSERT_CONNECTED;
 
+        isConnected = false;
+
         if (sortie != null) {
             sortie.close();
         }
@@ -75,7 +77,6 @@ public final class TcpClientImpl implements TcpClient {
             if (entree != null) {
                 entree.close();
             }
-            isConnected = false;
         } catch (IOException e) {
             e.printStackTrace();
         }
