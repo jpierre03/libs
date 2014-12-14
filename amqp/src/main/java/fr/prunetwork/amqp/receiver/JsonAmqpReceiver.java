@@ -6,7 +6,6 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
-import fr.prunetwork.amqp.message.AmqpReceivedMessageImpl;
 import fr.prunetwork.amqp.message.JsonMessage;
 
 import java.io.IOException;
@@ -62,7 +61,7 @@ public final class JsonAmqpReceiver implements AmqpReceiver<JsonMessage> {
         final String message = new String(delivery.getBody());
         final String routingKey = delivery.getEnvelope().getRoutingKey();
 
-        final JsonMessage localizedMessage = new JsonMessage(new AmqpReceivedMessageImpl(routingKey, message));
+        final JsonMessage localizedMessage = new JsonMessage(routingKey, message);
 
         // localizedMessage.displayReceived();
 

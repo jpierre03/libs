@@ -13,8 +13,12 @@ public class JsonMessage
     private final JSONObject jsonObject;
 
     public JsonMessage(AmqpReceivedMessage message) throws Exception {
-        super(message.getRoutingKey(), message.getBody());
-        jsonObject = new JSONObject(message.getBody());
+        this(message.getRoutingKey(), message.getBody());
+    }
+
+    public JsonMessage(String routingKey, String body) throws Exception {
+        super(routingKey, body);
+        jsonObject = new JSONObject(body);
     }
 
     @Override
