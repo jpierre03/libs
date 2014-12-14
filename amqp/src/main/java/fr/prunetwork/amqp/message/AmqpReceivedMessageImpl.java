@@ -8,13 +8,13 @@ import java.util.Date;
  * @author Jean-Pierre PRUNARET
  * @since 28/08/2014
  */
-public class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
+class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
 
     private final String routingKey;
     private final String body;
     private final Date receptionDate;
 
-    public AmqpReceivedMessageImpl(String routingKey, String body) {
+    protected AmqpReceivedMessageImpl(String routingKey, String body) {
         this.routingKey = routingKey;
         this.body = body;
         this.receptionDate = new Date();
@@ -31,7 +31,7 @@ public class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     }
 
     @Override
-    public void displayReceived() {
+    public final void displayReceived() {
         System.out.println(toString());
     }
 
