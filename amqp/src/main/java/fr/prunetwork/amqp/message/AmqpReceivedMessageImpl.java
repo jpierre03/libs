@@ -8,7 +8,7 @@ import java.util.Date;
  * @author Jean-Pierre PRUNARET
  * @since 28/08/2014
  */
-public final class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
+public class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
 
     private final String routingKey;
     private final String body;
@@ -21,22 +21,27 @@ public final class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     }
 
     @Override
-    public String getBody() {
+    public final String getBody() {
         return body;
     }
 
     @Override
-    public String getRoutingKey() {
+    public final String getRoutingKey() {
         return routingKey;
     }
 
     @Override
     public void displayReceived() {
-        System.out.printf(" [x] Received '%s':'%s' for area: '%s' isConsistent: %s %n", getRoutingKey(), getBody());
+        System.out.println(toString());
     }
 
     @Override
-    public Date getReceivedDate() {
+    public String toString() {
+        return String.format("%s -> %s", getRoutingKey(), getBody());
+    }
+
+    @Override
+    public final Date getReceivedDate() {
         return receptionDate;
     }
 

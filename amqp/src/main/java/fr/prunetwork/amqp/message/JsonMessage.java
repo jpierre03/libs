@@ -38,8 +38,14 @@ public class JsonMessage implements AmqpReceivedMessage {
         return receptionDate;
     }
 
+    @Override
     public void displayReceived() {
-        System.out.printf(" [x] Received '%s':'%s'%n", getRoutingKey(), getBody());
+        System.out.println(toString());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s -> %s", getRoutingKey(), getBody());
     }
 
     public JSONObject getJson() {

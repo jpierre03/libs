@@ -32,7 +32,7 @@ public final class SimpleMessage implements AmqpReceivedMessage {
 
     @Override
     public void displayReceived() {
-        System.out.printf(" [x] Received '%s':'%s' for area: '%s' isConsistent: %s %n", getRoutingKey(), getBody());
+        System.out.println(toString());
     }
 
     @Override
