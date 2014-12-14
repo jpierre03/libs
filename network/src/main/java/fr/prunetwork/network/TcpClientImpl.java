@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Louati
  * @author Jean-Pierre PRUNARET
  */
-public final class ClientRFIDImpl implements ClientRFID {
+public final class TcpClientImpl implements TcpClient {
 
     private static final AtomicInteger count = new AtomicInteger(0);
     private final String hostname;
@@ -22,7 +22,7 @@ public final class ClientRFIDImpl implements ClientRFID {
     private PrintWriter sortie;
     private boolean isConnected = false;
 
-    ClientRFIDImpl(String hostname, int portNumber) throws Exception {
+    TcpClientImpl(String hostname, int portNumber) throws Exception {
         count.incrementAndGet();
         if (hostname == null
                 || hostname.isEmpty()) {
@@ -85,7 +85,7 @@ public final class ClientRFIDImpl implements ClientRFID {
     }
 
     @Override
-    public Character receiveFromRFIDServer() throws Exception {
+    public Character receiveFromServer() throws Exception {
         Character reference = null;
         try {
             reference = (char) entree.read();
@@ -99,7 +99,7 @@ public final class ClientRFIDImpl implements ClientRFID {
 //                }
 //            }
         } catch (Exception e) {
-            ClientRFIDFactory.connexions.get(getHostname()).remove(getPort());
+            TcpClientFactory.connexions.get(getHostname()).remove(getPort());
             this.disconnect();
             throw e;
         }
