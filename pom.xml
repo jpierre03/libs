@@ -31,19 +31,37 @@
     <dependencies>
         <dependency>
             <groupId>fr.prunetwork</groupId>
-            <artifactId>json</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>fr.prunetwork</groupId>
             <artifactId>amqp</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>fr.prunetwork</groupId>
+            <artifactId>amqp-gui</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>amqp-mail</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
             <artifactId>collection</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>elasticsearch-war</artifactId>
+            <version>1.4.0.Beta1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>json</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -59,10 +77,5 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>fr.prunetwork</groupId>
-            <artifactId>elasticsearch-war</artifactId>
-            <version>1.4.0.Beta1</version>
-        </dependency>
     </dependencies>
 </project>
