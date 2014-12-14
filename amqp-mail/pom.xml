@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>amqp-mail</name>
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/jpierre03/libs/</url>
 
     <build>
         <plugins>

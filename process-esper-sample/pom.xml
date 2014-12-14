@@ -7,6 +7,7 @@
     <artifactId>process-esper-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <url>https://github.com/jpierre03/libs/</url>
 
     <modelVersion>4.0.0</modelVersion>
 

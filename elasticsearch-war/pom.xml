@@ -9,6 +9,7 @@
     <packaging>war</packaging>
     <!--<version>1.3.4</version>-->
     <version>1.4.0.Beta1</version>
+    <url>https://github.com/jpierre03/libs/</url>
 
     <repositories>
         <repository>
