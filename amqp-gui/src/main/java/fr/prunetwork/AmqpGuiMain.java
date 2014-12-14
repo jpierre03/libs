@@ -1,11 +1,10 @@
 package fr.prunetwork;
 
 import com.rabbitmq.client.QueueingConsumer;
-import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
 import fr.prunetwork.amqp.consumer.MessageConsumer;
-import fr.prunetwork.amqp.message.AmqpReceivedMessageImpl;
+import fr.prunetwork.amqp.message.SimpleMessage;
 import fr.prunetwork.amqp.producer.AmqpProducer;
 import fr.prunetwork.gui.CommandPanel;
 import fr.prunetwork.gui.CommandPanelActionner;
@@ -190,7 +189,7 @@ public class AmqpGuiMain {
 
     }
 
-    static class MyMessageConsumer implements MessageConsumer {
+    static class MyMessageConsumer implements MessageConsumer<SimpleMessage> {
         private final MessageTableModel tableModel;
         private QueueingConsumer consumer;
 
@@ -199,12 +198,12 @@ public class AmqpGuiMain {
         }
 
         @Override
-        public AmqpReceivedMessage consume() throws InterruptedException {
+        public SimpleMessage consume() throws InterruptedException {
             final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
             final String message = new String(delivery.getBody());
             final String routingKey = delivery.getEnvelope().getRoutingKey();
 
-            final AmqpReceivedMessageImpl receivedMessage = new AmqpReceivedMessageImpl(routingKey, message);
+            final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
 
             //receivedMessage.displayFullMessage();
             tableModel.add(receivedMessage);

@@ -7,7 +7,7 @@ import fr.prunetwork.amqp.AmqpDefaultProperties;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
 import fr.prunetwork.amqp.consumer.MessageConsumer;
-import fr.prunetwork.amqp.message.AmqpReceivedMessageImpl;
+import fr.prunetwork.amqp.message.SimpleMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,17 +95,17 @@ public class AmqpTemperatureEventGenerator {
         return sb.toString();
     }
 
-    static class MyMessageConsumer implements MessageConsumer {
+    static class MyMessageConsumer implements MessageConsumer<SimpleMessage> {
         private QueueingConsumer consumer;
 
         @Override
-        public AmqpReceivedMessage consume() throws Exception {
+        public SimpleMessage consume() throws Exception {
             final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
             consumer.getChannel().basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             final String message = new String(delivery.getBody());
             final String routingKey = delivery.getEnvelope().getRoutingKey();
 
-            final AmqpReceivedMessageImpl receivedMessage = new AmqpReceivedMessageImpl(routingKey, message);
+            final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
 
             //receivedMessage.displayFullMessage();
             return receivedMessage;

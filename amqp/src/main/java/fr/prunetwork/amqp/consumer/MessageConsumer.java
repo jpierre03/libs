@@ -7,11 +7,11 @@ import fr.prunetwork.amqp.AmqpReceivedMessage;
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
  */
-public interface MessageConsumer {
+public interface MessageConsumer<T extends AmqpReceivedMessage> {
 
     void init(QueueingConsumer consumer);
 
     boolean isConnected();
 
-    AmqpReceivedMessage consume() throws Exception;
+    T consume() throws Exception;
 }
