@@ -1,9 +1,8 @@
 package fr.prunetwork;
 
-import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
-import fr.prunetwork.amqp.consumer.MessageConsumer;
+import fr.prunetwork.amqp.consumer.SimpleMessageConsumer;
 import fr.prunetwork.amqp.message.SimpleMessage;
 import fr.prunetwork.amqp.producer.AmqpProducer;
 import fr.prunetwork.gui.CommandPanel;
@@ -189,9 +188,8 @@ public class AmqpGuiMain {
 
     }
 
-    static class MyMessageConsumer implements MessageConsumer<SimpleMessage> {
+    static class MyMessageConsumer extends SimpleMessageConsumer {
         private final MessageTableModel tableModel;
-        private QueueingConsumer consumer;
 
         public MyMessageConsumer(MessageTableModel tableModel) {
             this.tableModel = tableModel;
@@ -199,27 +197,14 @@ public class AmqpGuiMain {
 
         @Override
         public SimpleMessage consume() throws InterruptedException {
-            final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            final String message = new String(delivery.getBody());
-            final String routingKey = delivery.getEnvelope().getRoutingKey();
 
-            final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
+            final SimpleMessage receivedMessage = super.consume();
 
             //receivedMessage.displayFullMessage();
             tableModel.add(receivedMessage);
             tableModel.fireTableRowsInserted(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
 
             return receivedMessage;
-        }
-
-        @Override
-        public void init(QueueingConsumer consumer) {
-            this.consumer = consumer;
-        }
-
-        @Override
-        public boolean isConnected() {
-            return consumer != null;
         }
     }
 }

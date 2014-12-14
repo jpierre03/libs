@@ -2,12 +2,10 @@ package com.cor.cep.util;
 
 import com.cor.cep.event.TemperatureEvent;
 import com.cor.cep.handler.TemperatureEventHandler;
-import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpDefaultProperties;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
-import fr.prunetwork.amqp.consumer.MessageConsumer;
-import fr.prunetwork.amqp.message.SimpleMessage;
+import fr.prunetwork.amqp.consumer.SimpleMessageConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +46,7 @@ public class AmqpTemperatureEventGenerator {
                 LOG.debug(getStartingMessage());
 
                 try {
-                    MyMessageConsumer consumer = new MyMessageConsumer();
+                    SimpleMessageConsumer consumer = new SimpleMessageConsumer();
                     AmqpReceiver receiver = new AmqpReceiver(
                             AmqpDefaultProperties.URI,
                             AmqpDefaultProperties.EXCHANGE,
@@ -93,32 +91,5 @@ public class AmqpTemperatureEventGenerator {
         sb.append("\n* A WHILE TO SEE WARNING AND CRITICAL EVENTS!");
         sb.append("\n************************************************************\n");
         return sb.toString();
-    }
-
-    static class MyMessageConsumer implements MessageConsumer<SimpleMessage> {
-        private QueueingConsumer consumer;
-
-        @Override
-        public SimpleMessage consume() throws Exception {
-            final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            consumer.getChannel().basicAck(delivery.getEnvelope().getDeliveryTag(), false);
-            final String message = new String(delivery.getBody());
-            final String routingKey = delivery.getEnvelope().getRoutingKey();
-
-            final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
-
-            //receivedMessage.displayFullMessage();
-            return receivedMessage;
-        }
-
-        @Override
-        public void init(QueueingConsumer consumer) {
-            this.consumer = consumer;
-        }
-
-        @Override
-        public boolean isConnected() {
-            return consumer != null;
-        }
     }
 }

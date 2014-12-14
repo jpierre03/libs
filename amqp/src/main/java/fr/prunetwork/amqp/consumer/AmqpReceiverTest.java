@@ -1,8 +1,5 @@
 package fr.prunetwork.amqp.consumer;
 
-import com.rabbitmq.client.QueueingConsumer;
-import fr.prunetwork.amqp.message.SimpleMessage;
-
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
 /**
@@ -16,7 +13,7 @@ class AmqpReceiverTest {
 
     public static void main(String... argv) throws Exception {
 
-        MyMessageConsumer consumer = new MyMessageConsumer();
+        SimpleMessageConsumer consumer = new SimpleMessageConsumer();
         AmqpReceiver receiver = new AmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, consumer);
         receiver.configure();
 
@@ -31,32 +28,6 @@ class AmqpReceiverTest {
         System.out.println("*******");
         while (true) {
             consumer.consume();
-        }
-    }
-
-    static class MyMessageConsumer implements MessageConsumer<SimpleMessage> {
-        private QueueingConsumer consumer;
-
-        @Override
-        public SimpleMessage consume() throws InterruptedException {
-            final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            final String message = new String(delivery.getBody());
-            final String routingKey = delivery.getEnvelope().getRoutingKey();
-
-            final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
-
-            receivedMessage.displayFullMessage();
-            return receivedMessage;
-        }
-
-        @Override
-        public void init(QueueingConsumer consumer) {
-            this.consumer = consumer;
-        }
-
-        @Override
-        public boolean isConnected() {
-            return consumer != null;
         }
     }
 }
