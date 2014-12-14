@@ -1,6 +1,6 @@
 package fr.prunetwork.gui.table;
 
-import fr.prunetwork.amqp.message.AmqpReceivedMessageImpl;
+import fr.prunetwork.amqp.message.SimpleMessage;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -24,11 +24,11 @@ public class MessageTest {
         final MessageTableModel messageTableModel = new MessageTableModel();
 
         {
-            messageTableModel.add(new AmqpReceivedMessageImpl("key1", "b1"));
-            messageTableModel.add(new AmqpReceivedMessageImpl("key2", "b2"));
-            messageTableModel.add(new AmqpReceivedMessageImpl("key1", "b3"));
-            messageTableModel.add(new AmqpReceivedMessageImpl("key2", "b4"));
-            messageTableModel.add(new AmqpReceivedMessageImpl("key1", "b5"));
+            messageTableModel.add(new SimpleMessage("key1", "b1"));
+            messageTableModel.add(new SimpleMessage("key2", "b2"));
+            messageTableModel.add(new SimpleMessage("key1", "b3"));
+            messageTableModel.add(new SimpleMessage("key2", "b4"));
+            messageTableModel.add(new SimpleMessage("key1", "b5"));
         }
 
         TableModel model = messageTableModel;
