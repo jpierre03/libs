@@ -31,9 +31,11 @@ public class FileGenerator {
 
                     try (PrintWriter pw = new PrintWriter(bos)) {
 
+                        pw.append(generator.getHeader());
+                        pw.append("\n");
+
                         for (int j = 0; j < COUNT; j++) {
-                            pw.append(generator.getHeader());
-                            pw.append("\n");
+
                             pw.append(generator.getBody());
                             pw.append("\n");
 
@@ -42,7 +44,6 @@ public class FileGenerator {
                                 System.out.println("#ajouté: " + j);
                                 pw.flush();
                             }
-
                         }
 
                     } catch (final Exception e) {
