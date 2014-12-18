@@ -54,7 +54,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fr.prunetwork.ElasticSearchInsertTest</mainClass>
+                            <mainClass>fr.fr.prunetwork.ElasticSearchInsertTest</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
