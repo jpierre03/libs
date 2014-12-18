@@ -28,8 +28,10 @@ public class Main {
 
     static {
         LABELS.put("www.google.com", "Le classique Google");
+        LABELS.put("172.16.201.11", "Internet Access");
         LABELS.put("172.16.201.148", "OSN 1");
         LABELS.put("172.16.201.197", "IAO / OSN 2");
+        LABELS.put("172.16.201.201", "Palpatine");
         LABELS.put("bc.antalios.com", "Serveur Application");
     }
 
@@ -73,6 +75,8 @@ public class Main {
             hostnames.addAll(Arrays.asList(
                     "172.16.201.148",
                     "172.16.201.197",
+                    "172.16.201.201",
+                    "172.16.201.11",
                     "www.google.com",
                     "bc.antalios.com"
             ));
