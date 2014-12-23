@@ -44,7 +44,7 @@ public final class JsonAmqpReceiver implements AmqpReceiver<JsonMessage> {
         Channel channel = connection.createChannel();
         channel.basicQos(10);
 
-        channel.exchangeDeclare(topicName, exchangeType.name());
+        channel.exchangeDeclare(topicName, exchangeType.name(), true);
         String queueName = channel.queueDeclare().getQueue();
 
         for (String bindingKey : bindingKeys) {
