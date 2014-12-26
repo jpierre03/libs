@@ -1,3 +1,6 @@
 [submodule "github-esper"]
 	path = github-esper
 	url = https://github.com/corsoft/esper-demo-nuclear.git
+[submodule "wiki"]
+	path = wiki
+	url = https://github.com/jpierre03/libs.wiki.git
