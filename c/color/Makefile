@@ -33,7 +33,7 @@ clean:
 build: color color-stderr
 	date
 
-color: color.c color.h
+color: color.c jp_color.h
 	cc color.c -o color
 
 color-stderr: color-stderr.c
