@@ -6,6 +6,7 @@
  * Display color in linux console
  */
 
+#include <string.h>
 #include "jp_color.h"
 
 //#define TEST_OK  BLUE "[" GREEN  "ok" BLUE "] " DEFAULT_COLOR
