@@ -1,6 +1,6 @@
 /*
  * Jean-Pierre Prunaret
- * 2012-06-18
+ * 2012-06-18  -- 2014
  *
  * License : GNU GPL 3
  * Display color in linux console
@@ -66,17 +66,21 @@
 
 #define DEFAULT_COLOR "\033[0;m"
 
-#define F(x)	     do if (!f(x)) { printf("erreur\n"); exit(1); } while (0)
-#define T(x,y)	     do { fprintf(stdout,"%s[%s%s%s]%s\t%s\n",BLUE,GREEN,x,BLUE,DEFAULT_COLOR,y); exit(1); } while (0)
-#define OK(y)	     do { fprintf(stdout,"%s[%s%s%s]%s    %s\n",BLUE,GREEN,"ok",BLUE,DEFAULT_COLOR,y);} while (0)
-#define OK_(y,...)   do { fprintf(stdout,"%s[%s%s%s]%s    %s",BLUE,GREEN,"ok",BLUE,DEFAULT_COLOR,y); fprintf(stdout, __VA_ARGS__);} while (0)
-#define NOK(y)	     do { fprintf(stderr,"%s[%s%s%s]%s   %s\n",BLUE,RED,"nok",BLUE,DEFAULT_COLOR,y); } while (0)
-#define NOK_(y,...)  do { fprintf(stderr,"%s[%s%s%s]%s   %s",BLUE,RED,"nok",BLUE,DEFAULT_COLOR,y); fprintf(stderr, __VA_ARGS__);} while (0)
+#define T_CUSTOM(color,fd,x,y,...) do { fprintf(fd,"%s[%s%s%s]%s\t%s",BLUE,color,x,BLUE,DEFAULT_COLOR,y); fprintf(fd, __VA_ARGS__); fprintf(fd, "\n"); } while (0)
+
+#define T_GREEN(fd,x,y,...)        do { T_CUSTOM(GREEN,fd,x,y, __VA_ARGS__); } while (0)
+#define T_YELLOW(fd,x,y,...)       do { T_CUSTOM(YELLOW,  fd,x,y, __VA_ARGS__); } while (0)
+#define T_RED(fd,x,y,...)          do { T_CUSTOM(RED,  fd,x,y, __VA_ARGS__); } while (0)
+
+#define OK_(y,...)                 do { T_GREEN(stdout,  "ok", y, __VA_ARGS__); } while (0)
+#define NOK_(y,...)                do { T_RED(  stderr, "nok", y, __VA_ARGS__); } while (0)
+#define OK(y)	                   do { OK_(y, ""); } while (0)
+#define NOK(y)	                   do { NOK_( y, ""); } while (0)
 
 #ifdef SHOW_INFO
-#define INFO(y)		do { fprintf(stderr,"%s[%s%s%s]%s   %s\n",BLUE,YELLOW,"nok",BLUE,DEFAULT_COLOR,y); } while (0)
-#define INFO_(y, ...)	do { fprintf(stdout,"%s[%s%s%s]%s\t%s"  ,BLUE,YELLOW,"info",BLUE,DEFAULT_COLOR,y);fprintf(stdout, __VA_ARGS__);} while (0)
+#define INFO_(y,...)               do { T_YELLOW(stdout, "info",y, __VA_ARGS__); } while(0)
+#define INFO(y)                    do { INFO_(y, ""); } while(0)
 #else
-#define INFO(y)		do { /* Do Nothing */ } while (0)
-#define INFO_(y, ...)	do { /* Do Nothing */ } while (0)
+#define INFO_(y, ...)              do { /* Do Nothing */ } while (0)
+#define INFO(y)                    do { /* Do Nothing */ } while (0)
 #endif
