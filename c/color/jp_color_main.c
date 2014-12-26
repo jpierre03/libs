@@ -8,6 +8,8 @@
 
 #include "jp_color.h"
 
+extern int color_main(int argc, char **argv);
+
 int main(int argc, char **argv) {
 	return color_main(argc, argv);
 }
