@@ -6,7 +6,8 @@ package fr.onet.ae.common;
  */
 public final class Configuration {
 
-    public static final String AMQP_DEFAULT_URL ="amqp://jpierre03:toto@localhost";
+    //public static final String AMQP_DEFAULT_URL ="amqp://jpierre03:toto@localhost";
+    public static final String AMQP_DEFAULT_URL ="amqp://jpierre03:toto@172.16.201.201";
     public static final String AMQP_DEFAULT_EXCHANGE="dev.tmp";
     public static final String AMQP_DEFAULT_ROUTING_KEY = "";
 
