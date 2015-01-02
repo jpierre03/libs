@@ -29,3 +29,14 @@
     $ git remote add origin <url>
     ```
 
+## Pour récupérer rapidement l'historique d'un répertoire (NEW WAY)
+
+[source](http://stackoverflow.com/questions/359424/detach-subdirectory-into-separate-git-repository/17864475#17864475)
+
+```bash
+git subtree split -P btoa -b btoa-only
+```
+
+prend l'historique du dossier btoa et le stocke dans la branche btoa-only
+
+
