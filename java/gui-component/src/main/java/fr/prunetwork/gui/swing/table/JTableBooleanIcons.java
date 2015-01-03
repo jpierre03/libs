@@ -32,8 +32,8 @@ public class JTableBooleanIcons {
         try {
             final int size = 25;
 
-            final Image yesImage = ImageIO.read(BooleanIconRenderer.class.getResourceAsStream("yes.jpeg")).getScaledInstance(size, size, Image.SCALE_SMOOTH);
-            final Image noImage = ImageIO.read(BooleanIconRenderer.class.getResourceAsStream("no.jpeg")).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+            final Image yesImage = ImageIO.read(JTableBooleanIcons.class.getResourceAsStream("yes.jpeg")).getScaledInstance(size, size, Image.SCALE_SMOOTH);
+            final Image noImage = ImageIO.read(JTableBooleanIcons.class.getResourceAsStream("no.jpeg")).getScaledInstance(size, size, Image.SCALE_SMOOTH);
 
             yesIcon = new ImageIcon(yesImage);
             noIcon = new ImageIcon(noImage);
