@@ -1,4 +1,4 @@
-package fr.prunetwork.gui.swing.table;
+package fr.prunetwork.gui.swing.list;
 
 import javax.swing.*;
 import java.awt.*;
