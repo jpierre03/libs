@@ -1,4 +1,4 @@
-package fr.onet.ae.common.json;
+package fr.prunetwork.sandbox;
 
 import java.util.*;
 
