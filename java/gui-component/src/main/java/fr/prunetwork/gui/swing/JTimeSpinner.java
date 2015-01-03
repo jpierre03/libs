@@ -1,4 +1,4 @@
-package fr.prunetwork.gui.swing.table;
+package fr.prunetwork.gui.swing;
 
 
 import javax.swing.*;

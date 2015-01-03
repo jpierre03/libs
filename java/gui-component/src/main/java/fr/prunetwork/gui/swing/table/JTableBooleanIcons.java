@@ -21,7 +21,7 @@ public class JTableBooleanIcons {
 
     private ImageIcon yesIcon;
     private ImageIcon noIcon;
-    private JFrame frame;
+    private final JFrame frame;
     private DefaultTableModel tableModel;
     private JTable table;
 
@@ -29,6 +29,7 @@ public class JTableBooleanIcons {
      * Create the application.
      */
     public JTableBooleanIcons() {
+        frame = new JFrame();
         try {
             final int size = 25;
 
@@ -40,31 +41,15 @@ public class JTableBooleanIcons {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         initialize();
     }
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    JTableBooleanIcons window = new JTableBooleanIcons();
-                    window.frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     /**
      * Initialize the contents of the frame.
      */
     private void initialize() {
-        frame = new JFrame();
         frame.setBounds(100, 100, 450, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -201,5 +186,9 @@ public class JTableBooleanIcons {
                 setIcon(noIcon);
             }
         }
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }
