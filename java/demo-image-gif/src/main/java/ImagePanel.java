@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Jean-Pierre PRUNARET <jean-pierre+dev@prunetwork.fr>
+ * @author Jean-Pierre PRUNARET
  *         Date: 13/04/11
  *         Time: 22:11
  */
@@ -18,8 +18,6 @@ public class ImagePanel extends JPanel {
 
 	public static void main(String args[]) {
 		JFrame frame = new JFrame("Un gif animé");
-//		frame.add(new ImagePanel("test.gif"));
-//		frame.add(new ImagePanel("gif-sexe-3.gif"));
 
 		ImagePanel panel = new ImagePanel("test.gif");
 		frame.add(panel);
