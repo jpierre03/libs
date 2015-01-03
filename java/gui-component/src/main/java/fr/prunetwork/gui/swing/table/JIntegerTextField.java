@@ -1,4 +1,4 @@
-package component;
+package fr.prunetwork.gui.swing.table;
 
 /**
  * @author Jean-Pierre PRUNARET

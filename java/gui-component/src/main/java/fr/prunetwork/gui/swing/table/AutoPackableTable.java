@@ -1,4 +1,4 @@
-package component;
+package fr.prunetwork.gui.swing.table;
 
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
