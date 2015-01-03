@@ -13,6 +13,8 @@ final class GraphTest {
 
     private static void test() {
         Graph graph = new Graph();
+        final GraphvizExportType type = GraphvizExportType.PNG;
+        final GraphvizRenderer renderer = GraphvizRenderer.NEATO;
 
         Node a = graph.getNode("A");
         Node b = graph.getNode("b");
@@ -32,9 +34,9 @@ final class GraphTest {
         g.linksWith(a);
 
         final Graphviz gv = graph.getGraphviz();
-        File out = new File("/tmp/out_v2." + GraphvizExportType.PNG);   // Linux
+        File out = new File("/tmp/out_v2." + type);   // Linux
 //		File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
-        Graphviz.writeGraphToFile(gv.getGraph(GraphvizExportType.PNG, GraphvizRenderer.NEATO), out);
+        Graphviz.writeGraphToFile(gv.getGraph(type, renderer), out);
 
         try {
             ShowImage.main(new String[]{"file://" + out.getPath()});
