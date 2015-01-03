@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.ImageObserver;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -30,13 +31,24 @@ public class ImagePanel extends JPanel {
     }
 
     protected void paintComponent(Graphics g) {
-        // efface le contenu précédent :
+        /** clear previous content */
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        // dessine le gif :
-        // en boucle
-        g.drawImage(image.getImage(), 1, 1, image.getIconWidth(), image.getIconHeight(), this);
-        //une seule fois
-        //g.drawImage(image.getImage(), 1, 1, image.getIconWidth(), image.getIconWidth(), null);
+
+        boolean drawOnce = false;
+        boolean drawInLoop = !drawOnce;
+
+        final ImageObserver observer;
+
+
+        if (drawInLoop) {
+            observer = this;
+        } else if (drawOnce) {
+            observer = null;
+        } else {
+            observer = null;
+        }
+
+        g.drawImage(image.getImage(), 1, 1, image.getIconWidth(), image.getIconWidth(), observer);
     }
 }
