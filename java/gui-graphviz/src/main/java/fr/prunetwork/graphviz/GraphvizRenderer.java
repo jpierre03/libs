@@ -6,8 +6,16 @@ import fr.prunetwork.graphviz.utilities.OSValidator;
  * @author Jean-Pierre PRUNARET
  */
 public enum GraphvizRenderer {
-    DOT("/usr/bin/dot", "c:/Program Files/Graphviz2.30.1/bin/dot.exe", "/usr/local/bin/dot"),
-    NEATO("/usr/bin/neato", "c:/Program Files/Graphviz2.30.1/bin/neato.exe", "/usr/local/bin/neato");
+    DOT(
+            "/usr/bin/dot",
+            "c:/Program Files/Graphviz2.30.1/bin/dot.exe",
+            "/usr/local/bin/dot"
+    ),
+    NEATO(
+            "/usr/bin/neato",
+            "c:/Program Files/Graphviz2.30.1/bin/neato.exe",
+            "/usr/local/bin/neato"
+    );
     private final String linuxPath;
     private final String windowsPath;
     private final String macPath;
