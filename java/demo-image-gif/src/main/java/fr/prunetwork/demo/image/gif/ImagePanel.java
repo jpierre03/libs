@@ -1,3 +1,5 @@
+package fr.prunetwork.demo.image.gif;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -9,25 +11,12 @@ import java.awt.image.ImageObserver;
  */
 public class ImagePanel extends JPanel {
 
-    private ImageIcon image;
+    private final ImageIcon image;
 
     public ImagePanel(String file) {
         image = new ImageIcon(file);
         this.setSize(image.getIconWidth(), image.getIconHeight());
         this.setMinimumSize(getSize());
-    }
-
-    public static void main(String args[]) {
-        JFrame frame = new JFrame("Un gif animé");
-
-        ImagePanel panel = new ImagePanel("test.gif");
-        frame.add(panel);
-        frame.setSize(panel.getSize());
-
-        //---
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		frame.pack();
-        frame.setVisible(true);
     }
 
     protected void paintComponent(Graphics g) {
@@ -39,7 +28,6 @@ public class ImagePanel extends JPanel {
         boolean drawInLoop = !drawOnce;
 
         final ImageObserver observer;
-
 
         if (drawInLoop) {
             observer = this;
