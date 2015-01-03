@@ -32,18 +32,9 @@ final class GraphTest {
         g.linksWith(a);
 
         final Graphviz gv = graph.getGraphviz();
-
-//		String type = "gif";
-//		String type = "dot";
-//		String type = "fig";    // open with xfig
-//		String type = "pdf";
-//		String type = "ps";
-//		String type = "svg";    // open with inkscape
-        String type = "png";
-//		String type = "plain";
-        File out = new File("/tmp/out_v2." + type);   // Linux
+        File out = new File("/tmp/out_v2." + GraphvizExportType.PNG);   // Linux
 //		File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
-        Graphviz.writeGraphToFile(gv.getGraph(type, GraphvizRenderer.NEATO), out);
+        Graphviz.writeGraphToFile(gv.getGraph(GraphvizExportType.PNG, GraphvizRenderer.NEATO), out);
 
         try {
             ShowImage.main(new String[]{"file://" + out.getPath()});

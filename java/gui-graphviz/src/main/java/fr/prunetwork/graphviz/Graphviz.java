@@ -115,7 +115,7 @@ public class Graphviz {
      * @param type Type of the output image to be produced, e.g.: gif, dot, fig, pdf, ps, svg, png.
      * @return The image of the graph in .gif format.
      */
-    private static byte[] get_img_stream(File dot, String type, GraphvizRenderer renderer) {
+    private static byte[] get_img_stream(File dot, GraphvizExportType type, GraphvizRenderer renderer) {
         byte[] img_stream = null;
 
         try {
@@ -236,7 +236,7 @@ public class Graphviz {
      * @param type Type of the output image to be produced, e.g.: gif, dot, fig, pdf, ps, svg, png.
      * @return A byte array containing the image of the graph.
      */
-    public byte[] getGraph(String type, GraphvizRenderer renderer) {
+    public byte[] getGraph(GraphvizExportType type, GraphvizRenderer renderer) {
         File dot;
         byte[] img_stream;
 
