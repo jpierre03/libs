@@ -35,8 +35,8 @@ int main(int argc, char** argv) {
     /**
      * Default values
      */
-    char hostname[]="localhost";
-    //char hostname[]="172.16.201.197";
+    //const char hostname[]="localhost";
+    const char hostname[]="172.16.201.197";
     unsigned int port_number = htons(10001);
 
 	/**
