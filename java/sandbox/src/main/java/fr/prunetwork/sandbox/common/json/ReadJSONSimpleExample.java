@@ -1,7 +1,9 @@
-package fr.onet.ae.common.json;
+package fr.prunetwork.sandbox.common.json;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+
+import fr.prunetwork.sandbox.MyStaticClass;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

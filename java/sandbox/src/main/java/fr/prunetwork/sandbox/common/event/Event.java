@@ -1,4 +1,4 @@
-package fr.onet.ae.common.event;
+package fr.prunetwork.sandbox.common.event;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package fr.onet.ae.common.message;
+package fr.prunetwork.sandbox.common.message;
 
 import java.util.HashMap;
 import java.util.Map;
