@@ -25,11 +25,11 @@ import fr.prunetwork.graphviz.utilities.OSValidator;
 import java.io.*;
 
 /**
- * <dl> <dt>Purpose: fr.prunetwork.graphviz.Graphviz Java API <dd>
+ * <dl> <dt>Purpose: Graphviz Java API <dd>
  * <p/>
  * <dt>Description: <dd> With this Java class you can simply call dot from your Java programs <dt>Example usage: <dd>
  * <pre>
- *    fr.prunetwork.graphviz.Graphviz gv = new Graphviz();
+ *    Graphviz gv = new Graphviz();
  *    gv.addln(gv.start_graph());
  *    gv.addln("A -> B;");
  *    gv.addln("A -> C;");
@@ -75,7 +75,7 @@ public class Graphviz {
     }
 
     /**
-     * Constructor: creates a new fr.prunetwork.graphviz.Graphviz object that will contain a graph.
+     * Constructor: creates a new Graphviz object that will contain a graph.
      */
     public Graphviz() {
     }
