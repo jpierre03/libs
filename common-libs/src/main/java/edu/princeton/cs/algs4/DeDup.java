@@ -35,6 +35,7 @@ package edu.princeton.cs.algs4;
  */
 
 public class DeDup {
+
     public static void main(String[] args) {
         SET<String> set = new SET<String>();
 

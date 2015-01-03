@@ -1,4 +1,5 @@
-package edu.princeton.cs.algs4; /*************************************************************************
+package edu.princeton.cs.algs4;
+ /*************************************************************************
  *  Compilation:  javac edu.princeton.cs.algs4.DoublingTest.java
  *  Execution:    java edu.princeton.cs.algs4.DoublingTest
  *  Dependencies: edu.princeton.cs.algs4.ThreeSum.java edu.princeton.cs.algs4.Stopwatch.java edu.princeton.cs.algs4.StdRandom.java edu.princeton.cs.algs4.StdOut.java

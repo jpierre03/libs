@@ -33,6 +33,7 @@ package edu.princeton.cs.algs4;
  */
 
 public class BlackFilter {
+
     public static void main(String[] args) {
         SET<String> set = new SET<String>();
 

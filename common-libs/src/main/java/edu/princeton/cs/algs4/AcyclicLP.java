@@ -59,11 +59,35 @@ public class AcyclicLP {
 
         // relax vertices in toplogical order
         Topological topological = new Topological(G);
-        if (!topological.hasOrder())
+        if (!topological.hasOrder()) {
             throw new IllegalArgumentException("Digraph is not acyclic.");
+        }
         for (int v : topological.order()) {
             for (DirectedEdge e : G.adj(v))
                 relax(e);
+        }
+    }
+
+    /**
+     * Unit tests the <tt>edu.princeton.cs.algs4.AcyclicLP</tt> data type.
+     */
+    public static void main(String[] args) {
+        In in = new In(args[0]);
+        int s = Integer.parseInt(args[1]);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+
+        AcyclicLP lp = new AcyclicLP(G, s);
+
+        for (int v = 0; v < G.V(); v++) {
+            if (lp.hasPathTo(v)) {
+                StdOut.printf("%d to %d (%.2f)  ", s, v, lp.distTo(v));
+                for (DirectedEdge e : lp.pathTo(v)) {
+                    StdOut.print(e + "   ");
+                }
+                StdOut.println();
+            } else {
+                StdOut.printf("%d to %d         no path\n", s, v);
+            }
         }
     }
 
@@ -112,29 +136,5 @@ public class AcyclicLP {
             path.push(e);
         }
         return path;
-    }
-
-
-    /**
-     * Unit tests the <tt>edu.princeton.cs.algs4.AcyclicLP</tt> data type.
-     */
-    public static void main(String[] args) {
-        In in = new In(args[0]);
-        int s = Integer.parseInt(args[1]);
-        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
-
-        AcyclicLP lp = new AcyclicLP(G, s);
-
-        for (int v = 0; v < G.V(); v++) {
-            if (lp.hasPathTo(v)) {
-                StdOut.printf("%d to %d (%.2f)  ", s, v, lp.distTo(v));
-                for (DirectedEdge e : lp.pathTo(v)) {
-                    StdOut.print(e + "   ");
-                }
-                StdOut.println();
-            } else {
-                StdOut.printf("%d to %d         no path\n", s, v);
-            }
-        }
     }
 }

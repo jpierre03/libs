@@ -51,6 +51,7 @@ package edu.princeton.cs.algs4; /***********************************************
  * @author Kevin Wayne
  */
 public class DepthFirstOrder {
+
     private boolean[] marked;          // marked[v] = has v been marked in dfs?
     private int[] pre;                 // pre[v]    = preorder  number of v
     private int[] post;                // post[v]   = postorder number of v

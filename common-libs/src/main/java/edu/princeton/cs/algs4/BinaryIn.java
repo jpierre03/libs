@@ -37,6 +37,7 @@ import java.net.URLConnection;
  * @author Kevin Wayne
  */
 public final class BinaryIn {
+
     private static final int EOF = -1;   // end of file
 
     private BufferedInputStream in;      // the input stream

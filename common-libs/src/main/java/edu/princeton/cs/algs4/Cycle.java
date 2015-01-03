@@ -37,6 +37,7 @@ package edu.princeton.cs.algs4; /***********************************************
  * @author Kevin Wayne
  */
 public class Cycle {
+
     private boolean[] marked;
     private int[] edgeTo;
     private Stack<Integer> cycle;

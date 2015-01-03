@@ -43,6 +43,7 @@ package edu.princeton.cs.algs4; /***********************************************
  * @author Kevin Wayne
  */
 public class DepthFirstPaths {
+
     private boolean[] marked;    // marked[v] = is there an s-v path?
     private int[] edgeTo;        // edgeTo[v] = last edge on s-v path
     private final int s;         // source vertex

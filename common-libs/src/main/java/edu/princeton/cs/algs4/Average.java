@@ -29,7 +29,9 @@ package edu.princeton.cs.algs4;
  */
 public class Average {
 
-    // this class should not be instantiated
+    /**
+     * this class should not be instantiated
+     */
     private Average() {
     }
 
@@ -38,20 +40,22 @@ public class Average {
      * out their average to standard output.
      */
     public static void main(String[] args) {
-        int count = 0;       // number input values
-        double sum = 0.0;    // sum of input values
+        /** number input values */
+        int count = 0;
+        /** sum of input values */
+        double sum = 0.0;
 
-        // read data and compute statistics
+        /** read data and compute statistics */
         while (!StdIn.isEmpty()) {
             double value = StdIn.readDouble();
             sum += value;
             count++;
         }
 
-        // compute the average
+        /** compute the average */
         double average = sum / count;
 
-        // print results
+        /** print results */
         StdOut.println("Average is " + average);
     }
 }

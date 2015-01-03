@@ -47,14 +47,11 @@ import java.util.NoSuchElementException;
  * @author Kevin Wayne
  */
 public class Bag<Item> implements Iterable<Item> {
-    private int N;               // number of elements in bag
-    private Node<Item> first;    // beginning of bag
 
-    // helper linked list class
-    private static class Node<Item> {
-        private Item item;
-        private Node<Item> next;
-    }
+    /** number of elements in bag */
+    private int N;
+    /** beginning of bag */
+    private Node<Item> first;
 
     /**
      * Initializes an empty bag.
@@ -62,6 +59,22 @@ public class Bag<Item> implements Iterable<Item> {
     public Bag() {
         first = null;
         N = 0;
+    }
+
+    /**
+     * Unit tests the <tt>edu.princeton.cs.algs4.Bag</tt> data type.
+     */
+    public static void main(String[] args) {
+        Bag<String> bag = new Bag<String>();
+        while (!StdIn.isEmpty()) {
+            String item = StdIn.readString();
+            bag.add(item);
+        }
+
+        StdOut.println("size of bag = " + bag.size());
+        for (String s : bag) {
+            StdOut.println(s);
+        }
     }
 
     /**
@@ -95,7 +108,6 @@ public class Bag<Item> implements Iterable<Item> {
         N++;
     }
 
-
     /**
      * Returns an iterator that iterates over the items in the bag in arbitrary order.
      *
@@ -103,6 +115,12 @@ public class Bag<Item> implements Iterable<Item> {
      */
     public Iterator<Item> iterator() {
         return new ListIterator<Item>(first);
+    }
+
+    /** helper linked list class */
+    private static class Node<Item> {
+        private Item item;
+        private Node<Item> next;
     }
 
     // an iterator, doesn't implement remove() since it's optional
@@ -126,22 +144,6 @@ public class Bag<Item> implements Iterable<Item> {
             Item item = current.item;
             current = current.next;
             return item;
-        }
-    }
-
-    /**
-     * Unit tests the <tt>edu.princeton.cs.algs4.Bag</tt> data type.
-     */
-    public static void main(String[] args) {
-        Bag<String> bag = new Bag<String>();
-        while (!StdIn.isEmpty()) {
-            String item = StdIn.readString();
-            bag.add(item);
-        }
-
-        StdOut.println("size of bag = " + bag.size());
-        for (String s : bag) {
-            StdOut.println(s);
         }
     }
 

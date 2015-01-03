@@ -54,6 +54,7 @@ package edu.princeton.cs.algs4; /***********************************************
  * @author Kevin Wayne
  */
 public class BreadthFirstPaths {
+
     private static final int INFINITY = Integer.MAX_VALUE;
     private boolean[] marked;  // marked[v] = is there an s-v path
     private int[] edgeTo;      // edgeTo[v] = previous edge on shortest s-v path

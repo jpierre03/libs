@@ -48,6 +48,7 @@ package edu.princeton.cs.algs4; /***********************************************
  * @author Kevin Wayne
  */
 public class BoruvkaMST {
+
     private Bag<Edge> mst = new Bag<Edge>();    // edges in MST
     private double weight;                      // weight of MST
 

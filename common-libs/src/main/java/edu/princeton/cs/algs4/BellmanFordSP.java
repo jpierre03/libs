@@ -50,6 +50,7 @@ package edu.princeton.cs.algs4; /***********************************************
  * @author Kevin Wayne
  */
 public class BellmanFordSP {
+
     private double[] distTo;               // distTo[v] = distance  of shortest s->v path
     private DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
     private boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
