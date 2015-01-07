@@ -42,3 +42,10 @@ hs_err_pid*
 *.out
 *.app
 jp_color
+
+
+# netbeans
+build/*
+dist/*
+nbproject/private/*
+*.classes
