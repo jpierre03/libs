@@ -1,5 +1,7 @@
 package fr.prunetwork.json;
 
+import org.json.JSONObject;
+
 import java.util.*;
 
 /**
@@ -58,6 +60,9 @@ public class JsonPrinter {
         } else if (o instanceof java.util.Map) {
             printRecursive((Map) o, level++);
 
+        } else if (o instanceof JSONObject) {
+            printRecursive((JSONObject) o, level++);
+
         } else {
             throw new IllegalStateException("case is missing or invalid input");
         }
@@ -102,6 +107,24 @@ public class JsonPrinter {
 
         } else {
             throw new IllegalStateException("list is empty");
+        }
+    }
+
+    private static void printRecursive(JSONObject o, int level) {
+        assert o != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
+        if (o == null) {
+            return;
+
+        } else {
+
+            for (String key : o.keySet()) {
+                StringBuilder sb = getLevelBuilder(level);
+
+                sb.append(key).append(" => ").append(o.get(key));
+                System.out.println(sb);
+            }
         }
     }
 
