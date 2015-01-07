@@ -10,23 +10,23 @@ import java.util.*;
  */
 public class JsonPrinter {
 
-    public static void print(Map m) {
+    public static void print(final Map m) {
         print(m, 0);
     }
 
-    public static void printRecursive(Object o) {
+    public static void printRecursive(final Object o) {
         assert o != null : "null parameter";
 
         printRecursive(o, 0);
     }
 
-    public static void print(List l) {
+    public static void print(final List l) {
         assert l != null : "null parameter";
 
         print(l, 0);
     }
 
-    private static void print(Map m, int level) {
+    private static void print(final Map m, final int level) {
         assert m != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
 
@@ -35,7 +35,7 @@ public class JsonPrinter {
         print(iterator, level);
     }
 
-    private static void print(List l, int level) {
+    private static void print(final List l, final int level) {
         assert l != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
 
@@ -47,7 +47,7 @@ public class JsonPrinter {
         System.out.print(sb.toString());
     }
 
-    private static void printRecursive(Object o, int level) {
+    private static void printRecursive(final Object o, final int level) {
         assert o != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
 
@@ -55,20 +55,20 @@ public class JsonPrinter {
             return;
 
         } else if (o instanceof java.util.List) {
-            printRecursive((List) o, level++);
+            printRecursive((List) o, level + 1);
 
         } else if (o instanceof java.util.Map) {
-            printRecursive((Map) o, level++);
+            printRecursive((Map) o, level + 1);
 
         } else if (o instanceof JSONObject) {
-            printRecursive((JSONObject) o, level++);
+            printRecursive((JSONObject) o, level + 1);
 
         } else {
             throw new IllegalStateException("case is missing or invalid input");
         }
     }
 
-    private static void printRecursive(Map map, int level) {
+    private static void printRecursive(final Map map, final int level) {
         assert map != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
 
@@ -80,7 +80,7 @@ public class JsonPrinter {
 
             for (Object o : map.values()) {
                 if ((o instanceof HashMap) || (o instanceof LinkedList)) {
-                    printRecursive(o, level++);
+                    printRecursive(o, level + 1);
                 }
             }
 
@@ -89,7 +89,7 @@ public class JsonPrinter {
         }
     }
 
-    private static void printRecursive(List list, int level) {
+    private static void printRecursive(final List list, final int level) {
         assert list != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
 
@@ -101,7 +101,7 @@ public class JsonPrinter {
 
             for (Object o : list) {
                 if ((o instanceof HashMap) || (o instanceof LinkedList)) {
-                    printRecursive(o, level++);
+                    printRecursive(o, level + 1);
                 }
             }
 
@@ -110,7 +110,7 @@ public class JsonPrinter {
         }
     }
 
-    private static void printRecursive(JSONObject o, int level) {
+    private static void printRecursive(final JSONObject o, final int level) {
         assert o != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
 
@@ -122,13 +122,26 @@ public class JsonPrinter {
             for (String key : o.keySet()) {
                 StringBuilder sb = getLevelBuilder(level);
 
-                sb.append(key).append(" => ").append(o.get(key));
-                System.out.println(sb);
+                final Object value = o.get(key);
+
+                sb.append(key).append(" => ");
+                System.out.print(sb);
+
+                sb.setLength(0);
+
+                if (value instanceof JSONObject) {
+                    System.out.println(sb);
+
+                    printRecursive(value, level + 1);
+                } else {
+                    sb.append(value);
+                    System.out.println(sb);
+                }
             }
         }
     }
 
-    private static void print(Iterator iterator, int level) {
+    private static void print(final Iterator iterator, final int level) {
         assert iterator != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
 
@@ -142,7 +155,7 @@ public class JsonPrinter {
         }
     }
 
-    private static StringBuilder getLevelBuilder(int level) {
+    private static StringBuilder getLevelBuilder(final int level) {
         assert level >= 0 : "level should be positive or null";
 
         StringBuilder sb = new StringBuilder();
