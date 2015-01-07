@@ -16,7 +16,7 @@ public class JsonPrinterTest {
                 + "\"type\":\"home\","
                 + "\"number\":\"(800) 111-1111\","
                 + " \"obj\": {"
-                + "  " + "\"key\": \"value\""
+                + "  " + "\"inside_key\": \"inside_value\""
                 + "  " + "}"
                 + "}";
 
