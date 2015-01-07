@@ -135,15 +135,15 @@ public class JsonPrinter {
             return;
 
         } else {
-
-            System.out.println(getLevelBuilder(level) + "[");
+            print("[", level);
 
             for (int i = 0; i < a.length(); i++) {
                 final Object object = a.get(i);
                 printRecursive(object, level + 1);
             }
 
-            System.out.println(getLevelBuilder(level) + "]");
+            print("]", level);
+
         }
     }
 
@@ -155,7 +155,7 @@ public class JsonPrinter {
             return;
 
         } else {
-            System.out.println(getLevelBuilder(level) + "{");
+            print("{", level);
 
             for (String key : o.keySet()) {
                 StringBuilder sb = getLevelBuilder(level);
@@ -181,7 +181,7 @@ public class JsonPrinter {
                 }
             }
 
-            System.out.println(getLevelBuilder(level) + "}");
+            print("}", level);
         }
     }
 
