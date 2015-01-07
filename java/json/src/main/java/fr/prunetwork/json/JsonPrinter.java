@@ -13,19 +13,30 @@ public class JsonPrinter {
     }
 
     public static void printRecursive(Object o) {
+        assert o != null : "null parameter";
+
         printRecursive(o, 0);
     }
 
     public static void print(List l) {
+        assert l != null : "null parameter";
+
         print(l, 0);
     }
 
     private static void print(Map m, int level) {
+        assert m != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
+
         Iterator iterator = m.entrySet().iterator();
         print(iterator, level);
     }
 
     private static void print(List l, int level) {
+        assert l != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
         StringBuilder sb = getLevelBuilder(level);
 
         for (Object aL : l) {
@@ -35,25 +46,31 @@ public class JsonPrinter {
     }
 
     private static void printRecursive(Object o, int level) {
+        assert o != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
         if (o == null) {
             return;
-        }
 
-        if (o instanceof java.util.LinkedList) {
+        } else if (o instanceof java.util.List) {
             printRecursive((List) o, level++);
-        }
 
-        if (o instanceof java.util.HashMap) {
+        } else if (o instanceof java.util.Map) {
             printRecursive((Map) o, level++);
+
+        } else {
+            throw new IllegalStateException("case is missing or invalid input");
         }
     }
 
     private static void printRecursive(Map map, int level) {
+        assert map != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
         if (map == null) {
             return;
-        }
 
-        if (map.size() > 0) {
+        } else if (map.size() > 0) {
             print(map, level);
 
             for (Object o : map.values()) {
@@ -61,15 +78,20 @@ public class JsonPrinter {
                     printRecursive(o, level++);
                 }
             }
+
+        } else {
+            throw new IllegalStateException("map is empty");
         }
     }
 
     private static void printRecursive(List list, int level) {
+        assert list != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
         if (list == null) {
             return;
-        }
 
-        if (list.size() > 0) {
+        } else if (list.size() > 0) {
             print(list, level);
 
             for (Object o : list) {
@@ -77,10 +99,16 @@ public class JsonPrinter {
                     printRecursive(o, level++);
                 }
             }
+
+        } else {
+            throw new IllegalStateException("list is empty");
         }
     }
 
     private static void print(Iterator iterator, int level) {
+        assert iterator != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
         while (iterator.hasNext()) {
             Map.Entry entry = (Map.Entry) iterator.next();
 
@@ -92,6 +120,8 @@ public class JsonPrinter {
     }
 
     private static StringBuilder getLevelBuilder(int level) {
+        assert level >= 0 : "level should be positive or null";
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < level; i++) {
             sb.append("  ");
