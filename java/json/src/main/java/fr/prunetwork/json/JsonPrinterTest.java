@@ -12,7 +12,13 @@ public class JsonPrinterTest {
     }
 
     public static void main(String... args) {
-        String json = "{\"type\":\"home\",\"number\":\"(800) 111-1111\"}";
+        String json = "{"
+                + "\"type\":\"home\","
+                + "\"number\":\"(800) 111-1111\","
+                + " \"obj\": {"
+                + "  " + "\"key\": \"value\""
+                + "  " + "}"
+                + "}";
 
         final JSONObject object = new JSONObject(json);
 
