@@ -1,4 +1,4 @@
-package fr.prunetwork.sandbox;
+package fr.prunetwork.json;
 
 import java.util.*;
 
@@ -6,7 +6,7 @@ import java.util.*;
  * @author Jean-Pierre PRUNARET
  * @since 09/07/2014
  */
-public class MyStaticClass {
+public class JsonPrinter {
 
     public static void print(Map m) {
         print(m, 0);
