@@ -1,5 +1,6 @@
 package fr.prunetwork.json;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -47,6 +48,16 @@ public class JsonPrinter {
         System.out.print(sb.toString());
     }
 
+    private static void print(final String s, final int level) {
+        assert s != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
+        StringBuilder sb = getLevelBuilder(level);
+
+        sb.append(s).append("\n");
+        System.out.print(sb.toString());
+    }
+
     private static void printRecursive(final Object o, final int level) {
         assert o != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
@@ -62,6 +73,12 @@ public class JsonPrinter {
 
         } else if (o instanceof JSONObject) {
             printRecursive((JSONObject) o, level + 1);
+
+        } else if (o instanceof JSONArray) {
+            printRecursive((JSONArray) o, level + 1);
+
+        } else if (o instanceof String) {
+            print((String) o, level + 1);
 
         } else {
             throw new IllegalStateException("case is missing or invalid input");
@@ -110,6 +127,26 @@ public class JsonPrinter {
         }
     }
 
+    private static void printRecursive(final JSONArray a, final int level) {
+        assert a != null : "null parameter";
+        assert level >= 0 : "level should be positive or null";
+
+        if (a == null) {
+            return;
+
+        } else {
+
+            System.out.println(getLevelBuilder(level) + "[");
+
+            for (int i = 0; i < a.length(); i++) {
+                final Object object = a.get(i);
+                printRecursive(object, level + 1);
+            }
+
+            System.out.println(getLevelBuilder(level) + "]");
+        }
+    }
+
     private static void printRecursive(final JSONObject o, final int level) {
         assert o != null : "null parameter";
         assert level >= 0 : "level should be positive or null";
@@ -118,6 +155,7 @@ public class JsonPrinter {
             return;
 
         } else {
+            System.out.println(getLevelBuilder(level) + "{");
 
             for (String key : o.keySet()) {
                 StringBuilder sb = getLevelBuilder(level);
@@ -133,11 +171,17 @@ public class JsonPrinter {
                     System.out.println(sb);
 
                     printRecursive(value, level + 1);
+                } else if (value instanceof JSONArray) {
+                    System.out.println(sb);
+
+                    printRecursive(value, level + 1);
                 } else {
                     sb.append(value);
                     System.out.println(sb);
                 }
             }
+
+            System.out.println(getLevelBuilder(level) + "}");
         }
     }
 
