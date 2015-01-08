@@ -36,21 +36,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /*
- * ButtonHtmlDemo.java uses the following files:
- *   images/right.gif
- *   images/middle.gif
- *   images/left.gif
+ * ButtonHtmlDemo.java
  */
 public class ButtonHtmlDemo extends JPanel
         implements ActionListener {
     protected JButton b1, b2, b3;
 
     public ButtonHtmlDemo() {
-        final ImageIcon leftButtonIcon = createImageIcon("images/right.png");
-        final ImageIcon middleButtonIcon = createImageIcon("images/middle.gif");
-        final ImageIcon rightButtonIcon = createImageIcon("images/left.gif");
+        final ImageIcon leftButtonIcon = createImageIconURL(
+                "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/France_road_sign_B21-2.svg/240px-France_road_sign_B21-2.svg.png?uselang=fr");
+        final ImageIcon middleButtonIcon = createImageIconURL(
+                "http://upload.wikimedia.org/wikipedia/commons/thumb/0/09/France_road_sign_B16.svg/240px-France_road_sign_B16.svg.png?uselang=fr");
+        final ImageIcon rightButtonIcon = createImageIconURL(
+                "http://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/France_road_sign_B21-1.svg/240px-France_road_sign_B21-1.svg.png?uselang=fr");
 
         b1 = new JButton(
                 ""
@@ -117,6 +119,24 @@ public class ButtonHtmlDemo extends JPanel
             return new ImageIcon(imgURL);
         } else {
             System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     */
+    protected static ImageIcon createImageIconURL(String url) {
+        URL imgURL = null;
+        try {
+            imgURL = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn't find file: " + url);
             return null;
         }
     }
