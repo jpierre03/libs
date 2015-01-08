@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package fr.prunetwork.snipet;
+package fr.prunetwork.snipet.swing;
 
 /*
  * ComponentEventDemo.java requires no other files.

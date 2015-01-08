@@ -1,4 +1,4 @@
-package fr.prunetwork.snipet;
+package fr.prunetwork.snipet.html;
 /*
  * HtmlSwingPreview.java
  *

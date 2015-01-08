@@ -1,4 +1,4 @@
-package fr.prunetwork.snipet;
+package fr.prunetwork.snipet.swing;
 
 import javax.swing.*;
 import java.awt.*;

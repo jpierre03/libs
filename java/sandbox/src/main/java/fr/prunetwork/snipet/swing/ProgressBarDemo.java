@@ -1,4 +1,4 @@
-package fr.prunetwork.snipet;
+package fr.prunetwork.snipet.swing;
 /*
  * Copyright (c) 1995 - 2008 Sun Microsystems, Inc.  All rights reserved.
  *
