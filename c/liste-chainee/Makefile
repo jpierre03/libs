@@ -1,23 +1,15 @@
-all: circular client
+all: circular.bin client.bin
 
 
-circular: circular.c jppcircular.h
-	$(CC) -Wall -pedantic circular.c -o circular
+circular.bin: circular.c jppcircular.h
+	$(CC) -Wall -pedantic circular.c -o circular.bin
 
-client: client.c
-	$(CC) -Wall client.c -o client
-
-main: main.o list.o
-	$(CC) -o main main.o list.o -lm
-
-main.o: main.c
-	$(CC) -Wall -c main.c
+client.bin: client.c
+	$(CC) -Wall client.c -o client.bin
 
 list.o: list.c
 	$(CC) -Wall -c list.c 
 
 clean:
-	rm -f *.o main
+	rm -f *.o *.bin
 
-run: main
-	./main
