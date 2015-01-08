@@ -1,6 +1,6 @@
 package fr.prunetwork.snipet;
 /*
- * SwingHTMLPreview.java
+ * HtmlSwingPreview.java
  *
  * Created on December 29, 2001, 9:25 PM
  */
@@ -11,23 +11,23 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 /**
- * SwingHTMLPreview
+ * HtmlSwingPreview
  * little tool for testing the Swing HTML rendering
  *
  * @author Gordon Mohr gojomo@bitzi.com gojomo@usa.net
  */
-public class SwingHTMLPreview extends javax.swing.JFrame implements DocumentListener {
+public class HtmlSwingPreview extends javax.swing.JFrame implements DocumentListener {
     JTextArea top;
     JEditorPane bottom;
 
     /**
-     * Creates a new instance of SwingHTMLPreview
+     * Creates a new instance of HtmlSwingPreview
      */
-    public SwingHTMLPreview() {
+    public HtmlSwingPreview() {
     }
 
     public static void main(String args[]) {
-        SwingHTMLPreview instance = new SwingHTMLPreview();
+        HtmlSwingPreview instance = new HtmlSwingPreview();
         instance.init();
         instance.show();
     }
@@ -55,7 +55,7 @@ public class SwingHTMLPreview extends javax.swing.JFrame implements DocumentList
 
         content.add(topScrollPane);
         content.add(bottomScrollPane);
-        setTitle("SwingHTMLPreview");
+        setTitle("HtmlSwingPreview");
         setSize(400, 400);
     }
 
