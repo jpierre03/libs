@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata modelVersion="1.1.0">
   <groupId>fr.prunetwork</groupId>
-  <artifactId>amqp</artifactId>
+  <artifactId>amqp-gui</artifactId>
   <version>1.0-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20150108.162020</timestamp>
+      <timestamp>20150108.162035</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20150108162020</lastUpdated>
+    <lastUpdated>20150108162035</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>1.0-20150108.162020-1</value>
-        <updated>20150108162020</updated>
+        <value>1.0-20150108.162035-1</value>
+        <updated>20150108162035</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>1.0-20150108.162020-1</value>
-        <updated>20150108162020</updated>
+        <value>1.0-20150108.162035-1</value>
+        <updated>20150108162035</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

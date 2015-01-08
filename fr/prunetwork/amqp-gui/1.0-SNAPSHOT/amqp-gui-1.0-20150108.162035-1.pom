@@ -3,13 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.prunetwork</groupId>
-    <artifactId>amqp</artifactId>
+    <artifactId>amqp-gui</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>amqp</name>
+    <name>amqp-gui</name>
     <url>https://github.com/jpierre03/libs/</url>
-
 
     <repositories>
         <repository>
@@ -102,9 +101,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.rabbitmq</groupId>
-            <artifactId>amqp-client</artifactId>
-            <version>3.3.4</version>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>amqp</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -113,6 +112,5 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 </project>
