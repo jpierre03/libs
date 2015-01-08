@@ -107,11 +107,6 @@ public class HtmlDemo extends JPanel
         add(rightPanel);
     }
 
-    //React to the user pushing the Change button.
-    public void actionPerformed(ActionEvent e) {
-        theLabel.setText(htmlTextArea.getText());
-    }
-
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from the
@@ -136,9 +131,17 @@ public class HtmlDemo extends JPanel
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //Turn off metal's use of bold fonts
-                UIManager.put("swing.boldMetal", Boolean.FALSE);
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
+                }
                 createAndShowGUI();
             }
         });
+    }
+
+    //React to the user pushing the Change button.
+    public void actionPerformed(ActionEvent e) {
+        theLabel.setText(htmlTextArea.getText());
     }
 }
