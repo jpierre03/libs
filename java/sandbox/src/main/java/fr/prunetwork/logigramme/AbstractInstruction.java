@@ -1,4 +1,4 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
 import java.awt.Component;
 import java.awt.Graphics;
@@ -43,7 +43,7 @@ public abstract class AbstractInstruction{
 	/**
 	 * Hauteur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
 	 * @param c composant dans lequel elle est dessinée
-	 * @return 
+	 * @return
 	 */
 	public int getHauteurComposant(Component c){
 		return getHauteur(c);

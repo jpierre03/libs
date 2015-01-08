@@ -1,7 +1,6 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
-import java.awt.Component;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * AbstractInstruction conditionnelle
@@ -137,7 +136,7 @@ public class InstructionConditionelle extends AbstractInstruction{
 	/**
 	 * Hauteur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
 	 * @param c composant dans lequel elle est dessinée
-	 * @return 
+	 * @return
 	 */
 	@Override
 	public int getHauteurComposant(Component c){

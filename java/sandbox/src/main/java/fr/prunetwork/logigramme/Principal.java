@@ -1,11 +1,7 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.BorderFactory;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Classe de test
@@ -13,7 +9,7 @@ import javax.swing.BorderFactory;
 public class Principal extends JFrame{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +42,7 @@ public class Principal extends JFrame{
 	}
 
 	/**Initialisation
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	private void logigrammeDemo() throws Exception{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

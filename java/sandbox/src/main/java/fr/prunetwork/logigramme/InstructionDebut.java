@@ -1,7 +1,6 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
-import java.awt.Component;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * AbstractInstruction indiquant le début de l'organigramme
@@ -73,7 +72,7 @@ public class InstructionDebut extends AbstractInstruction{
 	/**
 	 * Largeur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
 	 * @param c composant dans lequel elle est dessinée
-	 * @return 
+	 * @return
 	 */
 	@Override
 	public int getLargeurComposant(Component c){

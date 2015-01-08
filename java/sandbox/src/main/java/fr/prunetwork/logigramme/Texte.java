@@ -1,4 +1,4 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
 import java.awt.Component;
 import java.awt.FontMetrics;

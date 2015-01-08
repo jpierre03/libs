@@ -1,12 +1,11 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
-import java.awt.Component;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * AbstractInstruction indiquant une fin à l'organigramme
  */
-public class InstructionFin extends AbstractInstruction{
+public class InstructionFin extends AbstractInstruction {
 
 	/**Texte "Fin"*/
 	private Texte texte;
@@ -44,7 +43,7 @@ public class InstructionFin extends AbstractInstruction{
 	/**
 	 * Hauteur de l'instruction une fois dessinée <BR>
 	 * @param c composant dans lequel elle est dessinée
-	 * @return 
+	 * @return
 	 */
 	public int getHauteur(Component c){
 		return texte.getHauteur(c) + 10;

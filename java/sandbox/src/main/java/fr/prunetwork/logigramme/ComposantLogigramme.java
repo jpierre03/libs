@@ -1,13 +1,8 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Insets;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 /**
  * Composant portant l'organigramme
@@ -15,7 +10,7 @@ import javax.swing.border.Border;
 public class ComposantLogigramme extends JComponent{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	/**Bord du composant*/

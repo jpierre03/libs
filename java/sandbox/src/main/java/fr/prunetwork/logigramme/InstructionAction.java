@@ -1,12 +1,11 @@
-package logigramme;
+package fr.prunetwork.logigramme;
 
-import java.awt.Component;
-import java.awt.Graphics;
+import java.awt.*;
 
 /**
  * AbstractInstruction simbolisant une action simple
  */
-public class InstructionAction extends AbstractInstruction{
+public class InstructionAction extends AbstractInstruction {
 
 	/**Texte de l'action*/
 	private Texte texte;
@@ -99,7 +98,7 @@ public class InstructionAction extends AbstractInstruction{
 	/**
 	 * Hauteur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
 	 * @param c composant dans lequel elle est dessinée
-	 * @return 
+	 * @return
 	 */
 	@Override
 	public int getHauteurComposant(Component c){
