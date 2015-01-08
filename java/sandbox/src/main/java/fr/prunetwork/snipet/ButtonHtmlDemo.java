@@ -48,17 +48,25 @@ public class ButtonHtmlDemo extends JPanel
     protected JButton b1, b2, b3;
 
     public ButtonHtmlDemo() {
-        ImageIcon leftButtonIcon = createImageIcon("images/right.gif");
-        ImageIcon middleButtonIcon = createImageIcon("images/middle.gif");
-        ImageIcon rightButtonIcon = createImageIcon("images/left.gif");
+        final ImageIcon leftButtonIcon = createImageIcon("images/right.png");
+        final ImageIcon middleButtonIcon = createImageIcon("images/middle.gif");
+        final ImageIcon rightButtonIcon = createImageIcon("images/left.gif");
 
-        b1 = new JButton("<html><center><b><u>D</u>isable</b><br>"
-                + "<font color=#ffffdd>middle button</font>",
-                leftButtonIcon);
+        b1 = new JButton(
+                ""
+                        + "<html>"
+                        + "<center>"
+                        + "<b><u>D</u>isable</b>"
+                        + "<center/>"
+                        + "<br />"
+                        + "<font color=#ffffdd>middle button</font>"
+                        + "</html>",
+                leftButtonIcon
+        );
         Font font = b1.getFont().deriveFont(Font.PLAIN);
         b1.setFont(font);
         b1.setVerticalTextPosition(AbstractButton.CENTER);
-        b1.setHorizontalTextPosition(AbstractButton.LEADING); //aka LEFT, for left-to-right locales
+        b1.setHorizontalTextPosition(AbstractButton.LEADING); /** aka LEFT, for left-to-right locales */
         b1.setMnemonic(KeyEvent.VK_D);
         b1.setActionCommand("disable");
 
@@ -69,16 +77,24 @@ public class ButtonHtmlDemo extends JPanel
         b2.setHorizontalTextPosition(AbstractButton.CENTER);
         b2.setMnemonic(KeyEvent.VK_M);
 
-        b3 = new JButton("<html><center><b><u>E</u>nable</b><br>"
-                + "<font color=#ffffdd>middle button</font>",
-                rightButtonIcon);
+        b3 = new JButton(
+                ""
+                        + "<html>"
+                        + "<center>"
+                        + "<b><u>E</u>nable</b>"
+                        + "</center>"
+                        + "<br />"
+                        + "<font color=#ffffdd>middle button</font>"
+                        + "</html>",
+                rightButtonIcon
+        );
         b3.setFont(font);
-        //Use the default text position of CENTER, TRAILING (RIGHT).
+        /** Use the default text position of CENTER, TRAILING (RIGHT). */
         b3.setMnemonic(KeyEvent.VK_E);
         b3.setActionCommand("enable");
         b3.setEnabled(false);
 
-        //Listen for actions on buttons 1 and 3.
+        /** Listen for actions on buttons 1 and 3. */
         b1.addActionListener(this);
         b3.addActionListener(this);
 
@@ -86,22 +102,10 @@ public class ButtonHtmlDemo extends JPanel
         b2.setToolTipText("This middle button does nothing when you click it.");
         b3.setToolTipText("Click this button to enable the middle button.");
 
-        //Add Components to this container, using the default FlowLayout.
+        /** Add Components to this container, using the default FlowLayout. */
         add(b1);
         add(b2);
         add(b3);
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if ("disable".equals(e.getActionCommand())) {
-            b2.setEnabled(false);
-            b1.setEnabled(false);
-            b3.setEnabled(true);
-        } else {
-            b2.setEnabled(true);
-            b1.setEnabled(true);
-            b3.setEnabled(false);
-        }
     }
 
     /**
@@ -123,25 +127,36 @@ public class ButtonHtmlDemo extends JPanel
      * event dispatch thread.
      */
     private static void createAndShowGUI() {
-        //Create and set up the window.
+        /** Create and set up the window. */
         JFrame frame = new JFrame("ButtonHtmlDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Add content to the window.
+        /** Add content to the window. */
         frame.add(new ButtonHtmlDemo());
 
-        //Display the window.
+        /** Display the window. */
         frame.pack();
         frame.setVisible(true);
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
+        /** Schedule a job for the event dispatch thread: creating and showing this application's GUI. */
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
             }
         });
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if ("disable".equals(e.getActionCommand())) {
+            b2.setEnabled(false);
+            b1.setEnabled(false);
+            b3.setEnabled(true);
+        } else {
+            b2.setEnabled(true);
+            b1.setEnabled(true);
+            b3.setEnabled(false);
+        }
     }
 }
