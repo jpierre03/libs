@@ -15,7 +15,7 @@ public final class CollectionUtilities {
     }
 
     /**
-     * Remove Duplicates items
+     * Remove Duplicates items.
      */
     public static <T extends Comparable<?>> Collection<T> withoutDuplicates(Collection<T> objects) {
         Map<T, T> map = new TreeMap<>();
@@ -26,6 +26,13 @@ public final class CollectionUtilities {
         return map.values();
     }
 
+    /**
+     * Extract elements present in each (both) collections.
+     * @param a first collection
+     * @param b second collection
+     * @param <T> a generic type
+     * @return a collection that contains only elements in both lists
+     */
     public static <T extends Comparable<?>> Collection<T> inBothLists(Collection<T> a, Collection<T> b) {
         if (a == null) {
             throw new IllegalArgumentException("must be initialized");
