@@ -70,13 +70,13 @@
 
         <dependency>
             <groupId>fr.prunetwork</groupId>
-            <artifactId>json</artifactId>
+            <artifactId>gui-logigramme</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>fr.prunetwork</groupId>
-            <artifactId>logigramme</artifactId>
+            <artifactId>json</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
