@@ -1,5 +1,7 @@
 package fr.prunetwork.logigramme;
 
+import fr.prunetwork.logigramme.instruction.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -59,16 +61,16 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         /**---Construction d'un organigramme---*/
         /** -Les instructions-*/
-        InstructionDebut debut = new InstructionDebut();
-        InstructionAction action1 = new InstructionAction("Action 1\nFaire qqch");
-        InstructionAction action2 = new InstructionAction("Action 2\nFaire autre ch");
-        InstructionAction action3 = new InstructionAction("Action 3\nFaire autre ch");
-        InstructionConditionelle cond = new InstructionConditionelle("Condition");
-        InstructionConditionelle cond2 = new InstructionConditionelle("Condition N°2");
-        InstructionConditionelle cond0 = new InstructionConditionelle("Condition N°0");
-        InstructionAction oui = new InstructionAction("Si oui\nOn va là");
-        InstructionAction non = new InstructionAction("Si non\nOn va ici");
-        InstructionFin fin = new InstructionFin();
+        Debut debut = new Debut();
+        fr.prunetwork.logigramme.instruction.Action action1 = new fr.prunetwork.logigramme.instruction.Action("Action 1\nFaire qqch");
+        fr.prunetwork.logigramme.instruction.Action action2 = new fr.prunetwork.logigramme.instruction.Action("Action 2\nFaire autre ch");
+        fr.prunetwork.logigramme.instruction.Action action3 = new fr.prunetwork.logigramme.instruction.Action("Action 3\nFaire autre ch");
+        Condition cond = new Condition("Condition");
+        Condition cond2 = new Condition("Condition N°2");
+        Condition cond0 = new Condition("Condition N°0");
+        fr.prunetwork.logigramme.instruction.Action oui = new fr.prunetwork.logigramme.instruction.Action("Si oui\nOn va là");
+        fr.prunetwork.logigramme.instruction.Action non = new fr.prunetwork.logigramme.instruction.Action("Si non\nOn va ici");
+        Fin fin = new Fin();
         /** -Organisation-*/
         debut.setSuivant(action1);
         action1.setSuivant(action2);

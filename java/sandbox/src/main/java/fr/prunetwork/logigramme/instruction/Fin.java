@@ -1,11 +1,13 @@
-package fr.prunetwork.logigramme;
+package fr.prunetwork.logigramme.instruction;
+
+import fr.prunetwork.logigramme.Texte;
 
 import java.awt.*;
 
 /**
- * AbstractInstruction indiquant une fin à l'organigramme
+ * Instruction indiquant une fin à l'organigramme
  */
-public class InstructionFin extends AbstractInstruction {
+public final class Fin extends AbstractInstruction {
 
     /**
      * Texte "Fin"
@@ -15,7 +17,7 @@ public class InstructionFin extends AbstractInstruction {
     /**
      * Construction
      */
-    public InstructionFin() {
+    public Fin() {
         texte = new Texte("Fin");
     }
 

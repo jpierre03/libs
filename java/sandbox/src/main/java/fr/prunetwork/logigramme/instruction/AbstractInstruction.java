@@ -1,11 +1,13 @@
-package fr.prunetwork.logigramme;
+package fr.prunetwork.logigramme.instruction;
+
+import fr.prunetwork.logigramme.Instruction;
 
 import java.awt.*;
 
 /**
  * AbstractInstruction générale de l'organigramme
  */
-public abstract class AbstractInstruction implements Instruction {
+abstract class AbstractInstruction implements Instruction {
 
     @Override
     public int getLargeurComposant(Component c) {

@@ -1,11 +1,14 @@
-package fr.prunetwork.logigramme;
+package fr.prunetwork.logigramme.instruction;
+
+import fr.prunetwork.logigramme.Instruction;
+import fr.prunetwork.logigramme.Texte;
 
 import java.awt.*;
 
 /**
- * AbstractInstruction conditionnelle
+ * Instruction conditionnelle
  */
-public class InstructionConditionelle extends AbstractInstruction {
+public final class Condition extends AbstractInstruction {
 
     /**
      * Texte oui
@@ -33,7 +36,7 @@ public class InstructionConditionelle extends AbstractInstruction {
      *
      * @param condition
      */
-    public InstructionConditionelle(String condition) {
+    public Condition(String condition) {
         texte = new Texte(condition);
     }
 

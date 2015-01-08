@@ -1,30 +1,35 @@
-package fr.prunetwork.logigramme;
+package fr.prunetwork.logigramme.instruction;
+
+import fr.prunetwork.logigramme.Instruction;
+import fr.prunetwork.logigramme.Texte;
 
 import java.awt.*;
 
 /**
- * AbstractInstruction indiquant le début de l'organigramme
+ * Instruction symbolisant une action simple
  */
-public class InstructionDebut extends AbstractInstruction {
+public final class Action extends AbstractInstruction {
 
     /**
-     * Texte "Début"
+     * Texte de l'action
      */
-    private Texte texte;
+    final private Texte texte;
     /**
      * AbstractInstruction suivante
      */
     private Instruction suivant;
 
     /**
-     * Construction
+     * Construit l'instruction ayant le texte donné
+     *
+     * @param action
      */
-    public InstructionDebut() {
-        texte = new Texte("Début");
+    public Action(String action) {
+        texte = new Texte(action);
     }
 
     /**
-     * Change le suivant
+     * Change l'instruction suivante
      *
      * @param suivant
      */
@@ -44,15 +49,22 @@ public class InstructionDebut extends AbstractInstruction {
         final int largeur = texte.getLargeur(c) + 10;
         final int hauteur = texte.getHauteur(c) + 10;
 
+        /** Affichage du texte */
         texte.dessiner(x + 5, y + 5, g, c);
-        g.drawRoundRect(x, y, largeur, hauteur, 10, 10);
+
+        /** Rectangle autour du texte */
+        g.drawRect(x, y, largeur, hauteur);
+        /** Ligne de liason*/
         g.drawLine(x + largeur / 2, y + hauteur, x + largeur / 2, y + hauteur + 20);
+        /** Si il y a une instruction suivante */
         if (suivant != null) {
+            /** Calcul de l'emplacement */
             int px = 0;
             final int l = suivant.getLargeur(c);
             if (l < largeur) {
                 px = (largeur - l) / 2;
             }
+            /** On la dessine */
             suivant.dessiner(x + px, y + hauteur + 20, g, c);
         }
     }
@@ -90,8 +102,7 @@ public class InstructionDebut extends AbstractInstruction {
         if (suivant == null) {
             return largeur;
         }
-
-        final int l = suivant.getLargeurComposant(c);
+        int l = suivant.getLargeurComposant(c);
         if (l > largeur) {
             return l;
         }
@@ -109,7 +120,6 @@ public class InstructionDebut extends AbstractInstruction {
         if (suivant == null) {
             return getHauteur(c);
         }
-
         return getHauteur(c) + suivant.getHauteurComposant(c);
     }
 }

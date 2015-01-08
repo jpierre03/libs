@@ -1,5 +1,7 @@
 package fr.prunetwork.logigramme;
 
+import fr.prunetwork.logigramme.instruction.Debut;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +13,7 @@ public class Logigramme implements Icon {
     /**
      * Instruction débutant l'organigramme
      */
-    private InstructionDebut debut;
+    private Debut debut;
     /**
      * Composant contenant l'organigramme
      */
@@ -22,7 +24,7 @@ public class Logigramme implements Icon {
      *
      * @param debut
      */
-    public Logigramme(InstructionDebut debut) {
+    public Logigramme(Debut debut) {
         this.debut = debut;
     }
 
