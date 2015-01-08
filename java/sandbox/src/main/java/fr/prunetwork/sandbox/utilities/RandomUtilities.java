@@ -1,5 +1,6 @@
 package fr.prunetwork.sandbox.utilities;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -7,6 +8,12 @@ import java.util.Random;
  * @since 23/04/2014
  */
 public final class RandomUtilities {
+
+    /**
+     * Usually this can be a field rather than a method variable
+     */
+    static final Random rand = new SecureRandom();
+
 
     private RandomUtilities() {
     }
@@ -22,10 +29,7 @@ public final class RandomUtilities {
      * @see java.util.Random#nextInt(int)
      */
     public static int randInt(int min, int max) {
-        assert max < Integer.MAX_VALUE: "max too big";
-
-        /** Usually this can be a field rather than a method variable */
-                Random rand = new Random();
+        assert max < Integer.MAX_VALUE : "max too big";
 
         /**
          * nextInt is normally exclusive of the top value, so add 1 to make it inclusive
