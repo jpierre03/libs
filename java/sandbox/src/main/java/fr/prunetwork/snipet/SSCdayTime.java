@@ -24,7 +24,7 @@ class SSCdayTime {
             while (true) {
                 SocketChannel sockClient = serverChannel.accept();
                 Date maintenant = new Date();
-                CharBuffer reponse = CharBuffer.wrap(maintenant);
+                CharBuffer reponse = CharBuffer.wrap(maintenant.toString());
                 encoder.reset();
                 sockClient.write(encoder.encode(reponse));
                 sockClient.close();

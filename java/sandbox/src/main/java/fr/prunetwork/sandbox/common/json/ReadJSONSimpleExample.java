@@ -1,14 +1,6 @@
 package fr.prunetwork.sandbox.common.json;
 
-
-import fr.prunetwork.sandbox.MyStaticClass;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.function.BiConsumer;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -23,7 +15,7 @@ public class ReadJSONSimpleExample {
     private static void display(JSONObject jsonObject) {
         final StringBuilder sb = new StringBuilder();
 
-        jsonObject.forEach(new BiConsumer() {
+        /*jsonObject.forEach(new BiConsumer() {
             @Override
             public void accept(Object o, Object o2) {
                 sb.append("key: ").append(o);
@@ -35,7 +27,7 @@ public class ReadJSONSimpleExample {
             public BiConsumer andThen(BiConsumer after) {
                 return null;
             }
-        });
+        });*/
         System.out.println(sb.toString());
     }
 }

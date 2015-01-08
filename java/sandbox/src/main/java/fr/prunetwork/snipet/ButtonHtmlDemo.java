@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package components;
+package fr.prunetwork.snipet;
 
 import javax.swing.*;
 import java.awt.*;
