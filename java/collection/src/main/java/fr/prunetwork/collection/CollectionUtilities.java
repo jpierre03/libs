@@ -1,4 +1,4 @@
-package fr.prunetwork.sandbox.utilities;
+package fr.prunetwork.collection;
 
 import java.util.ArrayList;
 import java.util.Collection;
