@@ -15,11 +15,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 
-public class EditorPaneExample1 extends JFrame {
+public class HtmlPanelDemo1 extends JFrame {
     private JEditorPane pane;
     private JTextField textField;
 
-    public EditorPaneExample1() {
+    public HtmlPanelDemo1() {
         super("JEditorPane Example 1");
 
         pane = new JEditorPane();
@@ -57,7 +57,7 @@ public class EditorPaneExample1 extends JFrame {
         } catch (Exception evt) {
         }
 
-        JFrame f = new EditorPaneExample1();
+        JFrame f = new HtmlPanelDemo1();
 
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {

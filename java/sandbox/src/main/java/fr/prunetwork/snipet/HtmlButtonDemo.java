@@ -40,13 +40,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /*
- * ButtonHtmlDemo.java
+ * HtmlButtonDemo.java
  */
-public class ButtonHtmlDemo extends JPanel
+public class HtmlButtonDemo extends JPanel
         implements ActionListener {
     protected JButton b1, b2, b3;
 
-    public ButtonHtmlDemo() {
+    public HtmlButtonDemo() {
         final ImageIcon leftButtonIcon = createImageIconURL(
                 "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/France_road_sign_B21-2.svg/240px-France_road_sign_B21-2.svg.png?uselang=fr");
         final ImageIcon middleButtonIcon = createImageIconURL(
@@ -114,7 +114,7 @@ public class ButtonHtmlDemo extends JPanel
      * Returns an ImageIcon, or null if the path was invalid.
      */
     protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = ButtonHtmlDemo.class.getResource(path);
+        java.net.URL imgURL = HtmlButtonDemo.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
@@ -148,11 +148,11 @@ public class ButtonHtmlDemo extends JPanel
      */
     private static void createAndShowGUI() {
         /** Create and set up the window. */
-        JFrame frame = new JFrame("ButtonHtmlDemo");
+        JFrame frame = new JFrame("HtmlButtonDemo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         /** Add content to the window. */
-        frame.add(new ButtonHtmlDemo());
+        frame.add(new HtmlButtonDemo());
 
         /** Display the window. */
         frame.pack();
