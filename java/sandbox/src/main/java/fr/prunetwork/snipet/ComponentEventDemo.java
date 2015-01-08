@@ -27,9 +27,9 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
+ */
 
-package events;
+package fr.prunetwork.snipet;
 
 /*
  * ComponentEventDemo.java requires no other files.
@@ -105,7 +105,7 @@ public class ComponentEventDemo extends JPanel
     }
 
     public void componentResized(ComponentEvent e) {
-        displayMessage(e.getComponent().getClass().getName() + " --- Resized ");            
+        displayMessage(e.getComponent().getClass().getName() + " --- Resized ");
     }
 
     public void componentShown(ComponentEvent e) {
@@ -142,4 +142,4 @@ public class ComponentEventDemo extends JPanel
             }
         });
     }
-} 
+}

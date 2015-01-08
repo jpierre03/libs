@@ -1,3 +1,4 @@
+package fr.prunetwork.snipet.applet;
 
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,7 @@ public class FirstApplet extends java.applet.Applet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 *
 	 */
 	public void init() {
 

@@ -1,3 +1,5 @@
+package fr.prunetwork.snipet;
+
 import java.nio.*;
 import java.nio.channels.*;
 import java.nio.charset.*;
@@ -17,7 +19,7 @@ class SSCdayTime {
       Charset charset = Charset.forName("US-ASCII");
       CharsetEncoder encoder = charset.newEncoder();
       while (true) {
-        SocketChannel sockClient = serverChannel.accept(); 
+        SocketChannel sockClient = serverChannel.accept();
         Date maintenant = new Date();
         CharBuffer reponse = CharBuffer.wrap(maintenant);
         encoder.reset();

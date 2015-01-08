@@ -1,25 +1,19 @@
+package fr.prunetwork.snipet;
+
 /*
-Core SWING Advanced Programming 
+Core SWING Advanced Programming
 By Kim Topley
-ISBN: 0 13 083292 8       
-Publisher: Prentice Hall  
+ISBN: 0 13 083292 8
+Publisher: Prentice Hall
 */
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 public class EditorPaneExample1 extends JFrame {
   public EditorPaneExample1() {
@@ -58,7 +52,7 @@ public class EditorPaneExample1 extends JFrame {
     try {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
     } catch (Exception evt) {}
-  
+
     JFrame f = new EditorPaneExample1();
 
     f.addWindowListener(new WindowAdapter() {

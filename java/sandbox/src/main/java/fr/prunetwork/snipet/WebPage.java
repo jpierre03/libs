@@ -1,3 +1,4 @@
+package fr.prunetwork.snipet;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
