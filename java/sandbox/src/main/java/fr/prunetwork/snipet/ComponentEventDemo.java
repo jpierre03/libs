@@ -37,11 +37,14 @@ package fr.prunetwork.snipet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class ComponentEventDemo extends JPanel
-                                implements ComponentListener,
-                                           ItemListener {
+        implements ComponentListener,
+        ItemListener {
     static JFrame frame;
     JTextArea display;
     JLabel label;
@@ -90,9 +93,9 @@ public class ComponentEventDemo extends JPanel
         //a text/AWT tree deadlock. Our solution is
         //to ensure that the text area is realized
         //before attempting to draw text.
-       // if (display.isShowing()) {
-	    display.append(message + newline);
-            display.setCaretPosition(display.getDocument().getLength());
+        // if (display.isShowing()) {
+        display.append(message + newline);
+        display.setCaretPosition(display.getDocument().getLength());
         //}
     }
 

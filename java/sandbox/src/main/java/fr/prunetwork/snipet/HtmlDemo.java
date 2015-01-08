@@ -35,10 +35,12 @@ package fr.prunetwork.snipet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class HtmlDemo extends JPanel
-                      implements ActionListener {
+        implements ActionListener {
     JLabel theLabel;
     JTextArea htmlTextArea;
 
@@ -70,9 +72,11 @@ public class HtmlDemo extends JPanel
             public Dimension getPreferredSize() {
                 return new Dimension(200, 200);
             }
+
             public Dimension getMinimumSize() {
                 return new Dimension(200, 200);
             }
+
             public Dimension getMaximumSize() {
                 return new Dimension(200, 200);
             }
@@ -84,22 +88,22 @@ public class HtmlDemo extends JPanel
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
         leftPanel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder(
-                    "Edit the HTML, then click the button"),
-                BorderFactory.createEmptyBorder(10,10,10,10)));
+                        "Edit the HTML, then click the button"),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         leftPanel.add(scrollPane);
-        leftPanel.add(Box.createRigidArea(new Dimension(0,10)));
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         leftPanel.add(changeTheLabel);
 
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
         rightPanel.setBorder(BorderFactory.createCompoundBorder(
-                        BorderFactory.createTitledBorder("A label with HTML"),
-                        BorderFactory.createEmptyBorder(10,10,10,10)));
+                BorderFactory.createTitledBorder("A label with HTML"),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         rightPanel.add(theLabel);
 
-        setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(leftPanel);
-        add(Box.createRigidArea(new Dimension(10,0)));
+        add(Box.createRigidArea(new Dimension(10, 0)));
         add(rightPanel);
     }
 
@@ -132,8 +136,8 @@ public class HtmlDemo extends JPanel
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //Turn off metal's use of bold fonts
-	        UIManager.put("swing.boldMetal", Boolean.FALSE);
-	        createAndShowGUI();
+                UIManager.put("swing.boldMetal", Boolean.FALSE);
+                createAndShowGUI();
             }
         });
     }

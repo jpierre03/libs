@@ -13,14 +13,16 @@ import java.awt.*;
 /**
  * SwingHTMLPreview
  * little tool for testing the Swing HTML rendering
- * @author  Gordon Mohr gojomo@bitzi.com gojomo@usa.net
  *
+ * @author Gordon Mohr gojomo@bitzi.com gojomo@usa.net
  */
 public class SwingHTMLPreview extends javax.swing.JFrame implements DocumentListener {
     JTextArea top;
     JEditorPane bottom;
 
-    /** Creates a new instance of SwingHTMLPreview */
+    /**
+     * Creates a new instance of SwingHTMLPreview
+     */
     public SwingHTMLPreview() {
     }
 
@@ -33,7 +35,7 @@ public class SwingHTMLPreview extends javax.swing.JFrame implements DocumentList
     public void init() {
         Container content = getContentPane();
         content.setBackground(Color.white);
-        content.setLayout(new GridLayout(2,1));
+        content.setLayout(new GridLayout(2, 1));
 
         top = new JTextArea();
         top.setEditable(true);
@@ -54,18 +56,21 @@ public class SwingHTMLPreview extends javax.swing.JFrame implements DocumentList
         content.add(topScrollPane);
         content.add(bottomScrollPane);
         setTitle("SwingHTMLPreview");
-        setSize(400,400);
+        setSize(400, 400);
     }
 
     public void insertUpdate(DocumentEvent e) {
         copyContents(e);
     }
+
     public void removeUpdate(DocumentEvent e) {
         copyContents(e);
     }
+
     public void changedUpdate(DocumentEvent e) {
         copyContents(e);
     }
+
     private void copyContents(DocumentEvent e) {
         String backup = bottom.getText();
         // some bad HTML causes the JEditorPane to choke;

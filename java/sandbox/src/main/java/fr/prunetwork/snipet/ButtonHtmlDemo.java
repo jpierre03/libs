@@ -27,36 +27,34 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
+ */
 
 package components;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.ImageIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
-/* 
+/*
  * ButtonHtmlDemo.java uses the following files:
  *   images/right.gif
  *   images/middle.gif
  *   images/left.gif
  */
 public class ButtonHtmlDemo extends JPanel
-                            implements ActionListener {
+        implements ActionListener {
     protected JButton b1, b2, b3;
 
     public ButtonHtmlDemo() {
         ImageIcon leftButtonIcon = createImageIcon("images/right.gif");
         ImageIcon middleButtonIcon = createImageIcon("images/middle.gif");
         ImageIcon rightButtonIcon = createImageIcon("images/left.gif");
-        
+
         b1 = new JButton("<html><center><b><u>D</u>isable</b><br>"
-                         + "<font color=#ffffdd>middle button</font>", 
-                         leftButtonIcon);
+                + "<font color=#ffffdd>middle button</font>",
+                leftButtonIcon);
         Font font = b1.getFont().deriveFont(Font.PLAIN);
         b1.setFont(font);
         b1.setVerticalTextPosition(AbstractButton.CENTER);
@@ -72,8 +70,8 @@ public class ButtonHtmlDemo extends JPanel
         b2.setMnemonic(KeyEvent.VK_M);
 
         b3 = new JButton("<html><center><b><u>E</u>nable</b><br>"
-                         + "<font color=#ffffdd>middle button</font>", 
-                         rightButtonIcon);
+                + "<font color=#ffffdd>middle button</font>",
+                rightButtonIcon);
         b3.setFont(font);
         //Use the default text position of CENTER, TRAILING (RIGHT).
         b3.setMnemonic(KeyEvent.VK_E);
@@ -106,7 +104,9 @@ public class ButtonHtmlDemo extends JPanel
         }
     }
 
-    /** Returns an ImageIcon, or null if the path was invalid. */
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     */
     protected static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = ButtonHtmlDemo.class.getResource(path);
         if (imgURL != null) {
