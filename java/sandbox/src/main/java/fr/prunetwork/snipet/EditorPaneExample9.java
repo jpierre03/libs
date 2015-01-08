@@ -1,3 +1,4 @@
+package fr.prunetwork.snipet;
 /*
 Core SWING Advanced Programming
 By Kim Topley
@@ -27,6 +28,17 @@ import java.net.URLConnection;
 import java.util.StringTokenizer;
 
 public class EditorPaneExample9 extends JFrame {
+    static final String spaces = "                    ";
+    static final String LOAD_TIME = "Load time: ";
+    private JCheckBox onlineLoad;
+    private HTMLDocumentLoader loader;
+    private JLabel loadingState;
+    private JLabel timeLabel;
+    private JLabel loadedType;
+    private JTextField textField;
+    private JEditorPane pane;
+    private long startTime;
+
     public EditorPaneExample9() {
         super("JEditorPane Example 9");
         pane = new JEditorPane();
@@ -160,20 +172,9 @@ public class EditorPaneExample9 extends JFrame {
         });
     }
 
-    public void loadComplete() {
-        loadingState.setText("Page loaded.");
-        textField.setEnabled(true); // Allow entry of new URL
-        setCursor(Cursor.getDefaultCursor());
-    }
-
-    public void displayLoadTime() {
-        double loadingTime = ((double) (System.currentTimeMillis() - startTime)) / 1000d;
-        timeLabel.setText(loadingTime + " seconds");
-    }
-
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception evt) {
         }
 
@@ -187,28 +188,26 @@ public class EditorPaneExample9 extends JFrame {
         f.setVisible(true);
     }
 
-    static final String spaces = "                    ";
+    public void loadComplete() {
+        loadingState.setText("Page loaded.");
+        textField.setEnabled(true); // Allow entry of new URL
+        setCursor(Cursor.getDefaultCursor());
+    }
 
-    static final String LOAD_TIME = "Load time: ";
-
-    private JCheckBox onlineLoad;
-
-    private HTMLDocumentLoader loader;
-
-    private JLabel loadingState;
-
-    private JLabel timeLabel;
-
-    private JLabel loadedType;
-
-    private JTextField textField;
-
-    private JEditorPane pane;
-
-    private long startTime;
+    public void displayLoadTime() {
+        double loadingTime = ((double) (System.currentTimeMillis() - startTime)) / 1000d;
+        timeLabel.setText(loadingTime + " seconds");
+    }
 }
 
 class HTMLDocumentLoader {
+    protected static HTMLEditorKit kit;
+    protected static HTMLEditorKit.Parser parser;
+
+    static {
+        kit = new HTMLEditorKit();
+    }
+
     public HTMLDocument loadDocument(HTMLDocument doc, URL url, String charSet)
             throws IOException {
         doc.putProperty(Document.StreamDescriptionProperty, url);
@@ -280,8 +279,7 @@ class HTMLDocumentLoader {
         return parser;
     }
 
-    public synchronized HTMLEditorKit.ParserCallback getParserCallback(
-            HTMLDocument doc) {
+    public synchronized HTMLEditorKit.ParserCallback getParserCallback(HTMLDocument doc) {
         return doc.getReader(0);
     }
 
@@ -330,14 +328,6 @@ class HTMLDocumentLoader {
 
         // No charset found - return a guess
         return "8859_1";
-    }
-
-    protected static HTMLEditorKit kit;
-
-    protected static HTMLEditorKit.Parser parser;
-
-    static {
-        kit = new HTMLEditorKit();
     }
 }
 
