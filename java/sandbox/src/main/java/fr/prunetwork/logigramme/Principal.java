@@ -62,15 +62,20 @@ public class Principal extends JFrame {
         InstructionDebut debut = new InstructionDebut();
         InstructionAction action1 = new InstructionAction("Action 1\nFaire qqch");
         InstructionAction action2 = new InstructionAction("Action 2\nFaire autre ch");
+        InstructionAction action3 = new InstructionAction("Action 3\nFaire autre ch");
         InstructionConditionelle cond = new InstructionConditionelle("Condition");
         InstructionConditionelle cond2 = new InstructionConditionelle("Condition N°2");
+        InstructionConditionelle cond0 = new InstructionConditionelle("Condition N°0");
         InstructionAction oui = new InstructionAction("Si oui\nOn va là");
         InstructionAction non = new InstructionAction("Si non\nOn va ici");
         InstructionFin fin = new InstructionFin();
         /** -Organisation-*/
         debut.setSuivant(action1);
         action1.setSuivant(action2);
-        action2.setSuivant(cond);
+        action2.setSuivant(cond0);
+        action3.setSuivant(cond);
+        cond0.setOui(action3);
+        cond0.setNon(fin);
         cond.setOui(cond2);
         cond.setNon(cond2);
         cond2.setOui(oui);
