@@ -27,7 +27,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.StringTokenizer;
 
-public class EditorPaneExample9 extends JFrame {
+public class HtmlPanelDemo2 extends JFrame {
     static final String spaces = "                    ";
     static final String LOAD_TIME = "Load time: ";
     private JCheckBox onlineLoad;
@@ -39,7 +39,7 @@ public class EditorPaneExample9 extends JFrame {
     private JEditorPane pane;
     private long startTime;
 
-    public EditorPaneExample9() {
+    public HtmlPanelDemo2() {
         super("JEditorPane Example 9");
         pane = new JEditorPane();
         pane.setEditable(false); // Read-only
@@ -178,7 +178,7 @@ public class EditorPaneExample9 extends JFrame {
         } catch (Exception evt) {
         }
 
-        JFrame f = new EditorPaneExample9();
+        JFrame f = new HtmlPanelDemo2();
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 System.exit(0);
