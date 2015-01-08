@@ -5,7 +5,6 @@ class Settings
               :mail_host, :mail_startrls, :mail_domain, :mail_port, :mail_default_recipients, :mail_default_subject, :mail_from
 
   def initialize()
-    #@amqp_url="amqp://jpierre03:toto@bc.antalios.com:5672"
     @amqp_url="amqp://localhost:5672"
     @amqp_exchange_name= "dev.tmp"
 
