@@ -3,23 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.prunetwork</groupId>
-    <artifactId>amqp-gui</artifactId>
+    <artifactId>amqp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>amqp-gui</name>
+    <name>amqp</name>
     <url>https://github.com/jpierre03/libs/</url>
-
-    <repositories>
-        <repository>
-            <id>jpierre03-libs-mvn-repo</id>
-            <url>https://raw.github.com/jpierre03/libs/mvn-repo/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,8 +34,6 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
-                    <testSource>1.8</testSource>
-                    <testTarget>1.8</testTarget>
                 </configuration>
             </plugin>
 
@@ -64,21 +51,15 @@
                 <artifactId>site-maven-plugin</artifactId>
                 <version>0.11-SNAPSHOT</version>
                 <configuration>
-                    <message>Maven artifacts for ${project.version}</message>
-                    <!-- git commit message -->
-                    <noJekyll>true</noJekyll>
-                    <!-- disable webpage processing -->
-                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                    <!-- matches distribution management repository url above -->
-                    <branch>refs/heads/mvn-repo</branch>
-                    <!-- remote branch name -->
+                    <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                    <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
                     <includes>
                         <include>**/*</include>
                     </includes>
-                    <repositoryName>libs</repositoryName>
-                    <!-- github repo name -->
-                    <repositoryOwner>jpierre03</repositoryOwner>
-                    <!-- github username  -->
+                    <repositoryName>libs</repositoryName>      <!-- github repo name -->
+                    <repositoryOwner>jpierre03</repositoryOwner>    <!-- github username  -->
                 </configuration>
                 <executions>
                     <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
@@ -101,9 +82,9 @@
         </dependency>
 
         <dependency>
-            <groupId>fr.prunetwork</groupId>
-            <artifactId>amqp</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>3.3.4</version>
         </dependency>
 
         <dependency>
@@ -112,5 +93,6 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 </project>
