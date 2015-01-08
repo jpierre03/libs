@@ -56,25 +56,35 @@ public class ComposantLogigramme extends JComponent {
      */
     @Override
     protected void paintComponent(Graphics g) {
-        /**On initialise à pas de décalage. Comme si il il n'y avait pas de tour*/
+        /** On initialise à pas de décalage. Comme si il il n'y avait pas de tour */
         Insets in = new Insets(0, 0, 0, 0);
-        /**S'il y a un tour, on récupére le décalage qu'il implique*/
+
+        /** S'il y a un tour, on récupére le décalage qu'il implique*/
         if (tour != null) {
             in = tour.getBorderInsets(this);
         }
-        /**---Fond du composant---*/
-        /*Couleur du fond*/
-        g.setColor(getBackground());
-        /**Largeur du composant*/
-        int l = organigramme.getIconWidth() + in.left + in.right;
-        /**Hauteur du composant*/
-        int h = organigramme.getIconHeight() + in.bottom + in.top;
-        /**Peint le fond d'une couleur unie*/
-        g.fillRect(0, 0, l, h);
-        /**---Fin du fond---*/
+
+        final int l;
+        final int h;
+        {
+            /**---Fond du composant---*/
+        /* Couleur du fond */
+            g.setColor(getBackground());
+
+            /** Largeur du composant */
+            l = organigramme.getIconWidth() + in.left + in.right;
+
+            /** Hauteur du composant */
+            h = organigramme.getIconHeight() + in.bottom + in.top;
+            /** Peint le fond d'une couleur unie */
+            g.fillRect(0, 0, l, h);
+
+            /**---Fin du fond---*/
+        }
         /**Dessine l'organigramme*/
         g.setColor(getForeground());
         organigramme.paintIcon(this, g, in.left, in.top);
+
         /**Dessine le tour*/
         tour.paintBorder(this, g, 0, 0, l, h);
     }
@@ -128,7 +138,8 @@ public class ComposantLogigramme extends JComponent {
     }
 
     /**
-     * Dimension préférée du composant. Sert, si le composant est intégré à une Frame ou un Dialog
+     * Dimension préférée du composant.
+     * Sert, si le composant est intégré à une Frame ou un Dialog
      */
     @Override
     public Dimension getPreferredSize() {
@@ -136,7 +147,8 @@ public class ComposantLogigramme extends JComponent {
     }
 
     /**
-     * Dimension maximum du composant. Sert, si le composant est intégré à une Frame ou un Dialog
+     * Dimension maximum du composant.
+     * Sert, si le composant est intégré à une Frame ou un Dialog
      */
     @Override
     public Dimension getMaximumSize() {
@@ -144,7 +156,8 @@ public class ComposantLogigramme extends JComponent {
     }
 
     /**
-     * Dimension minimum du composant. Sert, si le composant est intégré à une Frame ou un Dialog
+     * Dimension minimum du composant.
+     * Sert, si le composant est intégré à une Frame ou un Dialog
      */
     @Override
     public Dimension getMinimumSize() {

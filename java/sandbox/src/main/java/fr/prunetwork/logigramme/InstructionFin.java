@@ -28,10 +28,11 @@ public class InstructionFin extends AbstractInstruction {
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
     public void dessiner(int x, int y, Graphics g, Component c) {
-        int larg = texte.getLargeur(c) + 10;
-        int haut = texte.getHauteur(c) + 10;
+        final int largeur = texte.getLargeur(c) + 10;
+        final int hauteur = texte.getHauteur(c) + 10;
+
         texte.dessiner(x + 5, y + 5, g, c);
-        g.drawRoundRect(x, y, larg, haut, 10, 10);
+        g.drawRoundRect(x, y, largeur, hauteur, 10, 10);
     }
 
     /**

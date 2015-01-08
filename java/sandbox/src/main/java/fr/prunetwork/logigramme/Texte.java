@@ -1,8 +1,8 @@
 package fr.prunetwork.logigramme;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Vector;
 
 /**
  * Dessine un texte
@@ -12,7 +12,7 @@ public class Texte {
     /**
      * Vecteur contenant les lignes du texte
      */
-    private Vector<String> lignes = new Vector<String>();
+    private java.util.List<String> lignes = new ArrayList<>();
 
     /**
      * Construit le texte
@@ -20,10 +20,10 @@ public class Texte {
      * @param texte
      */
     public Texte(String texte) {
-        StringTokenizer st = new StringTokenizer(texte, "\n", false);
+        StringTokenizer tokenizer = new StringTokenizer(texte, "\n", false);
         /**Tant qu'il y a une ligne, l'ajouter*/
-        while (st.hasMoreTokens()) {
-            lignes.addElement(st.nextToken());
+        while (tokenizer.hasMoreTokens()) {
+            lignes.add(tokenizer.nextToken());
         }
     }
 
@@ -35,17 +35,17 @@ public class Texte {
      */
     public int getLargeur(Component c) {
         /**On récupére le mesureur de chaînes de caractéres*/
-        FontMetrics fm = c.getFontMetrics(c.getFont());
-        /**On récupère le nombre de lignes*/
-        int nbLignes = lignes.size();
+        final FontMetrics fm = c.getFontMetrics(c.getFont());
+
         /**La largeur est initialisée à zéro*/
         int largeur = 0;
+
         /**Pour chaque ligne du texte*/
-        for (int i = 0; i < nbLignes; i++) {
+        for (String ligne : lignes) {
             /**On récupère la largeur de la ligne actuelle*/
-            int larg = fm.stringWidth(lignes.elementAt(i));
-            if (larg > largeur) {
-                largeur = larg;
+            int largeurLigne = fm.stringWidth(ligne);
+            if (largeurLigne > largeur) {
+                largeur = largeurLigne;
             }
         }
         return largeur;
@@ -58,7 +58,7 @@ public class Texte {
      * @return
      */
     public int getHauteur(Component c) {
-        FontMetrics fm = c.getFontMetrics(c.getFont());
+        final FontMetrics fm = c.getFontMetrics(c.getFont());
         return fm.getHeight() * lignes.size();
     }
 
@@ -73,13 +73,13 @@ public class Texte {
     public void dessiner(int x, int y, Graphics g, Component c) {
         /**On récupére le mesureur de chaînes de caractéres*/
         g.setFont(c.getFont());
-        FontMetrics fm = c.getFontMetrics(c.getFont());
-        int hauteurLigne = fm.getHeight();
+
+        final FontMetrics fm = c.getFontMetrics(c.getFont());
+        final int hauteurLigne = fm.getHeight();
         y += 2 * hauteurLigne / 3;
+
         /**On dessine chaqu'une des lignes, les unes sous les autres*/
-        int nb = lignes.size();
-        for (int i = 0; i < nb; i++) {
-            String ligne = lignes.elementAt(i);
+        for (String ligne : lignes) {
             g.drawString(ligne, x, y);
             y += hauteurLigne;
         }

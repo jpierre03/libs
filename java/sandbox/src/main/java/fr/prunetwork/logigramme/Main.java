@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Classe de test
  */
-public class Principal extends JFrame {
+public class Main extends JFrame {
 
     /**
      *
@@ -16,7 +16,7 @@ public class Principal extends JFrame {
     /**
      * Construit la frame
      */
-    public Principal() {
+    public Main() {
         /**Initialisation*/
         super("");
         try {
@@ -47,7 +47,7 @@ public class Principal extends JFrame {
      * @param args
      */
     public static void main(String[] args) {
-        new Principal();
+        new Main();
     }
 
     /**
