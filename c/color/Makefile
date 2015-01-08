@@ -6,7 +6,7 @@
 rm=/bin/rm -f
 CC= cc
 DEFS=  
-PROGNAME= jp_color
+PROGNAME= jp_color.bin
 INCLUDES=  -I.
 LIBS=
 
@@ -28,13 +28,13 @@ $(PROGNAME) : $(OBJS)
 	$(CC) $(CFLAGS) -o $(PROGNAME) $(OBJS) $(LIBS)
 
 clean:
-	$(rm) $(OBJS) $(PROGNAME) core *~
+	$(rm) $(OBJS) $(PROGNAME) core *~ *.bin
 
-build: color color-stderr
+build: color.bin color-stderr.bin
 	date
 
-color: color.c jp_color.h
-	cc color.c -o color
+color.bin: color.c jp_color.h
+	cc color.c -o color.bin
 
-color-stderr: color-stderr.c
-	cc color-stderr.c -o color-stderr
+color-stderr.bin: color-stderr.c
+	cc color-stderr.c -o color-stderr.bin
