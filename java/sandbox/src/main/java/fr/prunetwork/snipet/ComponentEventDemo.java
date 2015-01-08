@@ -117,12 +117,14 @@ public class ComponentEventDemo extends JPanel
     }
 
     protected void displayMessage(String message) {
-        /** If the text area is not yet realized, and we tell it to draw text, it could cause a text/AWT tree deadlock. Our solution is
-         to ensure that the text area is realized before attempting to draw text. */
-        // if (display.isShowing()) {
-        display.append(message + newline);
-        display.setCaretPosition(display.getDocument().getLength());
-        //}
+        /**
+         * If the text area is not yet realized, and we tell it to draw text, it could cause a text/AWT tree deadlock.
+         *  Our solution is to ensure that the text area is realized before attempting to draw text.
+         */
+        if (display.isShowing()) {
+            display.append(message + newline);
+            display.setCaretPosition(display.getDocument().getLength());
+        }
     }
 
     public void componentHidden(ComponentEvent e) {
