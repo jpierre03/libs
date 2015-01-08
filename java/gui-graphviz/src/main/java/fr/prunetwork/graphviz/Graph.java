@@ -20,8 +20,8 @@ public class  Graph {
     public synchronized JPanel getPanel(final Dimension dimension) {
         JPanel panel;
         try {
-            final String extension = "png";
-            final String filename = "tmp_out_graphviz." + extension;
+            final GraphvizExportType extension = GraphvizExportType.PNG;
+            final String filename = "tmp_out_graphviz." + extension.toString();
             Graphviz.writeGraphToFile(getGraphviz().getGraph(extension, renderer), filename);
             final BufferedImage image = ImageIO.read(new File(filename));
 

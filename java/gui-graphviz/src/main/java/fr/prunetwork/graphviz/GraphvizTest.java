@@ -23,15 +23,8 @@ final class GraphvizTest {
         gv.addln(gv.end_graph());
         System.out.println(gv.getDotSource());
 
-//		String type = "gif";
-//		String type = "dot";
-//		String type = "fig";    // open with xfig
-        String type = "pdf";
-//		String type = "ps";
-//		String type = "svg";    // open with inkscape
-//		String type = "png";
-//		String type = "plain";
-        File out = new File("/tmp/out." + type);   // Linux
+        GraphvizExportType type = GraphvizExportType.PDF;
+        File out = new File("/tmp/out." + type.toString());   // Linux
 //		File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
         Graphviz.writeGraphToFile(gv.getGraph(type, GraphvizRenderer.DOT), out);
     }
@@ -55,14 +48,7 @@ final class GraphvizTest {
         gv.addln(Graphviz.end_graph());
         System.out.println(gv.getDotSource());
 
-//		String type = "gif";
-//		String type = "dot";
-//		String type = "fig";    // open with xfig
-//		String type = "pdf";
-//		String type = "ps";
-//		String type = "svg";    // open with inkscape
-        String type = "png";
-//		String type = "plain";
+        GraphvizExportType type = GraphvizExportType.PNG;
         File out = new File("/tmp/out_v2." + type);   // Linux
 //		File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
         Graphviz.writeGraphToFile(gv.getGraph(type, GraphvizRenderer.DOT), out);
@@ -85,14 +71,7 @@ final class GraphvizTest {
         gv.readSource(input);
         System.out.println(gv.getDotSource());
 
-        String type = "gif";
-//		String type = "dot";
-//		String type = "fig";    // open with xfig
-//		String type = "pdf";
-//		String type = "ps";
-//		String type = "svg";    // open with inkscape
-//		String type = "png";
-//		String type = "plain";
+        GraphvizExportType type = GraphvizExportType.GIF;
         File out = new File("/tmp/simple." + type);   // Linux
 //		File out = new File("c:/eclipse.ws/graphviz-java-api/tmp/simple." + type);   // Windows
         Graphviz.writeGraphToFile(gv.getGraph(type, GraphvizRenderer.DOT), out);
