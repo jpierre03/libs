@@ -14,7 +14,7 @@ public class InstructionDebut extends AbstractInstruction {
     /**
      * AbstractInstruction suivante
      */
-    private AbstractInstruction suivant;
+    private Instruction suivant;
 
     /**
      * Construction
@@ -28,7 +28,7 @@ public class InstructionDebut extends AbstractInstruction {
      *
      * @param suivant
      */
-    public void setSuivant(AbstractInstruction suivant) {
+    public void setSuivant(Instruction suivant) {
         this.suivant = suivant;
     }
 

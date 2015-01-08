@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 public class Texte {
 
     /**
-     * Vecteur contenant les lignes du texte
+     * Structure contenant les lignes du texte
      */
     private java.util.List<String> lignes = new ArrayList<>();
 

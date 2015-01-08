@@ -14,7 +14,7 @@ public class InstructionAction extends AbstractInstruction {
     /**
      * AbstractInstruction suivante
      */
-    private AbstractInstruction suivant;
+    private Instruction suivant;
 
     /**
      * Construit l'instruction ayant le texte donné
@@ -30,7 +30,7 @@ public class InstructionAction extends AbstractInstruction {
      *
      * @param suivant
      */
-    public void setSuivant(AbstractInstruction suivant) {
+    public void setSuivant(Instruction suivant) {
         this.suivant = suivant;
     }
 

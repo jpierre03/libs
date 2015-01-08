@@ -22,11 +22,11 @@ public class InstructionConditionelle extends AbstractInstruction {
     /**
      * AbstractInstruction sur la branche oui
      */
-    private AbstractInstruction oui;
+    private Instruction oui;
     /**
      * AbstractInstruction sur la branche non
      */
-    private AbstractInstruction non;
+    private Instruction non;
 
     /**
      * Construit l'instruction
@@ -42,7 +42,7 @@ public class InstructionConditionelle extends AbstractInstruction {
      *
      * @param instruction
      */
-    public void setOui(AbstractInstruction instruction) {
+    public void setOui(Instruction instruction) {
         oui = instruction;
     }
 
@@ -51,7 +51,7 @@ public class InstructionConditionelle extends AbstractInstruction {
      *
      * @param instruction
      */
-    public void setNon(AbstractInstruction instruction) {
+    public void setNon(Instruction instruction) {
         non = instruction;
     }
 
