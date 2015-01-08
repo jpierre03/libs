@@ -87,7 +87,7 @@ public class Principal extends JFrame {
         /**On met l'organigramme dans un composant porteur*/
         ComposantLogigramme logigrammeComponent = new ComposantLogigramme(logigramme);
         /**Met un tour avec un titre*/
-        logigrammeComponent.setBorder(BorderFactory.createTitledBorder("titre"));
+        logigrammeComponent.setBorder(BorderFactory.createTitledBorder("Un beau logigramme"));
         /**On place le composant dans un JScrollPanel dans la frame*/
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(new JScrollPane(logigrammeComponent), BorderLayout.CENTER);
