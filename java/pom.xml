@@ -61,8 +61,26 @@
 
         <dependency>
             <groupId>fr.prunetwork</groupId>
+            <artifactId>elasticsearch-json-poster</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
             <artifactId>elasticsearch-war</artifactId>
             <version>1.4.0.Beta1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>gui-component</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>gui-graphviz</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -86,6 +104,18 @@
         <dependency>
             <groupId>fr.prunetwork</groupId>
             <artifactId>network-ping-gui</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>process-esper-sample</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.prunetwork</groupId>
+            <artifactId>sandbox</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
