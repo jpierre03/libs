@@ -16,6 +16,9 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class EditorPaneExample1 extends JFrame {
+    private JEditorPane pane;
+    private JTextField textField;
+
     public EditorPaneExample1() {
         super("JEditorPane Example 1");
 
@@ -50,7 +53,7 @@ public class EditorPaneExample1 extends JFrame {
 
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception evt) {
         }
 
@@ -64,8 +67,4 @@ public class EditorPaneExample1 extends JFrame {
         f.setSize(500, 400);
         f.setVisible(true);
     }
-
-    private JEditorPane pane;
-
-    private JTextField textField;
 }
