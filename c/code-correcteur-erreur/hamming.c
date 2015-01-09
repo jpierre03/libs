@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #define MAX_RANDOM LONG_MAX    // Maximum value of random() 
 
-int i,j,l,index;
+int i,j,l,idx;
 int n, k;
 int code[1024];
 int red[1024], info[1024];
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 			// Check that "i" is not a parity position = not a power of 2
 			result = 0;
 			test = 1;
-			for (index=1; index<=m; index++) {
+			for (idx=1; idx<=m; idx++) {
 				if (i==test) {
 					result = 1;
 				}
