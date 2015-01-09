@@ -44,8 +44,7 @@ int test, result;
 int main(int argc, char *argv[])
 {
 
-	if (argc != 3)
-	{
+	if (argc != 3) {
 		printf("Usage: %s   m   position_error\n", argv[0]);
 		exit(0);
 	}
@@ -58,86 +57,100 @@ int main(int argc, char *argv[])
 
 	// Compute parity positions
 	parity[1] = 1;
-	for (i=2; i<=m; i++)
+	for (i=2; i<=m; i++) {
 		parity[i] = (parity[i-1]<<1) & 0xfffffffe;
+	}
 
 	printf("parity positions: ");
-	for (i=1; i<=m; i++) printf("%2d ", parity[i]); printf("\n");
+	for (i=1; i<=m; i++) {
+		printf("%2d ", parity[i]); printf("\n");
+	}
 
 	// Generate random message
-	for (i=1; i<=k; i++)
+	for (i=1; i<=k; i++) {
 		info[i] = ( random() >> 10) & 0x01;
+	}
 
 	printf("information bits = ");
-	for (j=1; j<=k; j++) printf("%1d", info[j]);
+	for (j=1; j<=k; j++) {
+		printf("%1d", info[j]);
+	}
 	printf("\n");
 
 	// Compute parity bits
-	for (j=1; j<=m; j++)
-	{
+	for (j=1; j<=m; j++) {
 		red[j] = 0;
 		l = 0;
-		for (i=1; i<=n; i++)
-		{
+		for (i=1; i<=n; i++) {
 			// Check that "i" is not a parity position = not a power of 2
 			result = 0;
 			test = 1;
-			for (index=1; index<=m; index++)
-			{
-				if (i==test) result = 1;
+			for (index=1; index<=m; index++) {
+				if (i==test) {
+					result = 1;
+				}
 				test *= 2;
 			}
-			if (!result)
-			{
+			if (!result) {
 				l++;
-				if ( (i>>(j-1)) & 0x01 )
+				if ( (i>>(j-1)) & 0x01 ) {
 					red[j] ^= info[l];
+				}
 			}
 		}
 	}
 
 	printf("parity bits = ");
-	for (j=1; j<=m; j++) printf("%1d", red[j]);
+	for (j=1; j<=m; j++) {
+		printf("%1d", red[j]);
+	}
 	printf("\n");
 
 	// Transmit codeword
 	i = 1;
 	l = 1;
-	for (j=1; j<=n; j++)
-		if (j==parity[l] && l<=m)
-		{
+	for (j=1; j<=n; j++) {
+		if (j==parity[l] && l<=m) {
 			code[j] = red[l]; l++;
-		}
-		else
-		{
+		} else {
 			code[j] = info[i]; i++;
 		}
+	}
 
 
 	printf("codeword = ");
-	for (j=1; j<=n; j++) printf("%1d", code[j]);
+	for (j=1; j<=n; j++) {
+		printf("%1d", code[j]);
+	}
 	printf("\n");
 
 	// Add a hard error
 	code[error] ^= 1;
 
 	printf("received = ");
-	for (j=1; j<=n; j++) printf("%1d", code[j]);
+	for (j=1; j<=n; j++) {
+		printf("%1d", code[j]);
+	}
 	printf("\n");
 
 	// Compute syndrome 
 	syn = 0;
-	for (i=1; i<=n; i++)
-		if (code[i]) syn ^= i;
-
+	for (i=1; i<=n; i++) {
+		if (code[i]) {
+			syn ^= i;
+		}
+	}
 	printf("syndrome = %d\n", syn);
 
 	// Correct error if needed
-	if (syn)
+	if (syn) {
 		code[syn] ^= 1;
+	}
 
 	printf("estimate = ");
-	for (j=1; j<=n; j++) printf("%1d", code[j]);
+	for (j=1; j<=n; j++) {
+		printf("%1d", code[j]);
+	}
 	printf("\n");
 
 	return 0;
