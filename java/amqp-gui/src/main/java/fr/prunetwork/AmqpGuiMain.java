@@ -7,7 +7,7 @@ import fr.prunetwork.amqp.message.SimpleMessage;
 import fr.prunetwork.amqp.producer.AmqpProducer;
 import fr.prunetwork.gui.CommandPanel;
 import fr.prunetwork.gui.CommandPanelActionner;
-import fr.prunetwork.gui.table.DateCellRenderer;
+import fr.prunetwork.gui.swing.table.DateCellRenderer;
 import fr.prunetwork.gui.table.HistoryTable;
 import fr.prunetwork.gui.table.MessageTableModel;
 
