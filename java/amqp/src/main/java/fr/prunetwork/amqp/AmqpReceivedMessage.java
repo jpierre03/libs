@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * A generic message exchanged with AMQP.
+ *
  * @author Jean-Pierre PRUNARET
  * @since 28/08/2014
  */
