@@ -1,4 +1,4 @@
-package fr.prunetwork.gui.table;
+package fr.prunetwork.gui.swing.table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

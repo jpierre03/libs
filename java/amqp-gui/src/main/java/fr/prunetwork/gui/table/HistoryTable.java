@@ -1,5 +1,7 @@
 package fr.prunetwork.gui.table;
 
+import fr.prunetwork.gui.swing.table.HighlightRenderer;
+
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
