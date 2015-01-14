@@ -1,9 +1,11 @@
 package fr.prunetwork.gui.table;
 
+import fr.prunetwork.gui.swing.table.HighlightRenderer;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -59,32 +61,18 @@ public class JTableSearchAndHighlight extends JFrame {
         scroll.setBounds(0, 200, 900, 150);
 
         searchField.setBounds(10, 100, 150, 20);
-        searchField.addActionListener(new ActionListener() {
+        searchField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                matchFirstRow();
+            }
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                final String value = searchField.getText().toLowerCase();
+            public void keyPressed(KeyEvent e) {
+            }
 
-                for (int row = 0; row <= table.getRowCount() - 1; row++) {
-                    for (int col = 0; col <= table.getColumnCount() - 1; col++) {
-
-                        final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
-
-                        if (cellContent.contains(value)) {
-
-                            // this will automatically set the view of the scroll in the location of the value
-                            table.scrollRectToVisible(table.getCellRect(row, 0, true));
-
-                            // this will automatically set the focus of the searched/selected row/value
-                            table.setRowSelectionInterval(row, row);
-
-                            for (int i = 0; i <= table.getColumnCount() - 1; i++) {
-
-                                table.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
-                            }
-                        }
-                    }
-                }
+            @Override
+            public void keyReleased(KeyEvent e) {
             }
         });
 
@@ -98,5 +86,32 @@ public class JTableSearchAndHighlight extends JFrame {
         setSize(900, 400);
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void matchFirstRow() {
+        table.clearSelection();
+
+        final String value = searchField.getText().toLowerCase();
+
+        for (int row = 0; row <= table.getRowCount() - 1; row++) {
+            for (int col = 0; col <= table.getColumnCount() - 1; col++) {
+
+                final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
+
+                if (cellContent.contains(value)) {
+
+                    // this will automatically set the view of the scroll in the location of the value
+                    table.scrollRectToVisible(table.getCellRect(row, 0, true));
+
+                    // this will automatically set the focus of the searched/selected row/value
+                    table.setRowSelectionInterval(row, row);
+
+                    for (int i = 0; i <= table.getColumnCount() - 1; i++) {
+
+                        table.getColumnModel().getColumn(i).setCellRenderer(new HighlightRenderer());
+                    }
+                }
+            }
+        }
     }
 }
