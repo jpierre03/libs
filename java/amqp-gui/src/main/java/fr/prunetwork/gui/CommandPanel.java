@@ -111,6 +111,9 @@ public class CommandPanel extends JPanel {
     }
 
     private void notifyUser(Exception e) {
+        if (e == null) {
+            throw new IllegalArgumentException();
+        }
         JOptionPane.showMessageDialog(this, e.getMessage(), "", JOptionPane.ERROR_MESSAGE);
     }
 }
