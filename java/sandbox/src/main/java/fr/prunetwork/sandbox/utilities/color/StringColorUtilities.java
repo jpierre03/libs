@@ -1,4 +1,4 @@
-package fr.prunetwork.sandbox.utilities;
+package fr.prunetwork.sandbox.utilities.color;
 
 /**
  * @author Jean-Pierre PRUNARET
