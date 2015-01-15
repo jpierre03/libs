@@ -7,7 +7,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.List;
 
-public class SwingWorkerDemo
+public class FileBrowserSwingWorkerDemo
         extends JFrame {
 
     private JTextArea textArea;
@@ -95,9 +95,9 @@ public class SwingWorkerDemo
         }
     }
 
-    public SwingWorkerDemo() {
+    public FileBrowserSwingWorkerDemo() {
 		/* Construction de l'interface graphique. */
-        super("SwingWorkerDemo");
+        super("FileBrowserSwingWorkerDemo");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         textArea = new JTextArea(12, 40);
         textArea.setEnabled(false);
@@ -123,7 +123,7 @@ public class SwingWorkerDemo
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 				/* Démarrage de l'interface graphique et du SwingWorker. */
-                SwingWorkerDemo demo = new SwingWorkerDemo();
+                FileBrowserSwingWorkerDemo demo = new FileBrowserSwingWorkerDemo();
                 MonSwingWorker swingWorker = demo.new MonSwingWorker();
                 swingWorker.execute();
             }
