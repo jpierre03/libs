@@ -6,10 +6,26 @@ import org.json.JSONObject;
 import java.util.*;
 
 /**
+ * TODO : migrer vers java 8
+ *
  * @author Jean-Pierre PRUNARET
  * @since 09/07/2014
  */
 public class JsonPrinter {
+
+     /*jsonObject.forEach(new BiConsumer() {
+            @Override
+            public void accept(Object o, Object o2) {
+                sb.append("key: ").append(o);
+                sb.append(" v: ").append(o2);
+                sb.append("\n");
+            }
+
+            @Override
+            public BiConsumer andThen(BiConsumer after) {
+                return null;
+            }
+        });*/
 
     public static void print(final Map m) {
         print(m, 0);
