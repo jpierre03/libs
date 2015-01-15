@@ -1,6 +1,7 @@
+package fr.prunetwork.sandbox.matrices;
 
+class CalculMatricielTest1 {
 
-class calculmatriciel {
   public static void main(String[] args) {
 	double A[][] = { {3, 4, 5}, {2, 3, 1}, {8, 9, 0} };
 	double B[][] = { {1, 2, 8}, {0, 7, 6}, {5, 2, 9} };

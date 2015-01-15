@@ -1,3 +1,4 @@
+package fr.prunetwork.sandbox.matrices;
 
 public class ProduitPoint extends Thread  {
 
