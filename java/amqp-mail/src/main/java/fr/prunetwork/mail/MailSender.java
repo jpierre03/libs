@@ -16,24 +16,23 @@ import static fr.prunetwork.mail.MailDefaultProperties.MAILER_VERSION;
  */
 public class MailSender {
 
-    private final String serveur;
-    private final boolean debug;
     private final Session session;
     //private ExecutorService executor = Executors.newFixedThreadPool(1);
 
-    public MailSender(String serveur, boolean debug) {
-        this.serveur = serveur;
-        this.debug = debug;
+    public MailSender(final String serverHostname, final boolean isDebug) {
+        final Properties prop = System.getProperties();
+        prop.put("mail.smtp.host", serverHostname);
 
-        Properties prop = System.getProperties();
-        prop.put("mail.smtp.host", serveur);
         session = Session.getDefaultInstance(prop, null);
-        session.setDebug(debug);
+        session.setDebug(isDebug);
     }
 
-    public void send(Mail mail) throws Exception {
+    public void send(final Mail mail) throws Exception {
+        if(mail == null){
+            throw new IllegalArgumentException();
+        }
 
-        Message message = new MimeMessage(session);
+        final Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(mail.getFromMailAddress()));
 
         final InternetAddress[] internetAddresses = mail.getDestinationAddresses();
