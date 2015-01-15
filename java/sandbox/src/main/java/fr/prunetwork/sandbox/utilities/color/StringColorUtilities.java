@@ -1,38 +1,61 @@
 package fr.prunetwork.sandbox.utilities.color;
 
+import static fr.prunetwork.sandbox.utilities.color.ConsoleColor.*;
+
 /**
  * @author Jean-Pierre PRUNARET
  * @since 09/05/2014
  */
 public final class StringColorUtilities {
 
-    private static final boolean disableColor = false;
-    private static final boolean enableColor = (!System.getProperty("os.name").startsWith("Windows")) && !disableColor;
+    //private static boolean disableColor = false;
+    // private static boolean enableColor = (!System.getProperty("os.name").startsWith("Windows")) && !disableColor;
+    private static boolean enableColor = true;
 
     private StringColorUtilities() {
     }
 
+    public static String black() {
+        return coloredString(ANSI_BLACK);
+    }
+
+    public static String blue() {
+        return coloredString(ANSI_BLUE);
+    }
+
+    public static String purple() {
+        return coloredString(ANSI_PURPLE);
+    }
+
+    public static String white() {
+        return coloredString(ANSI_WHITE);
+    }
+
     public static String cyan() {
-        return coloredString(ConsoleColor.ANSI_CYAN);
+        return coloredString(ANSI_CYAN);
     }
 
     public static String green() {
-        return coloredString(ConsoleColor.ANSI_GREEN);
+        return coloredString(ANSI_GREEN);
     }
 
     public static String reset() {
-        return coloredString(ConsoleColor.ANSI_RESET);
+        return coloredString(ANSI_RESET);
     }
 
     public static String yellow() {
-        return coloredString(ConsoleColor.ANSI_YELLOW);
+        return coloredString(ANSI_YELLOW);
     }
 
     public static String red() {
-        return coloredString(ConsoleColor.ANSI_RED);
+        return coloredString(ANSI_RED);
     }
 
-    public static String coloredString(ConsoleColor color) {
+    public static String coloredString(final ConsoleColor color) {
         return enableColor ? color.toString() : "";
+    }
+
+    public static void setEnableColor(final boolean enableColor) {
+        StringColorUtilities.enableColor = enableColor;
     }
 }
