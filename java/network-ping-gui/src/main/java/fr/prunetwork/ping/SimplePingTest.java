@@ -7,23 +7,34 @@ package fr.prunetwork.ping;
 public class SimplePingTest {
 
     private SimplePingTest() {
-
     }
 
     public static void main(String... args) {
-        final SimpleStatusHookImpl hook = new SimpleStatusHookImpl();
         final LongTaskListenerImpl listener = new LongTaskListenerImpl();
-        new SimplePing("www.google.com", hook, listener).run();
-        new SimplePing("172.16.201.11", hook, listener).run();
-        new SimplePing("localhost", hook, listener).run();
-        new SimplePing("127.0.0.1", hook, listener).run();
+
+        String google = "www.google.com";
+        final String localhost = "localhost";
+        final String localhostIP = "127.0.0.1";
+        final String unreachable = "255.255.255.255";
+
+        new SimplePing(google, new SimpleStatusHookImpl(google), listener).run();
+        new SimplePing(localhost, new SimpleStatusHookImpl(localhost), listener).run();
+        new SimplePing(localhostIP, new SimpleStatusHookImpl(localhostIP), listener).run();
+        new SimplePing(unreachable, new SimpleStatusHookImpl(unreachable), listener).run();
     }
 
     static class SimpleStatusHookImpl implements StatusHook {
+
+        private final String hostname;
+
+        SimpleStatusHookImpl(String hostname) {
+            this.hostname = hostname;
+        }
+
         @Override
         public void setStatus(boolean status) {
-            final String reacheabilityStatus = status ? "" : "not ";
-            System.out.println(" is " + reacheabilityStatus + "reacheable");
+            final String reachStatus = status ? "" : "not ";
+            System.out.println(hostname + " is " + reachStatus + "reachable");
         }
     }
 
