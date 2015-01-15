@@ -38,31 +38,33 @@ public class SwingWorkerDemo
         private int getNombreDeFichiers(File dir, double progressStart, double progressEnd) {
             File[] files = dir.listFiles();
             int nb = 0;
-            if (files.length > 0) {
-				/* Le calcul de l'avancement du traitement n'a que peu d'importance pour l'exemple. */
-                double step = (progressEnd - progressStart) / files.length;
+            if (files != null) {
+                if (files.length > 0) {
+                    /* Le calcul de l'avancement du traitement n'a que peu d'importance pour l'exemple. */
+                    double step = (progressEnd - progressStart) / files.length;
 
-                for (File f : files) {
-                    progressStart += step;
+                    for (File f : files) {
+                        progressStart += step;
 
-					/* Transmet la nouvelle progression. */
-                    setProgress((int) progressStart);
+                        /* Transmet la nouvelle progression. */
+                        setProgress((int) progressStart);
 
-					/* Ajout d'un temps d'attente pour observer les changements à l'échelle "humaine". */
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                        /* Ajout d'un temps d'attente pour observer les changements à l'échelle "humaine". */
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
-                    if (f.isDirectory()) {
-						/* Publication du répertoire trouvé. */
-                        publish("Exploration du répertoire " + f.getAbsolutePath() + "...");
-                        nb += getNombreDeFichiers(f, progressStart, progressStart + step);
-                    } else {
-						/* Publication du fichier trouvé. */
-                        publish("\t" + f.getAbsolutePath());
-                        nb++;
+                        if (f.isDirectory()) {
+                            /* Publication du répertoire trouvé. */
+                            publish("Exploration du répertoire " + f.getAbsolutePath() + "...");
+                            nb += getNombreDeFichiers(f, progressStart, progressStart + step);
+                        } else {
+                            /* Publication du fichier trouvé. */
+                            publish("\t" + f.getAbsolutePath());
+                            nb++;
+                        }
                     }
                 }
             }

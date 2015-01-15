@@ -139,7 +139,7 @@ public class ProgressBarDemo extends JPanel implements ActionListener,
     private static void createAndShowGUI() {
         // Create and set up the window.
         JFrame frame = new JFrame("ProgressBarDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Create and set up the content pane.
         JComponent newContentPane = new ProgressBarDemo();

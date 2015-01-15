@@ -83,7 +83,7 @@ public class ComponentEventDemo extends JPanel
     private static void createAndShowGUI() {
         /** Create and set up the window. */
         frame = new JFrame("ComponentEventDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         /** Create and set up the content pane. */
         JComponent newContentPane = new ComponentEventDemo();
