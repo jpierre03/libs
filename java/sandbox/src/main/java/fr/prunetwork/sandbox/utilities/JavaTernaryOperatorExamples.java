@@ -32,7 +32,7 @@ public final class JavaTernaryOperatorExamples {
 
         // example using the ternary operator on the rhs, in a string
         int x = 2;
-        String out = "There " + (x > 1 ? " are " + x + " cookies" : "is one cookie") + " in the jar.";
+        String out = "There " + (x > 1 ? "are " + x + " cookies" : "is one cookie") + " in the jar.";
         System.out.println(out);
     }
 }
