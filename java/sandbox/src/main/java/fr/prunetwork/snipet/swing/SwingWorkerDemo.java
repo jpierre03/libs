@@ -47,7 +47,10 @@ public class SwingWorkerDemo
                         progressStart += step;
 
                         /* Transmet la nouvelle progression. */
-                        setProgress((int) progressStart);
+                        final int currentProgress = (int) progressStart;
+                        setProgress(
+                                Math.min(currentProgress, 100)
+                        );
 
                         /* Ajout d'un temps d'attente pour observer les changements à l'échelle "humaine". */
                         try {
