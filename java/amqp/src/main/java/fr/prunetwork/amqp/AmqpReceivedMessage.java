@@ -11,11 +11,20 @@ import java.util.Date;
  */
 public interface AmqpReceivedMessage extends Serializable {
 
+    /**
+     * @return the message content
+     */
     String getBody();
 
+    /**
+     * @return the key used to route message.
+     */
     String getRoutingKey();
 
     public void displayReceived();
 
+    /**
+     * @return a date object created at reception time.
+     */
     Date getReceivedDate();
 }
