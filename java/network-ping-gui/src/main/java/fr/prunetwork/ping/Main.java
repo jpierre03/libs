@@ -165,29 +165,6 @@ public class Main {
                 relativeValue * 1000);
     }
 
-    static class SimpleStatusHookImpl implements StatusHook {
-
-        private final String hostname;
-
-        public SimpleStatusHookImpl(String hostname) {
-            this.hostname = hostname;
-        }
-
-        @Override
-        public void setStatus(boolean status) {
-            final String reacheabilityStatus = status ? "" : "not ";
-            System.out.println("host: " + hostname + " is " + reacheabilityStatus + "reacheable");
-        }
-    }
-
-    static class LongTaskListenerImpl implements LongTaskListener {
-
-        @Override
-        public void setWorking(boolean isWorking) {
-            // Do nothing
-        }
-    }
-
     static class ListenerWrapper implements LongTaskListener {
 
         private static final Object MUTEX = new Object();

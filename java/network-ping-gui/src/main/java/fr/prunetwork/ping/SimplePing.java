@@ -60,8 +60,8 @@ public final class SimplePing
         }
 
         if (DEBUG) {
-            final String reacheabilityStatus = isreachable ? "" : "not ";
-            System.out.println("host: " + host + " is " + reacheabilityStatus + "reacheable");
+            final String reachabilityStatus = isreachable ? "" : "not ";
+            System.out.println("host: " + host + " is " + reachabilityStatus + "reachable");
         }
         return isreachable;
     }
@@ -88,6 +88,8 @@ public final class SimplePing
     }
 
     private String buildCommand(String host) {
+        assert host != null : "no hostname defined";
+        assert !host.trim().isEmpty() : "hostname empty";
         String command = "";
 
         final String operatingSystemName = System.getProperty("os.name");
