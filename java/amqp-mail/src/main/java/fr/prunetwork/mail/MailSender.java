@@ -36,7 +36,7 @@ public class MailSender {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(mail.getFromMailAddress()));
 
-        final InternetAddress[] internetAddresses = mail.getDestinationAdresses();
+        final InternetAddress[] internetAddresses = mail.getDestinationAddresses();
 
         message.addHeader("X-Mailer", MAILER_VERSION);
         message.setSentDate(new Date());

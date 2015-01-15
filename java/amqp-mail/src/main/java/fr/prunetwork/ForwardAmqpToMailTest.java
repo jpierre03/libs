@@ -4,6 +4,7 @@ import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.JsonMessage;
 import fr.prunetwork.amqp.receiver.JsonAmqpReceiver;
 import fr.prunetwork.mail.Mail;
+import fr.prunetwork.mail.SimpleMail;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -38,7 +39,7 @@ public class ForwardAmqpToMailTest {
                     destination.add(d);
                 }
 
-                final Mail mail = new Mail("toto@example.com", destination, subject, body);
+                final Mail mail = new SimpleMail("toto@example.com", destination, subject, body);
 
                 message.displayReceived();
 

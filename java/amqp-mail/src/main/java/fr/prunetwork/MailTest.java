@@ -2,6 +2,7 @@ package fr.prunetwork;
 
 import fr.prunetwork.mail.Mail;
 import fr.prunetwork.mail.MailSender;
+import fr.prunetwork.mail.SimpleMail;
 
 import java.util.Arrays;
 
@@ -17,7 +18,7 @@ public class MailTest {
         for (int i = 0; i < 10; i++) {
 
             try {
-                final Mail mail = new Mail(
+                final Mail mail = new SimpleMail(
                         "java@spam.prunetwork.fr",
                         Arrays.asList("blackhole@prunetwork.fr"),
                         "Test sujet",
