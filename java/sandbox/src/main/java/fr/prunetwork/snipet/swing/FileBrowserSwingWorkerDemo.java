@@ -48,13 +48,17 @@ public class FileBrowserSwingWorkerDemo
 
                         /* Transmet la nouvelle progression. */
                         final int currentProgress = (int) progressStart;
-                        setProgress(
-                                Math.min(currentProgress, 100)
-                        );
+                        final int newProgress =Math.min(currentProgress, 100);
+                        if(newProgress-getProgress()>0){
+                            progressBar.setForeground(Color.BLUE);
+                        }else {
+                            progressBar.setForeground(Color.RED);
+                        }
+                        setProgress(newProgress);
 
                         /* Ajout d'un temps d'attente pour observer les changements à l'échelle "humaine". */
                         try {
-                            Thread.sleep(5);
+                            Thread.sleep(50);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
