@@ -8,7 +8,6 @@ public interface StatusHook {
 
     /**
      * Define a simple boolean status
-     * @param status
      */
     void setStatus(boolean status);
 }

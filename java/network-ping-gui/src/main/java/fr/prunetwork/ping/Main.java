@@ -9,8 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-
 /**
  * @author Jean-Pierre PRUNARET
  * @since 19/04/2014
@@ -24,7 +22,6 @@ public class Main {
     private final Timer timer = new Timer("timer", true);
     private final JPanel panel = new JPanel();
     private final Map<String, StatusPanel> statusPanels = new TreeMap<>();
-    private final int matrixSize;
 
     static {
         LABELS.put("www.google.com", "Le classique Google");
@@ -35,9 +32,9 @@ public class Main {
         LABELS.put("bc.antalios.com", "Serveur Application");
     }
 
-    public Main(Collection<String> hostnames) {
+    private Main(Collection<String> hostnames) {
 
-        matrixSize = (int) Math.sqrt(hostnames.size()) + 1;
+        final int matrixSize = (int) Math.sqrt(hostnames.size()) + 1;
         relativeValue = Math.min(matrixSize, 10);
         EXECUTOR_SERVICE = Executors.newFixedThreadPool(relativeValue);
 
@@ -55,7 +52,7 @@ public class Main {
             @Override
             public void run() {
                 JFrame frame = new JFrame("Status");
-                frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 frame.add(panel);
                 frame.pack();

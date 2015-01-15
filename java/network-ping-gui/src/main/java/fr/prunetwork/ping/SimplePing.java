@@ -13,7 +13,7 @@ public final class SimplePing
     private final String hostname;
     private final StatusHook hooks;
     private final LongTaskListener taskListener;
-    private boolean DEBUG = false;
+    private final boolean DEBUG = false;
 
     public SimplePing(String hostname, StatusHook hooks, LongTaskListener taskListener) {
         this.hostname = hostname;
@@ -118,17 +118,14 @@ public final class SimplePing
     }
 
     private boolean executeCommand(String strCommand) throws IOException, InterruptedException {
-        final boolean reachable;
+        final boolean isReachable;
 
-        /** Execute the command constructed */
+        /** Execute command by Operating System*/
         Process myProcess = Runtime.getRuntime().exec(strCommand);
         myProcess.waitFor();
-        if (myProcess.exitValue() == 0) {
-            reachable = true;
-        } else {
-            reachable = false;
-        }
 
-        return reachable;
+        isReachable = (myProcess.exitValue() == 0);
+
+        return isReachable;
     }
 }

@@ -12,8 +12,8 @@ public class StatusPanel extends JPanel
 
     private final JPanel center = new JPanel();
     private boolean status = false;
-    private JLabel hostname = new JLabel();
-    private JLabel label = new JLabel();
+    private final JLabel hostname = new JLabel();
+    private final JLabel label = new JLabel();
     private boolean isWorking = true;
 
     public StatusPanel() {
