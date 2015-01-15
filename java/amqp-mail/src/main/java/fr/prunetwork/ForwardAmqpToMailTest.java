@@ -41,7 +41,7 @@ public class ForwardAmqpToMailTest {
 
                 final Mail mail = new SimpleMail("toto@example.com", destination, subject, body);
 
-                message.displayReceived();
+                message.displayMessage();
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -31,7 +31,7 @@ class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     }
 
     @Override
-    public final void displayReceived() {
+    public final void displayMessage() {
         System.out.println(toString());
     }
 

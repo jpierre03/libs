@@ -63,7 +63,7 @@ public final class JsonAmqpReceiver implements AmqpReceiver<JsonMessage> {
 
         final JsonMessage localizedMessage = new JsonMessage(routingKey, message);
 
-        // localizedMessage.displayReceived();
+        // localizedMessage.displayMessage();
 
         consumer.getChannel().basicAck(delivery.getEnvelope().getDeliveryTag(), false);
         return localizedMessage;

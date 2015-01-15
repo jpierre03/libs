@@ -21,7 +21,7 @@ public interface AmqpReceivedMessage extends Serializable {
      */
     String getRoutingKey();
 
-    public void displayReceived();
+    public void displayMessage();
 
     /**
      * @return a date object created at reception time.

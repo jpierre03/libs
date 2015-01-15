@@ -63,7 +63,7 @@ public final class SimpleAmqpReceiver implements AmqpReceiver<SimpleMessage> {
 
         final SimpleMessage m = new SimpleMessage(routingKey, message);
 
-        // m.displayReceived();
+        // m.displayMessage();
 
         consumer.getChannel().basicAck(delivery.getEnvelope().getDeliveryTag(), false);
         return m;
