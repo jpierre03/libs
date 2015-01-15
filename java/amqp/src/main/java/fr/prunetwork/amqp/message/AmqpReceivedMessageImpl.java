@@ -46,7 +46,7 @@ class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     }
 
     public void displayFullMessage() {
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
 
         sb.append("->").append("\n");
         sb.append("-date:").append(getReceivedDate()).append("\n");

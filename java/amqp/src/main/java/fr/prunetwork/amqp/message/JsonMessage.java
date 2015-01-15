@@ -8,7 +8,8 @@ import org.json.JSONObject;
  *         Created on 08/09/14.
  */
 public class JsonMessage
-        extends AmqpReceivedMessageImpl implements AmqpReceivedMessage {
+        extends AmqpReceivedMessageImpl
+        implements AmqpReceivedMessage {
 
     private final JSONObject jsonObject;
 

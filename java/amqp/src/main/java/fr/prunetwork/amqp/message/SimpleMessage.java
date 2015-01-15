@@ -7,7 +7,8 @@ import fr.prunetwork.amqp.AmqpReceivedMessage;
  * @since 28/08/2014
  */
 public final class SimpleMessage
-        extends AmqpReceivedMessageImpl implements AmqpReceivedMessage {
+        extends AmqpReceivedMessageImpl
+        implements AmqpReceivedMessage {
 
     public SimpleMessage(String routingKey, String body) {
         super(routingKey, body);
