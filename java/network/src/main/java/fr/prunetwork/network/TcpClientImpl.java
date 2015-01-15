@@ -87,7 +87,7 @@ public final class TcpClientImpl implements TcpClient {
 
     @Override
     public Character receiveFromServer() throws Exception {
-        Character reference = null;
+        final Character reference;
         try {
             reference = (char) entree.read();
 //            reference = entree.readLine();
