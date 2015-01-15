@@ -54,7 +54,7 @@ public class FileBrowserSwingWorkerDemo
 
                         /* Ajout d'un temps d'attente pour observer les changements à l'échelle "humaine". */
                         try {
-                            Thread.sleep(50);
+                            Thread.sleep(5);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -87,6 +87,8 @@ public class FileBrowserSwingWorkerDemo
             try {
 				/* Le traitement est terminé. */
                 setProgress(100);
+                progressBar.setStringPainted(true);
+                progressBar.setForeground(Color.GREEN);
 				/* À la fin du traitement, affichage du nombre de fichiers parcourus dans le textfield. */
                 textField.setText(String.valueOf(get()));
             } catch (Exception e) {
@@ -98,7 +100,7 @@ public class FileBrowserSwingWorkerDemo
     public FileBrowserSwingWorkerDemo() {
 		/* Construction de l'interface graphique. */
         super("FileBrowserSwingWorkerDemo");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         textArea = new JTextArea(12, 40);
         textArea.setEnabled(false);
         textArea.setBackground(java.awt.Color.BLACK);
