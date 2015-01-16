@@ -33,7 +33,7 @@ public final class AmqpProducer {
      *
      * @throws Exception If something fail, an exception is thrown.
      */
-    public AmqpProducer(String uri, String exchange, String routingKey, ExchangeType exchangeType) throws Exception {
+    public AmqpProducer(String uri, String exchange, String routingKey, ExchangeType exchangeType, boolean isDurable) throws Exception {
         this.uri = uri;
         this.exchange = exchange;
         this.routingKey = routingKey;
@@ -48,8 +48,7 @@ public final class AmqpProducer {
 
         channel = connection.createChannel();
 
-        //channel.exchangeDeclare(exchange, ExchangeType.fanout.name());
-        channel.exchangeDeclare(exchange, exchangeType.name());
+        channel.exchangeDeclare(exchange, exchangeType.name(), isDurable);
 
         if (exchange.equals("")) {
             channel.queueDeclare(routingKey, false, true, false, null);

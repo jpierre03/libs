@@ -16,7 +16,7 @@ public class AmqpProducerTest {
     public static void main(String[] args) {
 
         try {
-            final AmqpProducer producer = new AmqpProducer(URI, EXCHANGE, ROUTING_KEY, ExchangeType.topic);
+            final AmqpProducer producer = new AmqpProducer(URI, EXCHANGE, ROUTING_KEY, ExchangeType.topic, false);
 
             for (int i = 0; i < 1000 * 1000; i++) {
                 if (i % (1 * 1000) == 0) {
