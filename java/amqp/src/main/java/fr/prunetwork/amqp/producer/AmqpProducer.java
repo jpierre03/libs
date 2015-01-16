@@ -50,8 +50,8 @@ public final class AmqpProducer {
 
         channel.exchangeDeclare(exchange, exchangeType.name(), isDurable);
 
-        if (exchange.equals("")) {
-            channel.queueDeclare(routingKey, false, true, false, null);
+        if (exchange.isEmpty()) {
+            channel.queueDeclare(routingKey, false, true, true, null);
         } else {
         }
     }
