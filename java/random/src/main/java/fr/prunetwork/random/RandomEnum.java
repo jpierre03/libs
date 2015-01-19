@@ -23,6 +23,9 @@ public class RandomEnum<E extends Enum> {
         return values[getLinearRandomNumber(values.length)];
     }
 
+    /**
+     * http://stackoverflow.com/questions/5969447/java-random-integer-with-non-uniform-distribution/5969719#5969719
+     */
     private static int getLinearRandomNumber(int maxSize) {
         //Get a linearly multiplied random number
         int randomMultiplier = maxSize * (maxSize + 1) / 2;
