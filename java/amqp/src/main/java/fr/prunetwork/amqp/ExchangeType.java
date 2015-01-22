@@ -9,5 +9,5 @@ package fr.prunetwork.amqp;
  * @since 10/07/2014
  */
 public enum ExchangeType {
-    topic, fanout, direct;
+    topic, fanout, direct
 }

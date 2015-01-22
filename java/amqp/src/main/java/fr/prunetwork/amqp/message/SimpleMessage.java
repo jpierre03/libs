@@ -13,9 +13,4 @@ public final class SimpleMessage
     public SimpleMessage(String routingKey, String body) {
         super(routingKey, body);
     }
-
-    @Override
-    public String toString() {
-        return String.format("%s -> %s", getRoutingKey(), getBody());
-    }
 }
