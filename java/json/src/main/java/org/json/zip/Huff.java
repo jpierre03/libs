@@ -242,6 +242,7 @@ public class Huff implements None, PostMortem {
     /**
      * Compare two Huffman tables.
      */
+    @Override
     public boolean postMortem(PostMortem pm) {
 
 // Go through every integer in the domain, generating its bit sequence, and
@@ -361,6 +362,7 @@ public class Huff implements None, PostMortem {
             this.zero = null;
         }
 
+        @Override
         public boolean postMortem(PostMortem pm) {
             boolean result = true;
             Symbol that = (Symbol) pm;

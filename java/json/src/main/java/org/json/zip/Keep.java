@@ -123,6 +123,7 @@ class Keep implements None, PostMortem {
         return o instanceof Integer ? ((Integer) o).intValue() : none;
     }
 
+    @Override
     public boolean postMortem(PostMortem pm) {
         Keep that = (Keep) pm;
         if (this.length != that.length) {

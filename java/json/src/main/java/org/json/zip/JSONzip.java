@@ -244,6 +244,7 @@ public abstract class JSONzip implements None, PostMortem {
      *
      * @return true if the structures match.
      */
+    @Override
     public boolean postMortem(PostMortem pm) {
         JSONzip that = (JSONzip) pm;
         return this.namehuff.postMortem(that.namehuff)

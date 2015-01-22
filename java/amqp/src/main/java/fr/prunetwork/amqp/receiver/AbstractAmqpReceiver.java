@@ -37,6 +37,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
         this(new URI(uri), topic, bindingKeys, exchangeType);
     }
 
+    @Override
     public void configure() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
@@ -58,6 +59,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     @Override
     public abstract T consume() throws Exception;
 
+    @Override
     public void close() throws IOException {
         consumer.getChannel().close();
     }
