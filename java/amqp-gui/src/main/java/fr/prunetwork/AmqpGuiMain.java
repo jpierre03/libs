@@ -174,7 +174,8 @@ public class AmqpGuiMain {
                                             URI,
                                             EXCHANGE,
                                             ROUTING_KEY,
-                                            ExchangeType.topic
+                                            ExchangeType.topic,
+                                            false
                                     )
                             )
                     )

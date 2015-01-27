@@ -26,7 +26,8 @@ public class CommandPanelTest {
                                             URI,
                                             EXCHANGE,
                                             ROUTING_KEY,
-                                            ExchangeType.topic
+                                            ExchangeType.topic,
+                                            false
                                     )
                             )
                     )
