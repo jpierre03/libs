@@ -1,5 +1,7 @@
 package fr.prunetwork.amqp.consumer;
 
+import org.jetbrains.annotations.NotNull;
+
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
 /**
@@ -13,8 +15,8 @@ class AmqpReceiverTest {
 
     public static void main(String... argv) throws Exception {
 
-        SimpleMessageConsumer consumer = new SimpleMessageConsumer();
-        AmqpReceiver receiver = new AmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, consumer);
+        @NotNull SimpleMessageConsumer consumer = new SimpleMessageConsumer();
+        @NotNull AmqpReceiver receiver = new AmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, consumer);
         receiver.configure();
 
         System.out.println("*******");

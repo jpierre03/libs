@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,10 +18,10 @@ import static fr.prunetwork.amqp.AmqpDefaultProperties.URI;
  */
 public class ReceiveLogsTopic {
 
-    public static void main(String[] argv)
+    public static void main(@NotNull String[] argv)
             throws Exception {
 
-        ConnectionFactory factory = new ConnectionFactory();
+        @NotNull ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(URI);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
@@ -28,7 +29,7 @@ public class ReceiveLogsTopic {
         channel.exchangeDeclare(EXCHANGE, ExchangeType.topic.toString());
         String queueName = channel.queueDeclare().getQueue();
 
-        ArrayList<String> bindingKeys = new ArrayList<>();
+        @NotNull ArrayList<String> bindingKeys = new ArrayList<>();
 
         if (argv.length < 1) {
             System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
@@ -46,12 +47,12 @@ public class ReceiveLogsTopic {
 
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
-        QueueingConsumer consumer = new QueueingConsumer(channel);
+        @NotNull QueueingConsumer consumer = new QueueingConsumer(channel);
         channel.basicConsume(queueName, true, consumer);
 
         while (true) {
             QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-            String message = new String(delivery.getBody());
+            @NotNull String message = new String(delivery.getBody());
             String routingKey = delivery.getEnvelope().getRoutingKey();
 
             System.out.printf(" [x] Received '%s':'%s'%n", routingKey, message);

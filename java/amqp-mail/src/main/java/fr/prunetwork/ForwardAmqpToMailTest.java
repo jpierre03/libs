@@ -5,6 +5,7 @@ import fr.prunetwork.amqp.message.JsonMessage;
 import fr.prunetwork.amqp.receiver.JsonAmqpReceiver;
 import fr.prunetwork.mail.Mail;
 import fr.prunetwork.mail.SimpleMail;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,17 +22,17 @@ public class ForwardAmqpToMailTest {
 
     public static void main(String... argv) throws Exception {
 
-        JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic);
+        @NotNull JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic);
         receiver.configure();
 
         while (true) {
             try {
-                final JsonMessage message = receiver.consume();
-                final JSONObject json = message.getJson();
+                @NotNull final JsonMessage message = receiver.consume();
+                @NotNull final JSONObject json = message.getJson();
 
                 final String subject = json.getString("subject");
                 final String body = json.getString("body");
-                final List<String> destination = new ArrayList<>();
+                @NotNull final List<String> destination = new ArrayList<>();
 
                 final JSONArray destinations = json.getJSONArray("destination");
                 for (int i = 0; i < destinations.length(); i++) {
@@ -39,7 +40,7 @@ public class ForwardAmqpToMailTest {
                     destination.add(d);
                 }
 
-                final Mail mail = new SimpleMail("toto@example.com", destination, subject, body);
+                @NotNull final Mail mail = new SimpleMail("toto@example.com", destination, subject, body);
 
                 message.displayMessage();
 

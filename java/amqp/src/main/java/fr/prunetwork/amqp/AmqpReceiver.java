@@ -1,5 +1,7 @@
 package fr.prunetwork.amqp;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * This interface defines a generic object that receive data through AMQP.
  *
@@ -21,6 +23,7 @@ public interface AmqpReceiver<T extends AmqpReceivedMessage> {
      * @return a fully build java object or fail with exception
      * @throws Exception Exception is thrown if one or more field is missing or when something fail.
      */
+    @NotNull
     T consume() throws Exception;
 
     /**

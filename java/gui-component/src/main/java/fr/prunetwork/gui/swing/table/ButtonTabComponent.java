@@ -1,5 +1,8 @@
 package fr.prunetwork.gui.swing.table;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
@@ -16,27 +19,26 @@ public class ButtonTabComponent
 
     private static final MouseListener buttonMouseListener = new MouseAdapter() {
         @Override
-        public void mouseEntered(MouseEvent e) {
+        public void mouseEntered(@NotNull MouseEvent e) {
             Component component = e.getComponent();
             if (component instanceof AbstractButton) {
-                AbstractButton button = (AbstractButton) component;
+                @NotNull AbstractButton button = (AbstractButton) component;
                 button.setBorderPainted(true);
             }
         }
     };
+    @NotNull
     private final JTabbedPane tabbedPane;
 
-    public ButtonTabComponent(final JTabbedPane tabbedPane, boolean isCloseable) {
+    public ButtonTabComponent(@NotNull final JTabbedPane tabbedPane, boolean isCloseable) {
         /** unset default FlowLayout' gaps */
         super(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        if (tabbedPane == null) {
-            throw new IllegalArgumentException("TabbedPane is null");
-        }
         this.tabbedPane = tabbedPane;
         setOpaque(false);
 
         /** make JLabel read titles from JTabbedPane */
-        JLabel label = new JLabel() {
+        @Nullable JLabel label = new JLabel() {
+            @Nullable
             @Override
             public String getText() {
                 int i = tabbedPane.indexOfTabComponent(ButtonTabComponent.this);
@@ -52,7 +54,7 @@ public class ButtonTabComponent
         label.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
         /** tab button */
         if (isCloseable) {
-            JButton button = new TabButton();
+            @NotNull JButton button = new TabButton();
             add(button);
         }
         /** add more space to the top of the component */
@@ -84,7 +86,7 @@ public class ButtonTabComponent
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(@NotNull ActionEvent e) {
             int i = tabbedPane.indexOfTabComponent(ButtonTabComponent.this);
             if (i != -1) {
                 tabbedPane.remove(i);
@@ -102,9 +104,9 @@ public class ButtonTabComponent
          * paint the cross
          */
         @Override
-        protected void paintComponent(Graphics g) {
+        protected void paintComponent(@NotNull Graphics g) {
             super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g.create();
+            @NotNull Graphics2D g2 = (Graphics2D) g.create();
             /** shift the image for pressed buttons */
             if (getModel().isPressed()) {
                 g2.translate(1, 1);

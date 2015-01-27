@@ -1,6 +1,7 @@
 package fr.prunetwork.gui.table;
 
 import fr.prunetwork.gui.swing.table.HighlightRenderer;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,9 +41,9 @@ public class JTableSearchAndHighlight extends JFrame {
 
         panel.setLayout(new BorderLayout());
 
-        final String[] columnNames = {"Name", "Surname", "Age"};
+        @NotNull final String[] columnNames = {"Name", "Surname", "Age"};
 
-        final Object[][] data = {
+        @NotNull final Object[][] data = {
                 {"Jhon", "Java", "23"}, {"Stupid", "Stupido", "500"},
                 {"Michael", "Winnie", "20"}, {"Winnie", "Thepoor", "23"},
                 {"Michael", "Winnie", "20"}, {"Winnie", "Thepoor", "23"},
@@ -91,12 +92,12 @@ public class JTableSearchAndHighlight extends JFrame {
     private void matchFirstRow() {
         table.clearSelection();
 
-        final String value = searchField.getText().toLowerCase();
+        @NotNull final String value = searchField.getText().toLowerCase();
 
         for (int row = 0; row <= table.getRowCount() - 1; row++) {
             for (int col = 0; col <= table.getColumnCount() - 1; col++) {
 
-                final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
+                @NotNull final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
 
                 if (cellContent.contains(value)) {
 

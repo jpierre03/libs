@@ -1,5 +1,8 @@
 package fr.prunetwork;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -29,7 +32,7 @@ public class ElasticSearchInsertTest {
         SCHEDULER.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                ThreadPoolExecutor executor = (ThreadPoolExecutor) EXECUTOR;
+                @NotNull ThreadPoolExecutor executor = (ThreadPoolExecutor) EXECUTOR;
                 final int doneCount = count.get();
                 final int toProcessCount = executor.getQueue().size();
                 System.out.println("#réalisé: " + doneCount + ", restant: " + toProcessCount);
@@ -46,19 +49,19 @@ public class ElasticSearchInsertTest {
                 public void run() {
                     try {
                         //URL url = new URL(String.format("%s/%d", ES_URL, random.nextInt()));
-                        URL url = new URL(ES_URL + "_bulk");
+                        @NotNull URL url = new URL(ES_URL + "_bulk");
 
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        @NotNull HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setDoOutput(true);
                         connection.setDoInput(true);
                         connection.setRequestProperty("Content-Type", "application/json; charset=utf8");
                         connection.setRequestProperty("Accept", "application/json");
                         connection.setRequestMethod("POST");
 
-                        OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
+                        @NotNull OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
                         //osw.write(getBody());
                         {
-                            StringBuilder sb = new StringBuilder();
+                            @NotNull StringBuilder sb = new StringBuilder();
                             for (int j = 0; j < 3333; j++) {
                                 sb.append(generator.getHeader());
                                 sb.append("\n");
@@ -73,12 +76,12 @@ public class ElasticSearchInsertTest {
 
 
                         //display what returns the POST request
-                        StringBuilder sb = new StringBuilder();
+                        @NotNull StringBuilder sb = new StringBuilder();
                         int HttpResult = connection.getResponseCode();
 
                         if (HttpResult == HttpURLConnection.HTTP_OK) {
-                            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
-                            String line = null;
+                            @NotNull BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
+                            @Nullable String line = null;
 
                             while ((line = br.readLine()) != null) {
                                 sb.append(line).append("\n");

@@ -2,6 +2,7 @@ package fr.prunetwork;
 
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.producer.AmqpProducer;
+import org.jetbrains.annotations.NotNull;
 
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
@@ -17,7 +18,7 @@ public class MailAmqpProducerTest {
     public static void main(String[] args) {
 
         try {
-            final AmqpProducer producer = new AmqpProducer(URI, EXCHANGE, ROUTING_KEY, ExchangeType.topic);
+            @NotNull final AmqpProducer producer = new AmqpProducer(URI, EXCHANGE, ROUTING_KEY, ExchangeType.topic, false);
 
             for (int i = 0; i < 10000; i++) {
 /*
@@ -30,7 +31,7 @@ public class MailAmqpProducerTest {
     "body": "un corps de mail très court"
 }
  */
-                final String message = "{\n" +
+                @NotNull final String message = "{\n" +
                         "    \"subject\": \"un beau sujet\",\n" +
                         "    \"destination\": [\n" +
                         "        \"blackhole@prunetwork.fr\",\n" +

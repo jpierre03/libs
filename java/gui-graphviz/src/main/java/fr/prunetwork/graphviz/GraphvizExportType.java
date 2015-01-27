@@ -1,5 +1,7 @@
 package fr.prunetwork.graphviz;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Jean-Pierre PRUNARET
  * @since 03/01/15
@@ -14,12 +16,14 @@ public enum GraphvizExportType {
     SVG("svg"),    // open with inkscape
     PNG("png"),
     PLAIN("plain");
+    @NotNull
     private final String s;
 
-    GraphvizExportType(String s) {
+    GraphvizExportType(@NotNull String s) {
         this.s = s;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return s;

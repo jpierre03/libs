@@ -1,5 +1,7 @@
 package fr.prunetwork.gui.swing.table;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
@@ -12,8 +14,14 @@ import java.awt.*;
  */
 public class HighlightRenderer extends DefaultTableCellRenderer {
 
+    @NotNull
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(@NotNull JTable table,
+                                                   @NotNull Object value,
+                                                   boolean isSelected,
+                                                   boolean hasFocus,
+                                                   int row,
+                                                   int column) {
 
         // everything as usual
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);

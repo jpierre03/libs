@@ -1,6 +1,7 @@
 package fr.prunetwork.logigramme;
 
 import fr.prunetwork.logigramme.instruction.Debut;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +25,7 @@ public class Logigramme implements Icon {
      *
      * @param debut
      */
-    public Logigramme(Debut debut) {
+    public Logigramme(@NotNull Debut debut) {
         this.debut = debut;
     }
 
@@ -33,7 +34,7 @@ public class Logigramme implements Icon {
      *
      * @param composant
      */
-    public void setComposantOrganigramme(ComposantLogigramme composant) {
+    public void setComposantOrganigramme(@NotNull ComposantLogigramme composant) {
         this.composant = composant;
     }
 
@@ -45,7 +46,7 @@ public class Logigramme implements Icon {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void paintIcon(Component c, Graphics g, int x, int y) {
+    public void paintIcon(@NotNull Component c, @NotNull Graphics g, int x, int y) {
         debut.dessiner(x, y, g, c);
     }
 

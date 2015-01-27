@@ -1,6 +1,7 @@
 package fr.prunetwork.gui;
 
 import fr.prunetwork.amqp.producer.AmqpProducer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -13,18 +14,18 @@ public class CommandPanelActionner {
     private final Random random = new Random();
     private AmqpProducer amqpProducer;
 
-    public CommandPanelActionner(AmqpProducer amqpProducer) {
+    public CommandPanelActionner(@NotNull AmqpProducer amqpProducer) {
         this.amqpProducer = amqpProducer;
 
         checkIntegrity();
     }
 
-    private void setAmqpProducer(AmqpProducer producer) {
+    private void setAmqpProducer(@NotNull AmqpProducer producer) {
         this.amqpProducer = producer;
         checkIntegrity();
     }
 
-    private void publish(String message) throws Exception {
+    private void publish(@NotNull String message) throws Exception {
         checkIntegrity();
         amqpProducer.publish(message);
     }

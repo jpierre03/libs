@@ -1,5 +1,7 @@
 package fr.prunetwork.graphviz;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -19,6 +21,7 @@ public class Node {
         this.label = label;
     }
 
+    @NotNull
     public String getIdentifier() {
         return formatIdentifier(identifier);
     }
@@ -31,14 +34,15 @@ public class Node {
         return label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(@NotNull String label) {
         this.label = label;
     }
 
-    public void linksWith(Node linkedNode) {
+    public void linksWith(@NotNull Node linkedNode) {
         linkedNodes.add(linkedNode);
     }
 
+    @NotNull
     public Collection<Node> getLinkedNodes() {
         return linkedNodes;
     }
@@ -47,15 +51,17 @@ public class Node {
         linkedNodes.clear();
     }
 
-    public void setPropertie(NodePropertie propertie, String value) {
+    public void setPropertie(@NotNull NodePropertie propertie, String value) {
         properties.put(propertie, value);
     }
 
+    @NotNull
     public Map<NodePropertie, String> getProperties() {
         return properties;
     }
 
-    public static String formatIdentifier(String identifier) {
+    @NotNull
+    public static String formatIdentifier(@NotNull String identifier) {
         return identifier.replace('-', '_').toLowerCase().trim();
     }
 }

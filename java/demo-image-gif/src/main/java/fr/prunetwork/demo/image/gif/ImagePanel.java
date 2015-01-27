@@ -1,5 +1,8 @@
 package fr.prunetwork.demo.image.gif;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -11,6 +14,7 @@ import java.awt.image.ImageObserver;
  */
 public class ImagePanel extends JPanel {
 
+    @NotNull
     private final ImageIcon image;
 
     public ImagePanel(String file) {
@@ -19,7 +23,7 @@ public class ImagePanel extends JPanel {
         this.setMinimumSize(getSize());
     }
 
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(@NotNull Graphics g) {
         /** clear previous content */
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -27,7 +31,7 @@ public class ImagePanel extends JPanel {
         boolean drawOnce = false;
         boolean drawInLoop = !drawOnce;
 
-        final ImageObserver observer;
+        @Nullable final ImageObserver observer;
 
         if (drawInLoop) {
             observer = this;

@@ -5,12 +5,13 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import fr.prunetwork.amqp.ExchangeType;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 /**
  * This class send message to an AMQP broker.
- * <p/>
+ * <p>
  * This is an experimental feature.
  * Not ready for production work.
  * This feature should be used as a monitoring toolkit.
@@ -22,18 +23,26 @@ public final class AmqpProducer {
 
     private final Channel channel;
     private final Connection connection;
+    @NotNull
     private final String uri;
+    @NotNull
     private final String exchange;
+    @NotNull
     private final String routingKey;
 
     /**
      * This constructor allow user to define usual AMQP settings.
-     * <p/>
+     * <p>
      * If an error occur an exception is trow and the object must be deleted (invalid).
      *
      * @throws Exception If something fail, an exception is thrown.
      */
-    public AmqpProducer(String uri, String exchange, String routingKey, ExchangeType exchangeType, boolean isDurable) throws Exception {
+    public AmqpProducer(@NotNull String uri,
+                        @NotNull String exchange,
+                        @NotNull String routingKey,
+                        @NotNull ExchangeType exchangeType,
+                        boolean isDurable) throws Exception {
+
         this.uri = uri;
         this.exchange = exchange;
         this.routingKey = routingKey;
@@ -42,7 +51,7 @@ public final class AmqpProducer {
         assert this.exchange != null : "must be defined";
         assert this.routingKey != null : "must be defined";
 
-        ConnectionFactory factory = new ConnectionFactory();
+        @NotNull ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
         connection = factory.newConnection();
 
@@ -62,7 +71,7 @@ public final class AmqpProducer {
      * @param message A message to be send to AMQP broker.
      * @throws IOException
      */
-    public void publish(final String message, final String routingKey) throws IOException {
+    public void publish(@NotNull final String message, @NotNull final String routingKey) throws IOException {
         if (channel != null) {
             assert channel.isOpen();
 
@@ -73,7 +82,7 @@ public final class AmqpProducer {
         }
     }
 
-    public void publish(String message) throws IOException {
+    public void publish(@NotNull String message) throws IOException {
         publish(message, routingKey);
     }
 

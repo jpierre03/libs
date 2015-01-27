@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.ExchangeType;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,25 +18,36 @@ import java.util.Collection;
  */
 public class AmqpReceiver {
 
+    @NotNull
     private final URI uri;
+    @NotNull
     private final String topicName;
+    @NotNull
     private final Collection<String> bindingKeys;
+    @NotNull
     private final MessageConsumer externalConsumer;
     private QueueingConsumer consumer;
 
-    public AmqpReceiver(URI uri, String topic, Collection<String> bindingKeys, MessageConsumer consumer) {
+    public AmqpReceiver(@NotNull URI uri,
+                        @NotNull String topic,
+                        @NotNull Collection<String> bindingKeys,
+                        @NotNull MessageConsumer consumer) {
         this.uri = uri;
         this.topicName = topic;
         this.externalConsumer = consumer;
         this.bindingKeys = new ArrayList<>(bindingKeys);
     }
 
-    public AmqpReceiver(String uri, String topic, Collection<String> bindingKeys, MessageConsumer consumer) throws URISyntaxException {
+    public AmqpReceiver(@NotNull String uri,
+                        @NotNull String topic,
+                        @NotNull Collection<String> bindingKeys,
+                        @NotNull MessageConsumer consumer) throws URISyntaxException {
+
         this(new URI(uri), topic, bindingKeys, consumer);
     }
 
     public void configure() throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
+        @NotNull ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();

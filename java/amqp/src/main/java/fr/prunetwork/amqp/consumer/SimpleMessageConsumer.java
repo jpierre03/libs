@@ -2,6 +2,7 @@ package fr.prunetwork.amqp.consumer;
 
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.message.SimpleMessage;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -14,17 +15,17 @@ public class SimpleMessageConsumer implements MessageConsumer<SimpleMessage> {
     @Override
     public SimpleMessage consume() throws InterruptedException {
         final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
-        final String message = new String(delivery.getBody());
+        @NotNull final String message = new String(delivery.getBody());
         final String routingKey = delivery.getEnvelope().getRoutingKey();
 
-        final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
+        @NotNull final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
 
         receivedMessage.displayFullMessage();
         return receivedMessage;
     }
 
     @Override
-    public void init(QueueingConsumer consumer) {
+    public void init(@NotNull QueueingConsumer consumer) {
         this.consumer = consumer;
     }
 

@@ -1,5 +1,8 @@
 package fr.prunetwork.collection;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -17,8 +20,9 @@ public final class CollectionUtilities {
     /**
      * Remove Duplicates items.
      */
-    public static <T extends Comparable<?>> Collection<T> withoutDuplicates(Collection<T> objects) {
-        Map<T, T> map = new TreeMap<>();
+    @NotNull
+    public static <T extends Comparable<?>> Collection<T> withoutDuplicates(@NotNull Collection<T> objects) {
+        @NotNull Map<T, T> map = new TreeMap<>();
         for (T o : objects) {
             map.put(o, o);
         }
@@ -33,16 +37,12 @@ public final class CollectionUtilities {
      * @param <T> a generic type
      * @return a collection that contains only elements in both lists
      */
-    public static <T extends Comparable<?>> Collection<T> inBothLists(Collection<T> a, Collection<T> b) {
-        if (a == null) {
-            throw new IllegalArgumentException("must be initialized");
-        }
-        if (b == null) {
-            throw new IllegalArgumentException("must be initialized");
-        }
+    @Nullable
+    public static <T extends Comparable<?>> Collection<T> inBothLists(@NotNull Collection<T> a,
+                                                                      @NotNull Collection<T> b) {
 
-        final Collection<T> side1 = new ArrayList<>(a);
-        final Collection<T> side2 = new ArrayList<>(b);
+        @NotNull final Collection<T> side1 = new ArrayList<>(a);
+        @NotNull final Collection<T> side2 = new ArrayList<>(b);
 
         /** retainAll: permet de retirer de list tout ce qui n'est pas contenu dans newB */
         side1.retainAll(side2);

@@ -1,5 +1,7 @@
 package fr.prunetwork.graphviz;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -11,10 +13,10 @@ final class GraphTest {
     private GraphTest() {
     }
 
-    private static void test() {
-        Graph graph = new Graph();
-        final GraphvizExportType type = GraphvizExportType.PNG;
-        final GraphvizRenderer renderer = GraphvizRenderer.NEATO;
+    private static void test() throws Exception {
+        @NotNull Graph graph = new Graph();
+        @NotNull final GraphvizExportType type = GraphvizExportType.PNG;
+        @NotNull final GraphvizRenderer renderer = GraphvizRenderer.NEATO;
 
         Node a = graph.getNode("A");
         Node b = graph.getNode("b");
@@ -33,8 +35,8 @@ final class GraphTest {
         g.linksWith(e);
         g.linksWith(a);
 
-        final Graphviz gv = graph.getGraphviz();
-        File out = new File("/tmp/out_v2." + type);   // Linux
+        @NotNull final Graphviz gv = graph.getGraphviz();
+        @NotNull File out = new File("/tmp/out_v2." + type);   // Linux
 //		File out = new File("c:/eclipse.ws/graphviz-java-api/out." + type);    // Windows
         Graphviz.writeGraphToFile(gv.getGraph(type, renderer), out);
 
@@ -45,7 +47,7 @@ final class GraphTest {
     }
 
     private static void test2() {
-        Graph graph = new Graph();
+        @NotNull Graph graph = new Graph();
 
         Node a = graph.getNode("A");
         Node b = graph.getNode("b");
@@ -65,14 +67,14 @@ final class GraphTest {
         g.linksWith(a);
 
 
-        JFrame frame = new JFrame("Display image - test2");
-        Dimension dimension = new Dimension(500, 500);
+        @NotNull JFrame frame = new JFrame("Display image - test2");
+        @NotNull Dimension dimension = new Dimension(500, 500);
         frame.getContentPane().add(graph.getPanel(dimension));
         frame.setSize(dimension);
         frame.setVisible(true);
     }
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         test();
         test2();
     }

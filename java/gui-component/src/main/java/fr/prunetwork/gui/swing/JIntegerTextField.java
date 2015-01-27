@@ -4,6 +4,8 @@ package fr.prunetwork.gui.swing;
  * @author Jean-Pierre PRUNARET
  */
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -13,7 +15,7 @@ import java.awt.event.FocusListener;
 
 /**
  * A JTextField which only accepts integer values as input.
- * <p/>
+ * <p>
  * Use methods setValue/getValue to retrieve the integer value of the
  * JTextField.
  *
@@ -47,7 +49,7 @@ public class JIntegerTextField extends JTextField {
     }
 
     @Override
-    public void setDocument(Document doc) {
+    public void setDocument(@NotNull Document doc) {
         Document oldValue = getDocument();
         super.setDocument(doc);
 
@@ -58,9 +60,8 @@ public class JIntegerTextField extends JTextField {
         if (oldValue != null) {
             oldValue.removeDocumentListener(documentHandler);
         }
-        if (doc != null) {
-            doc.addDocumentListener(documentHandler);
-        }
+
+        doc.addDocumentListener(documentHandler);
         updateValue();
     }
 
@@ -76,12 +77,9 @@ public class JIntegerTextField extends JTextField {
     }
 
     private void updateText() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                if (!isFocusOwner()) {
-                    setText(Integer.toString(value));
-                }
+        SwingUtilities.invokeLater(() -> {
+            if (!isFocusOwner()) {
+                setText(Integer.toString(value));
             }
         });
     }

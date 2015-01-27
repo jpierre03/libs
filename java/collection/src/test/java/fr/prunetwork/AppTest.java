@@ -3,11 +3,12 @@ package fr.prunetwork;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class AppTest
     extends TestCase
 {
     /**
@@ -23,6 +24,7 @@ public class AppTest
     /**
      * @return the suite of tests being tested
      */
+    @NotNull
     public static Test suite()
     {
         return new TestSuite( AppTest.class );

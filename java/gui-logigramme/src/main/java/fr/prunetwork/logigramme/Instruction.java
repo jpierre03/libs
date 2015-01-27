@@ -1,5 +1,7 @@
 package fr.prunetwork.logigramme;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 
 /**
@@ -23,7 +25,7 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getLargeur(Component c);
+    int getLargeur(@NotNull Component c);
 
     /**
      * Hauteur de l'instruction une fois dessinée <BR>
@@ -31,7 +33,7 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getHauteur(Component c);
+    int getHauteur(@NotNull Component c);
 
     /**
      * Largeur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
@@ -39,7 +41,7 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getLargeurComposant(Component c);
+    int getLargeurComposant(@NotNull Component c);
 
     /**
      * Hauteur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
@@ -47,5 +49,5 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getHauteurComposant(Component c);
+    int getHauteurComposant(@NotNull Component c);
 }

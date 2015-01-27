@@ -1,5 +1,7 @@
 package fr.prunetwork.graphviz.utilities;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Jean-Pierre PRUNARET
  */
@@ -10,12 +12,14 @@ public enum OperatingSystemName {
     SOLARIS("This is Solaris"),
     UNKNOWN("Your OS is not supported !!");
 
+    @NotNull
     private final String comment;
 
-    private OperatingSystemName(String comment) {
+    private OperatingSystemName(@NotNull String comment) {
         this.comment = comment;
     }
 
+    @NotNull
     public String getComment() {
         return comment;
     }

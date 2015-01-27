@@ -1,6 +1,7 @@
 package fr.prunework.gui.swing.table;
 
 import fr.prunetwork.gui.swing.table.JTableBooleanIcons;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -22,7 +23,7 @@ public class JTableBooleanIconsMain {
             @Override
             public void run() {
                 try {
-                    JTableBooleanIcons window = new JTableBooleanIcons();
+                    @NotNull JTableBooleanIcons window = new JTableBooleanIcons();
                     window.getFrame().setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();

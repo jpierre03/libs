@@ -1,6 +1,8 @@
 package fr.prunetwork.gui.table;
 
 import fr.prunetwork.amqp.AmqpReceivedMessage;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
@@ -29,6 +31,7 @@ public class MessageTableModel extends AbstractTableModel {
         return messages.size();
     }
 
+    @NotNull
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
@@ -47,6 +50,7 @@ public class MessageTableModel extends AbstractTableModel {
         }
     }
 
+    @NotNull
     @Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
@@ -62,11 +66,12 @@ public class MessageTableModel extends AbstractTableModel {
         }
     }
 
+    @NotNull
     public Collection<AmqpReceivedMessage> getMessages() {
         return Collections.unmodifiableList(messages);
     }
 
-    public void add(AmqpReceivedMessage message) {
+    public void add(@Nullable AmqpReceivedMessage message) {
         if (message == null) {
             throw new IllegalArgumentException("null message");
         }

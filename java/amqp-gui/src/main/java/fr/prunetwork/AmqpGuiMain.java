@@ -10,6 +10,7 @@ import fr.prunetwork.gui.CommandPanelActionner;
 import fr.prunetwork.gui.swing.table.DateCellRenderer;
 import fr.prunetwork.gui.table.HistoryTable;
 import fr.prunetwork.gui.table.MessageTableModel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,24 +30,24 @@ public class AmqpGuiMain {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(10);
 
     public static void main(String... args) throws Exception {
-        JFrame frame = new JFrame();
+        @NotNull JFrame frame = new JFrame();
         frame.setTitle("Application");
         frame.setPreferredSize(new Dimension(600, 400));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel(new GridLayout(1, 3));
+        @NotNull JPanel panel = new JPanel(new GridLayout(1, 3));
 
         {
-            final MessageTableModel messageTableModel = new MessageTableModel();
-            HistoryTable table = new HistoryTable(messageTableModel);
+            @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
+            @NotNull HistoryTable table = new HistoryTable(messageTableModel);
 
             table.setDefaultRenderer(Date.class, new DateCellRenderer());
 
             panel.add(new JScrollPane(table));
 
 
-            final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-            AmqpReceiver receiver = new AmqpReceiver(
+            @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
+            @NotNull AmqpReceiver receiver = new AmqpReceiver(
                     URI,
                     EXCHANGE,
                     ROUTING_KEYS,
@@ -54,7 +55,7 @@ public class AmqpGuiMain {
             );
             receiver.configure();
 
-            final Runnable runnable = new Runnable() {
+            @NotNull final Runnable runnable = new Runnable() {
 
                 @Override
                 public void run() {
@@ -81,15 +82,15 @@ public class AmqpGuiMain {
         }
 
         {
-            final MessageTableModel messageTableModel = new MessageTableModel();
-            HistoryTable table = new HistoryTable(messageTableModel);
+            @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
+            @NotNull HistoryTable table = new HistoryTable(messageTableModel);
 
             table.setDefaultRenderer(Date.class, new DateCellRenderer());
 
             panel.add(new JScrollPane(table));
 
-            final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-            AmqpReceiver receiver = new AmqpReceiver(
+            @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
+            @NotNull AmqpReceiver receiver = new AmqpReceiver(
                     URI,
                     EXCHANGE,
                     Arrays.asList("etage.#"),
@@ -97,7 +98,7 @@ public class AmqpGuiMain {
             );
             receiver.configure();
 
-            final Runnable runnable = new Runnable() {
+            @NotNull final Runnable runnable = new Runnable() {
 
                 @Override
                 public void run() {
@@ -123,16 +124,16 @@ public class AmqpGuiMain {
             EXECUTOR.submit(runnable);
         }
         {
-            final MessageTableModel messageTableModel = new MessageTableModel();
-            HistoryTable table = new HistoryTable(messageTableModel);
+            @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
+            @NotNull HistoryTable table = new HistoryTable(messageTableModel);
 
             table.setDefaultRenderer(Date.class, new DateCellRenderer());
 
             panel.add(new JScrollPane(table));
 
 
-            final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-            AmqpReceiver receiver = new AmqpReceiver(
+            @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
+            @NotNull AmqpReceiver receiver = new AmqpReceiver(
                     URI,
                     EXCHANGE,
                     Arrays.asList("#.rdc.#"),
@@ -140,7 +141,7 @@ public class AmqpGuiMain {
             );
             receiver.configure();
 
-            final Runnable runnable = new Runnable() {
+            @NotNull final Runnable runnable = new Runnable() {
 
                 @Override
                 public void run() {

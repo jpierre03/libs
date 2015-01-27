@@ -1,5 +1,7 @@
 package fr.prunetwork.graphviz.utilities;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Jean-Pierre PRUNARET
  */
@@ -14,9 +16,10 @@ public final class OSValidator {
         System.out.println(getOS().getComment());
     }
 
+    @NotNull
     private static OperatingSystemName getOS() {
 
-        OperatingSystemName value;
+        @NotNull final OperatingSystemName value;
 
         if (isWindows()) {
             value = OperatingSystemName.WINDOWS;

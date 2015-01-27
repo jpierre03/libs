@@ -1,6 +1,7 @@
 package fr.prunetwork.logigramme;
 
 import fr.prunetwork.logigramme.instruction.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,16 +62,16 @@ public class Main extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         /**---Construction d'un organigramme---*/
         /** -Les instructions-*/
-        Debut debut = new Debut();
-        fr.prunetwork.logigramme.instruction.Action action1 = new fr.prunetwork.logigramme.instruction.Action("Action 1\nFaire qqch");
-        fr.prunetwork.logigramme.instruction.Action action2 = new fr.prunetwork.logigramme.instruction.Action("Action 2\nFaire autre ch");
-        fr.prunetwork.logigramme.instruction.Action action3 = new fr.prunetwork.logigramme.instruction.Action("Action 3\nFaire autre ch");
-        Condition cond = new Condition("Condition");
-        Condition cond2 = new Condition("Condition N°2");
-        Condition cond0 = new Condition("Condition N°0");
-        fr.prunetwork.logigramme.instruction.Action oui = new fr.prunetwork.logigramme.instruction.Action("Si oui\nOn va là");
-        fr.prunetwork.logigramme.instruction.Action non = new fr.prunetwork.logigramme.instruction.Action("Si non\nOn va ici");
-        Fin fin = new Fin();
+        @NotNull Debut debut = new Debut();
+        @NotNull fr.prunetwork.logigramme.instruction.Action action1 = new fr.prunetwork.logigramme.instruction.Action("Action 1\nFaire qqch");
+        @NotNull fr.prunetwork.logigramme.instruction.Action action2 = new fr.prunetwork.logigramme.instruction.Action("Action 2\nFaire autre ch");
+        @NotNull fr.prunetwork.logigramme.instruction.Action action3 = new fr.prunetwork.logigramme.instruction.Action("Action 3\nFaire autre ch");
+        @NotNull Condition cond = new Condition("Condition");
+        @NotNull Condition cond2 = new Condition("Condition N°2");
+        @NotNull Condition cond0 = new Condition("Condition N°0");
+        @NotNull fr.prunetwork.logigramme.instruction.Action oui = new fr.prunetwork.logigramme.instruction.Action("Si oui\nOn va là");
+        @NotNull fr.prunetwork.logigramme.instruction.Action non = new fr.prunetwork.logigramme.instruction.Action("Si non\nOn va ici");
+        @NotNull Fin fin = new Fin();
         /** -Organisation-*/
         debut.setSuivant(action1);
         action1.setSuivant(action2);
@@ -85,9 +86,9 @@ public class Main extends JFrame {
         oui.setSuivant(fin);
         non.setSuivant(fin);
         /** -Logigramme prêt-*/
-        Logigramme logigramme = new Logigramme(debut);
+        @NotNull Logigramme logigramme = new Logigramme(debut);
         /**On met l'organigramme dans un composant porteur*/
-        ComposantLogigramme logigrammeComponent = new ComposantLogigramme(logigramme);
+        @NotNull ComposantLogigramme logigrammeComponent = new ComposantLogigramme(logigramme);
         /**Met un tour avec un titre*/
         logigrammeComponent.setBorder(BorderFactory.createTitledBorder("Un beau logigramme"));
         /**On place le composant dans un JScrollPanel dans la frame*/

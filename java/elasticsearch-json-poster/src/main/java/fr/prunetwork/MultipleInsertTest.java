@@ -1,6 +1,7 @@
 package fr.prunetwork;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.io.OutputStreamWriter;
@@ -27,7 +28,7 @@ public class MultipleInsertTest {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(10);
 
     public static void main(String[] args) throws Exception {
-        final AtomicInteger count = new AtomicInteger(0);
+        @NotNull final AtomicInteger count = new AtomicInteger(0);
 
         for (int i = 0; i < 1; i++) {
             final int invocationNumber = i;
@@ -35,10 +36,10 @@ public class MultipleInsertTest {
                 @Override
                 public void run() {
                     try {
-                        URL url = new URL(String.format("%s/%s", ES_URL, getId(25)));
+                        @NotNull URL url = new URL(String.format("%s/%s", ES_URL, getId(25)));
                         //URL url = new URL(ES_URL);
 
-                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        @NotNull HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setDoOutput(true);
                         connection.setDoInput(true);
                         connection.setAllowUserInteraction(true);
@@ -46,14 +47,14 @@ public class MultipleInsertTest {
                         connection.setRequestProperty("Accept", "application/json");
                         connection.setRequestMethod("POST");
 
-                        StringBuilder sb = new StringBuilder();
+                        @NotNull StringBuilder sb = new StringBuilder();
                         for (int j = 0; j < 1 * 10; j++) {
                             sb.append(getSimple());
                             sb.append("\n");
 
                         }
 
-                        OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
+                        @NotNull OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
 
                         osw.write(sb.toString());
                         osw.flush();
@@ -76,7 +77,7 @@ public class MultipleInsertTest {
     }
 
     static String getSimple() {
-        JSONObject obj = new JSONObject();
+        @NotNull JSONObject obj = new JSONObject();
 
         obj.put("dataset", "no6");
 

@@ -1,6 +1,7 @@
 package fr.prunetwork.logigramme.instruction;
 
 import fr.prunetwork.logigramme.Texte;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -12,6 +13,7 @@ public final class Fin extends AbstractInstruction {
     /**
      * Texte "Fin"
      */
+    @NotNull
     private Texte texte;
 
     /**
@@ -29,7 +31,7 @@ public final class Fin extends AbstractInstruction {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, Graphics g, Component c) {
+    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
         final int largeur = texte.getLargeur(c) + 10;
         final int hauteur = texte.getHauteur(c) + 10;
 
@@ -43,7 +45,7 @@ public final class Fin extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getLargeur(Component c) {
+    public int getLargeur(@NotNull Component c) {
         return texte.getLargeur(c) + 10;
     }
 
@@ -53,7 +55,7 @@ public final class Fin extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getHauteur(Component c) {
+    public int getHauteur(@NotNull Component c) {
         return texte.getHauteur(c) + 10;
     }
 }

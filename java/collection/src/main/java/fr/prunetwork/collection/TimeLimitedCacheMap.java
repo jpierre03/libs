@@ -1,5 +1,8 @@
 package fr.prunetwork.collection;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.*;
@@ -42,7 +45,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
             }
             long currentTime = System.nanoTime();
             accessLock.writeLock().lock();
-            Set<K> keys = new HashSet<>(timeMap.keySet());
+            @NotNull Set<K> keys = new HashSet<>(timeMap.keySet());
             accessLock.writeLock().unlock();
             /* First attempt to detect & mark stale entries, but don't delete
              * The hash map may contain 1000s of objects don't block it. The returned
@@ -50,7 +53,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
              * 1. contains keys for objects which are removed by user, using remove() (not a problem)
              * 2. contains keys for objects which are updated by user, using put() [a big problem]
              */
-            Set<K> markedForRemoval = new HashSet<>();
+            @NotNull Set<K> markedForRemoval = new HashSet<>();
             for (K key : keys) {
                 long lastTime = timeMap.get(key);
                 if (lastTime == 0) {
@@ -90,6 +93,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
     };
     private final ScheduledExecutorService timer = Executors.newSingleThreadScheduledExecutor(new MyThreadFactory(true));
     private final long expiryTime;
+    @NotNull
     private final TimeUnit expiryTimeUnit;
     public boolean isDebug = false;
 
@@ -121,7 +125,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
      * @param expiryTime,    age of the object, exceeding which the object is  to be removed
      * @param unit
      */
-    public TimeLimitedCacheMap(long initialDelay, long evictionDelay, long expiryTime, TimeUnit unit) {
+    public TimeLimitedCacheMap(long initialDelay, long evictionDelay, long expiryTime, @NotNull TimeUnit unit) {
         if (initialDelay < 0) {
             throw new IllegalArgumentException("initialDelay should be positive");
         }
@@ -131,10 +135,6 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
 
         if (expiryTime <= 0) {
             throw new IllegalArgumentException("expiryTime should be strictly positive");
-        }
-
-        if (unit == null) {
-            throw new IllegalArgumentException("TimeUnit should be defined");
         }
 
         timer.scheduleWithFixedDelay(evictor, initialDelay, evictionDelay, unit);
@@ -207,13 +207,15 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
     /* Clone requires locking, to prevent the edge case where
      * the map is updated with clone is in progress
      */
+    @NotNull
     public Map<K, V> getClonedMap() {
         accessLock.writeLock().lock();
-        HashMap<K, V> mapClone = new HashMap<>(objectMap);
+        @NotNull HashMap<K, V> mapClone = new HashMap<>(objectMap);
         accessLock.writeLock().unlock();
         return Collections.unmodifiableMap(mapClone);
     }
 
+    @NotNull
     @Override
     public Iterator<K> iterator() {
         return getClonedMap().keySet().iterator();
@@ -223,10 +225,11 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
         timer.shutdown();
     }
 
+    @NotNull
     public Collection<HistoryEntry<V>> getHistoryAndClear() {
         accessLock.writeLock().lock();
 
-        final Collection<HistoryEntry<V>> entries = Collections.unmodifiableCollection(new ArrayList<>(history.values()));
+        @NotNull final Collection<HistoryEntry<V>> entries = Collections.unmodifiableCollection(new ArrayList<>(history.values()));
         history.clear();
 
         accessLock.writeLock().unlock();
@@ -237,6 +240,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
         return expiryTime;
     }
 
+    @Nullable
     public TimeUnit getExpiryTimeUnit() {
         return expiryTimeUnit;
     }
@@ -251,9 +255,10 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
             isDaemon = daemon;
         }
 
+        @NotNull
         @Override
         public Thread newThread(Runnable r) {
-            Thread t = new Thread(r);
+            @NotNull Thread t = new Thread(r);
             t.setDaemon(isDaemon);
             return t;
         }
@@ -282,6 +287,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
             return status;
         }
 
+        @NotNull
         @Override
         public String toString() {
             return "HistoryEntry{" +

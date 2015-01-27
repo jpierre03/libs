@@ -1,5 +1,7 @@
 package fr.prunetwork.graphviz;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,25 +11,26 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class  Graph {
+public class Graph {
     private static final String NEWLINE = System.getProperty("line.separator");
     private final Map<String, Node> nodes = new ConcurrentHashMap<>();
     private boolean orientedGraph;
     private final StringBuilder customInstruction = new StringBuilder();
     private final StringBuilder globalProperties = new StringBuilder();
+    @NotNull
     private GraphvizRenderer renderer = GraphvizRenderer.DOT;
 
-    public synchronized JPanel getPanel(final Dimension dimension) {
+    public synchronized JPanel getPanel(@NotNull final Dimension dimension) {
         JPanel panel;
         try {
-            final GraphvizExportType extension = GraphvizExportType.PNG;
-            final String filename = "tmp_out_graphviz." + extension.toString();
+            @NotNull final GraphvizExportType extension = GraphvizExportType.PNG;
+            @NotNull final String filename = "tmp_out_graphviz." + extension.toString();
             Graphviz.writeGraphToFile(getGraphviz().getGraph(extension, renderer), filename);
             final BufferedImage image = ImageIO.read(new File(filename));
 
             panel = new JPanel() {
                 @Override
-                public void paint(Graphics g) {
+                public void paint(@NotNull Graphics g) {
                     double xScaleFactor = (double) getWidth() / image.getWidth();
                     double yScaleFactor = (double) getHeight() / image.getHeight();
 
@@ -50,17 +53,18 @@ public class  Graph {
         return panel;
     }
 
+    @NotNull
     public Graphviz getGraphviz() {
-        Graphviz gv = new Graphviz();
+        @NotNull Graphviz gv = new Graphviz();
         gv.addln(Graphviz.start_graph(isOrientedGraph()));
         gv.add(generateDot());
         gv.addln(Graphviz.end_graph());
         return gv;
     }
 
-    public Node getNode(final String identifier) {
+    public Node getNode(@NotNull final String identifier) {
 
-        final String localIdentifier = Node.formatIdentifier(identifier);
+        @NotNull final String localIdentifier = Node.formatIdentifier(identifier);
 
 
         Node node = nodes.get(localIdentifier);
@@ -73,8 +77,9 @@ public class  Graph {
         return node;
     }
 
+    @NotNull
     public String generateDot() {
-        final StringBuilder sb = new StringBuilder();
+        @NotNull final StringBuilder sb = new StringBuilder();
 
         makeGlobalProperties(sb);
         makeNodeDeclarations(sb);
@@ -84,13 +89,13 @@ public class  Graph {
         return sb.toString();
     }
 
-    void makeNodeDeclarations(StringBuilder sb) {
-        for (Node node : nodes.values()) {
+    void makeNodeDeclarations(@NotNull StringBuilder sb) {
+        for (@NotNull Node node : nodes.values()) {
 
             sb.append(node.getIdentifier());
             sb.append('[');
             sb.append("label=\"").append(node.getLabel()).append("\"");
-            for (Map.Entry<NodePropertie, String> entry : node.getProperties().entrySet()) {
+            for (@NotNull Map.Entry<NodePropertie, String> entry : node.getProperties().entrySet()) {
                 sb.append(" ");
                 sb.append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
             }
@@ -98,10 +103,10 @@ public class  Graph {
         }
     }
 
-    void makeNodeLinks(StringBuilder sb) {
-        for (Node node : nodes.values()) {
+    void makeNodeLinks(@NotNull StringBuilder sb) {
+        for (@NotNull Node node : nodes.values()) {
 
-            for (Node linkedNode : node.getLinkedNodes()) {
+            for (@NotNull Node linkedNode : node.getLinkedNodes()) {
                 String linkSymbol;
                 if (isOrientedGraph()) {
                     linkSymbol = " -> ";
@@ -115,19 +120,19 @@ public class  Graph {
         }
     }
 
-    void makeCustomInstructions(StringBuilder sb) {
+    void makeCustomInstructions(@NotNull StringBuilder sb) {
         sb.append(customInstruction);
     }
 
-    void makeGlobalProperties(StringBuilder sb) {
+    void makeGlobalProperties(@NotNull StringBuilder sb) {
         sb.append(globalProperties);
     }
 
-    public void appendGlobalPropertie(String instruction) {
+    public void appendGlobalPropertie(@NotNull String instruction) {
         globalProperties.append(instruction).append(NEWLINE);
     }
 
-    public void appendCustomInstruction(String instruction) {
+    public void appendCustomInstruction(@NotNull String instruction) {
         customInstruction.append(instruction).append(NEWLINE);
     }
 
@@ -143,7 +148,7 @@ public class  Graph {
         return orientedGraph;
     }
 
-    public void useRender(GraphvizRenderer renderer) {
+    public void useRender(@NotNull GraphvizRenderer renderer) {
 
         this.renderer = renderer;
     }

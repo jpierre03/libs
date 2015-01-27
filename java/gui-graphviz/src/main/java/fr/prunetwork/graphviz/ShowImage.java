@@ -1,5 +1,7 @@
 package fr.prunetwork.graphviz;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,11 +10,12 @@ import java.io.IOException;
 import java.net.URL;
 
 final class ShowImage extends Panel {
+
     private final BufferedImage image;
 
-    private ShowImage(String path) throws IOException {
+    private ShowImage(@NotNull String path) throws IOException {
         try {
-            URL input = new URL(path);
+            @NotNull URL input = new URL(path);
             image = ImageIO.read(input);
         } catch (IOException ie) {
             System.out.println("Error:" + ie.getMessage());
@@ -21,12 +24,12 @@ final class ShowImage extends Panel {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(@NotNull Graphics g) {
         g.drawImage(image, 0, 0, null);
     }
 
-    public static void main(String args[]) throws Exception {
-        JFrame frame = new JFrame("Display image");
+    public static void main(@NotNull String args[]) throws Exception {
+        @NotNull JFrame frame = new JFrame("Display image");
         Panel panel;
         if (args.length == 0) {
             panel = new ShowImage("http://www.roseindia.net/java/example/java/swing/rajeshxml2.gif");

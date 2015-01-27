@@ -1,5 +1,7 @@
 package fr.prunetwork.mail;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.mail.internet.InternetAddress;
 import java.util.List;
 
@@ -11,13 +13,18 @@ import java.util.List;
  */
 public interface Mail {
 
+    @NotNull
     String getFromMailAddress();
 
+    @NotNull
     String getSubject();
 
+    @NotNull
     String getBody();
 
+    @NotNull
     List<String> getToMailAddresses();
 
+    @NotNull
     InternetAddress[] getDestinationAddresses() throws Exception;
 }

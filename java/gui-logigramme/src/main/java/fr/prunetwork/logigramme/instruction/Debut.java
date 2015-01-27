@@ -2,6 +2,8 @@ package fr.prunetwork.logigramme.instruction;
 
 import fr.prunetwork.logigramme.Instruction;
 import fr.prunetwork.logigramme.Texte;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 
@@ -13,10 +15,12 @@ public final class Debut extends AbstractInstruction {
     /**
      * Texte "Début"
      */
+    @NotNull
     private Texte texte;
     /**
      * AbstractInstruction suivante
      */
+    @Nullable
     private Instruction suivant;
 
     /**
@@ -31,7 +35,7 @@ public final class Debut extends AbstractInstruction {
      *
      * @param suivant
      */
-    public void setSuivant(Instruction suivant) {
+    public void setSuivant(@NotNull Instruction suivant) {
         this.suivant = suivant;
     }
 
@@ -43,7 +47,7 @@ public final class Debut extends AbstractInstruction {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, Graphics g, Component c) {
+    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
         final int largeur = texte.getLargeur(c) + 10;
         final int hauteur = texte.getHauteur(c) + 10;
 
@@ -66,7 +70,7 @@ public final class Debut extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getLargeur(Component c) {
+    public int getLargeur(@NotNull Component c) {
         return texte.getLargeur(c) + 10;
     }
 
@@ -76,7 +80,7 @@ public final class Debut extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getHauteur(Component c) {
+    public int getHauteur(@NotNull Component c) {
         return texte.getHauteur(c) + 30;
     }
 
@@ -87,7 +91,7 @@ public final class Debut extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getLargeurComposant(Component c) {
+    public int getLargeurComposant(@NotNull Component c) {
         final int largeur = getLargeur(c);
 
         if (suivant == null) {
@@ -108,7 +112,7 @@ public final class Debut extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getHauteurComposant(Component c) {
+    public int getHauteurComposant(@NotNull Component c) {
         if (suivant == null) {
             return getHauteur(c);
         }

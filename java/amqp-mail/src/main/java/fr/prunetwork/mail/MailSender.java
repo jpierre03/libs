@@ -1,5 +1,7 @@
 package fr.prunetwork.mail;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -19,7 +21,7 @@ public class MailSender {
     private final Session session;
     //private ExecutorService executor = Executors.newFixedThreadPool(1);
 
-    public MailSender(final String serverHostname, final boolean isDebug) {
+    public MailSender(@NotNull final String serverHostname, final boolean isDebug) {
         final Properties prop = System.getProperties();
         prop.put("mail.smtp.host", serverHostname);
 
@@ -27,15 +29,12 @@ public class MailSender {
         session.setDebug(isDebug);
     }
 
-    public void send(final Mail mail) throws Exception {
-        if(mail == null){
-            throw new IllegalArgumentException();
-        }
+    public void send(@NotNull final Mail mail) throws Exception {
 
-        final Message message = new MimeMessage(session);
+        @NotNull final Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(mail.getFromMailAddress()));
 
-        final InternetAddress[] internetAddresses = mail.getDestinationAddresses();
+        @NotNull final InternetAddress[] internetAddresses = mail.getDestinationAddresses();
 
         message.addHeader("X-Mailer", MAILER_VERSION);
         message.setSentDate(new Date());

@@ -1,6 +1,7 @@
 package fr.prunetwork.amqp.message;
 
 import fr.prunetwork.amqp.AmqpReceivedMessage;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
@@ -10,21 +11,26 @@ import java.util.Date;
  */
 class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
 
+    @NotNull
     private final String routingKey;
+    @NotNull
     private final String body;
+    @NotNull
     private final Date receptionDate;
 
-    protected AmqpReceivedMessageImpl(String routingKey, String body) {
+    protected AmqpReceivedMessageImpl(@NotNull String routingKey, @NotNull String body) {
         this.routingKey = routingKey;
         this.body = body;
         this.receptionDate = new Date();
     }
 
+    @NotNull
     @Override
     public final String getBody() {
         return body;
     }
 
+    @NotNull
     @Override
     public final String getRoutingKey() {
         return routingKey;
@@ -40,13 +46,14 @@ class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
         return String.format("%s -> %s", getRoutingKey(), getBody());
     }
 
+    @NotNull
     @Override
     public final Date getReceivedDate() {
         return receptionDate;
     }
 
     public void displayFullMessage() {
-        final StringBuffer sb = new StringBuffer();
+        @NotNull final StringBuffer sb = new StringBuffer();
 
         sb.append("->").append("\n");
         sb.append("-date:").append(getReceivedDate()).append("\n");

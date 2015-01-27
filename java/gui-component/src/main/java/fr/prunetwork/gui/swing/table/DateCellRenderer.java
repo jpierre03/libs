@@ -1,5 +1,7 @@
 package fr.prunetwork.gui.swing.table;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
@@ -15,11 +17,17 @@ public class DateCellRenderer extends DefaultTableCellRenderer {
     public DateCellRenderer() {
     }
 
+    @NotNull
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(@NotNull JTable table,
+                                                   @NotNull Object value,
+                                                   boolean isSelected,
+                                                   boolean hasFocus,
+                                                   int row,
+                                                   int column) {
         super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        final Date date = (Date) value;
-        final Date now = new Date();
+        @NotNull final Date date = (Date) value;
+        @NotNull final Date now = new Date();
 
         if (now.getTime() - date.getTime() > 60 * 1000) {
             setForeground(Color.white);
@@ -38,7 +46,7 @@ public class DateCellRenderer extends DefaultTableCellRenderer {
             setBackground(Color.white);
         }
 
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @NotNull SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         setValue(simpleFormat.format(date));
         return this;
     }

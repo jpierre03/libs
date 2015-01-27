@@ -1,5 +1,7 @@
 package fr.prunetwork;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,20 +18,20 @@ public class FileGenerator {
 
     public static void main(String[] args) throws Exception {
 
-        final FakeLaveuseDataGenerator generator = new FakeLaveuseDataGenerator();
+        @NotNull final FakeLaveuseDataGenerator generator = new FakeLaveuseDataGenerator();
         final int COUNT = 40 * 1000;
 
         for (int i = 0; i < 1000; i++) {
 
             String s = String.format("%04d", i);
-            File file = new File("data" + s + ".json");
+            @NotNull File file = new File("data" + s + ".json");
 
-            try (FileOutputStream fos = new FileOutputStream(file)) {
+            try (@NotNull FileOutputStream fos = new FileOutputStream(file)) {
 
 
-                try (BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+                try (@NotNull BufferedOutputStream bos = new BufferedOutputStream(fos)) {
 
-                    try (PrintWriter pw = new PrintWriter(bos)) {
+                    try (@NotNull PrintWriter pw = new PrintWriter(bos)) {
 
                         pw.append(generator.getHeader());
                         pw.append("\n");
@@ -46,11 +48,11 @@ public class FileGenerator {
                             }
                         }
 
-                    } catch (final Exception e) {
+                    } catch (@NotNull final Exception e) {
                         throw e;
                     }
 
-                } catch (final Exception e) {
+                } catch (@NotNull final Exception e) {
                     throw e;
                 }
 

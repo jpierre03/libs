@@ -7,6 +7,7 @@ import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,26 +21,37 @@ import java.util.Collection;
  */
 public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implements AmqpReceiver<T> {
 
+    @NotNull
     private final URI uri;
+    @NotNull
     private final String topicName;
+    @NotNull
     private final Collection<String> bindingKeys;
+    @NotNull
     private final ExchangeType exchangeType;
     private QueueingConsumer consumer;
 
-    public AbstractAmqpReceiver(URI uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) {
+    public AbstractAmqpReceiver(@NotNull URI uri,
+                                @NotNull String topic,
+                                @NotNull Collection<String> bindingKeys,
+                                @NotNull ExchangeType exchangeType) {
         this.uri = uri;
         this.topicName = topic;
         this.bindingKeys = new ArrayList<>(bindingKeys);
         this.exchangeType = exchangeType;
     }
 
-    public AbstractAmqpReceiver(String uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) throws URISyntaxException {
+    public AbstractAmqpReceiver(@NotNull String uri,
+                                @NotNull String topic,
+                                @NotNull Collection<String> bindingKeys,
+                                @NotNull ExchangeType exchangeType) throws URISyntaxException {
+
         this(new URI(uri), topic, bindingKeys, exchangeType);
     }
 
     @Override
     public void configure() throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
+        @NotNull ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
@@ -56,6 +68,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
         channel.basicConsume(queueName, false, consumer);
     }
 
+    @NotNull
     @Override
     public abstract T consume() throws Exception;
 

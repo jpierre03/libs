@@ -1,9 +1,9 @@
 package fr.prunetwork.gui.swing.list;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,21 +40,21 @@ public class JListBuilder<T>
     private void build() {
         setLayout(new BorderLayout());
 
-        final GridLayout gridLayout = new GridLayout(4, 1);
+        @NotNull final GridLayout gridLayout = new GridLayout(4, 1);
         gridLayout.setVgap(10);
-        JPanel buttonPanel = new JPanel(gridLayout);
+        @NotNull JPanel buttonPanel = new JPanel(gridLayout);
         buttonPanel.add(addAllButton);
         buttonPanel.add(addButton);
         buttonPanel.add(removeButton);
         buttonPanel.add(removeAllButton);
 
-        JSplitPane split1 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        JSplitPane split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        @NotNull JSplitPane split1 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        @NotNull JSplitPane split2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 
         int position = 275;
         int largeur = 50;
 
-        final JPanel layoutPanel = new JPanel(new FlowLayout());
+        @NotNull final JPanel layoutPanel = new JPanel(new FlowLayout());
         layoutPanel.add(buttonPanel);
         split1.add(completeListPanel);
         split1.add(layoutPanel);
@@ -66,43 +66,24 @@ public class JListBuilder<T>
 
         add(split2);
 
-        addAllButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addAllAction();
-            }
-        });
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addAction();
-            }
-        });
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeAction();
-            }
-        });
-        removeAllButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeAllAction();
-            }
-        });
+        addAllButton.addActionListener(e -> addAllAction());
+        addButton.addActionListener(e -> addAction());
+        removeButton.addActionListener(e -> removeAction());
+        removeAllButton.addActionListener(e -> removeAllAction());
     }
 
-    public boolean addChoosed(T object) {
+    public boolean addChoosed(@NotNull T object) {
         boolean result = false;
 
         if (!partialModel.contains(object)) {
             partialModel.addElement(object);
+            result = true;
         }
 
         return result;
     }
 
-    public boolean add(T object) {
+    public boolean add(@NotNull T object) {
         boolean result = false;
 
         if (!objects.contains(object)) {
@@ -112,7 +93,7 @@ public class JListBuilder<T>
         return result;
     }
 
-    public boolean remove(T object) {
+    public boolean remove(@NotNull T object) {
         boolean result;
 
         result = objects.remove(object);
@@ -125,9 +106,7 @@ public class JListBuilder<T>
     private void addAllAction() {
         removeAllAction();
 
-        for (T object : objects) {
-            partialModel.addElement(object);
-        }
+        objects.forEach(partialModel::addElement);
         clearSelection();
     }
 
@@ -139,11 +118,10 @@ public class JListBuilder<T>
     private void addAction() {
         if (!completeJList.isSelectionEmpty()) {
 
-            for (T t : completeJList.getSelectedValuesList()) {
-                if (!partialModel.contains(t)) {
-                    partialModel.addElement(t);
-                }
-            }
+            completeJList.getSelectedValuesList()
+                    .stream()
+                    .filter(t -> !partialModel.contains(t))
+                    .forEach(partialModel::addElement);
         } else {
             emptySelectionError();
         }
@@ -153,9 +131,8 @@ public class JListBuilder<T>
     private void removeAction() {
         if (!partialJList.isSelectionEmpty()) {
 
-            for (T t : partialJList.getSelectedValuesList()) {
-                partialModel.removeElement(t);
-            }
+            partialJList.getSelectedValuesList()
+                    .forEach(partialModel::removeElement);
         } else {
             emptySelectionError();
         }
@@ -167,6 +144,7 @@ public class JListBuilder<T>
         partialJList.clearSelection();
     }
 
+    @NotNull
     public Collection<T> getChoosed() {
         return Collections.list(partialModel.elements());
     }
@@ -182,12 +160,9 @@ public class JListBuilder<T>
     @Override
     public void setFont(final Font font) {
         super.setFont(font);
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                completeJList.setFont(font);
-                partialJList.setFont(font);
-            }
+        SwingUtilities.invokeLater(() -> {
+            completeJList.setFont(font);
+            partialJList.setFont(font);
         });
     }
 }

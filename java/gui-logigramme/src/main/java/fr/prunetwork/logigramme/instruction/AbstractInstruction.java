@@ -1,6 +1,7 @@
 package fr.prunetwork.logigramme.instruction;
 
 import fr.prunetwork.logigramme.Instruction;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -10,12 +11,12 @@ import java.awt.*;
 abstract class AbstractInstruction implements Instruction {
 
     @Override
-    public int getLargeurComposant(Component c) {
+    public int getLargeurComposant(@NotNull Component c) {
         return getLargeur(c);
     }
 
     @Override
-    public int getHauteurComposant(Component c) {
+    public int getHauteurComposant(@NotNull Component c) {
         return getHauteur(c);
     }
 }

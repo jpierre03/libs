@@ -1,5 +1,7 @@
 package fr.prunetwork.logigramme;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -12,6 +14,7 @@ public class Texte {
     /**
      * Structure contenant les lignes du texte
      */
+    @NotNull
     private java.util.List<String> lignes = new ArrayList<>();
 
     /**
@@ -19,8 +22,8 @@ public class Texte {
      *
      * @param texte
      */
-    public Texte(String texte) {
-        StringTokenizer tokenizer = new StringTokenizer(texte, "\n", false);
+    public Texte(@NotNull String texte) {
+        @NotNull StringTokenizer tokenizer = new StringTokenizer(texte, "\n", false);
         /**Tant qu'il y a une ligne, l'ajouter*/
         while (tokenizer.hasMoreTokens()) {
             lignes.add(tokenizer.nextToken());
@@ -33,7 +36,7 @@ public class Texte {
      * @param c Le composant dans lequel le texte est dessiné
      * @return
      */
-    public int getLargeur(Component c) {
+    public int getLargeur(@NotNull Component c) {
         /**On récupére le mesureur de chaînes de caractéres*/
         final FontMetrics fm = c.getFontMetrics(c.getFont());
 
@@ -41,7 +44,7 @@ public class Texte {
         int largeur = 0;
 
         /**Pour chaque ligne du texte*/
-        for (String ligne : lignes) {
+        for (@NotNull String ligne : lignes) {
             /**On récupère la largeur de la ligne actuelle*/
             int largeurLigne = fm.stringWidth(ligne);
             if (largeurLigne > largeur) {
@@ -57,7 +60,7 @@ public class Texte {
      * @param c Le composant dans lequel le texte est dessiné
      * @return
      */
-    public int getHauteur(Component c) {
+    public int getHauteur(@NotNull Component c) {
         final FontMetrics fm = c.getFontMetrics(c.getFont());
         return fm.getHeight() * lignes.size();
     }
@@ -70,7 +73,7 @@ public class Texte {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, Graphics g, Component c) {
+    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
         /**On récupére le mesureur de chaînes de caractéres*/
         g.setFont(c.getFont());
 

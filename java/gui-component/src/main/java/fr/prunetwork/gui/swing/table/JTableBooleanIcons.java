@@ -1,5 +1,7 @@
 package fr.prunetwork.gui.swing.table;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -21,6 +23,7 @@ public class JTableBooleanIcons {
 
     private ImageIcon yesIcon;
     private ImageIcon noIcon;
+    @NotNull
     private final JFrame frame;
     private DefaultTableModel tableModel;
     private JTable table;
@@ -78,8 +81,14 @@ public class JTableBooleanIcons {
         BooleanIconRenderer() {
         }
 
+        @NotNull
         @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+        public Component getTableCellRendererComponent(@NotNull JTable table,
+                                                       @NotNull Object value,
+                                                       @NotNull boolean isSelected,
+                                                       @NotNull boolean hasFocus,
+                                                       @NotNull int row,
+                                                       @NotNull int col) {
 
             super.getTableCellRendererComponent(table, null, isSelected, hasFocus, row, col);
             if ((boolean) value) {
@@ -94,6 +103,7 @@ public class JTableBooleanIcons {
     @SuppressWarnings("serial")
     private class BooleanIconEditor extends AbstractCellEditor implements TableCellEditor, MouseListener {
 
+        @NotNull
         private final BooleanComponent boolComp;
         private boolean isMouseEvent;
 
@@ -126,8 +136,9 @@ public class JTableBooleanIcons {
             return boolComp.getValue();
         }
 
+        @NotNull
         @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        public Component getTableCellEditorComponent(@NotNull JTable table, Object value, boolean isSelected, int row, int column) {
             boolean state = (boolean) value;
             if (isMouseEvent) {
                 state = !state;
@@ -188,6 +199,7 @@ public class JTableBooleanIcons {
         }
     }
 
+    @NotNull
     public JFrame getFrame() {
         return frame;
     }

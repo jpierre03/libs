@@ -1,5 +1,7 @@
 package fr.prunetwork.gui.swing.table;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -7,15 +9,15 @@ import java.awt.*;
 
 /**
  * http://www.jroller.com/santhosh/entry/packing_jtable_columns .
- *
+ * <p>
  * MySwing: Advanced Swing Utilites
  * Copyright (C) 2005  Santhosh Kumar T
- * <p/>
+ * <p>
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
- * <p/>
+ * <p>
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
@@ -36,11 +38,19 @@ public class TablePacker {
         this.distributeExtraArea = distributeExtraArea;
     }
 
-    private int preferredWidth(JTable table, int col) {
+    private int preferredWidth(@NotNull JTable table, int col) {
         TableColumn tableColumn = table.getColumnModel().getColumn(col);
-        int width = (int) table.getTableHeader().getDefaultRenderer()
-                .getTableCellRendererComponent(table, tableColumn.getIdentifier()
-                        , false, false, -1, col).getPreferredSize().getWidth();
+        int width = (int) table
+                .getTableHeader()
+                .getDefaultRenderer()
+                .getTableCellRendererComponent(
+                        table,
+                        tableColumn.getIdentifier(),
+                        false,
+                        false,
+                        -1,
+                        col)
+                .getPreferredSize().getWidth();
 
         if (table.getRowCount() != 0) {
             int from = 0, to = 0;
@@ -53,15 +63,24 @@ public class TablePacker {
                 to = table.getRowCount();
             }
             for (int row = from; row < to; row++) {
-                int preferedWidth = (int) table.getCellRenderer(row, col).getTableCellRendererComponent(table,
-                        table.getValueAt(row, col), false, false, row, col).getPreferredSize().getWidth();
-                width = Math.max(width, preferedWidth);
+                int preferredWidth = (int) table
+                        .getCellRenderer(row, col)
+                        .getTableCellRendererComponent(
+                                table,
+                                table.getValueAt(row, col),
+                                false,
+                                false,
+                                row,
+                                col)
+                        .getPreferredSize()
+                        .getWidth();
+                width = Math.max(width, preferredWidth);
             }
         }
         return width + table.getIntercellSpacing().width;
     }
 
-    public void pack(JTable table) {
+    public void pack(@NotNull JTable table) {
         if (!table.isShowing()) {
             throw new IllegalStateException("table must be showing to pack");
         }
@@ -70,7 +89,7 @@ public class TablePacker {
             return;
         }
 
-        int width[] = new int[table.getColumnCount()];
+        @NotNull int width[] = new int[table.getColumnCount()];
         int total = 0;
         for (int col = 0; col < width.length; col++) {
             width[col] = preferredWidth(table, col);

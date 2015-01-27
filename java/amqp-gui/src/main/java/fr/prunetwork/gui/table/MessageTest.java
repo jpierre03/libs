@@ -1,6 +1,7 @@
 package fr.prunetwork.gui.table;
 
 import fr.prunetwork.amqp.message.SimpleMessage;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -16,12 +17,12 @@ public class MessageTest {
     }
 
     public static void main(String... args) {
-        JFrame frame = new JFrame();
+        @NotNull JFrame frame = new JFrame();
         frame.setTitle("Notes des élèves");
         frame.setPreferredSize(new Dimension(500, 400));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        final MessageTableModel messageTableModel = new MessageTableModel();
+        @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
 
         {
             messageTableModel.add(new SimpleMessage("key1", "b1"));
@@ -31,8 +32,8 @@ public class MessageTest {
             messageTableModel.add(new SimpleMessage("key1", "b5"));
         }
 
-        TableModel model = messageTableModel;
-        JTable table = new JTable(model);
+        @NotNull TableModel model = messageTableModel;
+        @NotNull JTable table = new JTable(model);
         table.setAutoCreateRowSorter(true);
         frame.getContentPane().add(new JScrollPane(table));
         frame.pack();

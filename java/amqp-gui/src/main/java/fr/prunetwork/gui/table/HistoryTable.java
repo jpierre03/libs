@@ -1,6 +1,8 @@
 package fr.prunetwork.gui.table;
 
 import fr.prunetwork.gui.swing.table.HighlightRenderer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -15,24 +17,27 @@ import java.awt.event.ActionListener;
  */
 public class HistoryTable extends JPanel {
 
+    @NotNull
     private final JTable table;
     private boolean isMultipleSelection = true;
 
-    public HistoryTable(final MessageTableModel dm, TableColumnModel cm, ListSelectionModel sm) {
+    public HistoryTable(@Nullable final MessageTableModel dm, @Nullable TableColumnModel cm, @Nullable ListSelectionModel sm) {
         table = new JTable(dm, cm, sm);
         setLayout(new BorderLayout());
 
-        final JButton clear = new JButton("Effacer historique");
+        @NotNull final JButton clear = new JButton("Effacer historique");
         clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dm.purge();
+                if (dm != null) {
+                    dm.purge();
+                }
             }
         });
 
-        JPanel searchPanel = new JPanel(new BorderLayout());
-        final JLabel searchCounter = new JLabel();
-        final JTextField searchField = new JTextField();
+        @NotNull JPanel searchPanel = new JPanel(new BorderLayout());
+        @NotNull final JLabel searchCounter = new JLabel();
+        @NotNull final JTextField searchField = new JTextField();
         searchField.addActionListener(new SearchActionListener(searchField, searchCounter, table, isMultipleSelection, false));
 
         searchPanel.add(searchField, BorderLayout.CENTER);
@@ -49,7 +54,7 @@ public class HistoryTable extends JPanel {
         this(null, null, null);
     }
 
-    public HistoryTable(MessageTableModel dm) {
+    public HistoryTable(@NotNull MessageTableModel dm) {
         this(dm, null, null);
     }
 
@@ -77,7 +82,7 @@ public class HistoryTable extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            final String searchedValue = field.getText().toLowerCase();
+            @NotNull final String searchedValue = field.getText().toLowerCase();
             table.clearSelection();
             int count = 0;
 
@@ -92,7 +97,7 @@ public class HistoryTable extends JPanel {
                 for (int row = 0; row <= table.getRowCount() - 1; row++) {
                     for (int col = 0; col <= table.getColumnCount() - 1; col++) {
 
-                        final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
+                        @NotNull final String cellContent = table.getValueAt(row, col).toString().toLowerCase();
 
                         if (cellContent.contains(searchedValue)) {
                             count++;

@@ -2,6 +2,8 @@ package fr.prunetwork.logigramme.instruction;
 
 import fr.prunetwork.logigramme.Instruction;
 import fr.prunetwork.logigramme.Texte;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 
@@ -21,14 +23,17 @@ public final class Condition extends AbstractInstruction {
     /**
      * Texte de l'instruction
      */
+    @NotNull
     private Texte texte;
     /**
      * AbstractInstruction sur la branche oui
      */
+    @Nullable
     private Instruction oui;
     /**
      * AbstractInstruction sur la branche non
      */
+    @Nullable
     private Instruction non;
 
     /**
@@ -36,7 +41,7 @@ public final class Condition extends AbstractInstruction {
      *
      * @param condition
      */
-    public Condition(String condition) {
+    public Condition(@NotNull String condition) {
         texte = new Texte(condition);
     }
 
@@ -45,7 +50,7 @@ public final class Condition extends AbstractInstruction {
      *
      * @param instruction
      */
-    public void setOui(Instruction instruction) {
+    public void setOui(@NotNull Instruction instruction) {
         oui = instruction;
     }
 
@@ -54,7 +59,7 @@ public final class Condition extends AbstractInstruction {
      *
      * @param instruction
      */
-    public void setNon(Instruction instruction) {
+    public void setNon(@NotNull Instruction instruction) {
         non = instruction;
     }
 
@@ -66,7 +71,7 @@ public final class Condition extends AbstractInstruction {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, Graphics g, Component c) {
+    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
         int lgOui = OUI.getLargeur(c);
         int htOui = OUI.getHauteur(c);
         int lgNon = NON.getLargeur(c);
@@ -115,7 +120,7 @@ public final class Condition extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getLargeur(Component c) {
+    public int getLargeur(@NotNull Component c) {
         int xx = 2 * texte.getLargeur(c) + 20 + NON.getLargeur(c);
         if (oui != null) {
             int l = oui.getLargeurComposant(c);
@@ -132,7 +137,7 @@ public final class Condition extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getHauteur(Component c) {
+    public int getHauteur(@NotNull Component c) {
         return 2 * texte.getHauteur(c) + 20 + OUI.getHauteur(c);
     }
 
@@ -143,7 +148,7 @@ public final class Condition extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getLargeurComposant(Component c) {
+    public int getLargeurComposant(@NotNull Component c) {
         if (non == null) {
             return getLargeur(c);
         }
@@ -157,7 +162,7 @@ public final class Condition extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getHauteurComposant(Component c) {
+    public int getHauteurComposant(@NotNull Component c) {
         if (oui == null) {
             return getHauteur(c);
         }

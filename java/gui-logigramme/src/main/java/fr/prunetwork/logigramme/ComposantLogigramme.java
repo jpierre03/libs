@@ -1,5 +1,8 @@
 package fr.prunetwork.logigramme;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -16,6 +19,7 @@ public class ComposantLogigramme extends JComponent {
     /**
      * Bord du composant
      */
+    @Nullable
     private Border tour;
     /**
      * Label qui porte le dessin de l'organigramme
@@ -24,6 +28,7 @@ public class ComposantLogigramme extends JComponent {
     /**
      * L'organigramme
      */
+    @NotNull
     private Logigramme organigramme;
 
     /**
@@ -31,7 +36,7 @@ public class ComposantLogigramme extends JComponent {
      *
      * @param organigramme
      */
-    public ComposantLogigramme(Logigramme organigramme) {
+    public ComposantLogigramme(@NotNull Logigramme organigramme) {
         super();
         /**Initialiasation et valeurs par défaut*/
         setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -47,7 +52,7 @@ public class ComposantLogigramme extends JComponent {
      * Change le tour
      */
     @Override
-    public void setBorder(Border border) {
+    public void setBorder(@NotNull Border border) {
         tour = border;
     }
 
@@ -55,7 +60,7 @@ public class ComposantLogigramme extends JComponent {
      * Dessine le composant
      */
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(@NotNull Graphics g) {
         /** On initialise à pas de décalage. Comme si il il n'y avait pas de tour */
         Insets in = new Insets(0, 0, 0, 0);
 
@@ -94,7 +99,7 @@ public class ComposantLogigramme extends JComponent {
      *
      * @param organigramme
      */
-    public void setOrganigramme(Logigramme organigramme) {
+    public void setOrganigramme(@NotNull Logigramme organigramme) {
         this.organigramme = organigramme;
         organigramme.setComposantOrganigramme(this);
     }
@@ -126,6 +131,7 @@ public class ComposantLogigramme extends JComponent {
     /**
      * Dimension du composant. Sert, si le composant est intégré à une Frame ou un Dialog
      */
+    @NotNull
     @Override
     public Dimension getSize() {
         Insets in = new Insets(0, 0, 0, 0);
@@ -141,6 +147,7 @@ public class ComposantLogigramme extends JComponent {
      * Dimension préférée du composant.
      * Sert, si le composant est intégré à une Frame ou un Dialog
      */
+    @NotNull
     @Override
     public Dimension getPreferredSize() {
         return getSize();
@@ -150,6 +157,7 @@ public class ComposantLogigramme extends JComponent {
      * Dimension maximum du composant.
      * Sert, si le composant est intégré à une Frame ou un Dialog
      */
+    @NotNull
     @Override
     public Dimension getMaximumSize() {
         return getSize();
@@ -159,6 +167,7 @@ public class ComposantLogigramme extends JComponent {
      * Dimension minimum du composant.
      * Sert, si le composant est intégré à une Frame ou un Dialog
      */
+    @NotNull
     @Override
     public Dimension getMinimumSize() {
         return getSize();

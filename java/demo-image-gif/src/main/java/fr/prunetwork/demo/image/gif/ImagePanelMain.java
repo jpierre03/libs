@@ -1,5 +1,7 @@
 package fr.prunetwork.demo.image.gif;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 
 /**
@@ -12,9 +14,9 @@ public final class ImagePanelMain {
     }
 
     public static void main(String args[]) {
-        JFrame frame = new JFrame("Un gif animé");
+        @NotNull JFrame frame = new JFrame("Un gif animé");
 
-        ImagePanel panel = new ImagePanel("test.gif");
+        @NotNull ImagePanel panel = new ImagePanel("test.gif");
         frame.add(panel);
         frame.setSize(panel.getSize());
 

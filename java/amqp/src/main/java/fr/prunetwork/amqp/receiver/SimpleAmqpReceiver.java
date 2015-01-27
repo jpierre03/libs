@@ -4,6 +4,7 @@ import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.SimpleMessage;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,21 +18,28 @@ public final class SimpleAmqpReceiver
         extends AbstractAmqpReceiver<SimpleMessage>
         implements AmqpReceiver<SimpleMessage> {
 
-    public SimpleAmqpReceiver(URI uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) {
+    public SimpleAmqpReceiver(@NotNull URI uri,
+                              @NotNull String topic,
+                              @NotNull Collection<String> bindingKeys,
+                              @NotNull ExchangeType exchangeType) {
         super(uri, topic, bindingKeys, exchangeType);
     }
 
-    public SimpleAmqpReceiver(String uri, String topic, Collection<String> bindingKeys, ExchangeType exchangeType) throws URISyntaxException {
+    public SimpleAmqpReceiver(@NotNull String uri,
+                              @NotNull String topic,
+                              @NotNull Collection<String> bindingKeys,
+                              @NotNull ExchangeType exchangeType) throws URISyntaxException {
         this(new URI(uri), topic, bindingKeys, exchangeType);
     }
 
+    @NotNull
     @Override
     public SimpleMessage consume() throws Exception {
         final QueueingConsumer.Delivery delivery = getConsumer().nextDelivery();
-        final String message = new String(delivery.getBody());
+        @NotNull final String message = new String(delivery.getBody());
         final String routingKey = delivery.getEnvelope().getRoutingKey();
 
-        final SimpleMessage m = new SimpleMessage(routingKey, message);
+        @NotNull final SimpleMessage m = new SimpleMessage(routingKey, message);
 
         // m.displayMessage();
 

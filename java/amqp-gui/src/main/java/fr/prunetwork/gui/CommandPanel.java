@@ -1,5 +1,7 @@
 package fr.prunetwork.gui;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,12 +13,10 @@ import java.awt.event.ActionListener;
  */
 public class CommandPanel extends JPanel {
 
+    @NotNull
     private final CommandPanelActionner actionner;
 
-    public CommandPanel(CommandPanelActionner actionner) {
-        if (actionner == null) {
-            throw new IllegalArgumentException();
-        }
+    public CommandPanel(@NotNull CommandPanelActionner actionner) {
         this.actionner = actionner;
 
         build();
@@ -27,7 +27,7 @@ public class CommandPanel extends JPanel {
 
         int i = 0;
         {
-            JButton button = new JButton(" Hello World !");
+            @NotNull JButton button = new JButton(" Hello World !");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -43,7 +43,7 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            JButton button = new JButton(" +1h de fonctionnement");
+            @NotNull JButton button = new JButton(" +1h de fonctionnement");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -59,7 +59,7 @@ public class CommandPanel extends JPanel {
         }
         {
             final int MAX = 100;
-            JButton button = new JButton(MAX + " Messages en boucle");
+            @NotNull JButton button = new JButton(MAX + " Messages en boucle");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -78,7 +78,7 @@ public class CommandPanel extends JPanel {
         }
         {
             final int MAX = 100;
-            JButton button = new JButton("Envoi de " + MAX + " valeurs de temperature");
+            @NotNull JButton button = new JButton("Envoi de " + MAX + " valeurs de temperature");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -96,7 +96,7 @@ public class CommandPanel extends JPanel {
             add(button);
         }
         {
-            JButton button = new JButton(i + "");
+            @NotNull JButton button = new JButton(i + "");
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -110,10 +110,7 @@ public class CommandPanel extends JPanel {
         setMinimumSize(new Dimension(200, 200));
     }
 
-    private void notifyUser(Exception e) {
-        if (e == null) {
-            throw new IllegalArgumentException();
-        }
+    private void notifyUser(@NotNull Exception e) {
         JOptionPane.showMessageDialog(this, e.getMessage(), "", JOptionPane.ERROR_MESSAGE);
     }
 }

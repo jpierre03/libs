@@ -1,5 +1,7 @@
 package fr.prunetwork.gui.swing.list;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,7 +23,7 @@ final class JListBuilderTest {
                 } catch (Exception ignored) {
                 }
 
-                JListBuilder<String> lb = new JListBuilder<>();
+                @NotNull JListBuilder<String> lb = new JListBuilder<>();
                 lb.add("Tralala");
                 lb.add("Trololo");
                 lb.add("Hobbit jouflu");
@@ -30,7 +32,7 @@ final class JListBuilderTest {
                     lb.add("----" + i);
                 }
 
-                JFrame frame = new JFrame();
+                @NotNull JFrame frame = new JFrame();
                 frame.setLayout(new BorderLayout());
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 frame.setContentPane(lb);
