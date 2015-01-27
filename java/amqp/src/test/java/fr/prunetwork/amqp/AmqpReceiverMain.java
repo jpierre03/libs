@@ -1,7 +1,5 @@
-package com.antalios.rfid.dal.amqp;
+package fr.prunetwork.amqp;
 
-import fr.prunetwork.amqp.AmqpReceiver;
-import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.receiver.SimpleAmqpReceiver;
 
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
