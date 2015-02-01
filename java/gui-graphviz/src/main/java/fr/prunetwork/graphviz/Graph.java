@@ -1,6 +1,7 @@
 package fr.prunetwork.graphviz;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,14 +12,21 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Graph {
+
+    @NotNull
     private static final String NEWLINE = System.getProperty("line.separator");
+    @NotNull
     private final Map<String, Node> nodes = new ConcurrentHashMap<>();
+    @Nullable
     private boolean orientedGraph;
+    @NotNull
     private final StringBuilder customInstruction = new StringBuilder();
+    @NotNull
     private final StringBuilder globalProperties = new StringBuilder();
     @NotNull
     private GraphvizRenderer renderer = GraphvizRenderer.DOT;
 
+    @NotNull
     public synchronized JPanel getPanel(@NotNull final Dimension dimension) {
         JPanel panel;
         try {
@@ -61,6 +69,7 @@ public class Graph {
         return gv;
     }
 
+    @NotNull
     public Node getNode(@NotNull final String identifier) {
 
         @NotNull final String localIdentifier = Node.formatIdentifier(identifier);
