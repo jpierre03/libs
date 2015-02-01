@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -46,8 +45,8 @@ public class Graph {
             };
             panel.setSize(dimension);
             panel.repaint();
-        } catch (IOException ie) {
-            System.err.println("Error:" + ie.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error:" + e.getMessage());
             panel = new JPanel();
         }
         return panel;
