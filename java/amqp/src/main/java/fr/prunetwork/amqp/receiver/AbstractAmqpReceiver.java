@@ -30,13 +30,16 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     @NotNull
     private final ExchangeType exchangeType;
     private QueueingConsumer consumer;
+    private final boolean isDurable;
 
     public AbstractAmqpReceiver(@NotNull URI uri,
                                 @NotNull String topic,
                                 @NotNull Collection<String> bindingKeys,
-                                @NotNull ExchangeType exchangeType) {
+                                @NotNull ExchangeType exchangeType,
+                                boolean isDurable) {
         this.uri = uri;
         this.topicName = topic;
+        this.isDurable = isDurable;
         this.bindingKeys = new ArrayList<>(bindingKeys);
         this.exchangeType = exchangeType;
     }
@@ -44,9 +47,10 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     public AbstractAmqpReceiver(@NotNull String uri,
                                 @NotNull String topic,
                                 @NotNull Collection<String> bindingKeys,
-                                @NotNull ExchangeType exchangeType) throws URISyntaxException {
+                                @NotNull ExchangeType exchangeType,
+                                boolean isDurable) throws URISyntaxException {
 
-        this(new URI(uri), topic, bindingKeys, exchangeType);
+        this(new URI(uri), topic, bindingKeys, exchangeType, isDurable);
     }
 
     @Override
@@ -57,7 +61,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
         Channel channel = connection.createChannel();
         channel.basicQos(10);
 
-        channel.exchangeDeclare(topicName, exchangeType.name(), true);
+        channel.exchangeDeclare(topicName, exchangeType.name(), isDurable);
         String queueName = channel.queueDeclare().getQueue();
 
         for (String bindingKey : bindingKeys) {

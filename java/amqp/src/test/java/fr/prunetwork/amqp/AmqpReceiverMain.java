@@ -9,7 +9,7 @@ public class AmqpReceiverMain {
 
     public static void main(String... argv) throws Exception {
 
-        @NotNull AmqpReceiver receiver = new SimpleAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic);
+        @NotNull AmqpReceiver receiver = new SimpleAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
         receiver.configure();
 
         while (true) {

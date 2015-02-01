@@ -21,16 +21,18 @@ public final class JsonAmqpReceiver
     public JsonAmqpReceiver(@NotNull URI uri,
                             @NotNull String topic,
                             @NotNull Collection<String> bindingKeys,
-                            @NotNull ExchangeType exchangeType) {
-        super(uri, topic, bindingKeys, exchangeType);
+                            @NotNull ExchangeType exchangeType,
+                            boolean isDurable) {
+        super(uri, topic, bindingKeys, exchangeType, isDurable);
     }
 
     public JsonAmqpReceiver(@NotNull String uri,
                             @NotNull String topic,
                             @NotNull Collection<String> bindingKeys,
-                            @NotNull ExchangeType exchangeType) throws URISyntaxException {
+                            @NotNull ExchangeType exchangeType,
+                            boolean isDurable) throws URISyntaxException {
 
-        this(new URI(uri), topic, bindingKeys, exchangeType);
+        this(new URI(uri), topic, bindingKeys, exchangeType,isDurable);
     }
 
     @NotNull
