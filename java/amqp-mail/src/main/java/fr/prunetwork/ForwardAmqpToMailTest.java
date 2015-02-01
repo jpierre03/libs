@@ -22,7 +22,7 @@ public class ForwardAmqpToMailTest {
 
     public static void main(String... argv) throws Exception {
 
-        @NotNull JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic);
+        @NotNull JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
         receiver.configure();
 
         while (true) {
