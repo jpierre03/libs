@@ -1,5 +1,7 @@
 package fr.prunetwork.json;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -27,36 +29,29 @@ public class JsonPrinter {
             }
         });*/
 
-    public static void print(final Map m) {
+    public static void print(@NotNull final Map m) {
         print(m, 0);
     }
 
-    public static void print(final List l) {
-        assert l != null : "null parameter";
-
+    public static void print(@NotNull final List l) {
         print(l, 0);
     }
 
-    public static void printRecursive(final Object o) {
-        assert o != null : "null parameter";
-
+    public static void printRecursive(@NotNull final Object o) {
         printRecursive(o, 0);
     }
 
-    private static void print(final Map m, final int level) {
-        assert m != null : "null parameter";
+    private static void print(@NotNull final Map m, final int level) {
         assert level >= 0 : "level should be positive or null";
 
-
-        Iterator iterator = m.entrySet().iterator();
+        @NotNull Iterator iterator = m.entrySet().iterator();
         print(iterator, level);
     }
 
-    private static void print(final List l, final int level) {
-        assert l != null : "null parameter";
+    private static void print(@NotNull final List l, final int level) {
         assert level >= 0 : "level should be positive or null";
 
-        StringBuilder sb = getLevelBuilder(level);
+        @NotNull StringBuilder sb = getLevelBuilder(level);
 
         for (Object aL : l) {
             sb.append(aL).append("\n");
@@ -64,32 +59,29 @@ public class JsonPrinter {
         System.out.print(sb.toString());
     }
 
-    private static void print(final Iterator iterator, final int level) {
-        assert iterator != null : "null parameter";
+    private static void print(@NotNull final Iterator iterator, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         while (iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
+            @NotNull Map.Entry entry = (Map.Entry) iterator.next();
 
-            StringBuilder sb = getLevelBuilder(level);
+            @NotNull StringBuilder sb = getLevelBuilder(level);
 
             sb.append(entry.getKey()).append(" => ").append(entry.getValue());
             System.out.println(sb);
         }
     }
 
-    private static void print(final String s, final int level) {
-        assert s != null : "null parameter";
+    private static void print(@NotNull final String s, final int level) {
         assert level >= 0 : "level should be positive or null";
 
-        StringBuilder sb = getLevelBuilder(level);
+        @NotNull StringBuilder sb = getLevelBuilder(level);
 
         sb.append(s).append("\n");
         System.out.print(sb.toString());
     }
 
-    private static void printRecursive(final Object o, final int level) {
-        assert o != null : "null parameter";
+    private static void printRecursive(@Nullable final Object o, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         if (o == null) {
@@ -115,8 +107,7 @@ public class JsonPrinter {
         }
     }
 
-    private static void printRecursive(final Map map, final int level) {
-        assert map != null : "null parameter";
+    private static void printRecursive(@Nullable final Map map, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         if (map == null) {
@@ -125,19 +116,17 @@ public class JsonPrinter {
         } else if (map.size() > 0) {
             print(map, level);
 
-            for (Object o : map.values()) {
-                if ((o instanceof HashMap) || (o instanceof LinkedList)) {
-                    printRecursive(o, level + 1);
-                }
-            }
+            map.values()
+                    .stream()
+                    .filter(o -> (o instanceof HashMap) || (o instanceof LinkedList))
+                    .forEach(o -> printRecursive(o, level + 1));
 
         } else {
             throw new IllegalStateException("map is empty");
         }
     }
 
-    private static void printRecursive(final List list, final int level) {
-        assert list != null : "null parameter";
+    private static void printRecursive(@Nullable final List list, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         if (list == null) {
@@ -146,19 +135,16 @@ public class JsonPrinter {
         } else if (list.size() > 0) {
             print(list, level);
 
-            for (Object o : list) {
-                if ((o instanceof HashMap) || (o instanceof LinkedList)) {
-                    printRecursive(o, level + 1);
-                }
-            }
+            list.stream()
+                    .filter(o -> (o instanceof HashMap) || (o instanceof LinkedList))
+                    .forEach(o -> printRecursive(o, level + 1));
 
         } else {
             throw new IllegalStateException("list is empty");
         }
     }
 
-    private static void printRecursive(final JSONArray a, final int level) {
-        assert a != null : "null parameter";
+    private static void printRecursive(@Nullable final JSONArray a, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         if (a == null) {
@@ -177,8 +163,7 @@ public class JsonPrinter {
         }
     }
 
-    private static void printRecursive(final JSONObject o, final int level) {
-        assert o != null : "null parameter";
+    private static void printRecursive(@Nullable final JSONObject o, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         if (o == null) {
@@ -188,7 +173,7 @@ public class JsonPrinter {
             print("{", level);
 
             for (String key : o.keySet()) {
-                StringBuilder sb = getLevelBuilder(level);
+                @NotNull StringBuilder sb = getLevelBuilder(level);
 
                 final Object value = o.get(key);
 
@@ -215,10 +200,11 @@ public class JsonPrinter {
         }
     }
 
+    @NotNull
     private static StringBuilder getLevelBuilder(final int level) {
         assert level >= 0 : "level should be positive or null";
 
-        StringBuilder sb = new StringBuilder();
+        @NotNull StringBuilder sb = new StringBuilder();
         for (int i = 0; i < level; i++) {
             sb.append("  ");
         }

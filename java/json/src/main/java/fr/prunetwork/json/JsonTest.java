@@ -1,5 +1,6 @@
 package fr.prunetwork.json;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
@@ -23,9 +24,9 @@ public class JsonTest {
 
     private static void parser() {
 
-        String json = "{\"type\":\"home\",\"number\":\"(800) 111-1111\"}";
+        @NotNull String json = "{\"type\":\"home\",\"number\":\"(800) 111-1111\"}";
 
-        final JSONObject object = new JSONObject(json);
+        @NotNull final JSONObject object = new JSONObject(json);
         for (String key : object.keySet()) {
             System.out.printf("%s := %s%n", key, object.get(key));
         }
