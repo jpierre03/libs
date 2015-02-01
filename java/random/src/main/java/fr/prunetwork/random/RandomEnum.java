@@ -1,5 +1,7 @@
 package fr.prunetwork.random;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Random;
 
 /**
@@ -8,17 +10,21 @@ import java.util.Random;
  */
 public class RandomEnum<E extends Enum> {
 
+    @NotNull
     private static final Random RND = new Random();
+    @NotNull
     private final E[] values;
 
-    public RandomEnum(Class<E> token) {
+    public RandomEnum(@NotNull Class<E> token) {
         values = token.getEnumConstants();
     }
 
+    @NotNull
     public E random() {
         return values[RND.nextInt(values.length)];
     }
 
+    @NotNull
     public E linearRandom() {
         return values[getLinearRandomNumber(values.length)];
     }
@@ -37,6 +43,9 @@ public class RandomEnum<E extends Enum> {
             randomInt -= i;
             linearRandomNumber++;
         }
+        
+        assert linearRandomNumber >= 0;
+        assert linearRandomNumber < maxSize;
 
         return linearRandomNumber;
     }
