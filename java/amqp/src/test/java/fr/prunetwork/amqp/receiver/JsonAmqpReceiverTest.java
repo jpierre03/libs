@@ -2,7 +2,7 @@ package fr.prunetwork.amqp.receiver;
 
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
-import fr.prunetwork.amqp.message.SimpleMessage;
+import fr.prunetwork.amqp.message.JsonMessage;
 import fr.prunetwork.amqp.producer.AmqpProducer;
 import org.junit.After;
 import org.junit.Before;
@@ -14,15 +14,15 @@ import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class SimpleAmqpReceiverTest {
+public class JsonAmqpReceiverTest {
     AmqpProducer producer;
-    AmqpReceiver<SimpleMessage> receiver;
+    AmqpReceiver<JsonMessage> receiver;
 
     @Before
     public void setUp() throws Exception {
         final String localExchangeSuffix = ".sdfghjkl";
         producer = new AmqpProducer(URI, EXCHANGE + localExchangeSuffix, ROUTING_KEY, ExchangeType.topic, false);
-        receiver = new SimpleAmqpReceiver(URI, EXCHANGE + localExchangeSuffix, ROUTING_KEYS, ExchangeType.topic, false);
+        receiver = new JsonAmqpReceiver(URI, EXCHANGE + localExchangeSuffix, ROUTING_KEYS, ExchangeType.topic, false);
         receiver.configure();
     }
 
@@ -43,14 +43,12 @@ public class SimpleAmqpReceiverTest {
 
     @Test(timeout = 500)
     public void shouldReceiveOne() {
-        final String s = "a nice message";
         try {
-            producer.publish(s);
+            producer.publish("{key: value}");
         } catch (IOException e) {
         }
         try {
-            final SimpleMessage message = receiver.consume();
-            assertTrue(message.getBody().contentEquals(s));
+            final JsonMessage message = receiver.consume();
         } catch (Exception e) {
             fail(e.getLocalizedMessage());
         }
@@ -58,10 +56,9 @@ public class SimpleAmqpReceiverTest {
 
     @Test(timeout = 2500)
     public void shouldReceiveThousands() {
-        final String s = "a nice message";
         try {
             for (int i = 0; i < 1000; i++) {
-                producer.publish(s);
+                producer.publish("{key: value}");
             }
         } catch (IOException e) {
         }
@@ -69,9 +66,7 @@ public class SimpleAmqpReceiverTest {
         for (int i = 0; i < 1000; i++) {
             try {
 
-                final SimpleMessage message = receiver.consume();
-                assertTrue(message.getBody().contentEquals(s));
-
+                final JsonMessage message = receiver.consume();
             } catch (Exception e) {
                 fail(e.getLocalizedMessage());
             }
