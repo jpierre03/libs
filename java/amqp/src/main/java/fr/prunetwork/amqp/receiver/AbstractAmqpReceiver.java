@@ -32,11 +32,11 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     private QueueingConsumer consumer;
     private final boolean isDurable;
 
-    public AbstractAmqpReceiver(@NotNull URI uri,
-                                @NotNull String topic,
-                                @NotNull Collection<String> bindingKeys,
-                                @NotNull ExchangeType exchangeType,
-                                boolean isDurable) {
+    protected AbstractAmqpReceiver(@NotNull URI uri,
+                                   @NotNull String topic,
+                                   @NotNull Collection<String> bindingKeys,
+                                   @NotNull ExchangeType exchangeType,
+                                   boolean isDurable) {
         this.uri = uri;
         this.topicName = topic;
         this.isDurable = isDurable;
@@ -44,11 +44,11 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
         this.exchangeType = exchangeType;
     }
 
-    public AbstractAmqpReceiver(@NotNull String uri,
-                                @NotNull String topic,
-                                @NotNull Collection<String> bindingKeys,
-                                @NotNull ExchangeType exchangeType,
-                                boolean isDurable) throws URISyntaxException {
+    protected AbstractAmqpReceiver(@NotNull String uri,
+                                   @NotNull String topic,
+                                   @NotNull Collection<String> bindingKeys,
+                                   @NotNull ExchangeType exchangeType,
+                                   boolean isDurable) throws URISyntaxException {
 
         this(new URI(uri), topic, bindingKeys, exchangeType, isDurable);
     }
