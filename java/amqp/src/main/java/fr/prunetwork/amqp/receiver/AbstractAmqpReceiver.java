@@ -57,6 +57,8 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     public void configure() throws Exception {
         @NotNull ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
+        factory.setConnectionTimeout(10 * 1000);
+        factory.setAutomaticRecoveryEnabled(true);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         channel.basicQos(10);
