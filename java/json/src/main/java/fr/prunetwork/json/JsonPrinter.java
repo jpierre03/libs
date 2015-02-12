@@ -185,11 +185,11 @@ public class JsonPrinter {
                 if (value instanceof JSONObject) {
                     System.out.println(sb);
 
-                    printRecursive(value, level + 1);
+                    printRecursive((JSONObject) value, level + 1);
                 } else if (value instanceof JSONArray) {
                     System.out.println(sb);
 
-                    printRecursive(value, level + 1);
+                    printRecursive((JSONArray) value, level + 1);
                 } else {
                     sb.append(value);
                     System.out.println(sb);
