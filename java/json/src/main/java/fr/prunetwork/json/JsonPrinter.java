@@ -101,9 +101,9 @@ public class JsonPrinter {
 
         } else if (o instanceof String) {
             print((String) o, level + 1);
-
         } else {
-            throw new IllegalStateException("case is missing or invalid input");
+            print(o.toString(), level + 1);
+            //throw new IllegalStateException("case is missing or invalid input: " + o.getClass().getCanonicalName());
         }
     }
 
