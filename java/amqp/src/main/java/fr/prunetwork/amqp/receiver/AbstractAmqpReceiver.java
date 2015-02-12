@@ -8,6 +8,7 @@ import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,6 +30,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     private final Collection<String> bindingKeys;
     @NotNull
     private final ExchangeType exchangeType;
+    @Nullable
     private QueueingConsumer consumer;
     private final boolean isDurable;
 
@@ -80,9 +82,12 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
 
     @Override
     public void close() throws IOException {
-        consumer.getChannel().close();
+        if (consumer != null) {
+            consumer.getChannel().close();
+        }
     }
 
+    @Nullable
     protected QueueingConsumer getConsumer() {
         return consumer;
     }
