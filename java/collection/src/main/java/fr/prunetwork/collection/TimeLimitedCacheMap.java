@@ -17,13 +17,19 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializable {
 
+    @NotNull
     private final Map<K, V> objectMap = new HashMap<>(1 << 7);
+    @NotNull
     private final Map<K, Long> timeMap = new HashMap<>(1 << 7);
+    @NotNull
     private final Map<Long, HistoryEntry<V>> history = new ConcurrentHashMap<>();
-    /* I need a shared lock, readwrite lock is an excellent candidate.
+    /**
+     * I need a shared lock, readwrite lock is an excellent candidate.
      * eviction is run with writeLock, put/remove with readLock
      */
+    @NotNull
     private final ReentrantReadWriteLock accessLock = new ReentrantReadWriteLock();
+    @NotNull
     private final Runnable evictor = new Runnable() {
 
         /* evictor thread removes data, and changes map state. This is
@@ -91,6 +97,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
             accessLock.writeLock().unlock();
         }
     };
+    @NotNull
     private final ScheduledExecutorService timer = Executors.newSingleThreadScheduledExecutor(new MyThreadFactory(true));
     private final long expiryTime;
     @NotNull
@@ -103,13 +110,13 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
      * 2. Lean evictionDelay => aggressive checks, and hence more sync overhead with put() and remove()
      * 3. Large expiryTime => increases the time object stays in object map and less chance of cache miss (cache miss is bad)
      * 4. Lean expiryTime => by itself does not force object to be removed aggressively, needs lean eviction to be configured
-     * <p/>
+     * <p>
      * In case you are wondering, above picture is not complete.
      * Another key aspect is "Arrival Periodicty", or the rate at which put() is called.
-     * <p/>
+     * <p>
      * Ideally: expiryTime == arrival periodicity + 1 [read '+1' as slightly greater]
      * evictionDelay == expiryTime + 1
-     * <p/>
+     * <p>
      * For random arrival times, which is a more common scenario, use the following pointers
      * 1. eviction Delay > expiry Time
      * Here user needs to think of the impact of stale hit (define how stale is stale!)
@@ -167,9 +174,10 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
      *  Lock duplication won't help. If I create putLock() and removeLock(), they will allow put() and remove()
      *  to happen concurrently, but will not help two put()/remove() calls to happen in parallel.
      */
-    public V put(K key, V value) {
+    @Nullable
+    public V put(K key, @NotNull V value) {
         accessLock.readLock().lock();
-        Long nanoTime = System.nanoTime();
+        @NotNull Long nanoTime = System.nanoTime();
         timeMap.put(key, nanoTime);
 
         if (!objectMap.containsKey(key)) {
@@ -180,7 +188,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
             }
         }
 
-        final V v = objectMap.put(key, value);
+        @Nullable final V v = objectMap.put(key, value);
 
         accessLock.readLock().unlock();
         return v;
@@ -190,13 +198,14 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
      * If had not allowed remove(), life would have been zillion times simpler.
      * However, an undoable action is quite bad.
      */
+    @Nullable
     public V remove(Object key) {
         accessLock.readLock().lock();
         //accessLock.lock();
-        V value = objectMap.remove(key);
+        @Nullable V value = objectMap.remove(key);
         timeMap.remove(key);
 
-        final Long time = System.currentTimeMillis();
+        @NotNull final Long time = System.currentTimeMillis();
         history.put(time, new HistoryEntry<>(time, value, Status.REMOVED));
 
         //accessLock.unlock();
@@ -265,24 +274,30 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
     }
 
     public final class HistoryEntry<V> {
+        @NotNull
         private final Long timestamp;
+        @NotNull
         private final V v;
+        @NotNull
         private final Status status;
 
-        private HistoryEntry(Long timestamp, V v, Status status) {
+        private HistoryEntry(@NotNull Long timestamp, @NotNull V v, @NotNull Status status) {
             this.timestamp = timestamp;
             this.v = v;
             this.status = status;
         }
 
+        @NotNull
         public Long getTimestamp() {
             return timestamp;
         }
 
+        @NotNull
         public V getV() {
             return v;
         }
 
+        @NotNull
         public Status getStatus() {
             return status;
         }
