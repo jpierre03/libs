@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TimeLimitedCacheTest {
 
@@ -95,7 +94,24 @@ public class TimeLimitedCacheTest {
     }
 
     @Test
-    public void shouldExpired() {
+    public void shouldReturnAskedObjects() {
+        assertEquals(0, map.getClonedMap().size());
+
+        map.put(object1_id, object1);
+        map.put(object2_id, object2);
+        map.put(object3_id, object3);
+
+        assertEquals(3, map.getClonedMap().size());
+
+        assertEquals(object1, map.getClonedMap().get(object1_id));
+        assertEquals(object2, map.getClonedMap().get(object2_id));
+        assertEquals(object3, map.getClonedMap().get(object3_id));
+
+        assertFalse(object3.equals(map.getClonedMap().get(object2_id)));
+    }
+
+    @Test
+    public void shouldExpire() {
         assertEquals(0, map.getClonedMap().size());
 
         map.put(object1_id, object1);
