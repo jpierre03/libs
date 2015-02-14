@@ -20,7 +20,7 @@ public class TimeLimitedCacheTest {
 
     @Before
     public void setUp() throws Exception {
-        map = new TimeLimitedCacheMap<>(0, 200, 50, TimeUnit.MILLISECONDS);
+        map = new TimeLimitedCacheMap<>(0, 300, 100, TimeUnit.MILLISECONDS);
         {
             object1 = new Object();
             object1_id = "o1";
@@ -125,5 +125,62 @@ public class TimeLimitedCacheTest {
         } catch (InterruptedException e) {
         }
         assertEquals(0, map.getClonedMap().size());
+    }
+
+
+    @Test
+    public void shouldExpire_slow() {
+        { /** Initialise */
+            assertEquals(0, map.getClonedMap().size());
+
+            map.put(object1_id, object1);
+            map.put(object2_id, object1);
+            map.put(object3_id, object1);
+
+            assertEquals(3, map.getClonedMap().size());
+        }
+
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            assertEquals(3, map.getClonedMap().size());
+        }
+
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            assertEquals(3, map.getClonedMap().size());
+        }
+
+        {
+            /** clean old object should have occurred */
+            map.put(object2_id, object2);
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            assertEquals(1, map.getClonedMap().size());
+        }
+
+        {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            assertEquals(1, map.getClonedMap().size());
+        }
+
+        {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+            }
+            assertEquals(0, map.getClonedMap().size());
+        }
     }
 }
