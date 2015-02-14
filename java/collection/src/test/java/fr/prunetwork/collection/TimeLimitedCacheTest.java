@@ -183,4 +183,24 @@ public class TimeLimitedCacheTest {
             assertEquals(0, map.getClonedMap().size());
         }
     }
+
+    @Test
+    public void shouldWorkTheSameInDebug() throws Exception {
+        map.isDebug = true;
+
+        setUp();
+        shouldInitialize();
+
+        setUp();
+        shouldExpire();
+
+        setUp();
+        shouldExpire_slow();
+
+        setUp();
+        shouldInsertObjects();
+
+        setUp();
+        shouldReturnAskedObjects();
+    }
 }
