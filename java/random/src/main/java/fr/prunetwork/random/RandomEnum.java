@@ -43,7 +43,10 @@ public class RandomEnum<E extends Enum> {
             randomInt -= i;
             linearRandomNumber++;
         }
-        
+
+        linearRandomNumber = Integer.max(0, linearRandomNumber);
+        linearRandomNumber = Integer.min(maxSize, linearRandomNumber);
+
         assert linearRandomNumber >= 0;
         assert linearRandomNumber < maxSize;
 
