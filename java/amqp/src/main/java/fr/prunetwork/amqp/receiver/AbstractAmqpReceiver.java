@@ -22,6 +22,7 @@ import java.util.Collection;
  */
 public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implements AmqpReceiver<T> {
 
+    final boolean isDurable;
     @NotNull
     private final URI uri;
     @NotNull
@@ -32,35 +33,30 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     private final ExchangeType exchangeType;
     @Nullable
     private QueueingConsumer consumer;
-    private final boolean isDurable;
 
-    protected AbstractAmqpReceiver(@NotNull URI uri,
-                                   @NotNull String topic,
-                                   @NotNull Collection<String> bindingKeys,
-                                   @NotNull ExchangeType exchangeType,
-                                   boolean isDurable) {
+    public AbstractAmqpReceiver(@NotNull final URI uri,
+                                @NotNull final String topic,
+                                @NotNull final Collection<String> bindingKeys,
+                                @NotNull final ExchangeType exchangeType,
+                                final boolean isDurable) {
         this.uri = uri;
         this.topicName = topic;
-        this.isDurable = isDurable;
         this.bindingKeys = new ArrayList<>(bindingKeys);
         this.exchangeType = exchangeType;
+        this.isDurable = isDurable;
     }
 
-    protected AbstractAmqpReceiver(@NotNull String uri,
-                                   @NotNull String topic,
-                                   @NotNull Collection<String> bindingKeys,
-                                   @NotNull ExchangeType exchangeType,
-                                   boolean isDurable) throws URISyntaxException {
-
+    public AbstractAmqpReceiver(@NotNull final String uri,
+                                @NotNull final String topic,
+                                @NotNull final Collection<String> bindingKeys,
+                                @NotNull final ExchangeType exchangeType,
+                                final boolean isDurable) throws URISyntaxException {
         this(new URI(uri), topic, bindingKeys, exchangeType, isDurable);
     }
 
-    @Override
     public void configure() throws Exception {
-        @NotNull ConnectionFactory factory = new ConnectionFactory();
+        ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
-        factory.setConnectionTimeout(10 * 1000);
-        factory.setAutomaticRecoveryEnabled(true);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         channel.basicQos(10);
@@ -80,7 +76,6 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     @Override
     public abstract T consume() throws Exception;
 
-    @Override
     public void close() throws IOException {
         if (consumer != null) {
             consumer.getChannel().close();

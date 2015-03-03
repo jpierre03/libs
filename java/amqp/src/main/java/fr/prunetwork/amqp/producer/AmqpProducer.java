@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * This class send message to an AMQP broker.
- * <p>
+ * <p/>
  * This is an experimental feature.
  * Not ready for production work.
  * This feature should be used as a monitoring toolkit.
@@ -21,7 +21,9 @@ import java.io.IOException;
  */
 public final class AmqpProducer {
 
+    @NotNull
     private final Channel channel;
+    @NotNull
     private final Connection connection;
     @NotNull
     private final String uri;
@@ -32,26 +34,22 @@ public final class AmqpProducer {
 
     /**
      * This constructor allow user to define usual AMQP settings.
-     * <p>
+     * <p/>
      * If an error occur an exception is trow and the object must be deleted (invalid).
      *
      * @throws Exception If something fail, an exception is thrown.
      */
-    public AmqpProducer(@NotNull String uri,
-                        @NotNull String exchange,
-                        @NotNull String routingKey,
-                        @NotNull ExchangeType exchangeType,
-                        boolean isDurable) throws Exception {
+    public AmqpProducer(@NotNull final String uri,
+                        @NotNull final String exchange,
+                        @NotNull final String routingKey,
+                        @NotNull final ExchangeType exchangeType,
+                        final boolean isDurable) throws Exception {
 
         this.uri = uri;
         this.exchange = exchange;
         this.routingKey = routingKey;
 
-        assert this.uri != null : "must be defined";
-        assert this.exchange != null : "must be defined";
-        assert this.routingKey != null : "must be defined";
-
-        @NotNull ConnectionFactory factory = new ConnectionFactory();
+        @NotNull final ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
         connection = factory.newConnection();
 
@@ -72,14 +70,10 @@ public final class AmqpProducer {
      * @throws IOException
      */
     public void publish(@NotNull final String message, @NotNull final String routingKey) throws IOException {
-        if (channel != null) {
-            assert channel.isOpen();
+        assert channel.isOpen();
 
-            channel.basicPublish(exchange, routingKey, null, message.getBytes());
-            //System.out.println(message);
-        } else {
-            throw new IOException("channel not defined");
-        }
+        channel.basicPublish(exchange, routingKey, null, message.getBytes());
+        //System.out.println(message);
     }
 
     public void publish(@NotNull String message) throws IOException {

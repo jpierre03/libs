@@ -15,11 +15,11 @@ public class JsonMessage
     @NotNull
     private final JSONObject jsonObject;
 
-    public JsonMessage(@NotNull AmqpReceivedMessage message) throws Exception {
+    public JsonMessage(@NotNull final AmqpReceivedMessage message) throws Exception {
         this(message.getRoutingKey(), message.getBody());
     }
 
-    public JsonMessage(@NotNull String routingKey, @NotNull String body) throws Exception {
+    public JsonMessage(@NotNull final String routingKey, @NotNull final String body) throws Exception {
         super(routingKey, body);
         jsonObject = new JSONObject(body);
     }

@@ -2,6 +2,7 @@ package fr.prunetwork.amqp.consumer;
 
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -9,7 +10,7 @@ import fr.prunetwork.amqp.AmqpReceivedMessage;
  */
 public interface MessageConsumer<T extends AmqpReceivedMessage> {
 
-    void init(QueueingConsumer consumer);
+    void init(@NotNull final QueueingConsumer consumer);
 
     boolean isConnected();
 

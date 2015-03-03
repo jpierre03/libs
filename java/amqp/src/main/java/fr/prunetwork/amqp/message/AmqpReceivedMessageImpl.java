@@ -18,7 +18,7 @@ class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     @NotNull
     private final Date receptionDate;
 
-    protected AmqpReceivedMessageImpl(@NotNull String routingKey, @NotNull String body) {
+    protected AmqpReceivedMessageImpl(@NotNull final String routingKey, @NotNull final String body) {
         this.routingKey = routingKey;
         this.body = body;
         this.receptionDate = new Date();
@@ -53,7 +53,7 @@ class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     }
 
     public void displayFullMessage() {
-        @NotNull final StringBuffer sb = new StringBuffer();
+        @NotNull final StringBuilder sb = new StringBuilder();
 
         sb.append("->").append("\n");
         sb.append("-date:").append(getReceivedDate()).append("\n");

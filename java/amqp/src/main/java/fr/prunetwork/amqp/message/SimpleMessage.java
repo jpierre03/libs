@@ -11,7 +11,7 @@ public final class SimpleMessage
         extends AmqpReceivedMessageImpl
         implements AmqpReceivedMessage {
 
-    public SimpleMessage(@NotNull String routingKey, @NotNull String body) {
+    public SimpleMessage(@NotNull final String routingKey, @NotNull final String body) {
         super(routingKey, body);
     }
 }
