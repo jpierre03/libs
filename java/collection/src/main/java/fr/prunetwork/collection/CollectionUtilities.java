@@ -21,8 +21,8 @@ public final class CollectionUtilities {
      * Remove Duplicates items.
      */
     @NotNull
-    public static <T extends Comparable<?>> Collection<T> withoutDuplicates(@NotNull Collection<T> objects) {
-        @NotNull Map<T, T> map = new TreeMap<>();
+    public static <T extends Comparable<?>> Collection<T> withoutDuplicates(@NotNull final Collection<T> objects) {
+        @NotNull final Map<T, T> map = new TreeMap<>();
         for (T o : objects) {
             map.put(o, o);
         }
@@ -32,8 +32,9 @@ public final class CollectionUtilities {
 
     /**
      * Extract elements present in each (both) collections.
-     * @param a first collection
-     * @param b second collection
+     *
+     * @param a   first collection
+     * @param b   second collection
      * @param <T> a generic type
      * @return a collection that contains only elements in both lists
      */
