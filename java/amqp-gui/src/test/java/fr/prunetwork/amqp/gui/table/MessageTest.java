@@ -1,4 +1,4 @@
-package fr.prunetwork.gui.table;
+package fr.prunetwork.amqp.gui.table;
 
 import fr.prunetwork.amqp.message.SimpleMessage;
 import org.jetbrains.annotations.NotNull;

@@ -1,4 +1,4 @@
-package fr.prunetwork.gui.table;
+package fr.prunetwork.amqp.gui.table;
 
 import fr.prunetwork.gui.swing.table.HighlightRenderer;
 import org.jetbrains.annotations.NotNull;
@@ -26,12 +26,9 @@ public class HistoryTable extends JPanel {
         setLayout(new BorderLayout());
 
         @NotNull final JButton clear = new JButton("Effacer historique");
-        clear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (dm != null) {
-                    dm.purge();
-                }
+        clear.addActionListener(e -> {
+            if (dm != null) {
+                dm.purge();
             }
         });
 

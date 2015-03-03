@@ -1,4 +1,4 @@
-package fr.prunetwork.gui.table;
+package fr.prunetwork.amqp.gui.table;
 
 import fr.prunetwork.gui.swing.table.HighlightRenderer;
 import org.jetbrains.annotations.NotNull;
@@ -25,13 +25,7 @@ public class JTableSearchAndHighlight extends JFrame {
 
     public static void main(String[] args) {
 
-        SwingUtilities.invokeLater(new Runnable() {
-
-            public void run() {
-
-                new JTableSearchAndHighlight();
-            }
-        });
+        SwingUtilities.invokeLater(() -> new JTableSearchAndHighlight());
     }
 
     private void initializeInventory() {

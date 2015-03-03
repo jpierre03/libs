@@ -1,15 +1,13 @@
-package fr.prunetwork;
+package fr.prunetwork.amqp.gui;
 
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
 import fr.prunetwork.amqp.consumer.SimpleMessageConsumer;
+import fr.prunetwork.amqp.gui.table.HistoryTable;
+import fr.prunetwork.amqp.gui.table.MessageTableModel;
 import fr.prunetwork.amqp.message.SimpleMessage;
 import fr.prunetwork.amqp.producer.AmqpProducer;
-import fr.prunetwork.gui.CommandPanel;
-import fr.prunetwork.gui.CommandPanelActionner;
 import fr.prunetwork.gui.swing.table.DateCellRenderer;
-import fr.prunetwork.gui.table.HistoryTable;
-import fr.prunetwork.gui.table.MessageTableModel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -55,26 +53,22 @@ public class AmqpGuiMain {
             );
             receiver.configure();
 
-            @NotNull final Runnable runnable = new Runnable() {
-
-                @Override
-                public void run() {
-                    System.out.println("*******");
-                    while (!consumer.isConnected()) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (Exception e) {
-                            // do nothing
-                        }
+            @NotNull final Runnable runnable = () -> {
+                System.out.println("*******");
+                while (!consumer.isConnected()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (Exception e) {
+                        // do nothing
                     }
+                }
 
-                    System.out.println("*******");
-                    while (true) {
-                        try {
-                            consumer.consume();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                System.out.println("*******");
+                while (true) {
+                    try {
+                        consumer.consume();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             };
@@ -98,26 +92,22 @@ public class AmqpGuiMain {
             );
             receiver.configure();
 
-            @NotNull final Runnable runnable = new Runnable() {
-
-                @Override
-                public void run() {
-                    System.out.println("*******");
-                    while (consumer.isConnected() == false) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (Exception e) {
-                            // do nothing
-                        }
+            @NotNull final Runnable runnable = () -> {
+                System.out.println("*******");
+                while (consumer.isConnected() == false) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (Exception e) {
+                        // do nothing
                     }
+                }
 
-                    System.out.println("*******");
-                    while (true) {
-                        try {
-                            consumer.consume();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                System.out.println("*******");
+                while (true) {
+                    try {
+                        consumer.consume();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             };
@@ -141,26 +131,22 @@ public class AmqpGuiMain {
             );
             receiver.configure();
 
-            @NotNull final Runnable runnable = new Runnable() {
-
-                @Override
-                public void run() {
-                    System.out.println("*******");
-                    while (!consumer.isConnected()) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (Exception e) {
-                            // do nothing
-                        }
+            @NotNull final Runnable runnable = () -> {
+                System.out.println("*******");
+                while (!consumer.isConnected()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (Exception e) {
+                        // do nothing
                     }
+                }
 
-                    System.out.println("*******");
-                    while (true) {
-                        try {
-                            consumer.consume();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                System.out.println("*******");
+                while (true) {
+                    try {
+                        consumer.consume();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             };
@@ -197,6 +183,7 @@ public class AmqpGuiMain {
             this.tableModel = tableModel;
         }
 
+        @NotNull
         @Override
         public SimpleMessage consume() throws InterruptedException {
 

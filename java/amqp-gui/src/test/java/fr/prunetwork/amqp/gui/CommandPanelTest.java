@@ -1,4 +1,4 @@
-package fr.prunetwork.gui;
+package fr.prunetwork.amqp.gui;
 
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.producer.AmqpProducer;
@@ -16,7 +16,7 @@ public class CommandPanelTest {
 
     public static void main(String... args) {
 
-        @NotNull JFrame frame = new JFrame("Un panneau de commande");
+        @NotNull final JFrame frame = new JFrame("Un panneau de commande");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         try {

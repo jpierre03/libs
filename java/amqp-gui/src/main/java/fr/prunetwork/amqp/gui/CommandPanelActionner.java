@@ -1,4 +1,4 @@
-package fr.prunetwork.gui;
+package fr.prunetwork.amqp.gui;
 
 import fr.prunetwork.amqp.producer.AmqpProducer;
 import org.jetbrains.annotations.NotNull;
@@ -11,29 +11,29 @@ import java.util.Random;
  */
 public class CommandPanelActionner {
 
+    @NotNull
     private final Random random = new Random();
+    @NotNull
     private AmqpProducer amqpProducer;
 
-    public CommandPanelActionner(@NotNull AmqpProducer amqpProducer) {
+    public CommandPanelActionner(@NotNull final AmqpProducer amqpProducer) {
         this.amqpProducer = amqpProducer;
 
         checkIntegrity();
     }
 
-    private void setAmqpProducer(@NotNull AmqpProducer producer) {
+    private void setAmqpProducer(@NotNull final AmqpProducer producer) {
         this.amqpProducer = producer;
         checkIntegrity();
     }
 
-    private void publish(@NotNull String message) throws Exception {
+    private void publish(@NotNull final String message) throws Exception {
         checkIntegrity();
         amqpProducer.publish(message);
     }
 
     private void checkIntegrity() {
-        if (amqpProducer == null) {
-            throw new IllegalStateException("amqp stream not defined");
-        }
+        // do nothing
     }
 
     public void sendHelloWorld() throws Exception {
