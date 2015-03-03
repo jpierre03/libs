@@ -3,6 +3,8 @@ package fr.prunetwork.mail;
 import org.jetbrains.annotations.NotNull;
 
 import javax.mail.internet.InternetAddress;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -59,12 +61,11 @@ public class SimpleMail implements Mail {
     @Override
     public InternetAddress[] getDestinationAddresses() throws Exception {
 
-        @NotNull final InternetAddress[] internetAddresses = new InternetAddress[getToMailAddresses().size()];
-        for (int i = 0; i < getToMailAddresses().size(); i++) {
-            final String emailAddress = getToMailAddresses().get(i);
-            internetAddresses[i] = new InternetAddress(emailAddress);
+        @NotNull final Collection<InternetAddress> internetAddresses = new ArrayList<>();
+        for (String emailAddress : getToMailAddresses()) {
+            internetAddresses.add(new InternetAddress(emailAddress));
         }
 
-        return internetAddresses;
+        return (InternetAddress[]) internetAddresses.toArray();
     }
 }

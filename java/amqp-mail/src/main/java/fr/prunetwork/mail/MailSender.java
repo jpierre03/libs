@@ -18,6 +18,7 @@ import static fr.prunetwork.mail.MailDefaultProperties.MAILER_VERSION;
  */
 public class MailSender {
 
+    @NotNull
     private final Session session;
     //private ExecutorService executor = Executors.newFixedThreadPool(1);
 

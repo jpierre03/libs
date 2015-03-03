@@ -22,7 +22,7 @@ public class ForwardAmqpToMailTest {
 
     public static void main(String... argv) throws Exception {
 
-        @NotNull JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
+        @NotNull final JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
         receiver.configure();
 
         while (true) {
@@ -30,11 +30,11 @@ public class ForwardAmqpToMailTest {
                 @NotNull final JsonMessage message = receiver.consume();
                 @NotNull final JSONObject json = message.getJson();
 
-                final String subject = json.getString("subject");
-                final String body = json.getString("body");
+                @NotNull final String subject = json.getString("subject");
+                @NotNull final String body = json.getString("body");
                 @NotNull final List<String> destination = new ArrayList<>();
 
-                final JSONArray destinations = json.getJSONArray("destination");
+                @NotNull final JSONArray destinations = json.getJSONArray("destination");
                 for (int i = 0; i < destinations.length(); i++) {
                     final String d = destinations.getString(i);
                     destination.add(d);
@@ -56,7 +56,6 @@ public class ForwardAmqpToMailTest {
         }
     }
 }
-
 
 /*
 {
