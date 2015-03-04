@@ -31,6 +31,24 @@ public class Main {
     private final Map<String, StatusPanel> statusPanels = new TreeMap<>();
 
     static {
+
+        for (int i = 1; i < 100; i++) {
+            LABELS.put("172.16.201." + String.format("%03d", i), "TELEM vidéo");
+        }
+        for (int i = 100; i < 110; i++) {
+            LABELS.put("172.16.201." + String.format("%03d", i), "TELEM srv/print");
+        }
+        for (int i = 110; i < 130; i++) {
+            LABELS.put("172.16.201." + String.format("%03d", i), "TELEM adr fixe");
+        }
+        for (int i = 130; i < 150; i++) {
+            LABELS.put("172.16.201." + String.format("%03d", i), "Antalios adr fixe");
+        }
+        for (int i = 150; i < 190; i++) {
+            LABELS.put("172.16.201." + String.format("%03d", i), "DHCP");
+        }
+
+
         LABELS.put("www.google.com", "Le classique Google");
         LABELS.put("172.16.201.1", "Serveur Video");
         LABELS.put("172.16.201.11", "Internet Access");
@@ -41,9 +59,25 @@ public class Main {
         LABELS.put("172.16.201.24", "Camera");
         LABELS.put("172.16.201.25", "Camera");
         LABELS.put("172.16.201.26", "Camera");
-        LABELS.put("172.16.201.31", "Copieur Etage Antalios");
-        LABELS.put("172.16.201.33", "TELEM Imprimante à Picot");
-        LABELS.put("172.16.201.86", "TELEM Imprimante Couleur");
+        LABELS.put("172.16.201.31", "Antalios Copieur Etage");
+        LABELS.put("172.16.201.86", "Antalios Imprimante Couleur");
+
+        LABELS.put("172.16.201.101", "TELEM Imprimante Couleur");
+        LABELS.put("172.16.201.101", "TELEM Imprimante à Picot");
+        LABELS.put("172.16.201.110", "TELEM Sophie 1");
+        LABELS.put("172.16.201.111", "TELEM Sophie 2");
+
+        LABELS.put("172.16.201.130", "Antalios jpierre-dl");
+        LABELS.put("172.16.201.131", "Antalios matthieu");
+        LABELS.put("172.16.201.132", "Antalios benjamin");
+        LABELS.put("172.16.201.133", "Antalios fanny 1");
+        LABELS.put("172.16.201.134", "Antalios fanny 2");
+        LABELS.put("172.16.201.135", "Antalios thamer");
+        LABELS.put("172.16.201.136", "Antalios christophe 1");
+        LABELS.put("172.16.201.137", "Antalios christophe 2");
+        LABELS.put("172.16.201.138", "Antalios patrick 1");
+        LABELS.put("172.16.201.139", "Antalios patrick 2");
+
         LABELS.put("172.16.201.148", "OSN 1");
         LABELS.put("172.16.201.196", "IAO bureau Thamer");
         LABELS.put("172.16.201.197", "IAO bureau JPP");
@@ -88,9 +122,12 @@ public class Main {
         if (args.length >= 1) {
             hostnames.addAll(Arrays.asList(args));
         } else {
-            hostnames.addAll(Arrays.asList(
+            Collection<String> tmp = new ArrayList<>();
+            tmp.addAll(Arrays.asList(
                     "172.16.201.1",
+
                     "172.16.201.11",
+
                     "172.16.201.20",
                     "172.16.201.21",
                     "172.16.201.22",
@@ -98,20 +135,23 @@ public class Main {
                     "172.16.201.24",
                     "172.16.201.25",
                     "172.16.201.26",
-                    "172.16.201.30",
                     "172.16.201.31",
-                    "172.16.201.32",
-                    "172.16.201.33",
-                    "172.16.201.40",
                     "172.16.201.50",
                     "172.16.201.86",
-                    /*"172.16.201.148",*/
-                    "172.16.201.196",
-                    "172.16.201.197",
-                    "172.16.201.201",
                     "www.google.com",
                     "bc.antalios.com"
             ));
+            for (int i = 100; i < 190; i++) {
+
+                //tmp.add("172.16.201." + String.format("%03d", i));
+                tmp.add("172.16.201." + i);
+            }
+
+            Map<String, String> map = new TreeMap<>();
+            for (String s : tmp) {
+                map.put(s, s);
+            }
+            hostnames.addAll(map.values());
         }
 
         new Main(hostnames);

@@ -108,7 +108,7 @@ public final class SimplePing
 
         /** Build command line, with system specific commands */
         if (isRunningOnWindows) {
-            command = "ping -n 1 " + host;
+            command = "ping -w 500 -n 1 " + host;
         } else if (isRunningOnMac) {
             command = "ping -t 2 -c 1 " + host;
         } else {
