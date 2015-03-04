@@ -1,4 +1,4 @@
-package fr.prunework.gui.swing.table;
+package fr.prunetwork.gui.swing.table;
 
 import fr.prunetwork.gui.swing.table.JTableBooleanIcons;
 import org.jetbrains.annotations.NotNull;
