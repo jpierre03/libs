@@ -1,6 +1,7 @@
 package com.cor.cep.subscriber;
 
 import com.cor.cep.event.TemperatureEvent;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,10 +26,11 @@ public class ReturnToNormalEventSubscriber implements StatementSubscriber<Temper
     /**
      * {@inheritDoc}
      */
+    @NotNull
     public String getStatement() {
 
         // Example using 'Match Recognise' syntax.
-        String crtiticalEventExpression = "select * from TemperatureEvent "
+        @NotNull final String criticalEventExpression = "select * from TemperatureEvent "
                 + "match_recognize ( "
                 + "       measures A as temp1, B as temp2, C as temp3, D as temp4 "
                 + "       pattern (A B C D E F) "
@@ -39,7 +41,7 @@ public class ReturnToNormalEventSubscriber implements StatementSubscriber<Temper
                 + "               D as (D.temperature < C.temperature) "
                 + ")";
 
-        return crtiticalEventExpression;
+        return criticalEventExpression;
     }
 
     /**

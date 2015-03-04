@@ -36,21 +36,19 @@ public class RandomTemperatureEventGenerator {
 
         ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
 
-        xrayExecutor.submit(new Runnable() {
-            public void run() {
+        xrayExecutor.submit(() -> {
 
-                LOG.debug(getStartingMessage());
+            LOG.debug(getStartingMessage());
 
-                int count = 0;
-                while (count < noOfTemperatureEvents) {
-                    TemperatureEvent ve = new TemperatureEvent(new Random().nextInt(500), new Date());
-                    temperatureEventHandler.handle(ve);
-                    count++;
-                    try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e) {
-                        LOG.error("Thread Interrupted", e);
-                    }
+            int count = 0;
+            while (count < noOfTemperatureEvents) {
+                TemperatureEvent ve = new TemperatureEvent(new Random().nextInt(500), new Date());
+                temperatureEventHandler.handle(ve);
+                count++;
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    LOG.error("Thread Interrupted", e);
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.cor.cep.subscriber;
 
 import com.cor.cep.event.TemperatureEvent;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,10 +26,11 @@ public class WarningEventSubscriber implements StatementSubscriber<TemperatureEv
     /**
      * {@inheritDoc}
      */
+    @NotNull
     public String getStatement() {
 
         // Example using 'Match Recognise' syntax.
-        String warningEventExpression = "select * from TemperatureEvent "
+        @NotNull final String warningEventExpression = "select * from TemperatureEvent "
                 + "match_recognize ( "
                 + "       measures A as temp1, B as temp2 "
                 + "       pattern (A B) "
@@ -43,7 +45,7 @@ public class WarningEventSubscriber implements StatementSubscriber<TemperatureEv
      * Listener method called when Esper has detected a pattern match.
      */
     @Override
-    public void update(Map<String, TemperatureEvent> eventMap) {
+    public void update(@NotNull final Map<String, TemperatureEvent> eventMap) {
 
         // 1st Temperature in the Warning Sequence
         TemperatureEvent temp1 = eventMap.get("temp1");

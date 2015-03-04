@@ -1,6 +1,7 @@
 package com.cor.cep.subscriber;
 
 import com.cor.cep.event.TemperatureEvent;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -30,10 +31,11 @@ public class CriticalEventSubscriber implements StatementSubscriber<TemperatureE
     /**
      * {@inheritDoc}
      */
+    @NotNull
     public String getStatement() {
 
         // Example using 'Match Recognise' syntax.
-        String crtiticalEventExpression = "select * from TemperatureEvent "
+        @NotNull final String crtiticalEventExpression = "select * from TemperatureEvent "
                 + "match_recognize ( "
                 + "       measures A as temp1, B as temp2, C as temp3, D as temp4 "
                 + "       pattern (A B C D) "

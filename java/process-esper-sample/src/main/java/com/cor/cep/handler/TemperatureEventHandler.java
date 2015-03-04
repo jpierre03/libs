@@ -6,6 +6,7 @@ import com.espertech.esper.client.Configuration;
 import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,8 +16,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * This class handles incoming Temperature Events. It processes them through the EPService, to which
- * it has attached the 3 queries.
+ * This class handles incoming Temperature Events.
+ * <p>
+ * It processes them through the EPService, to which it has attached the 3 queries.
  */
 @Component
 @Scope(value = "singleton")
@@ -106,7 +108,7 @@ public class TemperatureEventHandler implements InitializingBean {
     /**
      * Handle the incoming TemperatureEvent.
      */
-    public void handle(TemperatureEvent event) {
+    public void handle(@NotNull final TemperatureEvent event) {
 
         LOG.debug(event.toString());
         epService.getEPRuntime().sendEvent(event);

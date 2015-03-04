@@ -40,45 +40,43 @@ public class AmqpTemperatureEventGenerator {
 
         ExecutorService xrayExecutor = Executors.newSingleThreadExecutor();
 
-        xrayExecutor.submit(new Runnable() {
-            public void run() {
+        xrayExecutor.submit(() -> {
 
-                LOG.debug(getStartingMessage());
+            LOG.debug(getStartingMessage());
 
-                try {
-                    SimpleMessageConsumer consumer = new SimpleMessageConsumer();
-                    AmqpReceiver receiver = new AmqpReceiver(
-                            AmqpDefaultProperties.URI,
-                            AmqpDefaultProperties.EXCHANGE,
-                            Arrays.asList("#"),
-                            consumer
-                    );
+            try {
+                SimpleMessageConsumer consumer = new SimpleMessageConsumer();
+                AmqpReceiver receiver = new AmqpReceiver(
+                        AmqpDefaultProperties.URI,
+                        AmqpDefaultProperties.EXCHANGE,
+                        Arrays.asList("#"),
+                        consumer
+                );
 
-                    receiver.configure();
+                receiver.configure();
 
 
-                    System.out.println("*******");
-                    while (consumer.isConnected() == false) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (Exception e) {
-                            // do nothing
-                        }
+                System.out.println("*******");
+                while (consumer.isConnected() == false) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (Exception e) {
+                        // do nothing
                     }
-                    System.out.println("*******");
-                    while (true) {
-                        try {
-                            final AmqpReceivedMessage message = consumer.consume();
-
-                            TemperatureEvent ve = new TemperatureEvent(Integer.parseInt(message.getBody()), new Date());
-                            temperatureEventHandler.handle(ve);
-                        } catch (Exception e) {
-                            LOG.error("AMQP Error", e);
-                        }
-                    }
-                } catch (Exception e) {
-                    LOG.error("AMQP Configuration fail", e);
                 }
+                System.out.println("*******");
+                while (true) {
+                    try {
+                        final AmqpReceivedMessage message = consumer.consume();
+
+                        TemperatureEvent ve = new TemperatureEvent(Integer.parseInt(message.getBody()), new Date());
+                        temperatureEventHandler.handle(ve);
+                    } catch (Exception e) {
+                        LOG.error("AMQP Error", e);
+                    }
+                }
+            } catch (Exception e) {
+                LOG.error("AMQP Configuration fail", e);
             }
         });
     }

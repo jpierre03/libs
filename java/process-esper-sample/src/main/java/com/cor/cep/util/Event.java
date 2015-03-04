@@ -1,5 +1,7 @@
 package com.cor.cep.util;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
 /**
@@ -8,7 +10,9 @@ import java.util.Date;
  */
 public interface Event {
 
+    @NotNull
     String getDescription();
 
+    @NotNull
     Date getCreationDate();
 }

@@ -1,5 +1,7 @@
 package com.cor.cep.subscriber;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
 /**
@@ -13,6 +15,7 @@ public interface StatementSubscriber<T> {
      *
      * @return EPL Statement
      */
+    @NotNull
     public String getStatement();
 
     /**
@@ -20,5 +23,5 @@ public interface StatementSubscriber<T> {
      *
      * @param eventMap
      */
-    public void update(Map<String, T> eventMap);
+    public void update(@NotNull final Map<String, T> eventMap);
 }

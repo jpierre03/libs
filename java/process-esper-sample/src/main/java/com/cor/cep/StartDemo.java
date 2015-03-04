@@ -1,6 +1,7 @@
 package com.cor.cep;
 
 import com.cor.cep.util.AmqpTemperatureEventGenerator;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -32,14 +33,14 @@ public class StartDemo {
         }
 
         // Load spring config
-        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[]{"application-context.xml"});
-        BeanFactory factory = appContext;
+        @NotNull final ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(new String[]{"application-context.xml"});
+        @NotNull final BeanFactory factory = appContext;
 
         // Start Demo
         //RandomTemperatureEventGenerator generator = (RandomTemperatureEventGenerator) factory.getBean("eventGenerator");
         //generator.startSendingTemperatureReadings(noOfTemperatureEvents);
 
-        AmqpTemperatureEventGenerator generatorAmqp = (AmqpTemperatureEventGenerator) factory.getBean("eventGeneratorAmqp");
+        @NotNull final AmqpTemperatureEventGenerator generatorAmqp = (AmqpTemperatureEventGenerator) factory.getBean("eventGeneratorAmqp");
         generatorAmqp.startSendingTemperatureReadings();
     }
 }

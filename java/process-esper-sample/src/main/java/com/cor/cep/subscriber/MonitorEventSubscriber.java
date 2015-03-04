@@ -1,5 +1,6 @@
 package com.cor.cep.subscriber;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -30,12 +31,12 @@ public class MonitorEventSubscriber implements StatementSubscriber<Double> {
      * Listener method called when Esper has detected a pattern match.
      */
     @Override
-    public void update(Map<String, Double> eventMap) {
+    public void update(@NotNull final Map<String, Double> eventMap) {
 
         // average temp over 10 secs
-        Double avg = eventMap.get("avg_val");
+        @NotNull final Double avg = eventMap.get("avg_val");
 
-        StringBuilder sb = new StringBuilder();
+        @NotNull final StringBuilder sb = new StringBuilder();
         sb.append("---------------------------------");
         sb.append("\n- [MONITOR] Average Temp = " + avg);
         sb.append("\n---------------------------------");
