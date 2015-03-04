@@ -15,7 +15,7 @@ public class RandomEnum<E extends Enum> {
     @NotNull
     private final E[] values;
 
-    public RandomEnum(@NotNull Class<E> token) {
+    public RandomEnum(@NotNull final Class<E> token) {
         values = token.getEnumConstants();
     }
 
