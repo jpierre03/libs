@@ -1,17 +1,19 @@
 package fr.prunetwork.network;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Louati
  * @author Jean-Pierre PRUNARET
  */
 public final class FakeTcpClient implements TcpClient {
 
+    @NotNull
     private final String hostname;
     private final int portNumber;
 
-    FakeTcpClient(String hostname, int portNumber) throws Exception {
-        if (hostname == null
-                || hostname.isEmpty()) {
+    FakeTcpClient(@NotNull final String hostname, int portNumber) throws Exception {
+        if (hostname.isEmpty()) {
             throw new IllegalArgumentException("Hostname shouldn't be empty");
         }
         if (portNumber < 1024
@@ -33,6 +35,7 @@ public final class FakeTcpClient implements TcpClient {
     }
 
     @Override
+    @NotNull
     public Character receiveFromServer() throws Exception {
         try {
             Thread.sleep(60 * 1000);
@@ -44,12 +47,14 @@ public final class FakeTcpClient implements TcpClient {
     }
 
     @Override
+    @NotNull
     public String getHostname() {
         return hostname;
     }
 
     @Override
-    public int getPort() {
+    @NotNull
+    public Integer getPort() {
         return portNumber;
     }
 }

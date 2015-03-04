@@ -1,7 +1,9 @@
 package fr.prunetwork.network;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -14,18 +16,22 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public final class TcpClientImpl implements TcpClient {
 
+    @NotNull
     private static final AtomicInteger count = new AtomicInteger(0);
+    @NotNull
     private final String hostname;
     private final int port;
-    private Socket socket;
+    @NotNull
+    private final Socket socket = new Socket();
+    @Nullable
     private BufferedReader entree;
+    @Nullable
     private PrintWriter sortie;
     private boolean isConnected = false;
 
-    TcpClientImpl(String hostname, int portNumber) throws Exception {
+    TcpClientImpl(@NotNull final String hostname, int portNumber) throws Exception {
         count.incrementAndGet();
-        if (hostname == null
-                || hostname.isEmpty()) {
+        if (hostname.isEmpty()) {
             throw new IllegalArgumentException("Hostname shouldn't be empty");
         }
         if (portNumber < 1024
@@ -45,7 +51,6 @@ public final class TcpClientImpl implements TcpClient {
 //        assert socket == null;
 
         if (!isConnected) {
-            socket = new Socket();
             socket.connect(new InetSocketAddress(hostname, port), 1 * 1000);
             entree = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             sortie = new PrintWriter(socket.getOutputStream());
@@ -61,33 +66,44 @@ public final class TcpClientImpl implements TcpClient {
     public void disconnect() throws Exception {
         final String ASSERT_CONNECTED = "Should be connected first";
         assert isConnected : ASSERT_CONNECTED;
-        assert socket != null && socket.isConnected() : ASSERT_CONNECTED;
+        assert socket.isConnected() : ASSERT_CONNECTED;
 
         isConnected = false;
 
-        if (sortie != null) {
-            sortie.close();
+        try {
+            if (sortie != null) {
+                sortie.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         try {
-            if (socket != null) {
-                socket.close();
-            }
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
             if (entree != null) {
                 entree.close();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         assert !isConnected : ASSERT_CONNECTED;
-        assert socket != null && socket.isConnected() : ASSERT_CONNECTED;
+        assert socket.isConnected() : ASSERT_CONNECTED;
     }
 
+    @NotNull
     @Override
     public Character receiveFromServer() throws Exception {
         final Character reference;
+
+        if (entree == null) {
+            throw new IllegalStateException("read buffer not defined");
+        }
         try {
             reference = (char) entree.read();
 //            reference = entree.readLine();
@@ -108,13 +124,14 @@ public final class TcpClientImpl implements TcpClient {
         return reference;
     }
 
+    @NotNull
     @Override
     public String getHostname() {
         return hostname;
     }
 
     @Override
-    public int getPort() {
+    public Integer getPort() {
         return port;
     }
 }

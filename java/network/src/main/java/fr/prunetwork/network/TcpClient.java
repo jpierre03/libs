@@ -1,5 +1,7 @@
 package fr.prunetwork.network;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Jean-Pierre PRUNARET
  */
@@ -9,9 +11,12 @@ public interface TcpClient {
 
     void disconnect() throws Exception;
 
+    @NotNull
     Character receiveFromServer() throws Exception;
 
+    @NotNull
     public String getHostname();
 
-    int getPort();
+    @NotNull
+    Integer getPort();
 }
