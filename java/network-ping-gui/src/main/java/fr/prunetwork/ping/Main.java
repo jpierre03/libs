@@ -32,9 +32,21 @@ public class Main {
 
     static {
         LABELS.put("www.google.com", "Le classique Google");
+        LABELS.put("172.16.201.1", "Serveur Video");
         LABELS.put("172.16.201.11", "Internet Access");
+        LABELS.put("172.16.201.20", "Camera");
+        LABELS.put("172.16.201.21", "Camera");
+        LABELS.put("172.16.201.22", "Camera");
+        LABELS.put("172.16.201.23", "Camera");
+        LABELS.put("172.16.201.24", "Camera");
+        LABELS.put("172.16.201.25", "Camera");
+        LABELS.put("172.16.201.26", "Camera");
+        LABELS.put("172.16.201.31", "Copieur Etage Antalios");
+        LABELS.put("172.16.201.33", "TELEM Imprimante à Picot");
+        LABELS.put("172.16.201.86", "TELEM Imprimante Couleur");
         LABELS.put("172.16.201.148", "OSN 1");
-        LABELS.put("172.16.201.197", "IAO / OSN 2");
+        LABELS.put("172.16.201.196", "IAO bureau Thamer");
+        LABELS.put("172.16.201.197", "IAO bureau JPP");
         LABELS.put("172.16.201.201", "Palpatine");
         LABELS.put("bc.antalios.com", "Serveur Application");
     }
@@ -77,10 +89,26 @@ public class Main {
             hostnames.addAll(Arrays.asList(args));
         } else {
             hostnames.addAll(Arrays.asList(
-                    "172.16.201.148",
+                    "172.16.201.1",
+                    "172.16.201.11",
+                    "172.16.201.20",
+                    "172.16.201.21",
+                    "172.16.201.22",
+                    "172.16.201.23",
+                    "172.16.201.24",
+                    "172.16.201.25",
+                    "172.16.201.26",
+                    "172.16.201.30",
+                    "172.16.201.31",
+                    "172.16.201.32",
+                    "172.16.201.33",
+                    "172.16.201.40",
+                    "172.16.201.50",
+                    "172.16.201.86",
+                    /*"172.16.201.148",*/
+                    "172.16.201.196",
                     "172.16.201.197",
                     "172.16.201.201",
-                    "172.16.201.11",
                     "www.google.com",
                     "bc.antalios.com"
             ));
