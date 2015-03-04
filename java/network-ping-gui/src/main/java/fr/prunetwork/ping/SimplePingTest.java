@@ -1,5 +1,7 @@
 package fr.prunetwork.ping;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Jean-Pierre PRUNARET
  * @since 19/04/2014
@@ -10,9 +12,9 @@ public class SimplePingTest {
     }
 
     public static void main(String... args) {
-        final LongTaskListenerImpl listener = new LongTaskListenerImpl();
+        @NotNull final LongTaskListenerImpl listener = new LongTaskListenerImpl();
 
-        String google = "www.google.com";
+        final String google = "www.google.com";
         final String localhost = "localhost";
         final String localhostIP = "127.0.0.1";
         final String unreachable = "255.255.255.255";
@@ -25,9 +27,10 @@ public class SimplePingTest {
 
     static class SimpleStatusHookImpl implements StatusHook {
 
+        @NotNull
         private final String hostname;
 
-        SimpleStatusHookImpl(String hostname) {
+        SimpleStatusHookImpl(@NotNull final String hostname) {
             this.hostname = hostname;
         }
 

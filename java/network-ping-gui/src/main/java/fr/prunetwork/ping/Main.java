@@ -1,8 +1,9 @@
 package fr.prunetwork.ping;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,12 +16,18 @@ import java.util.concurrent.Executors;
  */
 public class Main {
 
+    @NotNull
     private static final Map<String, String> RUNNING_TASKS = new ConcurrentHashMap<>();
+    @NotNull
     private static final Map<String, String> LABELS = new TreeMap<>();
+    @NotNull
     private static Executor EXECUTOR_SERVICE = Executors.newFixedThreadPool(10);
     private final int relativeValue;
+    @NotNull
     private final Timer timer = new Timer("timer", true);
+    @NotNull
     private final JPanel panel = new JPanel();
+    @NotNull
     private final Map<String, StatusPanel> statusPanels = new TreeMap<>();
 
     static {
@@ -32,7 +39,7 @@ public class Main {
         LABELS.put("bc.antalios.com", "Serveur Application");
     }
 
-    private Main(Collection<String> hostnames) {
+    private Main(@NotNull final Collection<String> hostnames) {
 
         final int matrixSize = (int) Math.sqrt(hostnames.size()) + 1;
         relativeValue = Math.min(matrixSize, 10);
@@ -51,7 +58,7 @@ public class Main {
 
             @Override
             public void run() {
-                JFrame frame = new JFrame("Status");
+                @NotNull JFrame frame = new JFrame("Status");
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
                 frame.add(panel);
@@ -63,8 +70,8 @@ public class Main {
         });
     }
 
-    public static void main(String... args) {
-        Collection<String> hostnames = new ArrayList<>();
+    public static void main(@NotNull String... args) {
+        @NotNull Collection<String> hostnames = new ArrayList<>();
 
         if (args.length >= 1) {
             hostnames.addAll(Arrays.asList(args));
@@ -89,54 +96,37 @@ public class Main {
     }
 
     private void buildGuiPanel(final String hostname) {
-        final String HTML = "<html>";
-        final String HTML_END = "</html>";
-        final String CENTER = "<center>";
-        final String CENTER_END = "</center>";
-        final String BOLD = "<bold>";
-        final String BOLD_END = "</bold>";
+        @NotNull final String HTML = "<html>";
+        @NotNull final String HTML_END = "</html>";
+        @NotNull final String CENTER = "<center>";
+        @NotNull final String CENTER_END = "</center>";
+        @NotNull final String BOLD = "<bold>";
+        @NotNull final String BOLD_END = "</bold>";
 
         if (!statusPanels.containsKey(hostname)) {
             try {
-                SwingUtilities.invokeAndWait(new Runnable() {
+                SwingUtilities.invokeAndWait(() -> {
 
-                    @Override
-                    public void run() {
+                    @NotNull final StatusPanel statusPanel = new StatusPanel();
+                    statusPanel.setToolTipText(hostname);
+                    statusPanel.setHostname(HTML + CENTER + BOLD + hostname + BOLD_END + CENTER_END + HTML_END);
 
-                        final StatusPanel statusPanel = new StatusPanel();
-                        statusPanel.setToolTipText(hostname);
-                        statusPanel.setHostname(HTML + CENTER + BOLD + hostname + BOLD_END + CENTER_END + HTML_END);
-
-                        final String label = LABELS.get(hostname);
-                        if (label != null) {
-                            statusPanel.setLabel(HTML + label + HTML_END);
-                        }
-
-                        statusPanels.put(hostname, statusPanel);
-
-                        panel.add(hostname, statusPanel);
+                    final String label = LABELS.get(hostname);
+                    if (label != null) {
+                        statusPanel.setLabel(HTML + label + HTML_END);
                     }
+
+                    statusPanels.put(hostname, statusPanel);
+
+                    panel.add(hostname, statusPanel);
                 });
-            } catch (InterruptedException | InvocationTargetException e) {
+            } catch (@NotNull Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void buildScheduledTask(final String hostname) {
-/*
-        timer.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                final StatusPanel statusPanel = statusPanels.get(hostname);
-
-                EXECUTOR_SERVICE.execute(new SimplePing(hostname, statusPanel, statusPanel));
-            }
-        },
-                1 * 1000,
-                4 * 1000);
-        */
+    private void buildScheduledTask(@NotNull final String hostname) {
 
         timer.scheduleAtFixedRate(
                 new TimerTask() {
@@ -146,7 +136,6 @@ public class Main {
                         final StatusPanel statusPanel = statusPanels.get(hostname);
                         final boolean isTaskRunning = RUNNING_TASKS.get(hostname) == null;
 
-                        //EXECUTOR_SERVICE.execute(new SimplePing(hostname, new SimpleStatusHookImpl(hostname), new LongTaskListenerImpl()));
                         if (isTaskRunning) {
                             EXECUTOR_SERVICE.execute(
                                     new SimplePing(
@@ -154,7 +143,10 @@ public class Main {
                                             statusPanel,
                                             new ListenerWrapper(
                                                     statusPanel,
-                                                    statusPanel)));
+                                                    statusPanel
+                                            )
+                                    )
+                            );
                         }
                     }
                 },

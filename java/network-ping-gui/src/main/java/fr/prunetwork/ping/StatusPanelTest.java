@@ -1,5 +1,7 @@
 package fr.prunetwork.ping;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 
 /**
@@ -17,18 +19,14 @@ public final class StatusPanelTest {
         statusPanel.setHostname("<hostname>");
         statusPanel.setLabel("Équipement en test");
 
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            @NotNull JFrame frame = new JFrame("Status");
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-            @Override
-            public void run() {
-                JFrame frame = new JFrame("Status");
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                frame.add(statusPanel);
-                frame.pack();
-                frame.setSize(400, 200);
-                frame.setVisible(true);
-            }
+            frame.add(statusPanel);
+            frame.pack();
+            frame.setSize(400, 200);
+            frame.setVisible(true);
         });
 
         boolean status = true;

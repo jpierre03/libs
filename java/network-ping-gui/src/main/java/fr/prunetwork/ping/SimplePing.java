@@ -1,5 +1,7 @@
 package fr.prunetwork.ping;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.net.InetAddress;
 
@@ -10,19 +12,24 @@ import java.net.InetAddress;
 public final class SimplePing
         implements Runnable {
 
+    @NotNull
     private final String hostname;
+    @NotNull
     private final StatusHook hooks;
+    @NotNull
     private final LongTaskListener taskListener;
     private final boolean DEBUG = false;
 
-    public SimplePing(String hostname, StatusHook hooks, LongTaskListener taskListener) {
+    public SimplePing(@NotNull final String hostname,
+                      @NotNull final StatusHook hooks,
+                      @NotNull final LongTaskListener taskListener) {
         this.hostname = hostname;
         this.hooks = hooks;
         this.taskListener = taskListener;
 
-        assert (hostname != null) && !hostname.trim().isEmpty();
-        assert hooks != null;
-        assert taskListener != null;
+        if (hostname.trim().isEmpty()) {
+            throw new AssertionError();
+        }
     }
 
     @Override
@@ -41,7 +48,7 @@ public final class SimplePing
      * A typical implementation will use ICMP ECHO REQUESTs if the
      * privilege can be obtained, otherwise it will try to establish
      * a TCP connection on port 7 (Echo) of the destination host.
-     * <p/>
+     * <p>
      * The timeout value, in milliseconds, indicates the maximum amount of time
      * the try should take. If the operation times out before getting an
      * answer, the host is deemed unreachable. A negative value will result
@@ -50,7 +57,7 @@ public final class SimplePing
      * @param timeout the time, in milliseconds, before the call aborts
      * @return a <code>boolean</code> indicating if the address is reachable.
      */
-    public boolean pingHostByJavaClass(String host, int timeout) {
+    public boolean pingHostByJavaClass(@NotNull final String host, int timeout) {
         boolean isreachable = false;
 
         try {
@@ -66,9 +73,10 @@ public final class SimplePing
         return isreachable;
     }
 
-    public boolean pingHostByCommand(String host) {
-        assert host != null : "no hostname defined";
-        assert !host.trim().isEmpty() : "hostname empty";
+    public boolean pingHostByCommand(@NotNull final String host) {
+        if (host.trim().isEmpty()) {
+            throw new AssertionError("hostname empty");
+        }
         boolean isReachable = false;
 
         try {
@@ -87,10 +95,12 @@ public final class SimplePing
         return isReachable;
     }
 
-    private String buildCommand(String host) {
-        assert host != null : "no hostname defined";
-        assert !host.trim().isEmpty() : "hostname empty";
-        String command = "";
+    @NotNull
+    private String buildCommand(@NotNull String host) {
+        if (host.trim().isEmpty()) {
+            throw new AssertionError("hostname empty");
+        }
+        final String command;
 
         final String operatingSystemName = System.getProperty("os.name");
         final boolean isRunningOnWindows = operatingSystemName.startsWith("Windows");
@@ -99,13 +109,9 @@ public final class SimplePing
         /** Build command line, with system specific commands */
         if (isRunningOnWindows) {
             command = "ping -n 1 " + host;
-        }
-        if (isRunningOnMac) {
+        } else if (isRunningOnMac) {
             command = "ping -t 2 -c 1 " + host;
-            //command = "ping -c 1 " + host;
-        }
-        if (!isRunningOnWindows
-                && !isRunningOnMac) {
+        } else {
             command = "ping -c 1 " + host;
         }
 

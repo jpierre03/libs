@@ -1,5 +1,7 @@
 package fr.prunetwork.ping;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,16 +12,19 @@ import java.awt.*;
 public class StatusPanel extends JPanel
         implements StatusHook, WithHostname, WithLabel, LongTaskListener {
 
+    @NotNull
     private final JPanel center = new JPanel();
     private boolean status = false;
+    @NotNull
     private final JLabel hostname = new JLabel();
+    @NotNull
     private final JLabel label = new JLabel();
     private boolean isWorking = true;
 
     public StatusPanel() {
         setLayout(new BorderLayout());
 
-        final JPanel north = new JPanel();
+        @NotNull final JPanel north = new JPanel();
         north.setLayout(new GridLayout(1, 2));
         north.add(this.hostname);
         north.add(label);
@@ -36,42 +41,42 @@ public class StatusPanel extends JPanel
     }
 
     private void updateColor() {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                if (isWorking) {
-                    center.setBackground(Color.CYAN);
-                }
-
-                if (!isWorking && status) {
-                    center.setBackground(Color.GREEN);
-                }
-                if (!isWorking && !status) {
-                    center.setBackground(Color.RED);
-                }
-
-                repaint();
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            if (isWorking) {
+                center.setBackground(Color.CYAN);
             }
+
+            if (!isWorking && status) {
+                center.setBackground(Color.GREEN);
+            }
+            if (!isWorking && !status) {
+                center.setBackground(Color.RED);
+            }
+
+            repaint();
         });
     }
 
     @Override
+    @NotNull
     public String getHostname() {
         return hostname.getText();
     }
 
     @Override
+    @NotNull
     public void setHostname(String hostname) {
         this.hostname.setText(hostname);
     }
 
     @Override
+    @NotNull
     public void setLabel(String label) {
         this.label.setText(label);
     }
 
     @Override
+    @NotNull
     public void setWorking(boolean isWorking) {
         this.isWorking = isWorking;
 
