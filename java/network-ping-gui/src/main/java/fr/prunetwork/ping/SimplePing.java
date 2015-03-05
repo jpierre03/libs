@@ -35,7 +35,16 @@ public final class SimplePing
     @Override
     public void run() {
         taskListener.setWorking(true);
-        final boolean result = pingHostByCommand(hostname);
+
+        final boolean result;
+        final boolean resultJava = pingHostByJavaClass(hostname);
+
+        if (resultJava) {
+            result = true;
+        } else {
+            result = pingHostByCommand(hostname);
+        }
+
         hooks.setStatus(result);
         taskListener.setWorking(false);
     }
@@ -57,20 +66,24 @@ public final class SimplePing
      * @param timeout the time, in milliseconds, before the call aborts
      * @return a <code>boolean</code> indicating if the address is reachable.
      */
-    public boolean pingHostByJavaClass(@NotNull final String host, int timeout) {
+    public boolean pingHostByJavaClass(@NotNull final String hostname, int timeout) {
         boolean isreachable = false;
 
         try {
-            isreachable = InetAddress.getByName(host).isReachable(timeout);
+            isreachable = InetAddress.getByName(hostname).isReachable(timeout);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
         if (DEBUG) {
             final String reachabilityStatus = isreachable ? "" : "not ";
-            System.out.println("host: " + host + " is " + reachabilityStatus + "reachable");
+            System.out.println("host: " + hostname + " is " + reachabilityStatus + "reachable");
         }
         return isreachable;
+    }
+
+    public boolean pingHostByJavaClass(@NotNull final String hostname) {
+        return pingHostByJavaClass(hostname, 3 * 1000);
     }
 
     public boolean pingHostByCommand(@NotNull final String host) {

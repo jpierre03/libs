@@ -138,6 +138,8 @@ public class PingGuiMain {
                     "172.16.201.31",
                     "172.16.201.50",
                     "172.16.201.86",
+
+                    "172.16.201.201",
                     "www.google.com",
                     "bc.antalios.com"
             ));
