@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
  * @author Jean-Pierre PRUNARET
  * @since 19/04/2014
  */
-public class Main {
+public class PingGuiMain {
 
     @NotNull
     private static final Map<String, String> RUNNING_TASKS = new ConcurrentHashMap<>();
@@ -85,7 +85,7 @@ public class Main {
         LABELS.put("bc.antalios.com", "Serveur Application");
     }
 
-    private Main(@NotNull final Collection<String> hostnames) {
+    private PingGuiMain(@NotNull final Collection<String> hostnames) {
 
         final int matrixSize = (int) Math.sqrt(hostnames.size()) + 1;
         relativeValue = Math.min(matrixSize, 10);
@@ -154,7 +154,7 @@ public class Main {
             hostnames.addAll(map.values());
         }
 
-        new Main(hostnames);
+        new PingGuiMain(hostnames);
 
 //        try {
 //            Thread.sleep(30 * 1000);
