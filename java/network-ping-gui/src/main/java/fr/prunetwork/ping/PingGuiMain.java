@@ -59,24 +59,24 @@ public class PingGuiMain {
         LABELS.put("172.16.201.24", "Camera");
         LABELS.put("172.16.201.25", "Camera");
         LABELS.put("172.16.201.26", "Camera");
-        LABELS.put("172.16.201.31", "Antalios Copieur Etage");
-        LABELS.put("172.16.201.86", "Antalios Imprimante Couleur");
+        LABELS.put("172.16.201.31", "Anta Copieur Etage");
+        LABELS.put("172.16.201.86", "Anta Imprimante Couleur");
 
         LABELS.put("172.16.201.101", "TELEM Imprimante Couleur");
         LABELS.put("172.16.201.101", "TELEM Imprimante à Picot");
         LABELS.put("172.16.201.110", "TELEM Sophie 1");
         LABELS.put("172.16.201.111", "TELEM Sophie 2");
 
-        LABELS.put("172.16.201.130", "Antalios jpierre-dl");
-        LABELS.put("172.16.201.131", "Antalios matthieu");
-        LABELS.put("172.16.201.132", "Antalios benjamin");
-        LABELS.put("172.16.201.133", "Antalios fanny 1");
-        LABELS.put("172.16.201.134", "Antalios fanny 2");
-        LABELS.put("172.16.201.135", "Antalios thamer");
-        LABELS.put("172.16.201.136", "Antalios christophe 1");
-        LABELS.put("172.16.201.137", "Antalios christophe 2");
-        LABELS.put("172.16.201.138", "Antalios patrick 1");
-        LABELS.put("172.16.201.139", "Antalios patrick 2");
+        LABELS.put("172.16.201.130", "Anta jpierre-dl");
+        LABELS.put("172.16.201.131", "Anta matthieu");
+        LABELS.put("172.16.201.132", "Anta benjamin");
+        LABELS.put("172.16.201.133", "Anta fanny 1");
+        LABELS.put("172.16.201.134", "Anta fanny 2");
+        LABELS.put("172.16.201.135", "Anta thamer");
+        LABELS.put("172.16.201.136", "Anta christophe - pavillon");
+        LABELS.put("172.16.201.137", "Anta christophe - onet");
+        LABELS.put("172.16.201.138", "Anta patrick 1");
+        LABELS.put("172.16.201.139", "Anta patrick 2");
 
         LABELS.put("172.16.201.148", "OSN 1");
         LABELS.put("172.16.201.196", "IAO bureau Thamer");
