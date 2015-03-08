@@ -10,30 +10,39 @@ settings = Settings.new
 
 # Create amqp link.
 class AmqpForwarder
-  def initialize(remote_amqp_hostname="bc.antalios.com", remote_amqp_topic="tmp")
+  def initialize(secondary_amqp_hostname = "bc.antalios.com",
+                 secondary_amqp_topic = "tmp",
+                 secondary_amqp_username = "jpierre03",
+                 secondary_amqp_password = "toto")
     conn = Bunny.new(:automatically_recover => false,
-                     :hostname => remote_amqp_hostname,
-                     :username => "jpierre03", :password => "toto")
+                     :hostname => secondary_amqp_hostname,
+                     :username => secondary_amqp_username,
+                     :password => secondary_amqp_password)
     conn.start
 
     ch = conn.create_channel
-    x = ch.topic(remote_amqp_topic)
+    x = ch.topic(secondary_amqp_topic)
   end
 
-  # Send mail : http://stackoverflow.com/a/5994727
-  def publish(headers="", msg ="")
-    #puts "#{msg} => routing_key:#{headers.routing_key}"
-    puts "#{msg}"
+  def publish(headers="",
+              msg ="")
+    puts "#{msg} => routing_key:#{headers.routing_key}"
+    #puts "#{msg}"
 
-    settings=Settings.new
+    settings = Settings.new
 
     x.publish(msg)
   end
 end
 
 EventMachine.run {
+  primary_amqp_hostname = "172.16.201.201"
+  primary_amqp_username = "jpierre03"
+  primary_amqp_password = "toto"
   #AMQP.start(settings.amqp_url) do |connection|
-  AMQP.start(:host => "172.16.201.201", :username => "jpierre03", :password => "toto") do |connection|
+  AMQP.start(:host => primary_amqp_hostname,
+             :username => primary_amqp_username,
+             :password => primary_amqp_password) do |connection|
     channel = AMQP::Channel.new(connection)
     #exchange = channel.fanout("tmpex", :auto_delete => false)
     #exchange = channel.topic(settings.amqp_exchange_name, :auto_delete => false)
