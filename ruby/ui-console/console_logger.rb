@@ -14,7 +14,7 @@ class ConsoleLogger
 end
 
 EventMachine.run {
-  settings=Settings.new
+  settings = Settings.new
   AMQP.start(settings.amqp_url) do |connection|
     channel = AMQP::Channel.new(connection)
     #exchange = channel.fanout("tmpex", :auto_delete => false)
