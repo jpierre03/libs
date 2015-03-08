@@ -6,17 +6,18 @@ require "bunny"
 require "eventmachine"
 load 'settings.rb'
 
+settings = Settings.new
 
-settings=Settings.new
-
+# Create amqp link.
 class AmqpForwarder
   def initialize(remote_amqp_hostname="bc.antalios.com", remote_amqp_topic="tmp")
-      conn = Bunny.new(:automatically_recover => false,
-                       :hostname => remote_amqp_hostname, :username => "jpierre03", :password => "toto")
-      conn.start
-      
-      ch = conn.create_channel
-      x = ch.topic(remote_amqp_topic)
+    conn = Bunny.new(:automatically_recover => false,
+                     :hostname => remote_amqp_hostname,
+                     :username => "jpierre03", :password => "toto")
+    conn.start
+
+    ch = conn.create_channel
+    x = ch.topic(remote_amqp_topic)
   end
 
   # Send mail : http://stackoverflow.com/a/5994727
@@ -31,12 +32,12 @@ class AmqpForwarder
 end
 
 EventMachine.run {
-    #AMQP.start(settings.amqp_url) do |connection|
-    AMQP.start(:host => "172.16.201.201", :username => "jpierre03", :password => "toto") do |connection|
+  #AMQP.start(settings.amqp_url) do |connection|
+  AMQP.start(:host => "172.16.201.201", :username => "jpierre03", :password => "toto") do |connection|
     channel = AMQP::Channel.new(connection)
     #exchange = channel.fanout("tmpex", :auto_delete => false)
     #exchange = channel.topic(settings.amqp_exchange_name, :auto_delete => false)
-    
+
     exchange = channel.topic("ae.ela.v1", :auto_delete => false)
 
     logger = AmqpForwarder.new
