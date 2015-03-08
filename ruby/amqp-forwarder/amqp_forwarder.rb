@@ -39,7 +39,8 @@ EventMachine.run {
   primary_amqp_hostname = "172.16.201.201"
   primary_amqp_username = "jpierre03"
   primary_amqp_password = "toto"
-  #AMQP.start(settings.amqp_url) do |connection|
+  primary_amqp_topic = "ae.ela.v1"
+
   AMQP.start(:host => primary_amqp_hostname,
              :username => primary_amqp_username,
              :password => primary_amqp_password) do |connection|
@@ -47,13 +48,14 @@ EventMachine.run {
     #exchange = channel.fanout("tmpex", :auto_delete => false)
     #exchange = channel.topic(settings.amqp_exchange_name, :auto_delete => false)
 
-    exchange = channel.topic("ae.ela.v1", :auto_delete => false)
+    exchange = channel.topic(primary_amqp_topic,
+                             :auto_delete => false)
 
-    logger = AmqpForwarder.new
+    forwarder = AmqpForwarder.new
 
     #:durable => true
     channel.queue("", :auto_delete => true).bind(exchange, :routing_key => "#").subscribe do |headers, payload|
-      logger.publish(headers, payload)
+      forwarder.publish(headers, payload)
     end
 
 

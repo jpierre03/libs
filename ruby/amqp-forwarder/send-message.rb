@@ -8,7 +8,8 @@ load 'settings.rb'
 
 settings=Settings.new
 
-conn = Bunny.new(:automatically_recover => false, :hostname => "localhost")
+conn = Bunny.new(:automatically_recover => false,
+                 :hostname => "localhost")
 conn.start
 
 ch   = conn.create_channel
