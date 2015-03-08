@@ -6,12 +6,14 @@ import org.jetbrains.annotations.NotNull;
  * This interface defines a generic object that receive data through AMQP.
  *
  * @author Jean-Pierre PRUNARET
- *         Created on 08/09/14.
+ * @since 2014-09-08
  */
 public interface AmqpReceiver<T extends AmqpReceivedMessage> {
 
     /**
      * Define settings to use AMQP broker and connect
+     * <p>
+     * This method must be called right after object construction.
      *
      * @throws Exception
      */

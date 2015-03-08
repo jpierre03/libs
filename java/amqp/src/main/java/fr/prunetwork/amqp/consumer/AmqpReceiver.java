@@ -28,34 +28,34 @@ public class AmqpReceiver {
     private final MessageConsumer externalConsumer;
     private QueueingConsumer consumer;
 
-    public AmqpReceiver(@NotNull URI uri,
-                        @NotNull String topic,
-                        @NotNull Collection<String> bindingKeys,
-                        @NotNull MessageConsumer consumer) {
+    public AmqpReceiver(@NotNull final URI uri,
+                        @NotNull final String topic,
+                        @NotNull final Collection<String> bindingKeys,
+                        @NotNull final MessageConsumer consumer) {
         this.uri = uri;
         this.topicName = topic;
         this.externalConsumer = consumer;
         this.bindingKeys = new ArrayList<>(bindingKeys);
     }
 
-    public AmqpReceiver(@NotNull String uri,
-                        @NotNull String topic,
-                        @NotNull Collection<String> bindingKeys,
-                        @NotNull MessageConsumer consumer) throws URISyntaxException {
+    public AmqpReceiver(@NotNull final String uri,
+                        @NotNull final String topic,
+                        @NotNull final Collection<String> bindingKeys,
+                        @NotNull final MessageConsumer consumer) throws URISyntaxException {
 
         this(new URI(uri), topic, bindingKeys, consumer);
     }
 
     public void configure() throws Exception {
-        @NotNull ConnectionFactory factory = new ConnectionFactory();
+        @NotNull final ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+        final Connection connection = factory.newConnection();
+        final Channel channel = connection.createChannel();
 
         channel.exchangeDeclare(topicName, ExchangeType.topic.name());
         String queueName = channel.queueDeclare().getQueue();
 
-        for (String bindingKey : bindingKeys) {
+        for (final String bindingKey : bindingKeys) {
             channel.queueBind(queueName, topicName, bindingKey);
         }
 

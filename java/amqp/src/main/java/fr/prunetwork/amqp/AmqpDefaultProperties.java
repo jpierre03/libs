@@ -6,8 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Provide default properties used by AMQP module.
+ *
  * @author Jean-Pierre PRUNARET
- * @since 11/12/14
+ * @since 2014-12-11
  */
 public class AmqpDefaultProperties {
 

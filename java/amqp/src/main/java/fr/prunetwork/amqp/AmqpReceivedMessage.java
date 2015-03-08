@@ -9,7 +9,7 @@ import java.util.Date;
  * A generic message exchanged with AMQP.
  *
  * @author Jean-Pierre PRUNARET
- * @since 28/08/2014
+ * @since 2014-08-28
  */
 public interface AmqpReceivedMessage extends Serializable {
 
