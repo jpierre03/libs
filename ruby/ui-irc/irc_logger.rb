@@ -8,11 +8,15 @@ load 'settings.rb'
 
 puts "step 0"
 
+# A simple AMQP to IRC-channel software.
+#
+# One way only.
+# No plan to implement more functionality by now.
 class IrcLogger
 
   def initialize(bot)
     @bot = bot
-    settings=Settings.new
+    settings = Settings.new
 
     EventMachine.run {
       AMQP.start(settings.amqp_url) do |connection|
@@ -39,6 +43,7 @@ class IrcLogger
   end
 end
 
+# Listen AMQP channel
 class RailsMonitor
   def initialize(bot)
     @bot = bot
@@ -60,6 +65,7 @@ class RailsMonitor
   end
 end
 
+# Implement IRC Join method
 class JoinPart
   include Cinch::Plugin
 
@@ -88,6 +94,7 @@ class JoinPart
   end
 end
 
+# Implements IRC gateway
 class MonitorBot
   include Cinch::Plugin
 
@@ -95,22 +102,25 @@ class MonitorBot
 
   def listen(m, msg)
     settings=Settings.new
+    channel_test = settings.channel_test
+    channel_warning = settings.channel_warning
+    channel_info = settings.channel_info
 
     if msg.include? "[WARN]"
-      Channel(settings.channel_test).send Format(:red, "#{msg}")
-      Channel(settings.channel_warning).send Format(:red, "#{msg}")
+      Channel(channel_test).send Format(:red, "#{msg}")
+      Channel(channel_warning).send Format(:red, "#{msg}")
     elsif msg.include? "[OK]"
-      Channel(settings.channel_test).send Format(:green, "#{msg}")
-      Channel(settings.channel_info).send Format(:green, "#{msg}")
+      Channel(channel_test).send Format(:green, "#{msg}")
+      Channel(channel_info).send Format(:green, "#{msg}")
     elsif msg.include? "[WWW]"
-      Channel(settings.channel_test).send Format(:purple, "#{msg}")
-      Channel(settings.channel_info).send Format(:purple, "#{msg}")
+      Channel(channel_test).send Format(:purple, "#{msg}")
+      Channel(channel_info).send Format(:purple, "#{msg}")
     elsif msg.include? "[VCS]"
-      Channel(settings.channel_test).send Format(:purple, "#{msg}")
-      Channel(settings.channel_info).send Format(:purple, "#{msg}")
+      Channel(channel_test).send Format(:purple, "#{msg}")
+      Channel(channel_info).send Format(:purple, "#{msg}")
     else
-      Channel(settings.channel_test).send "#{msg}"
-      Channel(settings.channel_info).send "#{msg}"
+      Channel(channel_test).send "#{msg}"
+      Channel(channel_info).send "#{msg}"
     end
   end
 end
@@ -131,6 +141,8 @@ bot = Cinch::Bot.new do
   end
 end
 
-Thread.new { IrcLogger.new(bot).start }
+Thread.new do
+  IrcLogger.new(bot).start
+end
 
 bot.start
