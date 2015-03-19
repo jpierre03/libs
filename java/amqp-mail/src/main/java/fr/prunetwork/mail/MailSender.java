@@ -24,7 +24,9 @@ public class MailSender {
     private final Session session;
     //private ExecutorService executor = Executors.newFixedThreadPool(1);
 
-    public MailSender(@NotNull final String serverHostname, final boolean isDebug, @Nullable final Authenticator authenticator) {
+    public MailSender(@NotNull final String serverHostname,
+                      @Nullable final Authenticator authenticator,
+                      final boolean isDebug) {
         @NotNull final Properties prop = System.getProperties();
         prop.put("mail.smtp.host", serverHostname);
 
@@ -32,8 +34,8 @@ public class MailSender {
         session.setDebug(isDebug);
     }
 
-    public MailSender(@NotNull final String serverHostname, final boolean isDebug){
-        this(serverHostname, isDebug, null);
+    public MailSender(@NotNull final String serverHostname, final boolean isDebug) {
+        this(serverHostname, null, isDebug);
     }
 
     public void send(@NotNull final Mail mail) throws Exception {
