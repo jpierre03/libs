@@ -1,13 +1,13 @@
 package fr.prunetwork.amqp.receiver;
 
 import com.rabbitmq.client.QueueingConsumer;
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.JsonMessage;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
 
 /**
@@ -30,8 +30,12 @@ public final class JsonAmqpReceiver
                             @NotNull final String topic,
                             @NotNull final Collection<String> bindingKeys,
                             @NotNull final ExchangeType exchangeType,
-                            final boolean isDurable) throws URISyntaxException {
+                            final boolean isDurable) throws Exception {
         this(new URI(uri), topic, bindingKeys, exchangeType, isDurable);
+    }
+
+    public JsonAmqpReceiver(@NotNull final AmqpConfiguration amqpConfiguration) throws Exception {
+        super(amqpConfiguration);
     }
 
     @NotNull

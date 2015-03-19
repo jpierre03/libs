@@ -4,6 +4,7 @@ package fr.prunetwork.amqp.producer;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.ExchangeType;
 import org.jetbrains.annotations.NotNull;
 
@@ -61,6 +62,10 @@ public final class AmqpProducer {
             channel.queueDeclare(routingKey, false, true, true, null);
         } else {
         }
+    }
+
+    public AmqpProducer(@NotNull final  AmqpConfiguration configuration) throws Exception {
+        this(configuration.getUri(), configuration.getExchange(), "", configuration.getExchangeType(), configuration.isDurable());
     }
 
     /**

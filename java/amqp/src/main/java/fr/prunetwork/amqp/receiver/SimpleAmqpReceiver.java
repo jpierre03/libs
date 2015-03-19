@@ -1,13 +1,12 @@
 package fr.prunetwork.amqp.receiver;
 
 import com.rabbitmq.client.QueueingConsumer;
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.SimpleMessage;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Collection;
 
 /**
@@ -18,20 +17,16 @@ public final class SimpleAmqpReceiver
         extends AbstractAmqpReceiver<SimpleMessage>
         implements AmqpReceiver<SimpleMessage> {
 
-    public SimpleAmqpReceiver(@NotNull final URI uri,
-                              @NotNull final String topic,
-                              @NotNull final Collection<String> bindingKeys,
-                              @NotNull final ExchangeType exchangeType,
-                              final boolean isDurable) {
-        super(uri, topic, bindingKeys, exchangeType, isDurable);
+    public SimpleAmqpReceiver(@NotNull final AmqpConfiguration configuration) throws Exception {
+        super(configuration);
     }
 
     public SimpleAmqpReceiver(@NotNull final String uri,
                               @NotNull final String topic,
                               @NotNull final Collection<String> bindingKeys,
                               @NotNull final ExchangeType exchangeType,
-                              final boolean isDurable) throws URISyntaxException {
-        this(new URI(uri), topic, bindingKeys, exchangeType, isDurable);
+                              final boolean isDurable) throws Exception {
+        super(uri, topic, bindingKeys, exchangeType, isDurable);
     }
 
     @NotNull

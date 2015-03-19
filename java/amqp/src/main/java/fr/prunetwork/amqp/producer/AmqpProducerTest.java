@@ -1,9 +1,8 @@
 package fr.prunetwork.amqp.producer;
 
-import fr.prunetwork.amqp.ExchangeType;
 import org.jetbrains.annotations.NotNull;
 
-import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
+import static fr.prunetwork.amqp.AmqpDefaultProperties.AMQP_CONFIGURATION;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -17,7 +16,7 @@ public class AmqpProducerTest {
     public static void main(String[] args) {
 
         try {
-            @NotNull final AmqpProducer producer = new AmqpProducer(URI, EXCHANGE, ROUTING_KEY, ExchangeType.topic, false);
+            @NotNull final AmqpProducer producer = new AmqpProducer(AMQP_CONFIGURATION);
 
             for (int i = 0; i < 1000 * 1000; i++) {
                 if (i % (1 * 1000) == 0) {
