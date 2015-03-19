@@ -60,10 +60,12 @@ public class PingGuiMain {
         LABELS.put("172.16.201.25", "Camera");
         LABELS.put("172.16.201.26", "Camera");
         LABELS.put("172.16.201.31", "Anta Copieur Etage");
+        LABELS.put("172.16.201.80", "Anta Bioconnect porte 1");
+        LABELS.put("172.16.201.81", "Anta Bioconnect porte 2");
         LABELS.put("172.16.201.86", "Anta Imprimante Couleur");
 
         LABELS.put("172.16.201.101", "TELEM Imprimante Couleur");
-        LABELS.put("172.16.201.101", "TELEM Imprimante à Picot");
+        LABELS.put("172.16.201.33", "TELEM Imprimante à Picot");
         LABELS.put("172.16.201.110", "TELEM Sophie 1");
         LABELS.put("172.16.201.111", "TELEM Sophie 2");
 
@@ -77,8 +79,10 @@ public class PingGuiMain {
         LABELS.put("172.16.201.137", "Anta christophe - onet");
         LABELS.put("172.16.201.138", "Anta patrick 1");
         LABELS.put("172.16.201.139", "Anta patrick 2");
+        LABELS.put("172.16.201.140", "Anta jpierre tablette");
+        LABELS.put("172.16.201.141", "Anta matthieu - perso");
+        LABELS.put("172.16.201.142", "Anta benjamin - perso");
 
-        LABELS.put("172.16.201.148", "OSN 1");
         LABELS.put("172.16.201.196", "IAO bureau Thamer");
         LABELS.put("172.16.201.197", "IAO bureau JPP");
         LABELS.put("172.16.201.201", "Palpatine");
@@ -135,8 +139,12 @@ public class PingGuiMain {
                     "172.16.201.24",
                     "172.16.201.25",
                     "172.16.201.26",
+                    "172.16.201.27",
                     "172.16.201.31",
+                    "172.16.201.33",
                     "172.16.201.50",
+                    "172.16.201.80",
+                    "172.16.201.81",
                     "172.16.201.86",
 
                     "172.16.201.201",
