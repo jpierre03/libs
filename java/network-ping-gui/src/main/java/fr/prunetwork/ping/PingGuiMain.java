@@ -164,6 +164,17 @@ public class PingGuiMain {
             hostnames.addAll(map.values());
         }
 
+        {
+            for (String s : hostnames) {
+                System.out.println("");
+                System.out.println("++ " + s.replace(".", "_"));
+                System.out.println("menu = " + LABELS.get(s));
+                System.out.println("title = " + LABELS.get(s));
+                System.out.println("host = " + s);
+            }
+
+        }
+
         new PingGuiMain(hostnames);
 
 //        try {
