@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 public final class MailDefaultProperties {
 
     @NotNull
-    public final static String MAILER_VERSION = "Java";
+    public final static String MAILER_VERSION = "Prunetwork-libs-mail-1.0-SNAPSHOT";
 
     private MailDefaultProperties() {
     }
