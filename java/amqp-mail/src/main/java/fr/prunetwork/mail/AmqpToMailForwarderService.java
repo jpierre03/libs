@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -22,7 +23,8 @@ public class AmqpToMailForwarderService {
     private final JsonAmqpReceiver receiver;
     @NotNull
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private boolean isContinue;
+    @NotNull
+    private AtomicBoolean isContinue = new AtomicBoolean(false);
 
     public AmqpToMailForwarderService(@NotNull final AmqpConfiguration amqpConfiguration) throws Exception {
         receiver = new JsonAmqpReceiver(amqpConfiguration);
@@ -30,19 +32,28 @@ public class AmqpToMailForwarderService {
     }
 
     public void start() {
-        isContinue = true;
+        isContinue.set(true);
 
-        executor.execute(() -> {
-            while (isContinue) {
-                processMessage();
-            }
-        });
+        executor.execute(this::loopProcessMessages);
+    }
+
+    private void loopProcessMessages() {
+        while (isContinue.get()) {
+            processMessage();
+        }
     }
 
     public void stop() {
-        isContinue = false;
+        isContinue.set(false);
     }
 
+    /**
+     * {
+     * "subject": "un beau sujet",
+     * "destination": [ "john.doe@example.com", "john.doe@example.42" ],
+     * "body": "un corps de mail très court"
+     * }
+     */
     private void processMessage() {
         try {
             @NotNull final JsonMessage message = receiver.consume();

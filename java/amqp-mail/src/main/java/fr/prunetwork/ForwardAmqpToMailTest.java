@@ -1,16 +1,8 @@
 package fr.prunetwork;
 
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.ExchangeType;
-import fr.prunetwork.amqp.message.JsonMessage;
-import fr.prunetwork.amqp.receiver.JsonAmqpReceiver;
-import fr.prunetwork.mail.Mail;
-import fr.prunetwork.mail.SimpleMail;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
+import fr.prunetwork.mail.AmqpToMailForwarderService;
 
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
@@ -22,48 +14,13 @@ public class ForwardAmqpToMailTest {
 
     public static void main(String... argv) throws Exception {
 
-        @NotNull final JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
-        receiver.configure();
+        final AmqpConfiguration amqpConfiguration = new AmqpConfiguration(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
+        final AmqpToMailForwarderService service = new AmqpToMailForwarderService(amqpConfiguration);
 
-        while (true) {
-            try {
-                @NotNull final JsonMessage message = receiver.consume();
-                @NotNull final JSONObject json = message.getJson();
+        service.start();
 
-                @NotNull final String subject = json.getString("subject");
-                @NotNull final String body = json.getString("body");
-                @NotNull final List<String> destination = new ArrayList<>();
+        Thread.sleep(1 * 1000);
 
-                @NotNull final JSONArray destinations = json.getJSONArray("destination");
-                for (int i = 0; i < destinations.length(); i++) {
-                    final String d = destinations.getString(i);
-                    destination.add(d);
-                }
-
-                @NotNull final Mail mail = new SimpleMail("toto@example.com", destination, subject, body);
-
-                message.displayMessage();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
-
-            }
-        }
+        service.stop();
     }
 }
-
-/*
-{
-    "subject": "un beau sujet",
-    "destination": [
-        "john.doe@example.com",
-        "john.doe@example.42"
-    ],
-    "body": "un corps de mail très court"
-}
- */
