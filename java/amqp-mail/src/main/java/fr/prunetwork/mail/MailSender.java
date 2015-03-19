@@ -24,18 +24,16 @@ public class MailSender {
     private final Session session;
     //private ExecutorService executor = Executors.newFixedThreadPool(1);
 
-    public MailSender(@NotNull final String serverHostname,
+    private MailSender(@NotNull final Properties properties,
                       @Nullable final Authenticator authenticator,
                       final boolean isDebug) {
-        @NotNull final Properties prop = System.getProperties();
-        prop.put("mail.smtp.host", serverHostname);
 
-        session = Session.getDefaultInstance(prop, authenticator);
+        session = Session.getDefaultInstance(properties, authenticator);
         session.setDebug(isDebug);
     }
 
-    public MailSender(@NotNull final String serverHostname, final boolean isDebug) {
-        this(serverHostname, null, isDebug);
+    public MailSender(@NotNull final MailSenderConfiguration conf) {
+        this(conf.getProps(), conf.getAuthenticator(), conf.isDebug());
     }
 
     public void send(@NotNull final Mail mail) throws Exception {

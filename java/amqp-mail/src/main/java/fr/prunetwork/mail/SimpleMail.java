@@ -66,6 +66,6 @@ public class SimpleMail implements Mail {
             internetAddresses.add(new InternetAddress(emailAddress));
         }
 
-        return (InternetAddress[]) internetAddresses.toArray();
+        return internetAddresses.toArray(new InternetAddress[]{});
     }
 }

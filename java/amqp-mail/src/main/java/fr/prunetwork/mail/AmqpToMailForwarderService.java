@@ -25,10 +25,15 @@ public class AmqpToMailForwarderService {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     @NotNull
     private AtomicBoolean isContinue = new AtomicBoolean(false);
+    @NotNull
+    final MailSender sender;
 
-    public AmqpToMailForwarderService(@NotNull final AmqpConfiguration amqpConfiguration) throws Exception {
+    public AmqpToMailForwarderService(@NotNull final AmqpConfiguration amqpConfiguration,
+                                      @NotNull final MailSenderConfiguration senderConfiguration) throws Exception {
         receiver = new JsonAmqpReceiver(amqpConfiguration);
         receiver.configure();
+
+        sender = new MailSender(senderConfiguration);
     }
 
     public void start() {
@@ -39,7 +44,12 @@ public class AmqpToMailForwarderService {
 
     private void loopProcessMessages() {
         while (isContinue.get()) {
-            processMessage();
+            try {
+                @NotNull final JsonMessage message = receiver.consume();
+                processMessage(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -54,9 +64,8 @@ public class AmqpToMailForwarderService {
      * "body": "un corps de mail très court"
      * }
      */
-    private void processMessage() {
+    private void processMessage(@NotNull final JsonMessage message) {
         try {
-            @NotNull final JsonMessage message = receiver.consume();
             @NotNull final JSONObject json = message.getJson();
 
             @NotNull final String subject = json.getString("subject");
@@ -70,6 +79,8 @@ public class AmqpToMailForwarderService {
             }
 
             @NotNull final Mail mail = new SimpleMail("toto@example.com", destination, subject, body);
+
+            sender.send(mail);
 
             message.displayMessage();
 
