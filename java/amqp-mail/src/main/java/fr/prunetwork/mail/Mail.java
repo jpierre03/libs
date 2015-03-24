@@ -36,4 +36,11 @@ public interface Mail {
 
         return internetAddresses.toArray(new InternetAddress[]{});
     }
+
+    default boolean isValid() {
+        return !getFromMailAddress().trim().isEmpty()
+                && !getToMailAddresses().isEmpty()
+                && !getSubject().trim().isEmpty()
+                && !getBody().trim().isEmpty();
+    }
 }
