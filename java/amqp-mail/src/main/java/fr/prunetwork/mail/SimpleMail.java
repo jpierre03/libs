@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * A default implementation
+ *
+ * @see fr.prunetwork.mail.Mail
+ *
  * @author Jean-Pierre PRUNARET
  * @since 13/12/14
  */
