@@ -34,7 +34,7 @@ public interface Mail {
             internetAddresses.add(new InternetAddress(emailAddress));
         }
 
-        return internetAddresses.toArray(new InternetAddress[]{});
+        return internetAddresses.toArray(new InternetAddress[internetAddresses.size()]);
     }
 
     default boolean isValid() {
