@@ -18,7 +18,15 @@ public final class CollectionUtilities {
     }
 
     /**
-     * Remove Duplicates items.
+     * Remove Duplicates items from Collection.
+     *
+     * Is used to fetch collection from an other that may contains the same object more than one time (eg. in ArrayList).
+     * Duplicated item are detected through Comparable interface.
+     *
+     * @see java.util.TreeMap
+     *
+     * @param <T> a comparable object
+     * @return a collection that contains only elements in both lists = commons items
      */
     @NotNull
     public static <T extends Comparable<?>> Collection<T> withoutDuplicates(@NotNull final Collection<T> objects) {
@@ -36,11 +44,11 @@ public final class CollectionUtilities {
      * @param a   first collection
      * @param b   second collection
      * @param <T> a generic type
-     * @return a collection that contains only elements in both lists
+     * @return a collection that contains only elements in both lists = commons items
      */
     @Nullable
-    public static <T extends Comparable<?>> Collection<T> inBothLists(@NotNull Collection<T> a,
-                                                                      @NotNull Collection<T> b) {
+    public static <T extends Comparable<?>> Collection<T> inBothLists(@NotNull final Collection<T> a,
+                                                                      @NotNull final Collection<T> b) {
 
         @NotNull final Collection<T> side1 = new ArrayList<>(a);
         @NotNull final Collection<T> side2 = new ArrayList<>(b);
