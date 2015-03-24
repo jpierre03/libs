@@ -19,13 +19,13 @@ public interface Mail {
     String getFromMailAddress();
 
     @NotNull
+    List<String> getToMailAddresses();
+
+    @NotNull
     String getSubject();
 
     @NotNull
     String getBody();
-
-    @NotNull
-    List<String> getToMailAddresses();
 
     @NotNull
     default InternetAddress[] getDestinationAddresses() throws Exception {
