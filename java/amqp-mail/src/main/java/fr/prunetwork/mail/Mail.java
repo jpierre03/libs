@@ -3,10 +3,12 @@ package fr.prunetwork.mail;
 import org.jetbrains.annotations.NotNull;
 
 import javax.mail.internet.InternetAddress;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * A Mail interface. Provides standard mail handler.
+ * Mail interface with usual mail handler.
  *
  * @author Jean-Pierre PRUNARET
  * @date 15/01/2015.
@@ -26,5 +28,12 @@ public interface Mail {
     List<String> getToMailAddresses();
 
     @NotNull
-    InternetAddress[] getDestinationAddresses() throws Exception;
+    default InternetAddress[] getDestinationAddresses() throws Exception {
+        @NotNull final Collection<InternetAddress> internetAddresses = new ArrayList<>();
+        for (String emailAddress : getToMailAddresses()) {
+            internetAddresses.add(new InternetAddress(emailAddress));
+        }
+
+        return internetAddresses.toArray(new InternetAddress[]{});
+    }
 }
