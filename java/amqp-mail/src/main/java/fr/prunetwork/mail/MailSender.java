@@ -44,7 +44,7 @@ public class MailSender {
      */
     public void send(@NotNull final Mail mail) throws Exception {
 
-        if (mail.isValid()) {
+        if (!mail.isValid()) {
             throw new IllegalArgumentException("mail not valid. Please check");
         }
 
