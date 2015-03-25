@@ -2,13 +2,14 @@ package fr.prunetwork.mail;
 
 import org.jetbrains.annotations.NotNull;
 
-import javax.mail.internet.InternetAddress;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * A default implementation
+ *
+ * @see fr.prunetwork.mail.Mail
+ *
  * @author Jean-Pierre PRUNARET
  * @since 13/12/14
  */
@@ -55,17 +56,5 @@ public class SimpleMail implements Mail {
     @Override
     public List<String> getToMailAddresses() {
         return Collections.unmodifiableList(toMailAddresses);
-    }
-
-    @NotNull
-    @Override
-    public InternetAddress[] getDestinationAddresses() throws Exception {
-
-        @NotNull final Collection<InternetAddress> internetAddresses = new ArrayList<>();
-        for (String emailAddress : getToMailAddresses()) {
-            internetAddresses.add(new InternetAddress(emailAddress));
-        }
-
-        return (InternetAddress[]) internetAddresses.toArray();
     }
 }

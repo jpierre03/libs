@@ -2,6 +2,7 @@ package fr.prunetwork;
 
 import fr.prunetwork.mail.Mail;
 import fr.prunetwork.mail.MailSender;
+import fr.prunetwork.mail.MailSenderConfiguration;
 import fr.prunetwork.mail.SimpleMail;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +15,13 @@ public class MailTest {
 
     public static void main(String[] args) {
 
-        @NotNull final MailSender sender = new MailSender("192.168.1.50", false);
+        @NotNull final MailSender sender = new MailSender(
+                new MailSenderConfiguration(
+                        "192.168.1.50",
+                        null,
+                        false
+                )
+        );
 
         for (int i = 0; i < 10; i++) {
 

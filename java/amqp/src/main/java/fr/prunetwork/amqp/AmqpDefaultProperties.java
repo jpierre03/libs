@@ -21,6 +21,8 @@ public class AmqpDefaultProperties {
     public static final String ROUTING_KEY = "";
     @NotNull
     public static final List<String> ROUTING_KEYS = Arrays.asList("#");
+    @NotNull
+    public  static final AmqpConfiguration AMQP_CONFIGURATION = new AmqpConfiguration(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
 
     public AmqpDefaultProperties() {
     }

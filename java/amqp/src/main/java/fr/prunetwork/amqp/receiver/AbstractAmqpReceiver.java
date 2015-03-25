@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
@@ -12,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,7 +26,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     @NotNull
     private final URI uri;
     @NotNull
-    private final String topicName;
+    private final String exchange;
     @NotNull
     private final Collection<String> bindingKeys;
     @NotNull
@@ -35,23 +35,27 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     private QueueingConsumer consumer;
 
     public AbstractAmqpReceiver(@NotNull final URI uri,
-                                @NotNull final String topic,
+                                @NotNull final String exchange,
                                 @NotNull final Collection<String> bindingKeys,
                                 @NotNull final ExchangeType exchangeType,
                                 final boolean isDurable) {
         this.uri = uri;
-        this.topicName = topic;
+        this.exchange = exchange;
         this.bindingKeys = new ArrayList<>(bindingKeys);
         this.exchangeType = exchangeType;
         this.isDurable = isDurable;
     }
 
     public AbstractAmqpReceiver(@NotNull final String uri,
-                                @NotNull final String topic,
+                                @NotNull final String exchange,
                                 @NotNull final Collection<String> bindingKeys,
                                 @NotNull final ExchangeType exchangeType,
-                                final boolean isDurable) throws URISyntaxException {
-        this(new URI(uri), topic, bindingKeys, exchangeType, isDurable);
+                                final boolean isDurable) throws Exception {
+        this(new URI(uri), exchange, bindingKeys, exchangeType, isDurable);
+    }
+
+    public AbstractAmqpReceiver(@NotNull final AmqpConfiguration conf) throws Exception {
+        this(conf.getUri(), conf.getExchange(), conf.getBindingKeys(), conf.getExchangeType(), conf.isDurable());
     }
 
     public void configure() throws Exception {
@@ -61,11 +65,11 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
         Channel channel = connection.createChannel();
         channel.basicQos(10);
 
-        channel.exchangeDeclare(topicName, exchangeType.name(), isDurable);
+        channel.exchangeDeclare(exchange, exchangeType.name(), isDurable);
         String queueName = channel.queueDeclare().getQueue();
 
         for (String bindingKey : bindingKeys) {
-            channel.queueBind(queueName, topicName, bindingKey);
+            channel.queueBind(queueName, exchange, bindingKey);
         }
 
         consumer = new QueueingConsumer(channel);

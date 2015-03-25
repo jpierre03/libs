@@ -15,6 +15,8 @@ import java.util.Properties;
 import static fr.prunetwork.mail.MailDefaultProperties.MAILER_VERSION;
 
 /**
+ * An SMTP wrapper.
+ *
  * @author Jean-Pierre PRUNARET
  * @since 13/12/14
  */
@@ -24,19 +26,27 @@ public class MailSender {
     private final Session session;
     //private ExecutorService executor = Executors.newFixedThreadPool(1);
 
-    public MailSender(@NotNull final String serverHostname, final boolean isDebug, @Nullable final Authenticator authenticator) {
-        @NotNull final Properties prop = System.getProperties();
-        prop.put("mail.smtp.host", serverHostname);
+    private MailSender(@NotNull final Properties properties,
+                       @Nullable final Authenticator authenticator,
+                       final boolean isDebug) {
 
-        session = Session.getDefaultInstance(prop, authenticator);
+        session = Session.getDefaultInstance(properties, authenticator);
         session.setDebug(isDebug);
     }
 
-    public MailSender(@NotNull final String serverHostname, final boolean isDebug){
-        this(serverHostname, isDebug, null);
+    public MailSender(@NotNull final MailSenderConfiguration conf) {
+        this(conf.getProps(), conf.getAuthenticator(), conf.isDebug());
     }
 
+    /**
+     * @param mail email to be send
+     * @throws Exception is thrown when : email address format is wrong (FROM & Destination)
+     */
     public void send(@NotNull final Mail mail) throws Exception {
+
+        if (mail.isValid()) {
+            throw new IllegalArgumentException("mail not valid. Please check");
+        }
 
         @NotNull final Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(mail.getFromMailAddress()));

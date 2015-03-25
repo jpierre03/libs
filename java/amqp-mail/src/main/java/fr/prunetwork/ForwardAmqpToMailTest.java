@@ -1,18 +1,12 @@
 package fr.prunetwork;
 
-import fr.prunetwork.amqp.ExchangeType;
-import fr.prunetwork.amqp.message.JsonMessage;
-import fr.prunetwork.amqp.receiver.JsonAmqpReceiver;
-import fr.prunetwork.mail.Mail;
-import fr.prunetwork.mail.SimpleMail;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import fr.prunetwork.mail.AmqpToMailForwarderService;
+import fr.prunetwork.mail.MailSenderConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.mail.PasswordAuthentication;
+import java.util.Properties;
 
-import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
+import static fr.prunetwork.mail.MailDefaultProperties.DEFAULT_AMQP_CONFIGURATION;
 
 /**
  * @author Jean-Pierre PRUNARET
@@ -22,48 +16,35 @@ public class ForwardAmqpToMailTest {
 
     public static void main(String... argv) throws Exception {
 
-        @NotNull final JsonAmqpReceiver receiver = new JsonAmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, false);
-        receiver.configure();
 
-        while (true) {
-            try {
-                @NotNull final JsonMessage message = receiver.consume();
-                @NotNull final JSONObject json = message.getJson();
+        // libmail.marseille@gmail.com
+        // libmail marseille
+        // dxJQRe$38+d-RG#r?
+        // 01/01/2000
 
-                @NotNull final String subject = json.getString("subject");
-                @NotNull final String body = json.getString("body");
-                @NotNull final List<String> destination = new ArrayList<>();
+        final String username = "libmail.marseille@gmail.com";
+        final String password = "dxJQRe$38+d-RG#r?";
 
-                @NotNull final JSONArray destinations = json.getJSONArray("destination");
-                for (int i = 0; i < destinations.length(); i++) {
-                    final String d = destinations.getString(i);
-                    destination.add(d);
-                }
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
 
-                @NotNull final Mail mail = new SimpleMail("toto@example.com", destination, subject, body);
+        MailSenderConfiguration mailSenderConfiguration = new MailSenderConfiguration(
+                props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                },
+                true);
+        final AmqpToMailForwarderService service = new AmqpToMailForwarderService(DEFAULT_AMQP_CONFIGURATION, mailSenderConfiguration);
 
-                message.displayMessage();
+        service.start();
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        Thread.sleep(1 * 1000);
 
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
-
-            }
-        }
+        service.stop();
     }
 }
-
-/*
-{
-    "subject": "un beau sujet",
-    "destination": [
-        "john.doe@example.com",
-        "john.doe@example.42"
-    ],
-    "body": "un corps de mail très court"
-}
- */

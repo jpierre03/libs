@@ -20,7 +20,7 @@ public class MailAmqpProducerTest {
         try {
             @NotNull final AmqpProducer producer = new AmqpProducer(URI, EXCHANGE, ROUTING_KEY, ExchangeType.topic, false);
 
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 1; i++) {
 /*
 {
     "subject": "un beau sujet",
