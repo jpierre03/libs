@@ -26,24 +26,28 @@ public class AmqpReceiver {
     private final Collection<String> bindingKeys;
     @NotNull
     private final MessageConsumer externalConsumer;
+    private final boolean isDurable;
     private QueueingConsumer consumer;
 
     public AmqpReceiver(@NotNull final URI uri,
                         @NotNull final String topic,
                         @NotNull final Collection<String> bindingKeys,
-                        @NotNull final MessageConsumer consumer) {
+                        @NotNull final MessageConsumer consumer,
+                        final boolean isDurable) {
         this.uri = uri;
         this.topicName = topic;
         this.externalConsumer = consumer;
         this.bindingKeys = new ArrayList<>(bindingKeys);
+        this.isDurable = isDurable;
     }
 
     public AmqpReceiver(@NotNull final String uri,
                         @NotNull final String topic,
                         @NotNull final Collection<String> bindingKeys,
-                        @NotNull final MessageConsumer consumer) throws URISyntaxException {
+                        @NotNull final MessageConsumer consumer,
+                        final boolean  isDurable) throws URISyntaxException {
 
-        this(new URI(uri), topic, bindingKeys, consumer);
+        this(new URI(uri), topic, bindingKeys, consumer, isDurable);
     }
 
     public void configure() throws Exception {
@@ -52,7 +56,7 @@ public class AmqpReceiver {
         final Connection connection = factory.newConnection();
         final Channel channel = connection.createChannel();
 
-        channel.exchangeDeclare(topicName, ExchangeType.topic.name());
+        channel.exchangeDeclare(topicName, ExchangeType.topic.name(), isDurable);
         String queueName = channel.queueDeclare().getQueue();
 
         for (final String bindingKey : bindingKeys) {

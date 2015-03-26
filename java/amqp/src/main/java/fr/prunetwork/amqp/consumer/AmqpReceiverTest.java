@@ -16,7 +16,7 @@ class AmqpReceiverTest {
     public static void main(String... argv) throws Exception {
 
         @NotNull final SimpleMessageConsumer consumer = new SimpleMessageConsumer();
-        @NotNull final AmqpReceiver receiver = new AmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, consumer);
+        @NotNull final AmqpReceiver receiver = new AmqpReceiver(URI, EXCHANGE, ROUTING_KEYS, consumer, true);
         receiver.configure();
 
         System.out.println("*******");

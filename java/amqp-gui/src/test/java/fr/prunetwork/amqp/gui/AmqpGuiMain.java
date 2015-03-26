@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,147 +34,80 @@ public class AmqpGuiMain {
         frame.setPreferredSize(new Dimension(600, 400));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+
         @NotNull JPanel panel = new JPanel(new GridLayout(1, 3));
 
+        addPanel(panel, Arrays.asList("#"));
+        //addPanel(panel, Arrays.asList("etage.#"));
+        //addPanel(panel, Arrays.asList("#.rdc.#"));
+
+        @NotNull final JPanel commandPanel;
         {
-            @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
-            @NotNull HistoryTable table = new HistoryTable(messageTableModel);
 
-            table.setDefaultRenderer(Date.class, new DateCellRenderer());
-
-            panel.add(new JScrollPane(table));
-
-
-            @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-            @NotNull AmqpReceiver receiver = new AmqpReceiver(
-                    URI,
-                    EXCHANGE,
-                    ROUTING_KEYS,
-                    consumer
-            );
-            receiver.configure();
-
-            @NotNull final Runnable runnable = () -> {
-                System.out.println("*******");
-                while (!consumer.isConnected()) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (Exception e) {
-                        // do nothing
-                    }
-                }
-
-                System.out.println("*******");
-                while (true) {
-                    try {
-                        consumer.consume();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            EXECUTOR.submit(runnable);
-        }
-
-        {
-            @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
-            @NotNull HistoryTable table = new HistoryTable(messageTableModel);
-
-            table.setDefaultRenderer(Date.class, new DateCellRenderer());
-
-            panel.add(new JScrollPane(table));
-
-            @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-            @NotNull AmqpReceiver receiver = new AmqpReceiver(
-                    URI,
-                    EXCHANGE,
-                    Arrays.asList("etage.#"),
-                    consumer
-            );
-            receiver.configure();
-
-            @NotNull final Runnable runnable = () -> {
-                System.out.println("*******");
-                while (consumer.isConnected() == false) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (Exception e) {
-                        // do nothing
-                    }
-                }
-
-                System.out.println("*******");
-                while (true) {
-                    try {
-                        consumer.consume();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            EXECUTOR.submit(runnable);
-        }
-        {
-            @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
-            @NotNull HistoryTable table = new HistoryTable(messageTableModel);
-
-            table.setDefaultRenderer(Date.class, new DateCellRenderer());
-
-            panel.add(new JScrollPane(table));
-
-
-            @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-            @NotNull AmqpReceiver receiver = new AmqpReceiver(
-                    URI,
-                    EXCHANGE,
-                    Arrays.asList("#.rdc.#"),
-                    consumer
-            );
-            receiver.configure();
-
-            @NotNull final Runnable runnable = () -> {
-                System.out.println("*******");
-                while (!consumer.isConnected()) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (Exception e) {
-                        // do nothing
-                    }
-                }
-
-                System.out.println("*******");
-                while (true) {
-                    try {
-                        consumer.consume();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            EXECUTOR.submit(runnable);
-        }
-
-        {
-            panel.add(
-                    new CommandPanel(
-                            new CommandPanelActionner(
-                                    new AmqpProducer(
-                                            URI,
-                                            EXCHANGE,
-                                            ROUTING_KEY,
-                                            ExchangeType.topic,
-                                            false
-                                    )
+            commandPanel = new CommandPanel(
+                    new CommandPanelActionner(
+                            new AmqpProducer(
+                                    URI,
+                                    EXCHANGE,
+                                    ROUTING_KEY,
+                                    ExchangeType.topic,
+                                    true
                             )
                     )
             );
         }
 
-        frame.getContentPane().add(panel);
+        @NotNull JSplitPane splitPane = new JSplitPane(
+                JSplitPane.HORIZONTAL_SPLIT,
+                commandPanel,
+                panel
+        );
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setDividerLocation(150);
+
+        frame.getContentPane().add(splitPane);
         frame.pack();
         frame.setVisible(true);
+    }
 
+    private static void addPanel(JPanel panel, List<String> routingKeys) throws Exception {
+        @NotNull final MessageTableModel messageTableModel = new MessageTableModel();
+        @NotNull HistoryTable table = new HistoryTable(messageTableModel);
 
+        table.setDefaultRenderer(Date.class, new DateCellRenderer());
+
+        panel.add(new JScrollPane(table));
+
+        @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
+        @NotNull AmqpReceiver receiver = new AmqpReceiver(
+                URI,
+                EXCHANGE,
+                routingKeys,
+                consumer,
+                true
+        );
+        receiver.configure();
+
+        @NotNull final Runnable runnable = () -> {
+            System.out.println("******* Wait to connect");
+            while (!consumer.isConnected()) {
+                try {
+                    Thread.sleep(100);
+                } catch (Exception e) {
+                    // do nothing
+                }
+            }
+
+            System.out.println("******* Connected");
+            while (true) {
+                try {
+                    consumer.consume();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        EXECUTOR.submit(runnable);
     }
 
     static class MyMessageConsumer extends SimpleMessageConsumer {
