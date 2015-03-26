@@ -29,26 +29,30 @@ public class JsonPrinter {
             }
         });*/
 
-    public static void print(@NotNull final Map m) {
-        print(m, 0);
+    @NotNull
+    public static String print(@NotNull final Map m) {
+        return print(m, 0);
     }
 
-    public static void print(@NotNull final List l) {
-        print(l, 0);
+    @NotNull
+    public static String print(@NotNull final List l) {
+        return print(l, 0);
     }
 
-    public static void printRecursive(@NotNull final Object o) {
-        printRecursive(o, 0);
+    public static String printRecursive(@NotNull final Object o) {
+        return printRecursive(o, 0);
     }
 
-    private static void print(@NotNull final Map m, final int level) {
+    @NotNull
+    private static String print(@NotNull final Map m, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         @NotNull Iterator iterator = m.entrySet().iterator();
-        print(iterator, level);
+        return print(iterator, level);
     }
 
-    private static void print(@NotNull final List l, final int level) {
+    @NotNull
+    private static String print(@NotNull final List l, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         @NotNull StringBuilder sb = getLevelBuilder(level);
@@ -57,10 +61,14 @@ public class JsonPrinter {
             sb.append(aL).append("\n");
         }
         System.out.print(sb.toString());
+
+        return sb.toString();
     }
 
-    private static void print(@NotNull final Iterator iterator, final int level) {
+    @NotNull
+    private static String print(@NotNull final Iterator iterator, final int level) {
         assert level >= 0 : "level should be positive or null";
+        final StringBuilder stringBuilder = new StringBuilder();
 
         while (iterator.hasNext()) {
             @NotNull Map.Entry entry = (Map.Entry) iterator.next();
@@ -69,108 +77,145 @@ public class JsonPrinter {
 
             sb.append(entry.getKey()).append(" => ").append(entry.getValue());
             System.out.println(sb);
+            stringBuilder.append(sb);
         }
+
+        return stringBuilder.toString();
     }
 
-    private static void print(@NotNull final String s, final int level) {
+    @NotNull
+    private static String print(@NotNull final String s, final int level) {
         assert level >= 0 : "level should be positive or null";
 
         @NotNull StringBuilder sb = getLevelBuilder(level);
 
         sb.append(s).append("\n");
         System.out.print(sb.toString());
+
+        return sb.toString();
     }
 
-    private static void printRecursive(@Nullable final Object o, final int level) {
+    @NotNull
+    private static String printRecursive(@Nullable final Object o, final int level) {
         assert level >= 0 : "level should be positive or null";
+        final String result;
 
         if (o == null) {
-            return;
+            result = "";
 
         } else if (o instanceof java.util.List) {
-            printRecursive((List) o, level + 1);
+            result = printRecursive((List) o, level + 1);
 
         } else if (o instanceof java.util.Map) {
-            printRecursive((Map) o, level + 1);
+            result = printRecursive((Map) o, level + 1);
 
         } else if (o instanceof JSONObject) {
-            printRecursive((JSONObject) o, level + 1);
+            result = printRecursive((JSONObject) o, level + 1);
 
         } else if (o instanceof JSONArray) {
-            printRecursive((JSONArray) o, level + 1);
+            result = printRecursive((JSONArray) o, level + 1);
 
         } else if (o instanceof String) {
-            print((String) o, level + 1);
+            result = print((String) o, level + 1);
         } else {
-            print(o.toString(), level + 1);
+            result = print(o.toString(), level + 1);
             //throw new IllegalStateException("case is missing or invalid input: " + o.getClass().getCanonicalName());
         }
+
+        return result;
     }
 
-    private static void printRecursive(@Nullable final Map map, final int level) {
+    @NotNull
+    private static String printRecursive(@Nullable final Map map, final int level) {
         assert level >= 0 : "level should be positive or null";
+        final String result;
 
         if (map == null) {
-            return;
+            result = "";
 
         } else if (map.size() > 0) {
-            print(map, level);
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(print(map, level));
 
             map.values()
                     .stream()
                     .filter(o -> (o instanceof HashMap) || (o instanceof LinkedList))
-                    .forEach(o -> printRecursive(o, level + 1));
+                    .forEach(o -> sb.append(printRecursive(o, level + 1)));
 
+            result = sb.toString();
         } else {
             throw new IllegalStateException("map is empty");
         }
+        return result;
     }
 
-    private static void printRecursive(@Nullable final List list, final int level) {
+    @NotNull
+    private static String printRecursive(@Nullable final List list, final int level) {
         assert level >= 0 : "level should be positive or null";
+        final String result;
+
 
         if (list == null) {
-            return;
+            result = "";
 
         } else if (list.size() > 0) {
-            print(list, level);
+            StringBuilder sb = new StringBuilder();
+
+            sb.append(print(list, level));
 
             list.stream()
                     .filter(o -> (o instanceof HashMap) || (o instanceof LinkedList))
-                    .forEach(o -> printRecursive(o, level + 1));
+                    .forEach(o -> sb.append(printRecursive(o, level + 1)));
 
+            result = sb.toString();
         } else {
             throw new IllegalStateException("list is empty");
         }
+        return result;
     }
 
-    private static void printRecursive(@Nullable final JSONArray a, final int level) {
+    @NotNull
+    private static String printRecursive(@Nullable final JSONArray a, final int level) {
         assert level >= 0 : "level should be positive or null";
+        final StringBuilder builder = new StringBuilder();
 
         if (a == null) {
-            return;
+            builder.append("");
 
         } else {
-            print("[", level);
+            builder.append(
+                    print("[", level)
+            );
 
             for (int i = 0; i < a.length(); i++) {
                 final Object object = a.get(i);
-                printRecursive(object, level + 1);
+                builder.append(
+                        printRecursive(object, level + 1)
+                );
             }
 
-            print("]", level);
-
+            builder.append(
+                    print("]", level)
+            );
         }
+        return builder.toString();
     }
 
-    private static void printRecursive(@Nullable final JSONObject o, final int level) {
+    @NotNull
+    private static String printRecursive(@Nullable final JSONObject o, final int level) {
         assert level >= 0 : "level should be positive or null";
+        final StringBuilder builder = new StringBuilder();
 
         if (o == null) {
-            return;
+            builder.append(
+                    ""
+            );
 
         } else {
-            print("{", level);
+            builder.append(
+                    print("{", level)
+            );
 
             for (String key : o.keySet()) {
                 @NotNull StringBuilder sb = getLevelBuilder(level);
@@ -179,25 +224,39 @@ public class JsonPrinter {
 
                 sb.append(key).append(" => ");
                 System.out.print(sb);
+                builder.append(
+                        sb
+                );
 
                 sb.setLength(0);
 
                 if (value instanceof JSONObject) {
                     System.out.println(sb);
 
-                    printRecursive((JSONObject) value, level + 1);
+                    builder.append(
+                            printRecursive((JSONObject) value, level + 1)
+                    );
                 } else if (value instanceof JSONArray) {
                     System.out.println(sb);
 
-                    printRecursive((JSONArray) value, level + 1);
+                    builder.append(
+                            printRecursive((JSONArray) value, level + 1)
+                    );
                 } else {
                     sb.append(value);
                     System.out.println(sb);
+
+                    builder.append(
+                            value
+                    );
                 }
             }
 
-            print("}", level);
+            builder.append(
+                    print("}", level)
+            );
         }
+        return builder.toString();
     }
 
     @NotNull
