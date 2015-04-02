@@ -34,7 +34,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     @Nullable
     private QueueingConsumer consumer;
 
-    public AbstractAmqpReceiver(@NotNull final URI uri,
+    protected AbstractAmqpReceiver(@NotNull final URI uri,
                                 @NotNull final String exchange,
                                 @NotNull final Collection<String> bindingKeys,
                                 @NotNull final ExchangeType exchangeType,
@@ -46,7 +46,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
         this.isDurable = isDurable;
     }
 
-    public AbstractAmqpReceiver(@NotNull final String uri,
+    protected AbstractAmqpReceiver(@NotNull final String uri,
                                 @NotNull final String exchange,
                                 @NotNull final Collection<String> bindingKeys,
                                 @NotNull final ExchangeType exchangeType,
@@ -54,10 +54,11 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
         this(new URI(uri), exchange, bindingKeys, exchangeType, isDurable);
     }
 
-    public AbstractAmqpReceiver(@NotNull final AmqpConfiguration conf) throws Exception {
+    protected AbstractAmqpReceiver(@NotNull final AmqpConfiguration conf) throws Exception {
         this(conf.getUri(), conf.getExchange(), conf.getBindingKeys(), conf.getExchangeType(), conf.isDurable());
     }
 
+    @Override
     public void configure() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
@@ -80,6 +81,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     @Override
     public abstract T consume() throws Exception;
 
+    @Override
     public void close() throws IOException {
         if (consumer != null) {
             consumer.getChannel().close();
