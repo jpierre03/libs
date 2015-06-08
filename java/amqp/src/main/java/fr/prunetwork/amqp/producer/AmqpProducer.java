@@ -52,6 +52,7 @@ public final class AmqpProducer {
 
         @NotNull final ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
+        factory.setAutomaticRecoveryEnabled(true);
         connection = factory.newConnection();
 
         channel = connection.createChannel();

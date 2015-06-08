@@ -2,6 +2,7 @@ package fr.prunetwork.amqp;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.net.URI;
 import java.util.Collection;
 
 /**
@@ -27,6 +28,19 @@ public class AmqpConfiguration {
                              final boolean isDurable){
 
         this.uri = uri;
+        this.exchange = exchange;
+        this.bindingKeys = bindingKeys;
+        this.exchangeType = exchangeType;
+        this.isDurable = isDurable;
+    }
+
+    public AmqpConfiguration(@NotNull final URI uri,
+                             @NotNull final String exchange,
+                             @NotNull final Collection<String> bindingKeys,
+                             @NotNull final ExchangeType exchangeType,
+                             final boolean isDurable) {
+
+        this.uri = uri.toString();
         this.exchange = exchange;
         this.bindingKeys = bindingKeys;
         this.exchangeType = exchangeType;

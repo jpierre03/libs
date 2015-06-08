@@ -19,19 +19,34 @@ public final class JsonAmqpReceiver
         implements AmqpReceiver<JsonMessage> {
 
     public JsonAmqpReceiver(@NotNull final URI uri,
-                            @NotNull final String topic,
-                            @NotNull final Collection<String> bindingKeys,
-                            @NotNull final ExchangeType exchangeType,
-                            final  boolean isDurable) {
-        super(uri, topic, bindingKeys, exchangeType, isDurable);
-    }
-
-    public JsonAmqpReceiver(@NotNull final String uri,
-                            @NotNull final String topic,
+                            @NotNull final String exchange,
                             @NotNull final Collection<String> bindingKeys,
                             @NotNull final ExchangeType exchangeType,
                             final boolean isDurable) throws Exception {
-        this(new URI(uri), topic, bindingKeys, exchangeType, isDurable);
+        super(new AmqpConfiguration(
+                        uri,
+                        exchange,
+                        bindingKeys,
+                        exchangeType,
+                        isDurable
+                )
+        );
+    }
+
+    public JsonAmqpReceiver(@NotNull final String uri,
+                            @NotNull final String exchange,
+                            @NotNull final Collection<String> bindingKeys,
+                            @NotNull final ExchangeType exchangeType,
+                            final boolean isDurable) throws Exception {
+        this(
+                new AmqpConfiguration(
+                        uri,
+                        exchange,
+                        bindingKeys,
+                        exchangeType,
+                        isDurable
+                )
+        );
     }
 
     public JsonAmqpReceiver(@NotNull final AmqpConfiguration amqpConfiguration) throws Exception {
