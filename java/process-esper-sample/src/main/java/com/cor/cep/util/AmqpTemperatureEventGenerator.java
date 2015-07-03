@@ -2,10 +2,13 @@ package com.cor.cep.util;
 
 import com.cor.cep.event.TemperatureEvent;
 import com.cor.cep.handler.TemperatureEventHandler;
+import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpDefaultProperties;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
 import fr.prunetwork.amqp.consumer.SimpleMessageConsumer;
+import fr.prunetwork.amqp.message.SimpleMessage;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +48,7 @@ public class AmqpTemperatureEventGenerator {
             LOG.debug(getStartingMessage());
 
             try {
-                SimpleMessageConsumer consumer = new SimpleMessageConsumer();
+                SimpleMessageConsumer consumer = new MyMessageConsumer();
                 AmqpReceiver receiver = new AmqpReceiver(
                         AmqpDefaultProperties.URI,
                         AmqpDefaultProperties.EXCHANGE,
@@ -90,5 +93,23 @@ public class AmqpTemperatureEventGenerator {
         sb.append("\n* A WHILE TO SEE WARNING AND CRITICAL EVENTS!");
         sb.append("\n************************************************************\n");
         return sb.toString();
+    }
+
+    class MyMessageConsumer extends SimpleMessageConsumer {
+
+        @Override
+        @NotNull
+        public SimpleMessage consume() throws InterruptedException {
+            if (consumer == null) {
+                throw new IllegalStateException("consumer is null. Init must be called before");
+            }
+            @NotNull final QueueingConsumer.Delivery delivery = consumer.nextDelivery();
+            @NotNull final String message = new String(delivery.getBody());
+            @NotNull final String routingKey = delivery.getEnvelope().getRoutingKey();
+
+            @NotNull final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
+
+            return receivedMessage;
+        }
     }
 }
