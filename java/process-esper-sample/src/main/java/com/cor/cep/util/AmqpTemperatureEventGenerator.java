@@ -50,7 +50,8 @@ public class AmqpTemperatureEventGenerator {
                         AmqpDefaultProperties.URI,
                         AmqpDefaultProperties.EXCHANGE,
                         Arrays.asList("#"),
-                        consumer
+                        consumer,
+                        false
                 );
 
                 receiver.configure();
