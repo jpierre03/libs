@@ -4,6 +4,7 @@ package fr.prunetwork.status;
  * @author Jean-Pierre PRUNARET
  * @since 2014-11-09
  */
+@SuppressWarnings("unused")
 public enum Ville {
     Paris,
     Marseille_01, Marseille_02, Marseille_03, Marseille_04, Marseille_05,

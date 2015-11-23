@@ -4,6 +4,7 @@ package fr.prunetwork.status;
  * @author Jean-Pierre PRUNARET
  * @since 09/11/14
  */
+@SuppressWarnings("unused")
 public enum Anomalie {
     travail_hors_zone,
     travail_trop_rapide,
