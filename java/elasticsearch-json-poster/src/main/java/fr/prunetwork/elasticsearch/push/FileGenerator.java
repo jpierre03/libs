@@ -14,50 +14,40 @@ import java.io.PrintWriter;
  */
 public class FileGenerator {
 
+    private static final int COUNT = 40 * 1000;
+
     private FileGenerator() {
     }
 
     public static void main(String[] args) throws Exception {
 
         @NotNull final JsonGenerator generator = new JsonGenerator("sandbox");
-        final int COUNT = 40 * 1000;
 
         for (int i = 0; i < 1000; i++) {
 
             String s = String.format("%04d", i);
             @NotNull File file = new File("data" + s + ".json");
 
-            try (@NotNull FileOutputStream fos = new FileOutputStream(file)) {
+            try (@NotNull FileOutputStream fos = new FileOutputStream(file);
+                 @NotNull BufferedOutputStream bos = new BufferedOutputStream(fos);
+                 @NotNull PrintWriter pw = new PrintWriter(bos)) {
 
+                pw.append(generator.getHeader());
+                pw.append("\n");
 
-                try (@NotNull BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+                for (int j = 0; j < COUNT; j++) {
 
-                    try (@NotNull PrintWriter pw = new PrintWriter(bos)) {
+                    pw.append(generator.getBody());
+                    pw.append("\n");
 
-                        pw.append(generator.getHeader());
-                        pw.append("\n");
-
-                        for (int j = 0; j < COUNT; j++) {
-
-                            pw.append(generator.getBody());
-                            pw.append("\n");
-
-                            if (j % (20 * 1000) == 0) {
-                                //if (i % 5000 == 0) {
-                                System.out.println("#ajouté: " + j);
-                                pw.flush();
-                            }
-                        }
-
-                    } catch (@NotNull final Exception e) {
-                        throw e;
+                    if (j % (20 * 1000) == 0) {
+                        //if (i % 5000 == 0) {
+                        System.out.println("#ajouté: " + j);
+                        pw.flush();
                     }
-
-                } catch (@NotNull final Exception e) {
-                    throw e;
                 }
 
-            } catch (Exception e) {
+            } catch (@NotNull final Exception e) {
                 e.printStackTrace();
             }
         }
