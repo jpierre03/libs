@@ -1,5 +1,6 @@
-package fr.prunetwork;
+package fr.prunetwork.elasticsearch.push;
 
+import fr.prunetwork.elasticsearch.generator.JsonGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,7 +27,7 @@ public class ElasticSearchInsertTest {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(3);
     private static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(1);
     private static final AtomicInteger count = new AtomicInteger(0);
-    private static final FakeLaveuseDataGenerator generator = new FakeLaveuseDataGenerator();
+    private static final JsonGenerator generator = new JsonGenerator("sandbox");
 
     public static void main(String[] args) throws Exception {
 

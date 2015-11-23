@@ -1,11 +1,11 @@
-package fr.prunetwork.status;
+package fr.prunetwork.elasticsearch.generator.status;
 
 /**
  * @author Jean-Pierre PRUNARET
  * @since 09/11/14
  */
 @SuppressWarnings("unused")
-public enum Anomalie {
+public enum Warning {
     travail_hors_zone,
     travail_trop_rapide,
     travail_trop_lent,

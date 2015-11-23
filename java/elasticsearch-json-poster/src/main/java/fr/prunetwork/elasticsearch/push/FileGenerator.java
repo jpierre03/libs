@@ -1,5 +1,6 @@
-package fr.prunetwork;
+package fr.prunetwork.elasticsearch.push;
 
+import fr.prunetwork.elasticsearch.generator.JsonGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedOutputStream;
@@ -18,7 +19,7 @@ public class FileGenerator {
 
     public static void main(String[] args) throws Exception {
 
-        @NotNull final FakeLaveuseDataGenerator generator = new FakeLaveuseDataGenerator();
+        @NotNull final JsonGenerator generator = new JsonGenerator("sandbox");
         final int COUNT = 40 * 1000;
 
         for (int i = 0; i < 1000; i++) {

@@ -1,4 +1,4 @@
-package fr.prunetwork;
+package fr.prunetwork.elasticsearch.push;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +23,7 @@ public class MultipleInsertTest {
 
     private static final Random random = new SecureRandom();
     private static final String BASE_URL = "http://localhost:9200";
-    private static final String ES_URL = BASE_URL + "/";
+    private static final String ES_URL = BASE_URL + "/sandbox";
     //private static final String ES_URL = BASE_URL + "/sandbox/json/";
     //private static final String ES_URL = BASE_URL + "/_search?q=*";
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(10);
@@ -46,11 +46,10 @@ public class MultipleInsertTest {
                     connection.setRequestProperty("Accept", "application/json");
                     connection.setRequestMethod("POST");
 
-                    @NotNull StringBuilder sb = new StringBuilder();
+                    @NotNull final StringBuilder sb = new StringBuilder();
                     for (int j = 0; j < 1 * 10; j++) {
                         sb.append(getSimple());
                         sb.append("\n");
-
                     }
 
                     @NotNull OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());

@@ -1,11 +1,11 @@
-package fr.prunetwork.status;
+package fr.prunetwork.elasticsearch.generator.status;
 
 /**
  * @author Jean-Pierre PRUNARET
  * @since 2014-11-09
  */
 @SuppressWarnings("unused")
-public enum Ville {
+public enum City {
     Paris,
     Marseille_01, Marseille_02, Marseille_03, Marseille_04, Marseille_05,
     Marseille_06, Marseille_07, Marseille_08, Marseille_09, Marseille_10,
