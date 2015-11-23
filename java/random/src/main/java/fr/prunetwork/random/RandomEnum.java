@@ -32,7 +32,7 @@ public class RandomEnum<E extends Enum> {
     }
 
     /**
-     * http://stackoverflow.com/questions/5969447/java-random-integer-with-non-uniform-distribution/5969719#5969719
+     * @see "http://stackoverflow.com/questions/5969447/java-random-integer-with-non-uniform-distribution/5969719#5969719"
      */
     @SuppressWarnings("unused")
     private static int getLinearRandomNumber(int maxSize) {
