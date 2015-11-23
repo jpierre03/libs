@@ -14,14 +14,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author Jean-Pierre PRUNARET
  *         <p>
- *         commande de suppression de l'index : curl -XDELETE  'http://elasticsearch14-jpprunaret-antalios.eu2.cloudunit.io/sandbox/'
- *         commande de création de l'index : curl -XPUT  'http://elasticsearch14-jpprunaret-antalios.eu2.cloudunit.io/sandbox/'
+ *         commande de suppression de l'index : curl -XDELETE  'http://<nom domaine>/sandbox/'
+ *         commande de création de l'index : curl -XPUT  'http://<nom domaine>/sandbox/'
  */
 public class ElasticSearchInsertTest {
 
-    private static final String ES_URL = "http://elasticsearch14-jpprunaret-antalios.eu2.cloudunit.io/";
-    //private static final String ES_URL = "http://elasticsearch14-jpprunaret-antalios.eu2.cloudunit.io/sandbox/json/";
-    //private static final String ES_URL = "http://elasticsearch14-jpprunaret-antalios.eu2.cloudunit.io/_search?q=*";
+    private static final String BASE_URL = "http://localhost:9200";
+    private static final String ES_URL = BASE_URL + "/";
+    //private static final String ES_URL = BASE_URL + "/sandbox/json/";
+    //private static final String ES_URL = BASE_URL + "/_search?q=*";
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(3);
     private static final ScheduledExecutorService SCHEDULER = Executors.newScheduledThreadPool(1);
     private static final AtomicInteger count = new AtomicInteger(0);

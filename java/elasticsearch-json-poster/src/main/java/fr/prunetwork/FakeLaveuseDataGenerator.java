@@ -14,9 +14,9 @@ import static fr.prunetwork.random.RandomToolBox.*;
  */
 public class FakeLaveuseDataGenerator {
 
-    private final RandomEnum<Ville> ville = new RandomEnum<Ville>(Ville.class);
-    private final RandomEnum<Etat> etat = new RandomEnum<Etat>(Etat.class);
-    private final RandomEnum<Anomalie> anomalie = new RandomEnum<Anomalie>(Anomalie.class);
+    private final RandomEnum<Ville> ville = new RandomEnum<>(Ville.class);
+    private final RandomEnum<Etat> etat = new RandomEnum<>(Etat.class);
+    private final RandomEnum<Anomalie> anomalie = new RandomEnum<>(Anomalie.class);
 
     public FakeLaveuseDataGenerator() {
     }

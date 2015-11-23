@@ -2,7 +2,7 @@ package fr.prunetwork.status;
 
 /**
  * @author Jean-Pierre PRUNARET
- * @since 09/11/14
+ * @since 2014-11-09
  */
 public enum Ville {
     Paris,
