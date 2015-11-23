@@ -20,24 +20,27 @@ public class RandomEnum<E extends Enum> {
     }
 
     @NotNull
+    @SuppressWarnings("unused")
     public E random() {
         return values[RND.nextInt(values.length)];
     }
 
     @NotNull
+    @SuppressWarnings("unused")
     public E linearRandom() {
         return values[getLinearRandomNumber(values.length)];
     }
 
     /**
-     * http://stackoverflow.com/questions/5969447/java-random-integer-with-non-uniform-distribution/5969719#5969719
+     * @see "http://stackoverflow.com/questions/5969447/java-random-integer-with-non-uniform-distribution/5969719#5969719"
      */
+    @SuppressWarnings("unused")
     private static int getLinearRandomNumber(int maxSize) {
-        //Get a linearly multiplied random number
+        /** Get a linearly multiplied random number */
         int randomMultiplier = maxSize * (maxSize + 1) / 2;
         int randomInt = RND.nextInt(randomMultiplier);
 
-        //Linearly iterate through the possible values to find the correct one
+        /** Linearly iterate through the possible values to find the correct one */
         int linearRandomNumber = 0;
         for (int i = maxSize; randomInt >= 0; i--) {
             randomInt -= i;
@@ -47,8 +50,8 @@ public class RandomEnum<E extends Enum> {
         linearRandomNumber = Integer.max(0, linearRandomNumber);
         linearRandomNumber = Integer.min(maxSize, linearRandomNumber);
 
-        assert linearRandomNumber >= 0;
-        assert linearRandomNumber < maxSize;
+        if (linearRandomNumber < 0) throw new AssertionError();
+        if (linearRandomNumber >= maxSize) throw new AssertionError();
 
         return linearRandomNumber;
     }

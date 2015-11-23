@@ -14,7 +14,7 @@ import java.util.List;
 public class AmqpDefaultProperties {
 
     @NotNull
-    public static final String URI = "amqp://jpierre03:toto@172.16.201.201";
+    public static final String URI = "amqp://jpierre03:toto@localhost";
     @NotNull
     public static final String EXCHANGE = "dev.tmp";
     @NotNull
