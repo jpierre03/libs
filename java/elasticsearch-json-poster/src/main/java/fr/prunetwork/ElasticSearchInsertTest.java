@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Jean-Pierre PRUNARET
- *         <p/>
+ *         <p>
  *         commande de suppression de l'index : curl -XDELETE  'http://elasticsearch14-jpprunaret-antalios.eu2.cloudunit.io/sandbox/'
  *         commande de création de l'index : curl -XPUT  'http://elasticsearch14-jpprunaret-antalios.eu2.cloudunit.io/sandbox/'
  */
@@ -29,79 +29,73 @@ public class ElasticSearchInsertTest {
 
     public static void main(String[] args) throws Exception {
 
-        SCHEDULER.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                @NotNull ThreadPoolExecutor executor = (ThreadPoolExecutor) EXECUTOR;
-                final int doneCount = count.get();
-                final int toProcessCount = executor.getQueue().size();
-                System.out.println("#réalisé: " + doneCount + ", restant: " + toProcessCount);
-                if (toProcessCount == 0 && doneCount > 0) {
-                    EXECUTOR.shutdown();
-                    SCHEDULER.shutdown();
-                }
+        SCHEDULER.scheduleAtFixedRate(() -> {
+            @NotNull ThreadPoolExecutor executor = (ThreadPoolExecutor) EXECUTOR;
+            final int doneCount = count.get();
+            final int toProcessCount = executor.getQueue().size();
+            System.out.println("#réalisé: " + doneCount + ", restant: " + toProcessCount);
+            if (toProcessCount == 0 && doneCount > 0) {
+                EXECUTOR.shutdown();
+                SCHEDULER.shutdown();
             }
         }, 3, 10, TimeUnit.SECONDS);
 
         for (int i = 0; i < 20000; i++) {
-            EXECUTOR.submit(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        //URL url = new URL(String.format("%s/%d", ES_URL, random.nextInt()));
-                        @NotNull URL url = new URL(ES_URL + "_bulk");
+            EXECUTOR.submit(() -> {
+                try {
+                    //URL url = new URL(String.format("%s/%d", ES_URL, random.nextInt()));
+                    @NotNull URL url = new URL(ES_URL + "_bulk");
 
-                        @NotNull HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                        connection.setDoOutput(true);
-                        connection.setDoInput(true);
-                        connection.setRequestProperty("Content-Type", "application/json; charset=utf8");
-                        connection.setRequestProperty("Accept", "application/json");
-                        connection.setRequestMethod("POST");
+                    @NotNull HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setDoOutput(true);
+                    connection.setDoInput(true);
+                    connection.setRequestProperty("Content-Type", "application/json; charset=utf8");
+                    connection.setRequestProperty("Accept", "application/json");
+                    connection.setRequestMethod("POST");
 
-                        @NotNull OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
-                        //osw.write(getBody());
-                        {
-                            @NotNull StringBuilder sb = new StringBuilder();
-                            for (int j = 0; j < 3333; j++) {
-                                sb.append(generator.getHeader());
-                                sb.append("\n");
-                                sb.append(generator.getBody());
-                                sb.append("\n");
-
-                            }
-                            //System.out.println(sb.toString());
-                            osw.write(sb.toString());
-                        }
-                        osw.flush();
-
-
-                        //display what returns the POST request
+                    @NotNull OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
+                    //osw.write(getBody());
+                    {
                         @NotNull StringBuilder sb = new StringBuilder();
-                        int HttpResult = connection.getResponseCode();
+                        for (int j = 0; j < 3333; j++) {
+                            sb.append(generator.getHeader());
+                            sb.append("\n");
+                            sb.append(generator.getBody());
+                            sb.append("\n");
 
-                        if (HttpResult == HttpURLConnection.HTTP_OK) {
-                            @NotNull BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
-                            @Nullable String line = null;
+                        }
+                        //System.out.println(sb.toString());
+                        osw.write(sb.toString());
+                    }
+                    osw.flush();
 
-                            while ((line = br.readLine()) != null) {
-                                sb.append(line).append("\n");
-                            }
 
-                            br.close();
-                            //System.out.println("" + sb.toString());
+                    //display what returns the POST request
+                    @NotNull StringBuilder sb = new StringBuilder();
+                    int HttpResult = connection.getResponseCode();
 
-                        } else {
-                            System.err.println(HttpResult);
-                            System.err.println(connection.getResponseMessage());
+                    if (HttpResult == HttpURLConnection.HTTP_OK) {
+                        @NotNull BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
+                        @Nullable String line = null;
+
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line).append("\n");
                         }
 
-                        osw.close();
+                        br.close();
+                        //System.out.println("" + sb.toString());
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } else {
+                        System.err.println(HttpResult);
+                        System.err.println(connection.getResponseMessage());
                     }
-                    count.incrementAndGet();
+
+                    osw.close();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+                count.incrementAndGet();
             });
 
             if (i % 10 == 0) {
