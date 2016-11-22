@@ -46,7 +46,7 @@ public class AmqpGuiMain {
         {
 
             commandPanel = new CommandPanel(
-                    new CommandPanelActionner(
+                    new CommandPanelActionImpl(
                             new AmqpProducer(
                                     URI,
                                     EXCHANGE,

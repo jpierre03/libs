@@ -19,9 +19,10 @@ public class HistoryTable extends JPanel {
 
     @NotNull
     private final JTable table;
-    private boolean isMultipleSelection = true;
+    private final boolean allowMultipleSelection;
 
-    public HistoryTable(@Nullable final MessageTableModel dm, @Nullable TableColumnModel cm, @Nullable ListSelectionModel sm) {
+    public HistoryTable(@Nullable final MessageTableModel dm, @Nullable final TableColumnModel cm, @Nullable final ListSelectionModel sm, boolean allowMultipleSelection) {
+        this.allowMultipleSelection = allowMultipleSelection;
         table = new JTable(dm, cm, sm);
         setLayout(new BorderLayout());
 
@@ -35,7 +36,7 @@ public class HistoryTable extends JPanel {
         @NotNull JPanel searchPanel = new JPanel(new BorderLayout());
         @NotNull final JLabel searchCounter = new JLabel();
         @NotNull final JTextField searchField = new JTextField();
-        searchField.addActionListener(new SearchActionListener(searchField, searchCounter, table, isMultipleSelection, false));
+        searchField.addActionListener(new SearchActionListener(searchField, searchCounter, table, this.allowMultipleSelection, false));
 
         searchPanel.add(searchField, BorderLayout.CENTER);
         searchPanel.add(searchCounter, BorderLayout.WEST);
@@ -48,11 +49,11 @@ public class HistoryTable extends JPanel {
     }
 
     public HistoryTable() {
-        this(null, null, null);
+        this(null, null, null, true);
     }
 
     public HistoryTable(@NotNull MessageTableModel dm) {
-        this(dm, null, null);
+        this(dm, null, null, true);
     }
 
     public void setDefaultRenderer(Class<?> columnClass, TableCellRenderer renderer) {
