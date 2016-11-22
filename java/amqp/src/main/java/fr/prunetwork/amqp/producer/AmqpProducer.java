@@ -9,6 +9,8 @@ import fr.prunetwork.amqp.ExchangeType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * This class send message to an AMQP broker.
@@ -26,12 +28,12 @@ public final class AmqpProducer {
     private final Channel channel;
     @NotNull
     private final Connection connection;
+
     @NotNull
-    private final String uri;
-    @NotNull
-    private final String exchange;
-    @NotNull
-    private final String routingKey;
+    private final AmqpConfiguration configuration;
+
+
+    // @NotNull final AmqpConfiguration configuration = new AmqpConfiguration(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, true);
 
     /**
      * This constructor allow user to define usual AMQP settings.
@@ -46,27 +48,36 @@ public final class AmqpProducer {
                         @NotNull final ExchangeType exchangeType,
                         final boolean isDurable) throws Exception {
 
-        this.uri = uri;
-        this.exchange = exchange;
-        this.routingKey = routingKey;
+        this(new AmqpConfiguration(uri, exchange, Collections.singletonList(routingKey), exchangeType, isDurable));
+
+
+    }
+
+    public AmqpProducer(@NotNull final AmqpConfiguration configuration) throws Exception {
+        this.configuration = configuration;
 
         @NotNull final ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri(uri);
+        factory.setUri(configuration.getUri());
         factory.setAutomaticRecoveryEnabled(true);
         connection = factory.newConnection();
 
         channel = connection.createChannel();
 
-        channel.exchangeDeclare(exchange, exchangeType.name(), isDurable);
+        channel.exchangeDeclare(
+                configuration.getExchangeName(),
+                configuration.getExchangeType().name(),
+                configuration.isDurable(),
+                configuration.isDurable(),
+                null
+        );
 
-        if (exchange.isEmpty()) {
-            channel.queueDeclare(routingKey, false, true, true, null);
+        if (configuration.getExchangeName().isEmpty()) {
+            for (String routingKey : configuration.getBindingKeys()) {
+                channel.queueDeclare(routingKey, false, true, true, null);
+            }
+
         } else {
         }
-    }
-
-    public AmqpProducer(@NotNull final  AmqpConfiguration configuration) throws Exception {
-        this(configuration.getUri(), configuration.getExchange(), "", configuration.getExchangeType(), configuration.isDurable());
     }
 
     /**
@@ -78,12 +89,22 @@ public final class AmqpProducer {
     public void publish(@NotNull final String message, @NotNull final String routingKey) throws IOException {
         assert channel.isOpen();
 
-        channel.basicPublish(exchange, routingKey, null, message.getBytes());
+        channel.basicPublish(configuration.getExchangeName(), routingKey, null, message.getBytes());
+        //System.out.println(message);
+    }
+
+    public void publish(@NotNull final String message, @NotNull final Collection<String> routingKeys) throws IOException {
+        assert channel.isOpen();
+
+        for (String key : routingKeys) {
+            channel.basicPublish(configuration.getExchangeName(), key, null, message.getBytes());
+        }
+
         //System.out.println(message);
     }
 
     public void publish(@NotNull String message) throws IOException {
-        publish(message, routingKey);
+        publish(message, configuration.getBindingKeys());
     }
 
     public void close() throws Exception {

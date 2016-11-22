@@ -82,7 +82,7 @@ public class AmqpToMailForwarderService {
 
             sender.send(mail);
 
-            message.displayMessage();
+            message.printMessage(System.out);
 
         } catch (Exception e) {
             e.printStackTrace();

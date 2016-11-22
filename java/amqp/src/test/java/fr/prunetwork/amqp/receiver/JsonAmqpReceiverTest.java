@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -49,6 +50,7 @@ public class JsonAmqpReceiverTest {
         }
         try {
             final JsonMessage message = receiver.consume();
+            assertNotNull(message);
         } catch (Exception e) {
             fail(e.getLocalizedMessage());
         }
@@ -67,10 +69,10 @@ public class JsonAmqpReceiverTest {
             try {
 
                 final JsonMessage message = receiver.consume();
+                assertNotNull(message);
             } catch (Exception e) {
                 fail(e.getLocalizedMessage());
             }
         }
     }
-
 }

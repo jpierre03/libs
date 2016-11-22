@@ -1,5 +1,6 @@
 package fr.prunetwork.amqp.gui;
 
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
 import fr.prunetwork.amqp.consumer.SimpleMessageConsumer;
@@ -79,13 +80,8 @@ public class AmqpGuiMain {
         panel.add(new JScrollPane(table));
 
         @NotNull final MyMessageConsumer consumer = new MyMessageConsumer(messageTableModel);
-        @NotNull AmqpReceiver receiver = new AmqpReceiver(
-                URI,
-                EXCHANGE,
-                routingKeys,
-                consumer,
-                true
-        );
+        @NotNull final AmqpConfiguration configuration = new AmqpConfiguration(URI, EXCHANGE, ROUTING_KEYS, ExchangeType.topic, true);
+        @NotNull AmqpReceiver receiver = new AmqpReceiver(configuration, consumer);
         receiver.configure();
 
         @NotNull final Runnable runnable = () -> {

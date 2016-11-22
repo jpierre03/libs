@@ -4,12 +4,11 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.ExchangeType;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -19,48 +18,29 @@ import java.util.Collection;
 public class AmqpReceiver {
 
     @NotNull
-    private final URI uri;
-    @NotNull
-    private final String topicName;
-    @NotNull
-    private final Collection<String> bindingKeys;
-    @NotNull
     private final MessageConsumer externalConsumer;
-    private final boolean isDurable;
     private QueueingConsumer consumer;
 
-    public AmqpReceiver(@NotNull final URI uri,
-                        @NotNull final String topic,
-                        @NotNull final Collection<String> bindingKeys,
-                        @NotNull final MessageConsumer consumer,
-                        final boolean isDurable) {
-        this.uri = uri;
-        this.topicName = topic;
+    @NotNull
+    private final AmqpConfiguration configuration;
+
+    public AmqpReceiver(@NotNull final AmqpConfiguration configuration,
+                        @NotNull final MessageConsumer consumer) {
+        this.configuration = configuration;
         this.externalConsumer = consumer;
-        this.bindingKeys = new ArrayList<>(bindingKeys);
-        this.isDurable = isDurable;
-    }
-
-    public AmqpReceiver(@NotNull final String uri,
-                        @NotNull final String topic,
-                        @NotNull final Collection<String> bindingKeys,
-                        @NotNull final MessageConsumer consumer,
-                        final boolean  isDurable) throws URISyntaxException {
-
-        this(new URI(uri), topic, bindingKeys, consumer, isDurable);
     }
 
     public void configure() throws Exception {
         @NotNull final ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri(uri);
+        factory.setUri(configuration.getUri());
         final Connection connection = factory.newConnection();
         final Channel channel = connection.createChannel();
 
-        channel.exchangeDeclare(topicName, ExchangeType.topic.name(), isDurable);
+        channel.exchangeDeclare(configuration.getExchangeName(), configuration.getExchangeType().name(), configuration.isDurable());
         String queueName = channel.queueDeclare().getQueue();
 
-        for (final String bindingKey : bindingKeys) {
-            channel.queueBind(queueName, topicName, bindingKey);
+        for (final String bindingKey : configuration.getBindingKeys()) {
+            channel.queueBind(queueName, configuration.getExchangeName(), bindingKey);
         }
 
         consumer = new QueueingConsumer(channel);

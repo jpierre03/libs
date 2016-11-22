@@ -39,7 +39,7 @@ public final class SimpleAmqpReceiver
 
             @NotNull final SimpleMessage m = new SimpleMessage(routingKey, message);
 
-            // m.displayMessage();
+            // m.printMessage();
 
             getConsumer().getChannel().basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             return m;

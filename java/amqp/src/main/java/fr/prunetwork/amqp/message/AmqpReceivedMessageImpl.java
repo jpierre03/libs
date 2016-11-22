@@ -3,6 +3,8 @@ package fr.prunetwork.amqp.message;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Date;
 
 /**
@@ -37,8 +39,8 @@ class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
     }
 
     @Override
-    public final void displayMessage() {
-        System.out.println(toString());
+    public final void printMessage(@NotNull final PrintStream os) {
+        os.println(toString());
     }
 
     @Override
@@ -52,15 +54,11 @@ class AmqpReceivedMessageImpl implements AmqpReceivedMessage {
         return receptionDate;
     }
 
-    public void displayFullMessage() {
-        @NotNull final StringBuilder sb = new StringBuilder();
-
-        sb.append("->").append("\n");
-        sb.append("-date:").append(getReceivedDate()).append("\n");
-        sb.append("-key :").append(getRoutingKey()).append("\n");
-        sb.append("-body:").append(getBody()).append("\n");
-        sb.append("<-").append("\n");
-
-        System.out.print(sb.toString());
+    public void displayFullMessage(@NotNull final PrintStream out) {
+        out.append("->").append("\n");
+        out.append("-date:").append(getReceivedDate().toString()).append("\n");
+        out.append("-key :").append(getRoutingKey()).append("\n");
+        out.append("-body:").append(getBody()).append("\n");
+        out.append("<-").append("\n");
     }
 }

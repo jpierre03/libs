@@ -14,7 +14,7 @@ public class AmqpConfiguration {
     @NotNull
     private final String uri;
     @NotNull
-    private final String exchange;
+    private final String exchangeName;
     @NotNull
     private final Collection<String> bindingKeys;
     @NotNull
@@ -22,26 +22,13 @@ public class AmqpConfiguration {
     private final boolean isDurable;
 
     public AmqpConfiguration(@NotNull final String uri,
-                             @NotNull final String exchange,
+                             @NotNull final String exchangeName,
                              @NotNull final Collection<String> bindingKeys,
                              @NotNull final ExchangeType exchangeType,
                              final boolean isDurable){
 
         this.uri = uri;
-        this.exchange = exchange;
-        this.bindingKeys = bindingKeys;
-        this.exchangeType = exchangeType;
-        this.isDurable = isDurable;
-    }
-
-    public AmqpConfiguration(@NotNull final URI uri,
-                             @NotNull final String exchange,
-                             @NotNull final Collection<String> bindingKeys,
-                             @NotNull final ExchangeType exchangeType,
-                             final boolean isDurable) {
-
-        this.uri = uri.toString();
-        this.exchange = exchange;
+        this.exchangeName = exchangeName;
         this.bindingKeys = bindingKeys;
         this.exchangeType = exchangeType;
         this.isDurable = isDurable;
@@ -53,8 +40,8 @@ public class AmqpConfiguration {
     }
 
     @NotNull
-    public String getExchange() {
-        return exchange;
+    public String getExchangeName() {
+        return exchangeName;
     }
 
     @NotNull

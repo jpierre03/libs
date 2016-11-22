@@ -3,8 +3,10 @@ package com.cor.cep.util;
 import com.cor.cep.event.TemperatureEvent;
 import com.cor.cep.handler.TemperatureEventHandler;
 import com.rabbitmq.client.QueueingConsumer;
+import fr.prunetwork.amqp.AmqpConfiguration;
 import fr.prunetwork.amqp.AmqpDefaultProperties;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
+import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;
 import fr.prunetwork.amqp.consumer.SimpleMessageConsumer;
 import fr.prunetwork.amqp.message.SimpleMessage;
@@ -18,6 +20,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
 
 /**
  * Just a simple class to create a number of Random TemperatureEvents and pass them off to the
@@ -49,13 +53,8 @@ public class AmqpTemperatureEventGenerator {
 
             try {
                 SimpleMessageConsumer consumer = new MyMessageConsumer();
-                AmqpReceiver receiver = new AmqpReceiver(
-                        AmqpDefaultProperties.URI,
-                        AmqpDefaultProperties.EXCHANGE,
-                        Arrays.asList("#"),
-                        consumer,
-                        false
-                );
+                @NotNull final AmqpConfiguration configuration = new AmqpConfiguration(URI, EXCHANGE, Arrays.asList("#"), ExchangeType.topic, false);
+                @NotNull final AmqpReceiver receiver = new AmqpReceiver(configuration, consumer);
 
                 receiver.configure();
 
