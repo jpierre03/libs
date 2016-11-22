@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/amqp/pom.xml" />
+        <option value="$PROJECT_DIR$/json/pom.xml" />
+        <option value="$PROJECT_DIR$/random/pom.xml" />
+        <option value="$PROJECT_DIR$/network/pom.xml" />
+        <option value="$PROJECT_DIR$/sandbox/pom.xml" />
+        <option value="$PROJECT_DIR$/amqp-gui/pom.xml" />
+        <option value="$PROJECT_DIR$/amqp-mail/pom.xml" />
+        <option value="$PROJECT_DIR$/collection/pom.xml" />
+        <option value="$PROJECT_DIR$/gui-graphviz/pom.xml" />
+        <option value="$PROJECT_DIR$/amqp-database/pom.xml" />
+        <option value="$PROJECT_DIR$/gui-component/pom.xml" />
+        <option value="$PROJECT_DIR$/demo-image-gif/pom.xml" />
+        <option value="$PROJECT_DIR$/gui-logigramme/pom.xml" />
+        <option value="$PROJECT_DIR$/network-ping-gui/pom.xml" />
+        <option value="$PROJECT_DIR$/elasticsearch-war/pom.xml" />
+        <option value="$PROJECT_DIR$/process-esper-sample/pom.xml" />
+        <option value="$PROJECT_DIR$/elasticsearch-json-poster/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>

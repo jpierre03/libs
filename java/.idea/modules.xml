@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/amqp/amqp.iml" filepath="$PROJECT_DIR$/amqp/amqp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/amqp-database/amqp-database.iml" filepath="$PROJECT_DIR$/amqp-database/amqp-database.iml" />
+      <module fileurl="file://$PROJECT_DIR$/amqp-gui/amqp-gui.iml" filepath="$PROJECT_DIR$/amqp-gui/amqp-gui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/amqp-mail/amqp-mail.iml" filepath="$PROJECT_DIR$/amqp-mail/amqp-mail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/collection/collection.iml" filepath="$PROJECT_DIR$/collection/collection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo-image-gif/demo-image-gif.iml" filepath="$PROJECT_DIR$/demo-image-gif/demo-image-gif.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elasticsearch-json-poster/elasticsearch-json-poster.iml" filepath="$PROJECT_DIR$/elasticsearch-json-poster/elasticsearch-json-poster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elasticsearch-war/elasticsearch-war.iml" filepath="$PROJECT_DIR$/elasticsearch-war/elasticsearch-war.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gui-component/gui-component.iml" filepath="$PROJECT_DIR$/gui-component/gui-component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gui-graphviz/gui-graphviz.iml" filepath="$PROJECT_DIR$/gui-graphviz/gui-graphviz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gui-logigramme/gui-logigramme.iml" filepath="$PROJECT_DIR$/gui-logigramme/gui-logigramme.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/java.iml" filepath="$PROJECT_DIR$/.idea/java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/json/json.iml" filepath="$PROJECT_DIR$/json/json.iml" />
+      <module fileurl="file://$PROJECT_DIR$/network/network.iml" filepath="$PROJECT_DIR$/network/network.iml" />
+      <module fileurl="file://$PROJECT_DIR$/network-ping-gui/network-ping-gui.iml" filepath="$PROJECT_DIR$/network-ping-gui/network-ping-gui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/process-esper-sample/process-esper-sample.iml" filepath="$PROJECT_DIR$/process-esper-sample/process-esper-sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/random/random.iml" filepath="$PROJECT_DIR$/random/random.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sandbox/sandbox.iml" filepath="$PROJECT_DIR$/sandbox/sandbox.iml" />
+    </modules>
+  </component>
+</project>
