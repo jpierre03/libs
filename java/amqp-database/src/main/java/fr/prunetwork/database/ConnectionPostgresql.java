@@ -14,19 +14,19 @@ import java.util.Collection;
  * @author Jean-Pierre PRUNARET
  *         Created on 15/09/14.
  */
-public class ConnectionPostgreSQL {
+class ConnectionPostgresql {
 
     @NotNull
     private static final SecureRandom random = new SecureRandom();
     @NotNull
-    protected final Connection connection;
+    private final Connection connection;
     @NotNull
-    protected final Object mutex = new Object();
+    private final Object mutex = new Object();
     protected final String random_id = nextSessionId();
 
-    public ConnectionPostgreSQL(@NotNull final String url,
-                                @NotNull final String username,
-                                @NotNull final String password) throws SQLException, ClassNotFoundException {
+    ConnectionPostgresql(@NotNull final String url,
+                         @NotNull final String username,
+                         @NotNull final String password) throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
 
         connection = DriverManager.getConnection(url, username, password);
