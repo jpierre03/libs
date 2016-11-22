@@ -86,7 +86,7 @@ public final class AmqpProducer {
         publish(message, routingKey);
     }
 
-    public void close() throws IOException {
+    public void close() throws Exception {
         channel.close();
         connection.close();
     }

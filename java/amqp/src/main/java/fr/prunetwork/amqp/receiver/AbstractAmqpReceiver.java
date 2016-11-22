@@ -83,7 +83,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     public abstract T consume() throws Exception;
 
     @Override
-    public void close() throws IOException {
+    public void close() throws Exception {
         if (consumer != null) {
             consumer.getChannel().close();
         }
