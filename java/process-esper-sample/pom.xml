@@ -12,8 +12,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <esper-version>5.2.0</esper-version>
-        <spring-version>4.1.5.RELEASE</spring-version>
+        <esper-version>5.5.0</esper-version>
+        <spring-version>4.3.4.RELEASE</spring-version>
     </properties>
 
     <dependencies>
@@ -61,13 +61,13 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>3.1</version>
+            <version>3.2.4</version>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.2</version>
+            <version>1.1.7</version>
             <scope>compile</scope>
         </dependency>
 
@@ -107,6 +107,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
                 <configuration>
                     <mainClass>com.cor.cep.StartDemo</mainClass>
                     <includePluginDependencies>false</includePluginDependencies>
