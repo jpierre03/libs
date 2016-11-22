@@ -104,19 +104,15 @@ public class PingGuiMain {
             buildScheduledTask(hostname);
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(() -> {
+            @NotNull JFrame frame = new JFrame("Status");
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-            @Override
-            public void run() {
-                @NotNull JFrame frame = new JFrame("Status");
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-                frame.add(panel);
-                frame.pack();
-                frame.setSize(600, 400);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
+            frame.add(panel);
+            frame.pack();
+            frame.setSize(600, 400);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
         });
     }
 
