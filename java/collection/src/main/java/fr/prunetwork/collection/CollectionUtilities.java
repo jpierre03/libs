@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 /**
  * @author Jean-Pierre PRUNARET
- * @since 09/05/2014
+ * @since 2014-05-09
  */
 public final class CollectionUtilities {
 

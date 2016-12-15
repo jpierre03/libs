@@ -2,12 +2,13 @@ package fr.prunetwork.collection;
 
 import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.map.LRUMap;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
 /**
  * @author Crunchify.com
- * @see http://crunchify.com/how-to-create-a-simple-in-memory-cache-in-java-lightweight-cache/
+ * @link http://crunchify.com/how-to-create-a-simple-in-memory-cache-in-java-lightweight-cache/
  */
 
 public class CrunchifyInMemoryCache<K, T> {

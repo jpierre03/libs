@@ -2,7 +2,7 @@ package fr.prunetwork.collection;
 
 /**
  * @author Crunchify.com
- * @see http://crunchify.com/how-to-create-a-simple-in-memory-cache-in-java-lightweight-cache/
+ * @link http://crunchify.com/how-to-create-a-simple-in-memory-cache-in-java-lightweight-cache/
  */
 
 public class CrunchifyInMemoryCacheTest {
