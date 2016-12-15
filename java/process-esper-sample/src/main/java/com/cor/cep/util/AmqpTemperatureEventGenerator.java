@@ -4,7 +4,6 @@ import com.cor.cep.event.TemperatureEvent;
 import com.cor.cep.handler.TemperatureEventHandler;
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpConfiguration;
-import fr.prunetwork.amqp.AmqpDefaultProperties;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.consumer.AmqpReceiver;

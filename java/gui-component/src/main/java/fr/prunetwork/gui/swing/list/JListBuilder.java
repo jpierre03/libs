@@ -3,7 +3,6 @@ package fr.prunetwork.gui.swing.list;
 import org.jetbrains.annotations.NotNull;
 
 import javax.accessibility.Accessible;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.io.Serializable;

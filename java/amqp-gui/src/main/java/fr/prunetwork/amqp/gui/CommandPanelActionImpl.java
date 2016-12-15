@@ -4,7 +4,6 @@ import fr.prunetwork.amqp.producer.AmqpProducer;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Random;
 
 /**

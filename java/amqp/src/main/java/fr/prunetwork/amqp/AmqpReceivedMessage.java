@@ -2,7 +2,6 @@ package fr.prunetwork.amqp;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.Date;

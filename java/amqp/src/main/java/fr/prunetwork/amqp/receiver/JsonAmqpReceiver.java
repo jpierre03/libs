@@ -2,14 +2,11 @@ package fr.prunetwork.amqp.receiver;
 
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpConfiguration;
-import fr.prunetwork.amqp.AmqpReceivedMessage;
 import fr.prunetwork.amqp.AmqpReceiver;
 import fr.prunetwork.amqp.ExchangeType;
 import fr.prunetwork.amqp.message.JsonMessage;
-import fr.prunetwork.amqp.message.SimpleMessage;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URI;
 import java.util.Collection;
 
 /**

@@ -5,11 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.QueueingConsumer;
 import fr.prunetwork.amqp.AmqpConfiguration;
-import fr.prunetwork.amqp.ExchangeType;
 import org.jetbrains.annotations.NotNull;
-
-import java.net.URISyntaxException;
-import java.util.Collection;
 
 /**
  * @author Jean-Pierre PRUNARET

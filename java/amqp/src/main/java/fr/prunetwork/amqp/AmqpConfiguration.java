@@ -2,7 +2,6 @@ package fr.prunetwork.amqp;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URI;
 import java.util.Collection;
 
 /**

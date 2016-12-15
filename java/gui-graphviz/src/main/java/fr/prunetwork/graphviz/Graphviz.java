@@ -68,8 +68,7 @@ public class Graphviz {
             TEMP_DIR = "c:/temp";
         } else if (OSValidator.isUnix()) {
             TEMP_DIR = "/tmp";
-        }
-        if (OSValidator.isMac()) {
+        } else if (OSValidator.isMac()) {
             TEMP_DIR = System.getProperty("java.io.tmpdir");
         } else {
             throw new RuntimeException("Graphviz: Operating System not supported, ask support");

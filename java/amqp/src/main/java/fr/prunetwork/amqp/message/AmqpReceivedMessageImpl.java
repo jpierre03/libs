@@ -3,7 +3,6 @@ package fr.prunetwork.amqp.message;
 import fr.prunetwork.amqp.AmqpReceivedMessage;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Date;
 
