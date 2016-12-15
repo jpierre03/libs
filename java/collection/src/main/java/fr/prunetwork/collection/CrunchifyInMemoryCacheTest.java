@@ -24,7 +24,7 @@ public class CrunchifyInMemoryCacheTest {
         // Test with timeToLiveInSeconds = 200 seconds
         // timerIntervalInSeconds = 500 seconds
         // maxItems = 6
-        CrunchifyInMemoryCache<String, String> cache = new CrunchifyInMemoryCache<String, String>(200, 500, 6);
+        CrunchifyInMemoryCache<String, String> cache = new CrunchifyInMemoryCache<>(200, 500, 6);
 
         cache.put("eBay", "eBay");
         cache.put("Paypal", "Paypal");
@@ -48,7 +48,7 @@ public class CrunchifyInMemoryCacheTest {
         // Test with timeToLiveInSeconds = 1 second
         // timerIntervalInSeconds = 1 second
         // maxItems = 10
-        CrunchifyInMemoryCache<String, String> cache = new CrunchifyInMemoryCache<String, String>(1, 1, 10);
+        CrunchifyInMemoryCache<String, String> cache = new CrunchifyInMemoryCache<>(1, 1, 10);
 
         cache.put("eBay", "eBay");
         cache.put("Paypal", "Paypal");
@@ -67,7 +67,7 @@ public class CrunchifyInMemoryCacheTest {
         // timerIntervalInSeconds = 100 seconds
         // maxItems = 500000
 
-        CrunchifyInMemoryCache<String, String> cache = new CrunchifyInMemoryCache<String, String>(100, 100, 500000);
+        CrunchifyInMemoryCache<String, String> cache = new CrunchifyInMemoryCache<>(100, 100, 500000);
 
         for (int i = 0; i < size; i++) {
             String value = Integer.toString(i);

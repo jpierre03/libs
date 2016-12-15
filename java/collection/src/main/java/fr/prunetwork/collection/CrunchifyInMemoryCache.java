@@ -54,6 +54,7 @@ public class CrunchifyInMemoryCache<K, T> {
     }
 
     @SuppressWarnings("unchecked")
+    @Nullable
     public T get(K key) {
         synchronized (crunchifyCacheMap) {
             CrunchifyCacheObject c = (CrunchifyCacheObject) crunchifyCacheMap.get(key);
@@ -83,14 +84,14 @@ public class CrunchifyInMemoryCache<K, T> {
     public void cleanup() {
 
         long now = System.currentTimeMillis();
-        ArrayList<K> deleteKey = null;
+        ArrayList<K> deleteKey;
 
         synchronized (crunchifyCacheMap) {
             MapIterator itr = crunchifyCacheMap.mapIterator();
 
-            deleteKey = new ArrayList<K>((crunchifyCacheMap.size() / 2) + 1);
-            K key = null;
-            CrunchifyCacheObject c = null;
+            deleteKey = new ArrayList<>((crunchifyCacheMap.size() / 2) + 1);
+            K key;
+            CrunchifyCacheObject c;
 
             while (itr.hasNext()) {
                 key = (K) itr.next();
