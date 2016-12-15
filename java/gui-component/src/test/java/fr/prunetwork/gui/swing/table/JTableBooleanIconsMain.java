@@ -19,15 +19,12 @@ public class JTableBooleanIconsMain {
      * Launch the application.
      */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    @NotNull JTableBooleanIcons window = new JTableBooleanIcons();
-                    window.getFrame().setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                @NotNull JTableBooleanIcons window = new JTableBooleanIcons();
+                window.getFrame().setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
