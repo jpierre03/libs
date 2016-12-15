@@ -19,7 +19,7 @@ public class HtmlPanelDemo1 extends JFrame {
     private JEditorPane pane;
     private JTextField textField;
 
-    public HtmlPanelDemo1() {
+    private HtmlPanelDemo1() {
         super("JEditorPane Example 1");
 
         pane = new JEditorPane();
@@ -36,17 +36,17 @@ public class HtmlPanelDemo1 extends JFrame {
         getContentPane().add(panel, "South");
 
         // Change page based on text field
-        textField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                String url = textField.getText();
-                try {
-                    // Try to display the page
-                    pane.setPage(url);
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(pane, new String[]{
-                            "Unable to open file", url}, "File Open Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+        textField.addActionListener(evt -> {
+            String url = textField.getText();
+            try {
+                // Try to display the page
+                pane.setPage(url);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(
+                        pane,
+                        new String[]{"Unable to open file", url},
+                        "File Open Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
     }
@@ -55,6 +55,7 @@ public class HtmlPanelDemo1 extends JFrame {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception evt) {
+            // Do nothing
         }
 
         JFrame f = new HtmlPanelDemo1();
