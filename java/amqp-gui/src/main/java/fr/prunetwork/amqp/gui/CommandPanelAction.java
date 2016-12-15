@@ -6,9 +6,9 @@ package fr.prunetwork.amqp.gui;
  */
 public interface CommandPanelAction {
 
-    void sendHelloWorld() throws Exception;
+    void sendHelloWorld();
 
-    void sendAddRunningTimeMinute(int duration) throws Exception;
+    void sendAddRunningTimeMinute(int duration);
 
-    void sendRandomTemperature() throws Exception;
+    void sendRandomTemperature();
 }

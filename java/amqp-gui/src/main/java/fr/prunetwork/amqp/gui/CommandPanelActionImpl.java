@@ -3,6 +3,8 @@ package fr.prunetwork.amqp.gui;
 import fr.prunetwork.amqp.producer.AmqpProducer;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 
 /**
@@ -20,22 +22,31 @@ public class CommandPanelActionImpl implements CommandPanelAction {
         this.amqpProducer = amqpProducer;
     }
 
-    private void publish(@NotNull final String message) throws Exception {
-        amqpProducer.publish(message);
+    private void publish(@NotNull final String message) {
+        try {
+            amqpProducer.publish(message);
+            //Thread.sleep(1);
+        } catch (Exception ex) {
+            notifyUser(ex);
+        }
     }
 
     @Override
-    public void sendHelloWorld() throws Exception {
+    public void sendHelloWorld() {
         publish("Hello World !");
     }
 
     @Override
-    public void sendAddRunningTimeMinute(int duration) throws Exception {
+    public void sendAddRunningTimeMinute(int duration) {
         publish("(laveuse) + " + duration + " min");
     }
 
     @Override
-    public void sendRandomTemperature() throws Exception {
+    public void sendRandomTemperature() {
         publish(random.nextInt(500) + "");
+    }
+
+    private static void notifyUser(@NotNull final Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "", JOptionPane.ERROR_MESSAGE);
     }
 }
