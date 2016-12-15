@@ -74,7 +74,6 @@ public class JSONTokener {
         this(new InputStreamReader(inputStream));
     }
 
-
     /**
      * Construct a JSONTokener from a string.
      *
@@ -123,7 +122,6 @@ public class JSONTokener {
         return this.eof && !this.usePrevious;
     }
 
-
     /**
      * Determine if the source string still contains characters that next()
      * can consume.
@@ -138,7 +136,6 @@ public class JSONTokener {
         this.back();
         return true;
     }
-
 
     /**
      * Get the next character in the source string.
@@ -176,7 +173,6 @@ public class JSONTokener {
         return this.previous;
     }
 
-
     /**
      * Consume the next character, and check that it matches a specified
      * character.
@@ -193,7 +189,6 @@ public class JSONTokener {
         }
         return n;
     }
-
 
     /**
      * Get the next n characters.
@@ -222,7 +217,6 @@ public class JSONTokener {
         return new String(chars);
     }
 
-
     /**
      * Get the next char in the string, skipping whitespace.
      *
@@ -237,7 +231,6 @@ public class JSONTokener {
             }
         }
     }
-
 
     /**
      * Return the characters up to the next close quote character.
@@ -302,7 +295,6 @@ public class JSONTokener {
         }
     }
 
-
     /**
      * Get the text up but not including the specified character or the
      * end of line, whichever comes first.
@@ -324,7 +316,6 @@ public class JSONTokener {
             sb.append(c);
         }
     }
-
 
     /**
      * Get the text up but not including one of the specified delimiter
@@ -349,7 +340,6 @@ public class JSONTokener {
             sb.append(c);
         }
     }
-
 
     /**
      * Get the next value. The value can be a Boolean, Double, Integer,
@@ -397,7 +387,6 @@ public class JSONTokener {
         return JSONObject.stringToValue(string);
     }
 
-
     /**
      * Skip characters until the next character is the requested character.
      * If the requested character is not found, no characters are skipped.
@@ -429,7 +418,6 @@ public class JSONTokener {
         this.back();
         return c;
     }
-
 
     /**
      * Make a JSONException to signal a syntax error.

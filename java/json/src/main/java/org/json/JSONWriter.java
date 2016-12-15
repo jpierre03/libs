@@ -233,7 +233,6 @@ public class JSONWriter {
         throw new JSONException("Misplaced key.");
     }
 
-
     /**
      * Begin appending a new object. All keys and values until the balancing
      * <code>endObject</code> will be appended to this object. The
@@ -258,7 +257,6 @@ public class JSONWriter {
         throw new JSONException("Misplaced object.");
 
     }
-
 
     /**
      * Pop an array or object scope.
@@ -297,7 +295,6 @@ public class JSONWriter {
         this.top += 1;
     }
 
-
     /**
      * Append either the value <code>true</code> or the value
      * <code>false</code>.
@@ -334,7 +331,6 @@ public class JSONWriter {
     public JSONWriter value(long l) throws JSONException {
         return this.append(Long.toString(l));
     }
-
 
     /**
      * Append an object value.

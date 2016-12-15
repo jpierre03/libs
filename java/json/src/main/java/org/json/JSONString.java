@@ -18,5 +18,5 @@ public interface JSONString {
      * @return A strictly syntactically correct JSON text.
      */
     @NotNull
-    public String toJSONString();
+    String toJSONString();
 }

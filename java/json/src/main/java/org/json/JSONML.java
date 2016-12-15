@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 
 /**
@@ -160,9 +161,6 @@ public class JSONML {
                         if (token == null) {
                             token = x.nextToken();
                         }
-                        if (token == null) {
-                            throw x.syntaxError("Misshaped tag");
-                        }
                         if (!(token instanceof String)) {
                             break;
                         }
@@ -274,7 +272,7 @@ public class JSONML {
      */
     @NotNull
     public static JSONArray toJSONArray(@NotNull XMLTokener x) throws JSONException {
-        return (JSONArray) parse(x, true, null);
+        return Objects.requireNonNull((JSONArray) parse(x, true, null));
     }
 
 
@@ -294,7 +292,7 @@ public class JSONML {
      */
     @NotNull
     public static JSONObject toJSONObject(@NotNull XMLTokener x) throws JSONException {
-        return (JSONObject) parse(x, false, null);
+        return Objects.requireNonNull((JSONObject) parse(x, false, null));
     }
 
 
@@ -409,7 +407,7 @@ public class JSONML {
      * @throws JSONException
      */
     @NotNull
-    public static String toString(@NotNull JSONObject jo) throws JSONException {
+    public static String toString(@NotNull final JSONObject jo) throws JSONException {
         StringBuilder sb = new StringBuilder();
         int i;
         JSONArray ja;
@@ -424,7 +422,7 @@ public class JSONML {
 
         tagName = jo.optString("tagName");
         if (tagName == null) {
-            return XML.escape(jo.toString());
+            return XML.escape(Objects.requireNonNull(jo.toString()));
         }
         XML.noSpace(tagName);
         tagName = XML.escape(tagName);
