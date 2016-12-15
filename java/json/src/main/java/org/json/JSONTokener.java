@@ -1,5 +1,7 @@
 package org.json;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.*;
 
 /*
@@ -50,7 +52,7 @@ public class JSONTokener {
      *
      * @param reader A reader.
      */
-    public JSONTokener(Reader reader) {
+    public JSONTokener(@NotNull final Reader reader) {
         this.reader = reader.markSupported()
                 ? reader
                 : new BufferedReader(reader);
@@ -68,7 +70,7 @@ public class JSONTokener {
      *
      * @param inputStream The source.
      */
-    public JSONTokener(InputStream inputStream) throws JSONException {
+    public JSONTokener(@NotNull final InputStream inputStream) throws JSONException {
         this(new InputStreamReader(inputStream));
     }
 
@@ -78,7 +80,7 @@ public class JSONTokener {
      *
      * @param s A source string.
      */
-    public JSONTokener(String s) {
+    public JSONTokener(@NotNull final String s) {
         this(new StringReader(s));
     }
 
@@ -328,7 +330,7 @@ public class JSONTokener {
      * @param delimiters A set of delimiter characters.
      * @return A string, trimmed.
      */
-    public String nextTo(String delimiters) throws JSONException {
+    public String nextTo(@NotNull final String delimiters) throws JSONException {
         char c;
         StringBuilder sb = new StringBuilder();
         for (; ; ) {
@@ -398,7 +400,7 @@ public class JSONTokener {
      *
      * @param to A character to skip to.
      * @return The requested character, or zero if the requested character
-     *         is not found.
+     * is not found.
      */
     public char skipTo(char to) throws JSONException {
         char c;
@@ -431,10 +433,9 @@ public class JSONTokener {
      * @param message The error message.
      * @return A JSONException object, suitable for throwing
      */
-    public JSONException syntaxError(String message) {
+    public JSONException syntaxError(@NotNull final String message) {
         return new JSONException(message + this.toString());
     }
-
 
     /**
      * Make a printable string of this JSONTokener.
@@ -442,7 +443,6 @@ public class JSONTokener {
      * @return " at {index} [character {character} line {line}]"
      */
     public String toString() {
-        return " at " + this.index + " [character " + this.character + " line " +
-                this.line + "]";
+        return " at " + this.index + " [character " + this.character + " line " + this.line + "]";
     }
 }

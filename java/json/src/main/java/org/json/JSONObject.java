@@ -24,6 +24,8 @@ package org.json;
  SOFTWARE.
  */
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -1417,7 +1419,8 @@ public class JSONObject {
      * @return A JSONArray of values.
      * @throws JSONException If any of the values are non-finite numbers.
      */
-    public JSONArray toJSONArray(JSONArray names) throws JSONException {
+    @Nullable
+    public JSONArray toJSONArray(@Nullable final JSONArray names) throws JSONException {
         if (names == null || names.length() == 0) {
             return null;
         }
