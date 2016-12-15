@@ -199,7 +199,7 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
      * However, an undoable action is quite bad.
      */
     @Nullable
-    public V remove(Object key) {
+    public V remove(@NotNull final Object key) {
         accessLock.readLock().lock();
         //accessLock.lock();
         @Nullable V value = objectMap.remove(key);

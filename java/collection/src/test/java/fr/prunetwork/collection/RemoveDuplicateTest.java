@@ -15,17 +15,17 @@ import static org.junit.Assert.assertTrue;
  */
 public class RemoveDuplicateTest {
 
-    String s1 = "sss1";
-    String s1bis = "sss1";
-    String s1ter = "sss1";
+    private final String s1 = "sss1";
+    private final String s1bis = "sss1";
+    private final String s1ter = "sss1";
 
-    String s2 = "sss222";
-    String s2bis = "sss222";
-    String s2ter = "sss222";
+    private final String s2 = "sss222";
+    private final String s2bis = "sss222";
+    private final String s2ter = "sss222";
 
-    String s3 = "sss333";
-    String s3bis = "sss333";
-    String s3ter = "sss333";
+    private final String s3 = "sss333";
+    private final String s3bis = "sss333";
+    private final String s3ter = "sss333";
 
     private Collection<String> collection;
 
