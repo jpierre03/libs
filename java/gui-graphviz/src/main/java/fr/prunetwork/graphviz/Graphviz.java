@@ -137,7 +137,7 @@ public class Graphviz {
                 in.read(img_stream);
             }
 
-            if (img.delete() == false) {
+            if (!img.delete()) {
                 System.err.println("Warning: " + img.getAbsolutePath() + " could not be deleted!");
             }
         } catch (IOException ex) {
@@ -251,7 +251,7 @@ public class Graphviz {
 
         @NotNull byte[] img_stream = get_img_stream(dot, type, renderer);
 
-        if (dot.delete() == false) {
+        if (!dot.delete()) {
             System.err.println("Warning: " + dot.getAbsolutePath() + " could not be deleted!");
         }
         return img_stream;

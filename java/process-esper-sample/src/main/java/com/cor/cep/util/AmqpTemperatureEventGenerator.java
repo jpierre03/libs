@@ -59,7 +59,7 @@ public class AmqpTemperatureEventGenerator {
 
 
                 System.out.println("*******");
-                while (consumer.isConnected() == false) {
+                while (!consumer.isConnected()) {
                     try {
                         Thread.sleep(100);
                     } catch (Exception e) {

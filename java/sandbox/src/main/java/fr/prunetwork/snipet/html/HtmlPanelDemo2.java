@@ -312,14 +312,14 @@ class HTMLDocumentLoader {
             if (token.equals(" ") || token.equals("\t")) {
                 continue;
             }
-            if (foundCharSet == false && foundEquals == false
+            if (!foundCharSet && !foundEquals
                     && token.equals("charset")) {
                 foundCharSet = true;
                 continue;
-            } else if (foundEquals == false && token.equals("=")) {
+            } else if (!foundEquals && token.contentEquals("=")) {
                 foundEquals = true;
                 continue;
-            } else if (foundEquals == true && foundCharSet == true) {
+            } else if (foundEquals && foundCharSet) {
                 return token;
             }
 
