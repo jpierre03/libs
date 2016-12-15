@@ -203,4 +203,22 @@ public class TimeLimitedCacheTest {
         setUp();
         shouldReturnAskedObjects();
     }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldRemove() {
+        assertEquals(0, map.getClonedMap().size());
+
+        map.put(object1_id, object1);
+        map.put(object2_id, object2);
+        map.put(object3_id, object3);
+
+        assertEquals(3, map.getClonedMap().size());
+
+        map.remove(object1_id);
+        assertEquals(2, map.getClonedMap().size());
+
+        /** throw exception */
+        map.remove(object1_id);
+    }
 }
