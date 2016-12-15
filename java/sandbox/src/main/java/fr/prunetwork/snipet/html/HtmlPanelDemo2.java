@@ -148,7 +148,7 @@ public class HtmlPanelDemo2 extends JFrame {
                     displayLoadTime();
                 }
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(
                         pane,
                         new String[]{"Unable to open file", url},
