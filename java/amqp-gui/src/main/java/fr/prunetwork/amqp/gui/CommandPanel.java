@@ -60,7 +60,11 @@ class CommandPanel extends JPanel {
         setMinimumSize(new Dimension(200, 200));
     }
 
-    private static JButton buildAndAddButton(JPanel panel, AtomicInteger counter, String description, ActionListener l) {
+    @NotNull
+    private static JButton buildAndAddButton(@NotNull final JPanel panel,
+                                             @NotNull final AtomicInteger counter,
+                                             @NotNull final String description,
+                                             @NotNull final ActionListener l) {
         counter.incrementAndGet();
         @NotNull JButton button = new JButton(description);
         button.addActionListener(l);
