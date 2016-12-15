@@ -26,7 +26,7 @@ public final class Action extends AbstractInstruction {
      *
      * @param action
      */
-    public Action(@NotNull String action) {
+    public Action(@NotNull final String action) {
         texte = new Texte(action);
     }
 
@@ -35,7 +35,7 @@ public final class Action extends AbstractInstruction {
      *
      * @param suivant
      */
-    public void setSuivant(@NotNull Instruction suivant) {
+    public void setSuivant(@NotNull final Instruction suivant) {
         this.suivant = suivant;
     }
 
@@ -47,7 +47,7 @@ public final class Action extends AbstractInstruction {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
+    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull final Component c) {
         final int largeur = texte.getLargeur(c) + 10;
         final int hauteur = texte.getHauteur(c) + 10;
 
@@ -77,7 +77,7 @@ public final class Action extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getLargeur(@NotNull Component c) {
+    public int getLargeur(@NotNull final Component c) {
         return texte.getLargeur(c) + 10;
     }
 
@@ -87,7 +87,7 @@ public final class Action extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getHauteur(@NotNull Component c) {
+    public int getHauteur(@NotNull final Component c) {
         return texte.getHauteur(c) + 30;
     }
 
@@ -98,7 +98,7 @@ public final class Action extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getLargeurComposant(@NotNull Component c) {
+    public int getLargeurComposant(@NotNull final Component c) {
         final int largeur = getLargeur(c);
 
         if (suivant == null) {
@@ -118,7 +118,7 @@ public final class Action extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getHauteurComposant(@NotNull Component c) {
+    public int getHauteurComposant(@NotNull final Component c) {
         if (suivant == null) {
             return getHauteur(c);
         }

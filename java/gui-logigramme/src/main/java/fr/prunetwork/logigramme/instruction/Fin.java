@@ -31,7 +31,7 @@ public final class Fin extends AbstractInstruction {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
+    public void dessiner(int x, int y, @NotNull final Graphics g, @NotNull final Component c) {
         final int largeur = texte.getLargeur(c) + 10;
         final int hauteur = texte.getHauteur(c) + 10;
 
@@ -45,7 +45,7 @@ public final class Fin extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getLargeur(@NotNull Component c) {
+    public int getLargeur(@NotNull final Component c) {
         return texte.getLargeur(c) + 10;
     }
 
@@ -55,7 +55,7 @@ public final class Fin extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getHauteur(@NotNull Component c) {
+    public int getHauteur(@NotNull final Component c) {
         return texte.getHauteur(c) + 10;
     }
 }

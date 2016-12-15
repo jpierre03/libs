@@ -17,7 +17,7 @@ public interface Instruction {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    void dessiner(int x, int y, Graphics g, Component c);
+    void dessiner(int x, int y, @NotNull final Graphics g, @NotNull final Component c);
 
     /**
      * Largeur de l'instruction une fois dessinée <BR>
@@ -25,7 +25,7 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getLargeur(@NotNull Component c);
+    int getLargeur(@NotNull final Component c);
 
     /**
      * Hauteur de l'instruction une fois dessinée <BR>
@@ -33,7 +33,7 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getHauteur(@NotNull Component c);
+    int getHauteur(@NotNull final Component c);
 
     /**
      * Largeur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
@@ -41,7 +41,7 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getLargeurComposant(@NotNull Component c);
+    int getLargeurComposant(@NotNull final Component c);
 
     /**
      * Hauteur minimale que doit posséder le composant pour porter cette instruction et ses suivantes <BR>
@@ -49,5 +49,5 @@ public interface Instruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    int getHauteurComposant(@NotNull Component c);
+    int getHauteurComposant(@NotNull final Component c);
 }
