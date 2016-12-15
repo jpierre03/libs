@@ -32,15 +32,13 @@ public class CrunchifyInMemoryCache<K, T> {
 
         if (timeToLive > 0 && crunchifyTimerInterval > 0) {
 
-            Thread t = new Thread(new Runnable() {
-                public void run() {
-                    while (true) {
-                        try {
-                            Thread.sleep(crunchifyTimerInterval * 1000);
-                        } catch (InterruptedException ex) {
-                        }
-                        cleanup();
+            Thread t = new Thread(() -> {
+                while (true) {
+                    try {
+                        Thread.sleep(crunchifyTimerInterval * 1000);
+                    } catch (InterruptedException ex) {
                     }
+                    cleanup();
                 }
             });
 
