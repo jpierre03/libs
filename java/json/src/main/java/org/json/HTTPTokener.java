@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The HTTPTokener extends the JSONTokener to provide additional methods
  * for the parsing of HTTP headers.
@@ -38,7 +40,7 @@ public class HTTPTokener extends JSONTokener {
      *
      * @param string A source string.
      */
-    public HTTPTokener(String string) {
+    public HTTPTokener(@NotNull String string) {
         super(string);
     }
 
@@ -49,6 +51,7 @@ public class HTTPTokener extends JSONTokener {
      * @return A String.
      * @throws JSONException
      */
+    @NotNull
     public String nextToken() throws JSONException {
         char c;
         char q;

@@ -24,6 +24,8 @@ package org.json.zip;
  SOFTWARE.
  */
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * JSONzip is a binary-encoded JSON dialect. It is designed to compress the
  * messages in a session in bandwidth constrained applications, such as mobile.
@@ -127,36 +129,43 @@ public abstract class JSONzip implements None, PostMortem {
     /**
      * A Huffman encoder for names.
      */
+    @NotNull
     protected final Huff namehuff;
 
     /**
      * A Huffman encoder for names extended bytes.
      */
+    @NotNull
     protected final Huff namehuffext;
 
     /**
      * A place to keep the names (keys).
      */
+    @NotNull
     protected final Keep namekeep;
 
     /**
      * A Huffman encoder for string values.
      */
+    @NotNull
     protected final Huff stringhuff;
 
     /**
      * A Huffman encoder for string values extended bytes.
      */
+    @NotNull
     protected final Huff stringhuffext;
 
     /**
      * A place to keep the strings.
      */
+    @NotNull
     protected final Keep stringkeep;
 
     /**
      * A place to keep the values.
      */
+    @NotNull
     protected final Keep valuekeep;
 
     /**

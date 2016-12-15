@@ -1,5 +1,7 @@
 package org.json;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The JSONException is thrown by the JSON.org classes when things are amiss.
  *
@@ -24,7 +26,7 @@ public class JSONException extends RuntimeException {
      *
      * @param cause The cause.
      */
-    public JSONException(Throwable cause) {
+    public JSONException(@NotNull Throwable cause) {
         super(cause.getMessage());
         this.cause = cause;
     }

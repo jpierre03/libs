@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 /**
@@ -48,7 +50,8 @@ public class CookieList {
      * @return A JSONObject
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(String string) throws JSONException {
+    @NotNull
+    public static JSONObject toJSONObject(@NotNull String string) throws JSONException {
         JSONObject jo = new JSONObject();
         JSONTokener x = new JSONTokener(string);
         while (x.more()) {
@@ -70,7 +73,7 @@ public class CookieList {
      * @return A cookie list string
      * @throws JSONException
      */
-    public static String toString(JSONObject jo) throws JSONException {
+    public static String toString(@NotNull JSONObject jo) throws JSONException {
         boolean b = false;
         Iterator<String> keys = jo.keys();
         String string;

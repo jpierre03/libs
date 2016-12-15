@@ -269,7 +269,7 @@ public class CDL {
      * @throws JSONException
      */
     @Nullable
-    public static String toString(JSONArray ja) throws JSONException {
+    public static String toString(@NotNull JSONArray ja) throws JSONException {
         JSONObject jo = ja.optJSONObject(0);
         if (jo != null) {
             JSONArray names = jo.names();

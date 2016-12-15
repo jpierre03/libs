@@ -1,5 +1,7 @@
 package org.json;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The <code>JSONString</code> interface allows a <code>toJSONString()</code>
  * method so that a class can change the behavior of
@@ -15,5 +17,6 @@ public interface JSONString {
      *
      * @return A strictly syntactically correct JSON text.
      */
+    @NotNull
     public String toJSONString();
 }

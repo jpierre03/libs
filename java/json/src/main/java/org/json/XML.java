@@ -24,6 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Iterator;
 
 /**
@@ -92,7 +95,7 @@ public class XML {
      * @param string The string to be escaped.
      * @return The escaped string.
      */
-    public static String escape(String string) {
+    public static String escape(@NotNull String string) {
         StringBuilder sb = new StringBuilder(string.length());
         for (int i = 0, length = string.length(); i < length; i++) {
             char c = string.charAt(i);
@@ -126,7 +129,7 @@ public class XML {
      * @param string A string.
      * @throws JSONException
      */
-    public static void noSpace(String string) throws JSONException {
+    public static void noSpace(@NotNull String string) throws JSONException {
         int i, length = string.length();
         if (length == 0) {
             throw new JSONException("Empty string.");
@@ -148,8 +151,8 @@ public class XML {
      * @return true if the close tag is processed.
      * @throws JSONException
      */
-    private static boolean parse(XMLTokener x, JSONObject context,
-                                 String name) throws JSONException {
+    private static boolean parse(@NotNull XMLTokener x, @NotNull JSONObject context,
+                                 @Nullable String name) throws JSONException {
         char c;
         int i;
         JSONObject jsonobject = null;
@@ -322,7 +325,7 @@ public class XML {
      * @param string A String.
      * @return A simple JSON value.
      */
-    public static Object stringToValue(String string) {
+    public static Object stringToValue(@NotNull String string) {
         if ("true".equalsIgnoreCase(string)) {
             return Boolean.TRUE;
         }
@@ -372,7 +375,8 @@ public class XML {
      * @return A JSONObject containing the structured data from the XML string.
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(String string) throws JSONException {
+    @NotNull
+    public static JSONObject toJSONObject(@NotNull String string) throws JSONException {
         JSONObject jo = new JSONObject();
         XMLTokener x = new XMLTokener(string);
         while (x.more() && x.skipPast("<")) {
@@ -389,6 +393,7 @@ public class XML {
      * @return A string.
      * @throws JSONException
      */
+    @NotNull
     public static String toString(Object object) throws JSONException {
         return toString(object, null);
     }
@@ -402,7 +407,8 @@ public class XML {
      * @return A string.
      * @throws JSONException
      */
-    public static String toString(Object object, String tagName)
+    @NotNull
+    public static String toString(Object object, @Nullable String tagName)
             throws JSONException {
         StringBuilder sb = new StringBuilder();
         int i;

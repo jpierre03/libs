@@ -24,6 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Properties;
@@ -42,7 +45,8 @@ public class Property {
      * @return JSONObject
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(java.util.Properties properties) throws JSONException {
+    @NotNull
+    public static JSONObject toJSONObject(@Nullable java.util.Properties properties) throws JSONException {
         JSONObject jo = new JSONObject();
         if (properties != null && !properties.isEmpty()) {
             Enumeration enumProperties = properties.propertyNames();
@@ -61,7 +65,8 @@ public class Property {
      * @return java.util.Properties
      * @throws JSONException
      */
-    public static Properties toProperties(JSONObject jo) throws JSONException {
+    @NotNull
+    public static Properties toProperties(@Nullable JSONObject jo) throws JSONException {
         Properties properties = new Properties();
         if (jo != null) {
             Iterator<String> keys = jo.keys();

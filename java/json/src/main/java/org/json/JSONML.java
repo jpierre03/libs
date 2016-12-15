@@ -24,6 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Iterator;
 
 
@@ -47,10 +50,11 @@ public class JSONML {
      * @return A JSONArray if the value is the outermost tag, otherwise null.
      * @throws JSONException
      */
+    @Nullable
     private static Object parse(
-            XMLTokener x,
+            @NotNull XMLTokener x,
             boolean arrayForm,
-            JSONArray ja
+            @Nullable JSONArray ja
     ) throws JSONException {
         String attribute;
         char c;
@@ -249,7 +253,8 @@ public class JSONML {
      * @return A JSONArray containing the structured data from the XML string.
      * @throws JSONException
      */
-    public static JSONArray toJSONArray(String string) throws JSONException {
+    @NotNull
+    public static JSONArray toJSONArray(@NotNull String string) throws JSONException {
         return toJSONArray(new XMLTokener(string));
     }
 
@@ -267,7 +272,8 @@ public class JSONML {
      * @return A JSONArray containing the structured data from the XML string.
      * @throws JSONException
      */
-    public static JSONArray toJSONArray(XMLTokener x) throws JSONException {
+    @NotNull
+    public static JSONArray toJSONArray(@NotNull XMLTokener x) throws JSONException {
         return (JSONArray) parse(x, true, null);
     }
 
@@ -286,7 +292,8 @@ public class JSONML {
      * @return A JSONObject containing the structured data from the XML string.
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(XMLTokener x) throws JSONException {
+    @NotNull
+    public static JSONObject toJSONObject(@NotNull XMLTokener x) throws JSONException {
         return (JSONObject) parse(x, false, null);
     }
 
@@ -305,7 +312,8 @@ public class JSONML {
      * @return A JSONObject containing the structured data from the XML string.
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(String string) throws JSONException {
+    @NotNull
+    public static JSONObject toJSONObject(@NotNull String string) throws JSONException {
         return toJSONObject(new XMLTokener(string));
     }
 
@@ -317,7 +325,7 @@ public class JSONML {
      * @return An XML string.
      * @throws JSONException
      */
-    public static String toString(JSONArray ja) throws JSONException {
+    public static String toString(@NotNull JSONArray ja) throws JSONException {
         int i;
         JSONObject jo;
         String key;
@@ -400,7 +408,8 @@ public class JSONML {
      * @return An XML string.
      * @throws JSONException
      */
-    public static String toString(JSONObject jo) throws JSONException {
+    @NotNull
+    public static String toString(@NotNull JSONObject jo) throws JSONException {
         StringBuilder sb = new StringBuilder();
         int i;
         JSONArray ja;

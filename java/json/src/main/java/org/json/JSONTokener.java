@@ -203,6 +203,7 @@ public class JSONTokener {
      * @throws JSONException Substring bounds error if there are not
      *                       n characters remaining in the source string.
      */
+    @NotNull
     public String next(int n) throws JSONException {
         if (n == 0) {
             return "";
@@ -250,6 +251,7 @@ public class JSONTokener {
      * @return A String.
      * @throws JSONException Unterminated string.
      */
+    @NotNull
     public String nextString(char quote) throws JSONException {
         char c;
         StringBuilder sb = new StringBuilder();
@@ -308,6 +310,7 @@ public class JSONTokener {
      * @param delimiter A delimiter character.
      * @return A string.
      */
+    @NotNull
     public String nextTo(char delimiter) throws JSONException {
         StringBuilder sb = new StringBuilder();
         for (; ; ) {
@@ -330,6 +333,7 @@ public class JSONTokener {
      * @param delimiters A set of delimiter characters.
      * @return A string, trimmed.
      */
+    @NotNull
     public String nextTo(@NotNull final String delimiters) throws JSONException {
         char c;
         StringBuilder sb = new StringBuilder();
@@ -433,6 +437,7 @@ public class JSONTokener {
      * @param message The error message.
      * @return A JSONException object, suitable for throwing
      */
+    @NotNull
     public JSONException syntaxError(@NotNull final String message) {
         return new JSONException(message + this.toString());
     }
@@ -442,6 +447,7 @@ public class JSONTokener {
      *
      * @return " at {index} [character {character} line {line}]"
      */
+    @NotNull
     public String toString() {
         return " at " + this.index + " [character " + this.character + " line " + this.line + "]";
     }
