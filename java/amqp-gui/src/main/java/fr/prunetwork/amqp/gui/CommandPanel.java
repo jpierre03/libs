@@ -31,48 +31,26 @@ class CommandPanel extends JPanel {
 
         Map<String, ActionListener> buttons = new TreeMap<>();
 
-        buttons.put(" Hello World !", e -> {
-            try {
-                action.sendHelloWorld();
-            } catch (Exception ex) {
-                notifyUser(ex);
-            }
+        buttons.put(" Hello World !", e -> action.sendHelloWorld());
 
-        });
+        buttons.put(" +1h de fonctionnement", e -> action.sendAddRunningTimeMinute(60));
 
-        buttons.put(" +1h de fonctionnement", e -> {
-            try {
-                action.sendAddRunningTimeMinute(60);
-            } catch (Exception ex) {
-                notifyUser(ex);
-            }
-        });
-
-
-        final int MAX = 100*1000*1000;
+        final int MAX = 100 * 1000 * 1000;
         buttons.put(MAX + " Messages en boucle", e -> {
             for (int count = 0; count < MAX; count++) {
-                try {
-                    action.sendHelloWorld();
-                    //Thread.sleep(1250);
-                } catch (Exception ex) {
-                    notifyUser(ex);
-                }
+                action.sendHelloWorld();
+                //Thread.sleep(1250);
             }
         });
 
         buttons.put("Envoi de " + MAX + " valeurs de temperature", e -> {
             for (int count = 0; count < MAX; count++) {
-                try {
-                    action.sendRandomTemperature();
-                    //Thread.sleep(1);
-                } catch (Exception ex) {
-                    notifyUser(ex);
-                }
+                action.sendRandomTemperature();
+                //Thread.sleep(1);
             }
         });
 
-        buttons.put(counter.toString(), e -> {                /* do nothing */ });
+        buttons.put(counter.toString(), e -> { /* do nothing */ });
 
         /**
          * Build buttons and add
@@ -90,7 +68,5 @@ class CommandPanel extends JPanel {
         return button;
     }
 
-    private void notifyUser(@NotNull final Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage(), "", JOptionPane.ERROR_MESSAGE);
-    }
+
 }
