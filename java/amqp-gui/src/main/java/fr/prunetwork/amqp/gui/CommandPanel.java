@@ -13,14 +13,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
  */
-public class CommandPanel extends JPanel {
+class CommandPanel extends JPanel {
 
     @NotNull
     private final CommandPanelAction action;
     @NotNull
     private final AtomicInteger counter = new AtomicInteger(0);
 
-    public CommandPanel(@NotNull final CommandPanelAction action) {
+    CommandPanel(@NotNull final CommandPanelAction action) {
         this.action = action;
 
         build();
