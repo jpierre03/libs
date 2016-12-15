@@ -7,30 +7,22 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Classe de test
- */
 public class Main extends JFrame {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Construit la frame
-     */
+
     public Main() {
-        /**Initialisation*/
+        /** Initialisation*/
         super("");
         try {
             logigrammeDemo();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /**Dimensionne et met en place*/
+        /** imensionne et met en place*/
         pack();
-        /**Centre la frame sur l'écran*/
+        /** Centre la frame sur l'écran*/
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension d = getSize();
         if (d.width > dim.width) {
@@ -41,24 +33,17 @@ public class Main extends JFrame {
         }
         setSize(d);
 //		setLocation((dim.width - d.width) / 2, (dim.height - d.height) / 2);
-        /**Montre la frame*/
+        /** Montre la frame*/
         setVisible(true);
     }
 
     /**
      * Lance le test
-     *
-     * @param args
      */
     public static void main(String[] args) {
         new Main();
     }
 
-    /**
-     * Initialisation
-     *
-     * @throws Exception
-     */
     private void logigrammeDemo() throws Exception {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         /**---Construction d'un organigramme---*/
