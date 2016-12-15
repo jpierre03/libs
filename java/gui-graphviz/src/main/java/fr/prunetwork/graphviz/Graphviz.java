@@ -268,7 +268,7 @@ public class Graphviz {
         try (
                 @NotNull FileInputStream fis = new FileInputStream(input);
                 @NotNull DataInputStream dis = new DataInputStream(fis);
-                @NotNull BufferedReader br = new BufferedReader(new InputStreamReader(dis));
+                @NotNull BufferedReader br = new BufferedReader(new InputStreamReader(dis))
         ) {
 
             String line;
