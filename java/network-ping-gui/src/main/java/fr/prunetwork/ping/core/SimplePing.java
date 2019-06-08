@@ -1,5 +1,7 @@
-package fr.prunetwork.ping;
+package fr.prunetwork.ping.core;
 
+import fr.prunetwork.ping.LongTaskListener;
+import fr.prunetwork.ping.StatusHook;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;

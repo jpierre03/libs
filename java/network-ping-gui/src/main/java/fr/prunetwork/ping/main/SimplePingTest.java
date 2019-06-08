@@ -1,5 +1,8 @@
-package fr.prunetwork.ping;
+package fr.prunetwork.ping.main;
 
+import fr.prunetwork.ping.LongTaskListener;
+import fr.prunetwork.ping.core.SimplePing;
+import fr.prunetwork.ping.StatusHook;
 import org.jetbrains.annotations.NotNull;
 
 /**

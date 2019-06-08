@@ -1,11 +1,13 @@
-package fr.prunetwork.ping;
+package fr.prunetwork.ping.main;
 
+import fr.prunetwork.ping.core.SimplePing;
+import fr.prunetwork.ping.ui.StatusPanel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import java.util.Timer;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -168,7 +170,6 @@ public class PingGuiMain {
                 System.out.println("title = " + LABELS.get(s));
                 System.out.println("host = " + s);
             }
-
         }
 
         new PingGuiMain(hostnames);
@@ -212,55 +213,30 @@ public class PingGuiMain {
     }
 
     private void buildScheduledTask(@NotNull final String hostname) {
+        TimerTask timerTask = new TimerTask() {
 
-        timer.scheduleAtFixedRate(
-                new TimerTask() {
+            @Override
+            public void run() {
+                final StatusPanel statusPanel = statusPanels.get(hostname);
+                final boolean isTaskRunning = RUNNING_TASKS.get(hostname) == null;
+                final ListenerWrapper taskListener = new ListenerWrapper(
+                        statusPanel,
+                        statusPanel,
+                        RUNNING_TASKS
+                );
 
-                    @Override
-                    public void run() {
-                        final StatusPanel statusPanel = statusPanels.get(hostname);
-                        final boolean isTaskRunning = RUNNING_TASKS.get(hostname) == null;
+                final SimplePing pingTask = new SimplePing(
+                        hostname,
+                        statusPanel,
+                        taskListener
+                );
 
-                        if (isTaskRunning) {
-                            EXECUTOR_SERVICE.execute(
-                                    new SimplePing(
-                                            hostname,
-                                            statusPanel,
-                                            new ListenerWrapper(
-                                                    statusPanel,
-                                                    statusPanel
-                                            )
-                                    )
-                            );
-                        }
-                    }
-                },
-                relativeValue * 1000,
-                relativeValue * 1000);
-    }
-
-    static class ListenerWrapper implements LongTaskListener {
-
-        private static final Object MUTEX = new Object();
-        private final WithHostname withHostname;
-        private final LongTaskListener listener;
-
-        ListenerWrapper(WithHostname withHostname, LongTaskListener listener) {
-            this.withHostname = withHostname;
-            this.listener = listener;
-        }
-
-        @Override
-        public void setWorking(boolean isWorking) {
-            synchronized (MUTEX) {
-                listener.setWorking(isWorking);
-
-                if (isWorking) {
-                    RUNNING_TASKS.put(withHostname.getHostname(), withHostname.getHostname());
-                } else {
-                    RUNNING_TASKS.remove(withHostname.getHostname());
+                if (isTaskRunning) {
+                    EXECUTOR_SERVICE.execute(pingTask);
                 }
             }
-        }
+        };
+
+        timer.scheduleAtFixedRate(timerTask, relativeValue * 1000, relativeValue * 1000);
     }
 }

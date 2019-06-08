@@ -1,5 +1,6 @@
-package fr.prunetwork.ping;
+package fr.prunetwork.ping.main;
 
+import fr.prunetwork.ping.ui.StatusPanel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;

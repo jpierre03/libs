@@ -1,5 +1,9 @@
-package fr.prunetwork.ping;
+package fr.prunetwork.ping.ui;
 
+import fr.prunetwork.ping.LongTaskListener;
+import fr.prunetwork.ping.StatusHook;
+import fr.prunetwork.ping.WithHostname;
+import fr.prunetwork.ping.WithLabel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
