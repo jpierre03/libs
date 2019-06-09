@@ -1,7 +1,6 @@
 package fr.prunetwork.ping.core;
 
-import fr.prunetwork.ping.LongTaskListener;
-import fr.prunetwork.ping.StatusHook;
+import fr.prunetwork.ping.PingTaskListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -11,44 +10,37 @@ import java.net.InetAddress;
  * @author Jean-Pierre PRUNARET
  * @since 18/04/2014
  */
-public final class SimplePing
-        implements Runnable {
+public final class SimplePingTask implements Runnable {
 
     @NotNull
-    private final String hostname;
+    private final MonitoringTarget target;
     @NotNull
-    private final StatusHook hooks;
-    @NotNull
-    private final LongTaskListener taskListener;
+    private final PingTaskListener taskListener;
     private final boolean DEBUG = false;
 
-    public SimplePing(@NotNull final String hostname,
-                      @NotNull final StatusHook hooks,
-                      @NotNull final LongTaskListener taskListener) {
-        this.hostname = hostname;
-        this.hooks = hooks;
+    public SimplePingTask(@NotNull final MonitoringTarget target, @NotNull final PingTaskListener taskListener) {
+        this.target = target;
         this.taskListener = taskListener;
 
-        if (hostname.trim().isEmpty()) {
-            throw new AssertionError();
+        if (target.getHostname().trim().isEmpty()) {
+            throw new IllegalArgumentException("Hostname must be defined");
         }
     }
 
     @Override
     public void run() {
-        taskListener.setWorking(true);
+        taskListener.interrogationStarted();
 
         final boolean result;
-        final boolean resultJava = pingHostByJavaClass(hostname);
+        final boolean resultJava = pingHostByJavaClass(target.getHostname());
 
         if (resultJava) {
             result = true;
         } else {
-            result = pingHostByCommand(hostname);
+            result = pingHostByCommand(target.getHostname());
         }
 
-        hooks.setStatus(result);
-        taskListener.setWorking(false);
+        taskListener.interrogationFinished(result);
     }
 
     /**
@@ -90,7 +82,7 @@ public final class SimplePing
 
     public boolean pingHostByCommand(@NotNull final String host) {
         if (host.trim().isEmpty()) {
-            throw new AssertionError("hostname empty");
+            throw new AssertionError("target empty");
         }
         boolean isReachable = false;
 
@@ -101,7 +93,7 @@ public final class SimplePing
 
             if (DEBUG) {
                 final String reacheabilityStatus = isReachable ? "" : "not ";
-                System.out.println("host: " + host + " is " + reacheabilityStatus + "reacheable");
+                System.out.printf("host: %s is %s reacheable%n", host, reacheabilityStatus);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,26 +105,24 @@ public final class SimplePing
     @NotNull
     private String buildCommand(@NotNull String host) {
         if (host.trim().isEmpty()) {
-            throw new AssertionError("hostname empty");
+            throw new AssertionError("target empty");
         }
         final String command;
 
         final String operatingSystemName = System.getProperty("os.name");
+        final boolean isRunningOnLinux = operatingSystemName.startsWith("Linux");
         final boolean isRunningOnWindows = operatingSystemName.startsWith("Windows");
         final boolean isRunningOnMac = operatingSystemName.startsWith("Mac OS");
 
         /** Build command line, with system specific commands */
-        if (isRunningOnWindows) {
+        if (isRunningOnLinux) {
+            command = "ping -w 1 -w 1 -c 1 " + host;
+        } else if (isRunningOnWindows) {
             command = "ping -w 500 -n 1 " + host;
         } else if (isRunningOnMac) {
             command = "ping -t 2 -c 1 " + host;
         } else {
             command = "ping -c 1 " + host;
-        }
-
-        if (DEBUG) {
-            System.out.println("My OS :" + operatingSystemName);
-            System.out.println("Command: " + command);
         }
 
         return command;

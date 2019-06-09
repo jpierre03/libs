@@ -1,12 +1,12 @@
 package fr.prunetwork.ping.ui;
 
-import fr.prunetwork.ping.LongTaskListener;
-import fr.prunetwork.ping.StatusHook;
+import fr.prunetwork.ping.PingTaskListener;
 import fr.prunetwork.ping.WithHostname;
 import fr.prunetwork.ping.WithLabel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 /**
@@ -14,19 +14,21 @@ import java.awt.*;
  * @since 19/04/2014
  */
 public class StatusPanel extends JPanel
-        implements StatusHook, WithHostname, WithLabel, LongTaskListener {
+        implements WithHostname, WithLabel, PingTaskListener {
 
-    @NotNull
-    private final JPanel center = new JPanel();
-    private boolean status = false;
-    @NotNull
+    private final JLabel center;
     private final JLabel hostname = new JLabel();
-    @NotNull
     private final JLabel label = new JLabel();
-    private boolean isWorking = true;
+    private final Border workingBorder;
 
     public StatusPanel() {
         setLayout(new BorderLayout());
+        center = new JLabel();
+        center.setOpaque(true);
+        center.setHorizontalAlignment(SwingConstants.CENTER);
+        center.setFont(getFont().deriveFont(Font.BOLD));
+
+        workingBorder = BorderFactory.createLineBorder(Color.BLACK, 5);
 
         @NotNull final JPanel north = new JPanel();
         north.setLayout(new GridLayout(1, 2));
@@ -37,28 +39,10 @@ public class StatusPanel extends JPanel
         add(center, BorderLayout.CENTER);
     }
 
-    @Override
-    public void setStatus(boolean status) {
-        this.status = status;
-
-        updateColor();
-    }
-
-    private void updateColor() {
-        javax.swing.SwingUtilities.invokeLater(() -> {
-            if (isWorking) {
-                center.setBackground(Color.CYAN);
-            }
-
-            if (!isWorking && status) {
-                center.setBackground(Color.GREEN);
-            }
-            if (!isWorking && !status) {
-                center.setBackground(Color.RED);
-            }
-
-            repaint();
-        });
+    private static void enforceEDT() {
+        if (!SwingUtilities.isEventDispatchThread()) {
+            throw new IllegalMonitorStateException("GUI components must be invoked from EventDispatchThread");
+        }
     }
 
     @Override
@@ -68,22 +52,34 @@ public class StatusPanel extends JPanel
     }
 
     @Override
-    @NotNull
-    public void setHostname(String hostname) {
+    public void setHostname(@NotNull final String hostname) {
         this.hostname.setText(hostname);
     }
 
     @Override
-    @NotNull
-    public void setLabel(String label) {
+    public void setLabel(@NotNull final String label) {
         this.label.setText(label);
     }
 
     @Override
-    @NotNull
-    public void setWorking(boolean isWorking) {
-        this.isWorking = isWorking;
+    public void interrogationStarted() {
+        enforceEDT();
 
-        updateColor();
+        center.setBorder(workingBorder);
+        center.setText("?");
+    }
+
+    @Override
+    public void interrogationFinished(boolean isReachable) {
+        enforceEDT();
+
+        center.setBorder(null);
+        center.setText("");
+
+        if (isReachable) {
+            center.setBackground(Color.GREEN);
+        } else {
+            center.setBackground(Color.RED);
+        }
     }
 }

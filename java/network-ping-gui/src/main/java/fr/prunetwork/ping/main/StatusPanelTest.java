@@ -12,6 +12,7 @@ import javax.swing.*;
 public final class StatusPanelTest {
 
     private StatusPanelTest() {
+        // Do nothing
     }
 
     public static void main(String... args) {
@@ -39,8 +40,15 @@ public final class StatusPanelTest {
             }
 
             status = !status;
-            statusPanel.setStatus(status);
-            statusPanel.setLabel(i + "");
+
+            final int index = i;
+            final boolean isReachable = status;
+            SwingUtilities.invokeLater(() -> {
+                statusPanel.setLabel(index + "");
+                statusPanel.interrogationFinished(isReachable);
+            });
         }
+
+        System.exit(0);
     }
 }
