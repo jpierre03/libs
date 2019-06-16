@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static fr.prunetwork.amqp.AmqpDefaultProperties.*;
+import static java.util.Objects.nonNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -21,8 +22,10 @@ public class SimpleAmqpProducerTest {
 
     @After
     public void tearDown() throws Exception {
-        producer.close();
-        producer = null;
+        if (nonNull(producer)) {
+            producer.close();
+            producer = null;
+        }
     }
 
     @Test
