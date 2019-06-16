@@ -15,7 +15,7 @@ public interface TcpClient {
     Character receiveFromServer() throws Exception;
 
     @NotNull
-    public String getHostname();
+    String getHostname();
 
     @NotNull
     Integer getPort();

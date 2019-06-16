@@ -1,35 +1,28 @@
 package fr.prunetwork.logigramme;
 
 import fr.prunetwork.logigramme.instruction.*;
+import fr.prunetwork.logigramme.instruction.Action;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Classe de test
- */
 public class Main extends JFrame {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Construit la frame
-     */
+
     public Main() {
-        /**Initialisation*/
+        /** Initialisation*/
         super("");
         try {
             logigrammeDemo();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /**Dimensionne et met en place*/
+        /** imensionne et met en place*/
         pack();
-        /**Centre la frame sur l'écran*/
+        /** Centre la frame sur l'écran*/
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension d = getSize();
         if (d.width > dim.width) {
@@ -40,37 +33,30 @@ public class Main extends JFrame {
         }
         setSize(d);
 //		setLocation((dim.width - d.width) / 2, (dim.height - d.height) / 2);
-        /**Montre la frame*/
+        /** Montre la frame*/
         setVisible(true);
     }
 
     /**
      * Lance le test
-     *
-     * @param args
      */
     public static void main(String[] args) {
         new Main();
     }
 
-    /**
-     * Initialisation
-     *
-     * @throws Exception
-     */
     private void logigrammeDemo() throws Exception {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         /**---Construction d'un organigramme---*/
         /** -Les instructions-*/
         @NotNull Debut debut = new Debut();
-        @NotNull fr.prunetwork.logigramme.instruction.Action action1 = new fr.prunetwork.logigramme.instruction.Action("Action 1\nFaire qqch");
-        @NotNull fr.prunetwork.logigramme.instruction.Action action2 = new fr.prunetwork.logigramme.instruction.Action("Action 2\nFaire autre ch");
-        @NotNull fr.prunetwork.logigramme.instruction.Action action3 = new fr.prunetwork.logigramme.instruction.Action("Action 3\nFaire autre ch");
+        @NotNull Action action1 = new Action("Action 1\nFaire qqch");
+        @NotNull Action action2 = new Action("Action 2\nFaire autre ch");
+        @NotNull Action action3 = new Action("Action 3\nFaire autre ch");
         @NotNull Condition cond = new Condition("Condition");
         @NotNull Condition cond2 = new Condition("Condition N°2");
         @NotNull Condition cond0 = new Condition("Condition N°0");
-        @NotNull fr.prunetwork.logigramme.instruction.Action oui = new fr.prunetwork.logigramme.instruction.Action("Si oui\nOn va là");
-        @NotNull fr.prunetwork.logigramme.instruction.Action non = new fr.prunetwork.logigramme.instruction.Action("Si non\nOn va ici");
+        @NotNull Action oui = new Action("Si oui\nOn va là");
+        @NotNull Action non = new Action("Si non\nOn va ici");
         @NotNull Fin fin = new Fin();
         /** -Organisation-*/
         debut.setSuivant(action1);

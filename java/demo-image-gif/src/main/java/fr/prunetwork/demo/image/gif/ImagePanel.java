@@ -9,8 +9,7 @@ import java.awt.image.ImageObserver;
 
 /**
  * @author Jean-Pierre PRUNARET
- *         Date: 13/04/11
- *         Time: 22:11
+ * @since 2011-04-13
  */
 public class ImagePanel extends JPanel {
 

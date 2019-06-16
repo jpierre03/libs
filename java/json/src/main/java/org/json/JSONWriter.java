@@ -1,5 +1,8 @@
 package org.json;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.IOException;
 import java.io.Writer;
 
@@ -62,6 +65,7 @@ public class JSONWriter {
     /**
      * The object/array stack.
      */
+    @NotNull
     private final JSONObject stack[];
     /**
      * The current mode. Values:
@@ -104,7 +108,8 @@ public class JSONWriter {
      * @return this
      * @throws JSONException If the value is out of sequence.
      */
-    private JSONWriter append(String string) throws JSONException {
+    @NotNull
+    private JSONWriter append(@Nullable String string) throws JSONException {
         if (string == null) {
             throw new JSONException("Null pointer");
         }
@@ -136,6 +141,7 @@ public class JSONWriter {
      *                       started in the wrong place (for example as a key or after the end of the
      *                       outermost array or object).
      */
+    @NotNull
     public JSONWriter array() throws JSONException {
         if (this.mode == 'i' || this.mode == 'o' || this.mode == 'a') {
             this.push(null);
@@ -154,6 +160,7 @@ public class JSONWriter {
      * @return this
      * @throws JSONException If unbalanced.
      */
+    @NotNull
     private JSONWriter end(char mode, char c) throws JSONException {
         if (this.mode != mode) {
             throw new JSONException(mode == 'a'
@@ -177,6 +184,7 @@ public class JSONWriter {
      * @return this
      * @throws JSONException If incorrectly nested.
      */
+    @NotNull
     public JSONWriter endArray() throws JSONException {
         return this.end('a', ']');
     }
@@ -188,6 +196,7 @@ public class JSONWriter {
      * @return this
      * @throws JSONException If incorrectly nested.
      */
+    @NotNull
     public JSONWriter endObject() throws JSONException {
         return this.end('k', '}');
     }
@@ -201,7 +210,8 @@ public class JSONWriter {
      * @throws JSONException If the key is out of place. For example, keys
      *                       do not belong in arrays or if the key is null.
      */
-    public JSONWriter key(String string) throws JSONException {
+    @NotNull
+    public JSONWriter key(@Nullable String string) throws JSONException {
         if (string == null) {
             throw new JSONException("Null key.");
         }
@@ -223,7 +233,6 @@ public class JSONWriter {
         throw new JSONException("Misplaced key.");
     }
 
-
     /**
      * Begin appending a new object. All keys and values until the balancing
      * <code>endObject</code> will be appended to this object. The
@@ -234,6 +243,7 @@ public class JSONWriter {
      *                       started in the wrong place (for example as a key or after the end of the
      *                       outermost array or object).
      */
+    @NotNull
     public JSONWriter object() throws JSONException {
         if (this.mode == 'i') {
             this.mode = 'o';
@@ -247,7 +257,6 @@ public class JSONWriter {
         throw new JSONException("Misplaced object.");
 
     }
-
 
     /**
      * Pop an array or object scope.
@@ -277,7 +286,7 @@ public class JSONWriter {
      * @param jo The scope to open.
      * @throws JSONException If nesting is too deep.
      */
-    private void push(JSONObject jo) throws JSONException {
+    private void push(@Nullable JSONObject jo) throws JSONException {
         if (this.top >= maxdepth) {
             throw new JSONException("Nesting too deep.");
         }
@@ -285,7 +294,6 @@ public class JSONWriter {
         this.mode = jo == null ? 'a' : 'k';
         this.top += 1;
     }
-
 
     /**
      * Append either the value <code>true</code> or the value
@@ -295,6 +303,7 @@ public class JSONWriter {
      * @return this
      * @throws JSONException
      */
+    @NotNull
     public JSONWriter value(boolean b) throws JSONException {
         return this.append(b ? "true" : "false");
     }
@@ -306,6 +315,7 @@ public class JSONWriter {
      * @return this
      * @throws JSONException If the number is not finite.
      */
+    @NotNull
     public JSONWriter value(double d) throws JSONException {
         return this.value(new Double(d));
     }
@@ -317,10 +327,10 @@ public class JSONWriter {
      * @return this
      * @throws JSONException
      */
+    @NotNull
     public JSONWriter value(long l) throws JSONException {
         return this.append(Long.toString(l));
     }
-
 
     /**
      * Append an object value.
@@ -330,6 +340,7 @@ public class JSONWriter {
      * @return this
      * @throws JSONException If the value is out of sequence.
      */
+    @NotNull
     public JSONWriter value(Object object) throws JSONException {
         return this.append(JSONObject.valueToString(object));
     }

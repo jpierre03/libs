@@ -22,7 +22,7 @@ public class CommandPanelTest {
         try {
             frame.add(
                     new CommandPanel(
-                            new CommandPanelActionner(
+                            new CommandPanelActionImpl(
                                     new AmqpProducer(
                                             URI,
                                             EXCHANGE,

@@ -33,42 +33,102 @@ package fr.prunetwork.snipet.html;
 
 /* HtmlDemo.java needs no other files. */
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import static javax.swing.BorderFactory.createCompoundBorder;
+import static javax.swing.BorderFactory.createEmptyBorder;
+import static javax.swing.BorderFactory.createTitledBorder;
+
 public class HtmlDemo extends JPanel
         implements ActionListener {
-    JLabel theLabel;
-    JTextArea htmlTextArea;
+
+    @NotNull
+    private final static String INITIAL_TEXT = "<html>\n" +
+            "Color and font test:\n" +
+            "<ul>\n" +
+            "<li><font color=red>red</font>\n" +
+            "<li><font color=blue>blue</font>\n" +
+            "<li><font color=green>green</font>\n" +
+            "<li><font size=-2>small</font>\n" +
+            "<li><font size=+2>large</font>\n" +
+            "<li><i>italic</i>\n" +
+            "<li><b>bold</b>\n" +
+            "</ul>\n";
+    @NotNull
+    private final JLabel theLabel = buildInputArea(INITIAL_TEXT);
+    @NotNull
+    private final JTextArea htmlTextArea;
 
     public HtmlDemo() {
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 
-        String initialText = "<html>\n" +
-                "Color and font test:\n" +
-                "<ul>\n" +
-                "<li><font color=red>red</font>\n" +
-                "<li><font color=blue>blue</font>\n" +
-                "<li><font color=green>green</font>\n" +
-                "<li><font size=-2>small</font>\n" +
-                "<li><font size=+2>large</font>\n" +
-                "<li><i>italic</i>\n" +
-                "<li><b>bold</b>\n" +
-                "</ul>\n";
+        htmlTextArea = buildHtmlArea();
 
-        htmlTextArea = new JTextArea(10, 20);
-        htmlTextArea.setText(initialText);
-        JScrollPane scrollPane = new JScrollPane(htmlTextArea);
+        buildLayout(theLabel, htmlTextArea, this, this);
+    }
 
-        JButton changeTheLabel = new JButton("Change the label");
-        changeTheLabel.setMnemonic(KeyEvent.VK_C);
-        changeTheLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        changeTheLabel.addActionListener(this);
+    @NotNull
+    private static JTextArea buildHtmlArea() {
+        JTextArea area = new JTextArea(10, 20);
+        area.setText(INITIAL_TEXT);
 
-        theLabel = new JLabel(initialText) {
+        return area;
+    }
+
+    private static void buildLayout(@NotNull final JLabel inputText,
+                                    @NotNull final JTextArea htmlArea,
+                                    @NotNull final ActionListener listener,
+                                    @NotNull final JPanel container) {
+        JScrollPane scrollPane = new JScrollPane(htmlArea);
+
+        JButton changeTheLabel = buildUpdateButton(listener);
+
+
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+        leftPanel.setBorder(createCompoundBorder(
+                createTitledBorder(
+                        "Edit the HTML, then click the button"),
+                createEmptyBorder(10, 10, 10, 10)));
+        leftPanel.add(scrollPane);
+        leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        leftPanel.add(changeTheLabel);
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
+        rightPanel.setBorder(
+                createCompoundBorder(
+                        createTitledBorder("A label with HTML"),
+                        createEmptyBorder(10, 10, 10, 10))
+        );
+        rightPanel.add(inputText);
+
+        container.setBorder(createEmptyBorder(10, 10, 10, 10));
+        container.add(leftPanel);
+        container.add(Box.createRigidArea(new Dimension(10, 0)));
+        container.add(rightPanel);
+    }
+
+    @NotNull
+    private static JButton buildUpdateButton(@NotNull final ActionListener listener) {
+        JButton button = new JButton("Change the label");
+
+        button.setMnemonic(KeyEvent.VK_C);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.addActionListener(listener);
+
+        return button;
+    }
+
+    @NotNull
+    private static JLabel buildInputArea(final String initialText) {
+        JLabel label = new JLabel(initialText) {
             public Dimension getPreferredSize() {
                 return new Dimension(200, 200);
             }
@@ -81,41 +141,29 @@ public class HtmlDemo extends JPanel
                 return new Dimension(200, 200);
             }
         };
-        theLabel.setVerticalAlignment(SwingConstants.CENTER);
-        theLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-        leftPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder(
-                        "Edit the HTML, then click the button"),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        leftPanel.add(scrollPane);
-        leftPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        leftPanel.add(changeTheLabel);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.PAGE_AXIS));
-        rightPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder("A label with HTML"),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        rightPanel.add(theLabel);
+        return label;
 
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(leftPanel);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-        add(rightPanel);
     }
 
     /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event dispatch thread.
+     * React to the user pushing the Change button.
+     */
+    public void actionPerformed(@NotNull final ActionEvent e) {
+        theLabel.setText(htmlTextArea.getText());
+    }
+
+    /**
+     * Create the GUI and show it.
+     * For thread safety, this method should be invoked from the event dispatch thread.
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("HtmlDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final JFrame frame = new JFrame("HtmlDemo");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         //Add content to the window.
         frame.add(new HtmlDemo());
@@ -126,22 +174,15 @@ public class HtmlDemo extends JPanel
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event dispatch thread:
-        //creating and showing this application's GUI.
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //Turn off metal's use of bold fonts
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
-                }
-                createAndShowGUI();
+        /** Schedule a job for the event dispatch thread: creating and showing this application's GUI. */
+        SwingUtilities.invokeLater(() -> {
+            /** Turn off metal's use of bold fonts */
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException e) {
+                // Do nothing
             }
+            createAndShowGUI();
         });
-    }
-
-    //React to the user pushing the Change button.
-    public void actionPerformed(ActionEvent e) {
-        theLabel.setText(htmlTextArea.getText());
     }
 }

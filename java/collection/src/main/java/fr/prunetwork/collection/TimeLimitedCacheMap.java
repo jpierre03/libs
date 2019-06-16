@@ -199,14 +199,20 @@ public final class TimeLimitedCacheMap<K, V> implements Iterable<K>, Serializabl
      * However, an undoable action is quite bad.
      */
     @Nullable
-    public V remove(Object key) {
+    public V remove(@NotNull final Object key) {
         accessLock.readLock().lock();
         //accessLock.lock();
         @Nullable V value = objectMap.remove(key);
         timeMap.remove(key);
 
-        @NotNull final Long time = System.currentTimeMillis();
-        history.put(time, new HistoryEntry<>(time, value, Status.REMOVED));
+        if (value == null) {
+            throw new IllegalArgumentException(
+                    String.format("Value not found (key: %s)", key)
+            );
+        } else {
+            @NotNull final Long time = System.currentTimeMillis();
+            history.put(time, new HistoryEntry<>(time, value, Status.REMOVED));
+        }
 
         //accessLock.unlock();
         accessLock.readLock().unlock();

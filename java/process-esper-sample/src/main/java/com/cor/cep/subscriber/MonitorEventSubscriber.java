@@ -33,7 +33,7 @@ public class MonitorEventSubscriber implements StatementSubscriber<Double> {
     @Override
     public void update(@NotNull final Map<String, Double> eventMap) {
 
-        // average temp over 10 secs
+        // average temp over 5 secs
         @NotNull final Double avg = eventMap.get("avg_val");
 
         @NotNull final StringBuilder sb = new StringBuilder();

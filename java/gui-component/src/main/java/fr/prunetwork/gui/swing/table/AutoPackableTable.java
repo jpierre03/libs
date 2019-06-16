@@ -21,15 +21,18 @@ public class AutoPackableTable extends JTable {
     public AutoPackableTable() {
     }
 
-    public AutoPackableTable(@NotNull TableModel dm) {
+    public AutoPackableTable(@NotNull final TableModel dm) {
         super(dm);
     }
 
-    public AutoPackableTable(@NotNull TableModel dm, @NotNull TableColumnModel cm) {
+    public AutoPackableTable(@NotNull final TableModel dm,
+                             @NotNull final TableColumnModel cm) {
         super(dm, cm);
     }
 
-    public AutoPackableTable(@NotNull TableModel dm, @NotNull TableColumnModel cm, @NotNull ListSelectionModel sm) {
+    public AutoPackableTable(@NotNull final TableModel dm,
+                             @NotNull final TableColumnModel cm,
+                             @NotNull final ListSelectionModel sm) {
         super(dm, cm, sm);
     }
 
@@ -37,15 +40,17 @@ public class AutoPackableTable extends JTable {
         super(numRows, numColumns);
     }
 
-    public AutoPackableTable(@NotNull Vector<?> rowData, @NotNull Vector<?> columnNames) {
+    public AutoPackableTable(@NotNull final Vector<?> rowData,
+                             @NotNull final Vector<?> columnNames) {
         super(rowData, columnNames);
     }
 
-    public AutoPackableTable(@NotNull Object[][] rowData, @NotNull Object[] columnNames) {
+    public AutoPackableTable(@NotNull final Object[][] rowData,
+                             @NotNull final Object[] columnNames) {
         super(rowData, columnNames);
     }
 
-    public void pack(int rowsIncluded, boolean distributeExtraArea) {
+    public void pack(int rowsIncluded) {
         packer = new TablePacker(rowsIncluded, true);
         if (isShowing()) {
             packer.pack(this);

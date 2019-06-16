@@ -1,5 +1,6 @@
 package org.json.zip;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -152,7 +153,7 @@ public class Zipper extends JSONzip {
      * @param huff    The Huffman encoder.
      * @throws JSONException
      */
-    private void write(int integer, Huff huff) throws JSONException {
+    private void write(int integer, @NotNull Huff huff) throws JSONException {
         huff.write(integer, this.bitwriter);
     }
 
@@ -164,7 +165,7 @@ public class Zipper extends JSONzip {
      * @param ext  The Huffman encoder for the extended bytes.
      * @throws JSONException
      */
-    private void write(Kim kim, Huff huff, Huff ext) throws JSONException {
+    private void write(@NotNull Kim kim, @NotNull Huff huff, @NotNull Huff ext) throws JSONException {
         for (int at = 0; at < kim.length; at += 1) {
             int c = kim.get(at);
             write(c, huff);
@@ -184,7 +185,7 @@ public class Zipper extends JSONzip {
      * @param keep    The Keep that the integer is one of.
      * @throws JSONException
      */
-    private void write(int integer, Keep keep) throws JSONException {
+    private void write(int integer, @NotNull Keep keep) throws JSONException {
         int width = keep.bitsize();
         keep.tick(integer);
         if (probe) {
@@ -199,7 +200,7 @@ public class Zipper extends JSONzip {
      * @param jsonarray The JSONArray to write.
      * @throws JSONException If the write fails.
      */
-    private void write(JSONArray jsonarray) throws JSONException {
+    private void write(@NotNull JSONArray jsonarray) throws JSONException {
 
 // JSONzip has three encodings for arrays:
 // The array is empty (zipEmptyArray).
@@ -287,7 +288,7 @@ public class Zipper extends JSONzip {
      * @param name The name string.
      * @throws JSONException
      */
-    private void writeName(String name) throws JSONException {
+    private void writeName(@NotNull String name) throws JSONException {
 
 // If this name has already been registered, then emit its integer and
 // increment its usage count.
@@ -314,7 +315,7 @@ public class Zipper extends JSONzip {
      * @param jsonobject The JSONObject to be written.
      * @throws JSONException
      */
-    private void write(JSONObject jsonobject) throws JSONException {
+    private void write(@NotNull JSONObject jsonobject) throws JSONException {
 
 // JSONzip has two encodings for objects: Empty Objects (zipEmptyObject) and
 // non-empty objects (zipObject).
@@ -357,7 +358,7 @@ public class Zipper extends JSONzip {
      * @param string The string to write.
      * @throws JSONException
      */
-    private void writeString(String string) throws JSONException {
+    private void writeString(@NotNull String string) throws JSONException {
 
 // Special case for empty strings.
 

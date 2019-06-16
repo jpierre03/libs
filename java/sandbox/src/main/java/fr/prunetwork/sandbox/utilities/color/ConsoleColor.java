@@ -17,7 +17,7 @@ public enum ConsoleColor {
     ANSI_WHITE("\u001B[37m");
     private final String code;
 
-    private ConsoleColor(String code) {
+    ConsoleColor(String code) {
         this.code = code;
     }
 

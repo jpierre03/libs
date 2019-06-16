@@ -1,6 +1,7 @@
 package fr.prunetwork.amqp.message;
 
 import fr.prunetwork.amqp.AmqpReceivedMessage;
+import fr.prunetwork.json.JsonExportable;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -10,7 +11,7 @@ import org.json.JSONObject;
  */
 public class JsonMessage
         extends AmqpReceivedMessageImpl
-        implements AmqpReceivedMessage {
+        implements AmqpReceivedMessage, JsonExportable {
 
     @NotNull
     private final JSONObject jsonObject;
@@ -27,5 +28,10 @@ public class JsonMessage
     @NotNull
     public JSONObject getJson() {
         return jsonObject;
+    }
+
+    @Override
+    public String toJSONString() {
+        return jsonObject.toString();
     }
 }

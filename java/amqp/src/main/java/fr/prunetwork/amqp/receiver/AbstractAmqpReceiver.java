@@ -11,7 +11,6 @@ import fr.prunetwork.amqp.ExchangeType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,13 +54,14 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     }
 
     protected AbstractAmqpReceiver(@NotNull final AmqpConfiguration conf) throws Exception {
-        this(conf.getUri(), conf.getExchange(), conf.getBindingKeys(), conf.getExchangeType(), conf.isDurable());
+        this(conf.getUri(), conf.getExchangeName(), conf.getBindingKeys(), conf.getExchangeType(), conf.isDurable());
     }
 
     @Override
     public void configure() throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setUri(uri);
+        factory.setAutomaticRecoveryEnabled(true);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         channel.basicQos(10);
@@ -82,7 +82,7 @@ public abstract class AbstractAmqpReceiver<T extends AmqpReceivedMessage> implem
     public abstract T consume() throws Exception;
 
     @Override
-    public void close() throws IOException {
+    public void close() throws Exception {
         if (consumer != null) {
             consumer.getChannel().close();
         }

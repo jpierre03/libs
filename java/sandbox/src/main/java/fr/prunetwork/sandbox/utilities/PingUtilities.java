@@ -51,7 +51,7 @@ public final class PingUtilities {
             //System.out.println("My OS :" + System.getProperty("os.name"));
             if (System.getProperty("os.name").startsWith("Windows")) {
                 /** construct command for Windows Operating system */
-                 strCommand = "ping -n 1 " + host;
+                strCommand = "ping -n 1 " + host;
             } else {
                 /** construct command for Linux and OSX */
                 strCommand = "ping -c 1 " + host;
@@ -60,11 +60,7 @@ public final class PingUtilities {
             // Execute the command constructed
             Process myProcess = Runtime.getRuntime().exec(strCommand);
             myProcess.waitFor();
-            if (myProcess.exitValue() == 0) {
-                isReachable = true;
-            } else {
-                isReachable = false;
-            }
+            isReachable = myProcess.exitValue() == 0;
         } catch (Exception e) {
             e.printStackTrace();
             isReachable = false;

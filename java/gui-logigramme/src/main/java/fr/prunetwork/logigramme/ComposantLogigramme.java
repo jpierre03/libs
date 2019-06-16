@@ -36,7 +36,7 @@ public class ComposantLogigramme extends JComponent {
      *
      * @param organigramme
      */
-    public ComposantLogigramme(@NotNull Logigramme organigramme) {
+    public ComposantLogigramme(@NotNull final Logigramme organigramme) {
         super();
         /**Initialiasation et valeurs par défaut*/
         setFont(new Font("Times New Roman", Font.PLAIN, 14));
@@ -52,7 +52,7 @@ public class ComposantLogigramme extends JComponent {
      * Change le tour
      */
     @Override
-    public void setBorder(@NotNull Border border) {
+    public void setBorder(@NotNull final Border border) {
         tour = border;
     }
 
@@ -60,7 +60,7 @@ public class ComposantLogigramme extends JComponent {
      * Dessine le composant
      */
     @Override
-    protected void paintComponent(@NotNull Graphics g) {
+    protected void paintComponent(@NotNull final Graphics g) {
         /** On initialise à pas de décalage. Comme si il il n'y avait pas de tour */
         Insets in = new Insets(0, 0, 0, 0);
 
@@ -99,7 +99,7 @@ public class ComposantLogigramme extends JComponent {
      *
      * @param organigramme
      */
-    public void setOrganigramme(@NotNull Logigramme organigramme) {
+    public void setOrganigramme(@NotNull final Logigramme organigramme) {
         this.organigramme = organigramme;
         organigramme.setComposantOrganigramme(this);
     }

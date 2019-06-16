@@ -25,6 +25,9 @@ package org.json;
  SOFTWARE.
  */
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Kim makes immutable eight bit Unicode strings. If the MSB of a byte is set,
  * then the next byte is a continuation byte. The last byte of a character
@@ -71,6 +74,7 @@ public class Kim {
     /**
      * The byte array containing the kim's content.
      */
+    @Nullable
     private byte[] bytes = null;
     /**
      * The kim's hashcode, conforming to Java's hashcode conventions.
@@ -79,6 +83,7 @@ public class Kim {
     /**
      * The memoization of toString().
      */
+    @Nullable
     private String string = null;
 
     /**
@@ -127,7 +132,7 @@ public class Kim {
      * @param from The point at which to take bytes.
      * @param thru The point at which to stop taking bytes.
      */
-    public Kim(Kim kim, int from, int thru) {
+    public Kim(@NotNull Kim kim, int from, int thru) {
         this(kim.bytes, from, thru);
     }
 
@@ -137,7 +142,7 @@ public class Kim {
      * @param string The string.
      * @throws JSONException if surrogate pair mismatch.
      */
-    public Kim(String string) throws JSONException {
+    public Kim(@NotNull String string) throws JSONException {
         int stringLength = string.length();
         this.hashcode = 0;
         this.length = 0;
@@ -270,7 +275,7 @@ public class Kim {
      * @param at    The position within the byte array to take the byes.
      * @return The position immediately after the copy.
      */
-    public int copy(byte[] bytes, int at) {
+    public int copy(@NotNull byte[] bytes, int at) {
         System.arraycopy(this.bytes, 0, bytes, at, this.length);
         return at + this.length;
     }
@@ -326,6 +331,7 @@ public class Kim {
      * @return The string. A kim memoizes its string representation.
      * @throws JSONException if the kim is not valid.
      */
+    @Nullable
     public String toString() throws JSONException {
         if (this.string == null) {
             int c;

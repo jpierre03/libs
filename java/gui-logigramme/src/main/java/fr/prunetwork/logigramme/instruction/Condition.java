@@ -41,7 +41,7 @@ public final class Condition extends AbstractInstruction {
      *
      * @param condition
      */
-    public Condition(@NotNull String condition) {
+    public Condition(@NotNull final String condition) {
         texte = new Texte(condition);
     }
 
@@ -50,7 +50,7 @@ public final class Condition extends AbstractInstruction {
      *
      * @param instruction
      */
-    public void setOui(@NotNull Instruction instruction) {
+    public void setOui(@NotNull final Instruction instruction) {
         oui = instruction;
     }
 
@@ -59,7 +59,7 @@ public final class Condition extends AbstractInstruction {
      *
      * @param instruction
      */
-    public void setNon(@NotNull Instruction instruction) {
+    public void setNon(@NotNull final Instruction instruction) {
         non = instruction;
     }
 
@@ -71,7 +71,7 @@ public final class Condition extends AbstractInstruction {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
+    public void dessiner(int x, int y, @NotNull final Graphics g, @NotNull final Component c) {
         int lgOui = OUI.getLargeur(c);
         int htOui = OUI.getHauteur(c);
         int lgNon = NON.getLargeur(c);
@@ -120,7 +120,7 @@ public final class Condition extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getLargeur(@NotNull Component c) {
+    public int getLargeur(@NotNull final Component c) {
         int xx = 2 * texte.getLargeur(c) + 20 + NON.getLargeur(c);
         if (oui != null) {
             int l = oui.getLargeurComposant(c);
@@ -137,7 +137,7 @@ public final class Condition extends AbstractInstruction {
      * @param c composant dans lequel elle est dessinée
      * @return
      */
-    public int getHauteur(@NotNull Component c) {
+    public int getHauteur(@NotNull final Component c) {
         return 2 * texte.getHauteur(c) + 20 + OUI.getHauteur(c);
     }
 
@@ -148,7 +148,7 @@ public final class Condition extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getLargeurComposant(@NotNull Component c) {
+    public int getLargeurComposant(@NotNull final Component c) {
         if (non == null) {
             return getLargeur(c);
         }
@@ -162,7 +162,7 @@ public final class Condition extends AbstractInstruction {
      * @return
      */
     @Override
-    public int getHauteurComposant(@NotNull Component c) {
+    public int getHauteurComposant(@NotNull final Component c) {
         if (oui == null) {
             return getHauteur(c);
         }

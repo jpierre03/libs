@@ -11,12 +11,12 @@ import java.awt.*;
 abstract class AbstractInstruction implements Instruction {
 
     @Override
-    public int getLargeurComposant(@NotNull Component c) {
+    public int getLargeurComposant(@NotNull final Component c) {
         return getLargeur(c);
     }
 
     @Override
-    public int getHauteurComposant(@NotNull Component c) {
+    public int getHauteurComposant(@NotNull final Component c) {
         return getHauteur(c);
     }
 }

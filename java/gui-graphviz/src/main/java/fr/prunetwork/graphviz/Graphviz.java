@@ -68,8 +68,7 @@ public class Graphviz {
             TEMP_DIR = "c:/temp";
         } else if (OSValidator.isUnix()) {
             TEMP_DIR = "/tmp";
-        }
-        if (OSValidator.isMac()) {
+        } else if (OSValidator.isMac()) {
             TEMP_DIR = System.getProperty("java.io.tmpdir");
         } else {
             throw new RuntimeException("Graphviz: Operating System not supported, ask support");
@@ -138,7 +137,7 @@ public class Graphviz {
                 in.read(img_stream);
             }
 
-            if (img.delete() == false) {
+            if (!img.delete()) {
                 System.err.println("Warning: " + img.getAbsolutePath() + " could not be deleted!");
             }
         } catch (IOException ex) {
@@ -252,7 +251,7 @@ public class Graphviz {
 
         @NotNull byte[] img_stream = get_img_stream(dot, type, renderer);
 
-        if (dot.delete() == false) {
+        if (!dot.delete()) {
             System.err.println("Warning: " + dot.getAbsolutePath() + " could not be deleted!");
         }
         return img_stream;
@@ -269,7 +268,7 @@ public class Graphviz {
         try (
                 @NotNull FileInputStream fis = new FileInputStream(input);
                 @NotNull DataInputStream dis = new DataInputStream(fis);
-                @NotNull BufferedReader br = new BufferedReader(new InputStreamReader(dis));
+                @NotNull BufferedReader br = new BufferedReader(new InputStreamReader(dis))
         ) {
 
             String line;

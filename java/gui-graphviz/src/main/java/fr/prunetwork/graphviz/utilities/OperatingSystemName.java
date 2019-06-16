@@ -15,7 +15,7 @@ public enum OperatingSystemName {
     @NotNull
     private final String comment;
 
-    private OperatingSystemName(@NotNull String comment) {
+    OperatingSystemName(@NotNull String comment) {
         this.comment = comment;
     }
 

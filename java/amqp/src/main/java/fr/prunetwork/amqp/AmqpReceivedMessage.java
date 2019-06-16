@@ -2,6 +2,7 @@ package fr.prunetwork.amqp;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,7 +26,11 @@ public interface AmqpReceivedMessage extends Serializable {
     @NotNull
     String getRoutingKey();
 
-    public void displayMessage();
+    /**
+     * Print message with default formatting
+     * @param os where to print. Maybe "System.out".
+     */
+    void printMessage(@NotNull final PrintStream os);
 
     /**
      * @return a date object created at reception time.

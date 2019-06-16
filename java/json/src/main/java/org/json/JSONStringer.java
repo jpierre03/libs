@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.StringWriter;
 
 /**
@@ -74,6 +76,7 @@ public class JSONStringer extends JSONWriter {
      *
      * @return The JSON text.
      */
+    @Nullable
     public String toString() {
         return this.mode == 'd' ? this.writer.toString() : null;
     }

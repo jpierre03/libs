@@ -1,5 +1,7 @@
 package org.json.zip;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 
 /*
@@ -59,11 +61,13 @@ public class Huff implements None, PostMortem {
     /**
      * An array that maps symbol values to symbols.
      */
+    @NotNull
     private final Symbol[] symbols;
 
     /**
      * The root of the decoding table, and the terminal of the encoding table.
      */
+    @Nullable
     private Symbol table;
 
     /**
@@ -243,7 +247,7 @@ public class Huff implements None, PostMortem {
      * Compare two Huffman tables.
      */
     @Override
-    public boolean postMortem(PostMortem pm) {
+    public boolean postMortem(@NotNull PostMortem pm) {
 
 // Go through every integer in the domain, generating its bit sequence, and
 // then prove that that bit sequence produces the same integer.
@@ -266,7 +270,7 @@ public class Huff implements None, PostMortem {
      * @return The integer value of the symbol.
      * @throws JSONException
      */
-    public int read(BitReader bitreader) throws JSONException {
+    public int read(@NotNull BitReader bitreader) throws JSONException {
         try {
             this.width = 0;
             Symbol symbol = this.table;
@@ -305,7 +309,7 @@ public class Huff implements None, PostMortem {
      * @param bitwriter The bitwriter to write it to.
      * @throws JSONException
      */
-    private void write(Symbol symbol, BitWriter bitwriter)
+    private void write(@NotNull Symbol symbol, @NotNull BitWriter bitwriter)
             throws JSONException {
         try {
             Symbol back = symbol.back;
@@ -331,7 +335,7 @@ public class Huff implements None, PostMortem {
      * @param bitwriter The destination of the bits.
      * @throws JSONException
      */
-    public void write(int value, BitWriter bitwriter) throws JSONException {
+    public void write(int value, @NotNull BitWriter bitwriter) throws JSONException {
         this.width = 0;
         write(this.symbols[value], bitwriter);
         tick(value);
@@ -342,9 +346,13 @@ public class Huff implements None, PostMortem {
 
     private static class Symbol implements PostMortem {
         public final int integer;
+        @Nullable
         public Symbol back;
+        @Nullable
         public Symbol next;
+        @Nullable
         public Symbol zero;
+        @Nullable
         public Symbol one;
         public long weight;
 

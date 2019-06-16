@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
  */
 public class BothListTest {
 
-    String s1 = "sss1";
-    String s2 = "sss222";
-    String s3 = "sss333";
+    private final String s1 = "sss1";
+    private final String s2 = "sss222";
+    private final String s3 = "sss333";
 
     private Collection<String> collectionA;
     private Collection<String> collectionB;
@@ -85,7 +85,7 @@ public class BothListTest {
 
     @Test
     public void check_both_with_empty() {
-        final Collection<String> result = CollectionUtilities.inBothLists(collectionA, new ArrayList<String>());
+        final Collection<String> result = CollectionUtilities.inBothLists(collectionA, new ArrayList<>());
 
         assertNotNull(result);
 

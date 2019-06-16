@@ -9,21 +9,21 @@ import java.util.*;
 
 /**
  * @author Jean-Pierre PRUNARET
- * @since 01/07/2014
+ * @since 2014-07-01
  */
 public class MessageTableModel extends AbstractTableModel {
 
-    private final String[] entetes = {"Date", "Clef", "Corps"};
+    private final String[] headers = {"Date", "Key", "Body"};
     private final List<AmqpReceivedMessage> messages = new ArrayList<>();
 
     @Override
     public int getColumnCount() {
-        return entetes.length;
+        return headers.length;
     }
 
     @Override
     public String getColumnName(int columnIndex) {
-        return entetes[columnIndex];
+        return headers[columnIndex];
     }
 
     @Override
@@ -34,6 +34,9 @@ public class MessageTableModel extends AbstractTableModel {
     @NotNull
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        if (columnIndex < getRowCount()) throw new IllegalArgumentException("column index bigger than headers");
+        if (rowIndex >= getRowCount()) throw new AssertionError("row index bigger than messages count");
+
         switch (columnIndex) {
 
             case 0:

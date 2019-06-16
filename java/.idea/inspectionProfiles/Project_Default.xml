@@ -26,6 +26,5 @@
     <inspection_tool class="MisspelledEquals" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="NullArgumentToVariableArgMethod" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="PrimitiveArrayArgumentToVariableArgMethod" enabled="true" level="ERROR" enabled_by_default="true" />
-    <inspection_tool class="ReplaceAllDot" enabled="true" level="WARNING" enabled_by_default="true" />
   </profile>
 </component>

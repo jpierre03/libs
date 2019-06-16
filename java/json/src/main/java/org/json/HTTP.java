@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 
 /**
@@ -72,7 +74,8 @@ public class HTTP {
      *         of the XML string.
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(String string) throws JSONException {
+    @NotNull
+    public static JSONObject toJSONObject(@NotNull String string) throws JSONException {
         JSONObject jo = new JSONObject();
         HTTPTokener x = new HTTPTokener(string);
         String token;
@@ -129,7 +132,7 @@ public class HTTP {
      * @throws JSONException if the object does not contain enough
      *                       information.
      */
-    public static String toString(JSONObject jo) throws JSONException {
+    public static String toString(@NotNull JSONObject jo) throws JSONException {
         Iterator<String> keys = jo.keys();
         String string;
         StringBuilder sb = new StringBuilder();

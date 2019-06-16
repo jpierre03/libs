@@ -31,6 +31,8 @@
 
 package fr.prunetwork.snipet.html;
 
+import org.jetbrains.annotations.Nullable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,9 +46,9 @@ import java.net.URL;
  */
 public class HtmlButtonDemo extends JPanel
         implements ActionListener {
-    protected JButton b1, b2, b3;
+    final JButton b1, b2, b3;
 
-    public HtmlButtonDemo() {
+    HtmlButtonDemo() {
         final ImageIcon leftButtonIcon = createImageIconURL(
                 "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/France_road_sign_B21-2.svg/240px-France_road_sign_B21-2.svg.png?uselang=fr");
         final ImageIcon middleButtonIcon = createImageIconURL(
@@ -79,15 +81,14 @@ public class HtmlButtonDemo extends JPanel
         b2.setHorizontalTextPosition(AbstractButton.CENTER);
         b2.setMnemonic(KeyEvent.VK_M);
 
-        b3 = new JButton(
-                ""
-                        + "<html>"
-                        + "<center>"
-                        + "<b><u>E</u>nable</b>"
-                        + "</center>"
-                        + "<br />"
-                        + "<font color=#ffffdd>middle button</font>"
-                        + "</html>",
+        b3 = new JButton(""
+                + "<html>"
+                + "<center>"
+                + "<b><u>E</u>nable</b>"
+                + "</center>"
+                + "<br />"
+                + "<font color=#ffffdd>middle button</font>"
+                + "</html>",
                 rightButtonIcon
         );
         b3.setFont(font);
@@ -113,6 +114,7 @@ public class HtmlButtonDemo extends JPanel
     /**
      * Returns an ImageIcon, or null if the path was invalid.
      */
+    @Nullable
     protected static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = HtmlButtonDemo.class.getResource(path);
         if (imgURL != null) {
@@ -126,7 +128,8 @@ public class HtmlButtonDemo extends JPanel
     /**
      * Returns an ImageIcon, or null if the path was invalid.
      */
-    protected static ImageIcon createImageIconURL(String url) {
+    @Nullable
+    private static ImageIcon createImageIconURL(String url) {
         URL imgURL = null;
         try {
             imgURL = new URL(url);
@@ -149,7 +152,7 @@ public class HtmlButtonDemo extends JPanel
     private static void createAndShowGUI() {
         /** Create and set up the window. */
         JFrame frame = new JFrame("HtmlButtonDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         /** Add content to the window. */
         frame.add(new HtmlButtonDemo());
@@ -161,11 +164,7 @@ public class HtmlButtonDemo extends JPanel
 
     public static void main(String[] args) {
         /** Schedule a job for the event dispatch thread: creating and showing this application's GUI. */
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        javax.swing.SwingUtilities.invokeLater(HtmlButtonDemo::createAndShowGUI);
     }
 
     public void actionPerformed(ActionEvent e) {

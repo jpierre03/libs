@@ -26,7 +26,7 @@ public class SimpleMessageConsumer implements MessageConsumer<SimpleMessage> {
 
         @NotNull final SimpleMessage receivedMessage = new SimpleMessage(routingKey, message);
 
-        receivedMessage.displayFullMessage();
+        receivedMessage.displayFullMessage(System.out);
         return receivedMessage;
     }
 

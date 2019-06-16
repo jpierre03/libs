@@ -4,6 +4,7 @@ package fr.prunetwork.sandbox.utilities;
  * @author Jean-Pierre PRUNARET
  * @since 25/04/2014
  */
+@SuppressWarnings({"ConstantConditionalExpression", "ConstantConditions"})
 public final class JavaTernaryOperatorExamples {
 
     /**

@@ -24,6 +24,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Convert a web browser cookie specification to a JSONObject and back.
  * JSON and Cookies are both notations for name/value pairs.
@@ -46,7 +48,7 @@ public class Cookie {
      * @param string The source string.
      * @return The escaped result.
      */
-    public static String escape(String string) {
+    public static String escape(@NotNull String string) {
         char c;
         String s = string.trim();
         int length = s.length();
@@ -81,7 +83,8 @@ public class Cookie {
      *         members.
      * @throws JSONException
      */
-    public static JSONObject toJSONObject(String string) throws JSONException {
+    @NotNull
+    public static JSONObject toJSONObject(@NotNull String string) throws JSONException {
         String name;
         JSONObject jo = new JSONObject();
         Object value;
@@ -119,7 +122,7 @@ public class Cookie {
      * @return A cookie specification string
      * @throws JSONException
      */
-    public static String toString(JSONObject jo) throws JSONException {
+    public static String toString(@NotNull JSONObject jo) throws JSONException {
         StringBuilder sb = new StringBuilder();
 
         sb.append(escape(jo.getString("name")));
@@ -152,7 +155,7 @@ public class Cookie {
      *               <code>%</code><i>hh</i> sequences.
      * @return The unescaped string.
      */
-    public static String unescape(String string) {
+    public static String unescape(@NotNull String string) {
         int length = string.length();
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; ++i) {

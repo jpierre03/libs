@@ -1,5 +1,6 @@
 package fr.prunetwork.json;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONString;
 
 /**
@@ -10,5 +11,6 @@ import org.json.JSONString;
 public interface JsonExportable extends JSONString {
 
     @Override
+    @NotNull
     String toJSONString();
 }

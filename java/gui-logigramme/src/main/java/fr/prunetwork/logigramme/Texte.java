@@ -22,7 +22,7 @@ public class Texte {
      *
      * @param texte
      */
-    public Texte(@NotNull String texte) {
+    public Texte(@NotNull final String texte) {
         @NotNull StringTokenizer tokenizer = new StringTokenizer(texte, "\n", false);
         /**Tant qu'il y a une ligne, l'ajouter*/
         while (tokenizer.hasMoreTokens()) {
@@ -36,7 +36,7 @@ public class Texte {
      * @param c Le composant dans lequel le texte est dessiné
      * @return
      */
-    public int getLargeur(@NotNull Component c) {
+    public int getLargeur(@NotNull final Component c) {
         /**On récupére le mesureur de chaînes de caractéres*/
         final FontMetrics fm = c.getFontMetrics(c.getFont());
 
@@ -60,7 +60,7 @@ public class Texte {
      * @param c Le composant dans lequel le texte est dessiné
      * @return
      */
-    public int getHauteur(@NotNull Component c) {
+    public int getHauteur(@NotNull final Component c) {
         final FontMetrics fm = c.getFontMetrics(c.getFont());
         return fm.getHeight() * lignes.size();
     }
@@ -73,7 +73,7 @@ public class Texte {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void dessiner(int x, int y, @NotNull Graphics g, @NotNull Component c) {
+    public void dessiner(int x, int y, @NotNull final Graphics g, @NotNull final Component c) {
         /**On récupére le mesureur de chaînes de caractéres*/
         g.setFont(c.getFont());
 

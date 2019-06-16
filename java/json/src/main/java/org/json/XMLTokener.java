@@ -24,6 +24,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * The XMLTokener extends the JSONTokener to provide additional methods
  * for the parsing of XML texts.
@@ -38,6 +41,7 @@ public class XMLTokener extends JSONTokener {
      * The table of entity values. It initially contains Character values for
      * amp, apos, gt, lt, quot.
      */
+    @NotNull
     public static final java.util.HashMap<String, Character> entity;
 
     static {
@@ -54,7 +58,7 @@ public class XMLTokener extends JSONTokener {
      *
      * @param s A source string.
      */
-    public XMLTokener(String s) {
+    public XMLTokener(@NotNull String s) {
         super(s);
     }
 
@@ -64,6 +68,7 @@ public class XMLTokener extends JSONTokener {
      * @return The string up to the <code>]]&gt;</code>.
      * @throws JSONException If the <code>]]&gt;</code> is not found.
      */
+    @NotNull
     public String nextCDATA() throws JSONException {
         char c;
         int i;
@@ -93,6 +98,7 @@ public class XMLTokener extends JSONTokener {
      *         source text.
      * @throws JSONException
      */
+    @Nullable
     public Object nextContent() throws JSONException {
         char c;
         StringBuilder sb;
@@ -129,6 +135,7 @@ public class XMLTokener extends JSONTokener {
      * @return A Character or an entity String if the entity is not recognized.
      * @throws JSONException If missing ';' in XML entity.
      */
+    @NotNull
     public Object nextEntity(char ampersand) throws JSONException {
         StringBuilder sb = new StringBuilder();
         for (; ; ) {
@@ -223,6 +230,7 @@ public class XMLTokener extends JSONTokener {
      * @return a String or a Character.
      * @throws JSONException If the XML is not well formed.
      */
+    @NotNull
     public Object nextToken() throws JSONException {
         char c;
         char q;
@@ -306,7 +314,7 @@ public class XMLTokener extends JSONTokener {
      * @param to A string to skip past.
      * @throws JSONException
      */
-    public boolean skipPast(String to) throws JSONException {
+    public boolean skipPast(@NotNull String to) throws JSONException {
         boolean b;
         char c;
         int i;

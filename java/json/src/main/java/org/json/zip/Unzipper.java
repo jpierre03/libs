@@ -1,5 +1,7 @@
 package org.json.zip;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,7 +85,7 @@ public class Unzipper extends JSONzip {
      * @return The value associated with the number.
      * @throws JSONException
      */
-    private Object getAndTick(Keep keep, BitReader bitreader)
+    private Object getAndTick(@NotNull Keep keep, @NotNull BitReader bitreader)
             throws JSONException {
         try {
             int width = keep.bitsize();
@@ -147,7 +149,8 @@ public class Unzipper extends JSONzip {
      * @return The string that was read.
      * @throws JSONException
      */
-    private String read(Huff huff, Huff ext, Keep keep) throws JSONException {
+    @Nullable
+    private String read(@NotNull Huff huff, @NotNull Huff ext, @NotNull Keep keep) throws JSONException {
         Kim kim;
         int at = 0;
         int allocation = 256;
@@ -186,6 +189,7 @@ public class Unzipper extends JSONzip {
      * @param stringy true if the first element is a string.
      * @throws JSONException
      */
+    @NotNull
     private JSONArray readArray(boolean stringy) throws JSONException {
         JSONArray jsonarray = new JSONArray();
         jsonarray.put(stringy
@@ -239,6 +243,7 @@ public class Unzipper extends JSONzip {
         }
     }
 
+    @NotNull
     private JSONObject readObject() throws JSONException {
         JSONObject jsonobject = new JSONObject();
         while (true) {

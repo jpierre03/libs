@@ -6,6 +6,8 @@ ISBN: 0 13 083292 8
 Publisher: Prentice Hall
 */
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.ChangedCharSetException;
@@ -13,12 +15,8 @@ import javax.swing.text.Document;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -99,75 +97,74 @@ public class HtmlPanelDemo2 extends JFrame {
         getContentPane().add(panel, "South");
 
         // Change page based on text field
-        textField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                String url = textField.getText();
+        textField.addActionListener(evt -> {
+            String url = textField.getText();
 
-                try {
-                    // Check if the new page and the old
-                    // page are the same.
-                    URL newURL = new URL(url);
-                    URL loadedURL = pane.getPage();
-                    if (loadedURL != null && loadedURL.sameFile(newURL)) {
-                        return;
-                    }
-
-                    // Try to display the page
-                    textField.setEnabled(false); // Disable input
-                    textField.paintImmediately(0, 0, textField.getSize().width,
-                            textField.getSize().height);
-                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                    // Busy cursor
-                    loadingState.setText("Loading...");
-                    loadingState.paintImmediately(0, 0,
-                            loadingState.getSize().width, loadingState
-                            .getSize().height);
-                    loadedType.setText("");
-                    loadedType.paintImmediately(0, 0,
-                            loadedType.getSize().width,
-                            loadedType.getSize().height);
-
-                    timeLabel.setText("");
-                    timeLabel.paintImmediately(0, 0, timeLabel.getSize().width,
-                            timeLabel.getSize().height);
-
-                    startTime = System.currentTimeMillis();
-
-                    // Choose the loading method
-                    if (onlineLoad.isSelected()) {
-                        // Usual load via setPage
-                        pane.setPage(url);
-                        loadedType.setText(pane.getContentType());
-                    } else {
-                        pane.setContentType("text/html");
-                        loadedType.setText(pane.getContentType());
-                        if (loader == null) {
-                            loader = new HTMLDocumentLoader();
-                        }
-                        HTMLDocument doc = loader.loadDocument(new URL(url));
-                        loadComplete();
-                        pane.setDocument(doc);
-                        displayLoadTime();
-                    }
-                } catch (Exception e) {
-                    System.out.println(e);
-                    JOptionPane.showMessageDialog(pane, new String[]{
-                            "Unable to open file", url}, "File Open Error",
-                            JOptionPane.ERROR_MESSAGE);
-                    loadingState.setText("Failed");
-                    textField.setEnabled(true);
-                    setCursor(Cursor.getDefaultCursor());
+            try {
+                // Check if the new page and the old
+                // page are the same.
+                URL newURL = new URL(url);
+                URL loadedURL = pane.getPage();
+                if (loadedURL != null && loadedURL.sameFile(newURL)) {
+                    return;
                 }
+
+                // Try to display the page
+                textField.setEnabled(false); // Disable input
+                textField.paintImmediately(0, 0, textField.getSize().width,
+                        textField.getSize().height);
+                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                // Busy cursor
+                loadingState.setText("Loading...");
+                loadingState.paintImmediately(0, 0,
+                        loadingState.getSize().width,
+                        loadingState.getSize().height);
+                loadedType.setText("");
+                loadedType.paintImmediately(0, 0,
+                        loadedType.getSize().width,
+                        loadedType.getSize().height);
+
+                timeLabel.setText("");
+                timeLabel.paintImmediately(0, 0,
+                        timeLabel.getSize().width,
+                        timeLabel.getSize().height);
+
+                startTime = System.currentTimeMillis();
+
+                // Choose the loading method
+                if (onlineLoad.isSelected()) {
+                    // Usual load via setPage
+                    pane.setPage(url);
+                    loadedType.setText(pane.getContentType());
+                } else {
+                    pane.setContentType("text/html");
+                    loadedType.setText(pane.getContentType());
+                    if (loader == null) {
+                        loader = new HTMLDocumentLoader();
+                    }
+                    HTMLDocument doc = loader.loadDocument(new URL(url));
+                    loadComplete();
+                    pane.setDocument(doc);
+                    displayLoadTime();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        pane,
+                        new String[]{"Unable to open file", url},
+                        "File Open Error",
+                        JOptionPane.ERROR_MESSAGE);
+                loadingState.setText("Failed");
+                textField.setEnabled(true);
+                setCursor(Cursor.getDefaultCursor());
             }
         });
 
         // Listen for page load to complete
-        pane.addPropertyChangeListener(new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("page")) {
-                    loadComplete();
-                    displayLoadTime();
-                }
+        pane.addPropertyChangeListener(e -> {
+            if (e.getPropertyName().equals("page")) {
+                loadComplete();
+                displayLoadTime();
             }
         });
     }
@@ -188,27 +185,27 @@ public class HtmlPanelDemo2 extends JFrame {
         f.setVisible(true);
     }
 
-    public void loadComplete() {
+    private void loadComplete() {
         loadingState.setText("Page loaded.");
         textField.setEnabled(true); // Allow entry of new URL
         setCursor(Cursor.getDefaultCursor());
     }
 
-    public void displayLoadTime() {
+    private void displayLoadTime() {
         double loadingTime = ((double) (System.currentTimeMillis() - startTime)) / 1000d;
         timeLabel.setText(loadingTime + " seconds");
     }
 }
 
 class HTMLDocumentLoader {
-    protected static HTMLEditorKit kit;
-    protected static HTMLEditorKit.Parser parser;
+    private static HTMLEditorKit kit;
+    private static HTMLEditorKit.Parser parser;
 
     static {
         kit = new HTMLEditorKit();
     }
 
-    public HTMLDocument loadDocument(HTMLDocument doc, URL url, String charSet)
+    private HTMLDocument loadDocument(HTMLDocument doc, URL url, String charSet)
             throws IOException {
         doc.putProperty(Document.StreamDescriptionProperty, url);
 
@@ -226,8 +223,13 @@ class HTMLDocumentLoader {
 
                 URLConnection urlc = url.openConnection();
                 in = urlc.getInputStream();
-                Reader reader = (charSet == null) ? new InputStreamReader(in)
-                        : new InputStreamReader(in, charSet);
+
+                @NotNull final Reader reader;
+                if (charSet == null) {
+                    reader = new InputStreamReader(in);
+                } else {
+                    reader = new InputStreamReader(in, charSet);
+                }
 
                 HTMLEditorKit.Parser parser = getParser();
                 HTMLEditorKit.ParserCallback htmlReader = getParserCallback(doc);
@@ -310,14 +312,14 @@ class HTMLDocumentLoader {
             if (token.equals(" ") || token.equals("\t")) {
                 continue;
             }
-            if (foundCharSet == false && foundEquals == false
+            if (!foundCharSet && !foundEquals
                     && token.equals("charset")) {
                 foundCharSet = true;
                 continue;
-            } else if (foundEquals == false && token.equals("=")) {
+            } else if (!foundEquals && token.contentEquals("=")) {
                 foundEquals = true;
                 continue;
-            } else if (foundEquals == true && foundCharSet == true) {
+            } else if (foundEquals && foundCharSet) {
                 return token;
             }
 

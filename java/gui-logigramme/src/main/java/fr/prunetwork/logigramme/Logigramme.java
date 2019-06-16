@@ -34,7 +34,7 @@ public class Logigramme implements Icon {
      *
      * @param composant
      */
-    public void setComposantOrganigramme(@NotNull ComposantLogigramme composant) {
+    public void setComposantOrganigramme(@NotNull final ComposantLogigramme composant) {
         this.composant = composant;
     }
 
@@ -46,7 +46,7 @@ public class Logigramme implements Icon {
      * @param g objet graphique qui permet de dessiner <BR>
      * @param c le composant dans lequel est dessinée l'instruction <BR>
      */
-    public void paintIcon(@NotNull Component c, @NotNull Graphics g, int x, int y) {
+    public void paintIcon(@NotNull final Component c, @NotNull final Graphics g, int x, int y) {
         debut.dessiner(x, y, g, c);
     }
 

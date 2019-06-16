@@ -23,7 +23,7 @@ public class HtmlSwingPreview extends javax.swing.JFrame implements DocumentList
     /**
      * Creates a new instance of HtmlSwingPreview
      */
-    public HtmlSwingPreview() {
+    private HtmlSwingPreview() {
     }
 
     public static void main(String args[]) {
@@ -86,6 +86,4 @@ public class HtmlSwingPreview extends javax.swing.JFrame implements DocumentList
             top.setCaretColor(Color.red);
         }
     }
-
-
 }

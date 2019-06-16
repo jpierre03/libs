@@ -4,18 +4,24 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Jean-Pierre PRUNARET
  * @since 01/07/2014
  */
-public class CommandPanel extends JPanel {
+class CommandPanel extends JPanel {
 
     @NotNull
-    private final CommandPanelActionner actionner;
+    private final CommandPanelAction action;
+    @NotNull
+    private final AtomicInteger counter = new AtomicInteger(0);
 
-    public CommandPanel(@NotNull final CommandPanelActionner actionner) {
-        this.actionner = actionner;
+    CommandPanel(@NotNull final CommandPanelAction action) {
+        this.action = action;
 
         build();
     }
@@ -23,77 +29,48 @@ public class CommandPanel extends JPanel {
     private void build() {
         setLayout(new GridLayout(4, 2));
 
-        int i = 0;
-        {
-            @NotNull JButton button = new JButton(" Hello World !");
-            button.addActionListener(e -> {
-                try {
-                    actionner.sendHelloWorld();
-                } catch (Exception ex) {
-                    notifyUser(ex);
-                }
+        Map<String, ActionListener> buttons = new TreeMap<>();
 
-            });
-            i++;
-            add(button);
-        }
-        {
-            @NotNull JButton button = new JButton(" +1h de fonctionnement");
-            button.addActionListener(e -> {
-                try {
-                    actionner.sendAddRunningTimeMinute(60);
-                } catch (Exception ex) {
-                    notifyUser(ex);
-                }
-            });
-            i++;
-            add(button);
-        }
-        {
-            final int MAX = 100;
-            @NotNull JButton button = new JButton(MAX + " Messages en boucle");
-            button.addActionListener(e -> {
-                for (int count = 0; count < MAX; count++) {
-                    try {
-                        actionner.sendHelloWorld();
-                        Thread.sleep(1250);
-                    } catch (Exception ex) {
-                        notifyUser(ex);
-                    }
-                }
-            });
-            i++;
-            add(button);
-        }
-        {
-            final int MAX = 100;
-            @NotNull JButton button = new JButton("Envoi de " + MAX + " valeurs de temperature");
-            button.addActionListener(e -> {
-                for (int count = 0; count < MAX; count++) {
-                    try {
-                        actionner.sendRandomTemperature();
-                        //Thread.sleep(1);
-                    } catch (Exception ex) {
-                        notifyUser(ex);
-                    }
-                }
-            });
-            i++;
-            add(button);
-        }
-        {
-            @NotNull JButton button = new JButton(i + "");
-            button.addActionListener(e -> {
-                // do nothing
-            });
-            i++;
-            add(button);
-        }
+        buttons.put(" Hello World !", e -> action.sendHelloWorld());
+
+        buttons.put(" +1h de fonctionnement", e -> action.sendAddRunningTimeMinute(60));
+
+        final int MAX = 100 * 1000 * 1000;
+        buttons.put(MAX + " Messages en boucle", e -> {
+            for (int count = 0; count < MAX; count++) {
+                action.sendHelloWorld();
+                //Thread.sleep(1250);
+            }
+        });
+
+        buttons.put("Envoi de " + MAX + " valeurs de temperature", e -> {
+            for (int count = 0; count < MAX; count++) {
+                action.sendRandomTemperature();
+                //Thread.sleep(1);
+            }
+        });
+
+        buttons.put(counter.toString(), e -> { /* do nothing */ });
+
+        /**
+         * Build buttons and add
+         */
+        buttons.forEach((k, v) -> buildAndAddButton(this, counter, k, v));
 
         setMinimumSize(new Dimension(200, 200));
     }
 
-    private void notifyUser(@NotNull Exception e) {
-        JOptionPane.showMessageDialog(this, e.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+    @NotNull
+    private static JButton buildAndAddButton(@NotNull final JPanel panel,
+                                             @NotNull final AtomicInteger counter,
+                                             @NotNull final String description,
+                                             @NotNull final ActionListener l) {
+        counter.incrementAndGet();
+        @NotNull JButton button = new JButton(description);
+        button.addActionListener(l);
+        panel.add(button);
+        return button;
     }
+
+
 }
