@@ -12,8 +12,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <esper-version>5.5.0</esper-version>
-        <spring-version>4.3.4.RELEASE</spring-version>
+        <esper-version>7.1.0</esper-version>
+        <spring-version>4.3.18.RELEASE</spring-version>
     </properties>
 
     <dependencies>
